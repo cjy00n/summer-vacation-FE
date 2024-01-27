@@ -11,7 +11,7 @@ interface RouteItem {
   path: string;
   link: string;
   element: JSX.Element;
-  haveTabBar?: boolean;
+  haveBottomAppBar?: boolean;
 }
 
 interface Routes {
@@ -23,7 +23,7 @@ export const ROUTE: Routes = {
     path: "/",
     link: "/",
     element: <HomePage />,
-    haveTabBar: true,
+    haveBottomAppBar: true,
   },
 
   LOGIN_PAGE: {
@@ -36,28 +36,28 @@ export const ROUTE: Routes = {
     path: "/feed",
     link: "/feed",
     element: <FeedPage />,
-    haveTabBar: true,
+    haveBottomAppBar: true,
   },
 
   ADD_DIARY_PAGE: {
     path: "/add",
     link: "/add",
     element: <AddDiaryPage />,
-    haveTabBar: true,
+    haveBottomAppBar: true,
   },
 
   CALANDAR_PAGE: {
-    path: "/calendar",
+    path: "/calandar",
     link: "/calandar",
     element: <CalandarPage />,
-    haveTabBar: true,
+    haveBottomAppBar: true,
   },
 
   PROFILE_PAGE: {
     path: "/profile",
     link: "/profile",
     element: <ProfilePage />,
-    haveTabBar: true,
+    haveBottomAppBar: true,
   },
 };
 
