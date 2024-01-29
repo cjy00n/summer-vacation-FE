@@ -11,6 +11,8 @@ export default {
       },
       colors: {
         "primary-orange": "#FF6D3C",
+        "primary-white": "#F6F6F6",
+        "gray-70": "#D1CDCA",
         "gray-50": "#A3A09D",
         "gray-30": "#757371",
       },
