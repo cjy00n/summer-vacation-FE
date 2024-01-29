@@ -1,0 +1,9 @@
+export { default as HomeIcon } from "./HomeIcon";
+export { default as FillStarIcon } from "./FillStarIcon";
+export { default as AddIcon } from "./AddIcon";
+export { default as CalendarIcon } from "./CalendarIcon";
+export { default as FeedIcon } from "./FeedIcon";
+export { default as ProfileIcon } from "./ProfileIcon";
+export { default as NotificationIcon } from "./NotificationIcon";
+export { default as ArrowLeftIcon } from "./ArrowLeftIcon";
+export { default as PersonIcon } from "./PersonIcon";
