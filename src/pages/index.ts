@@ -1,4 +1,5 @@
 export * from "./AddDiaryPage";
+export * from "./AddDiaryTranslatePage";
 export * from "./CalendarPage";
 export * from "./FeedPage";
 export * from "./HomePage";

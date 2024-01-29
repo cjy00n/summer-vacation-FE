@@ -2,6 +2,8 @@ import { Switch } from "antd";
 import { TopAppBar } from "../../components/common";
 import { AddIcon } from "../../assets/icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ROUTE } from "../../routes/Route";
 
 const AddDiaryPage = () => {
   const [content, setContent] = useState("");
@@ -43,12 +45,15 @@ const AddDiaryPage = () => {
         <Switch className="bg-white" />
       </div>
       <div className="flex flex-col items-center justify-center h-[350px] gap-6">
-        <button className="flex flex-col items-center justify-center w-[320px] h-[320px] bg-gray-70 rounded">
+        <Link
+          to={ROUTE.ADD_DIARY_TRANSLATE_PAGE.link}
+          className="flex flex-col items-center justify-center w-[320px] h-[320px] bg-gray-70 rounded"
+        >
           <AddIcon fillColor="black" />
           <span className="font-semibold text-sm">
             선택해서 AI로 그림 그리기
           </span>
-        </button>
+        </Link>
         <button className="h-12  bg-primary-orange w-[320px] rounded-[81px] gap-2">
           <span className="text-base font-medium text-primary-white">
             일기 미리보기

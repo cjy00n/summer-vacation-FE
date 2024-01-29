@@ -1,5 +1,6 @@
 import {
   AddDiaryPage,
+  AddDiaryTranslatePage,
   CalendarPage,
   FeedPage,
   HomePage,
@@ -44,7 +45,12 @@ export const ROUTE: Routes = {
     path: "/add",
     link: "/add",
     element: <AddDiaryPage />,
-    haveBottomAppBar: true,
+  },
+
+  ADD_DIARY_TRANSLATE_PAGE: {
+    path: "/add/translate",
+    link: "/add/translate",
+    element: <AddDiaryTranslatePage />,
   },
 
   CALENDAR_PAGE: {
