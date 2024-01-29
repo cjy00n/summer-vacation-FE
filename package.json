@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-modal": "^3.16.3",
     "@types/styled-components": "^5.1.34",
+    "antd": "^5.13.3",
     "date-fns": "^3.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-horizontal-scrolling-menu": "^4.1.4",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.21.3"
   },
