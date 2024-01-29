@@ -1,9 +1,10 @@
 import {
   AddDiaryPage,
-  CalandarPage,
+  CalendarPage,
   FeedPage,
   HomePage,
   LoginPage,
+  NotificationPage,
   ProfilePage,
 } from "../pages";
 
@@ -46,10 +47,10 @@ export const ROUTE: Routes = {
     haveBottomAppBar: true,
   },
 
-  CALANDAR_PAGE: {
-    path: "/calandar",
-    link: "/calandar",
-    element: <CalandarPage />,
+  CALENDAR_PAGE: {
+    path: "/calendar",
+    link: "/calendar",
+    element: <CalendarPage />,
     haveBottomAppBar: true,
   },
 
@@ -58,6 +59,13 @@ export const ROUTE: Routes = {
     link: "/profile",
     element: <ProfilePage />,
     haveBottomAppBar: true,
+  },
+
+  NOTIFICATION_PAGE: {
+    path: "/notification",
+    link: "/notification",
+    element: <NotificationPage />,
+    haveBottomAppBar: false,
   },
 };
 
