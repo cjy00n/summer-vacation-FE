@@ -4,9 +4,10 @@ import {
   CalendarPage,
   FeedPage,
   HomePage,
-  LoginPage,
+  AuthPage,
   NotificationPage,
   ProfilePage,
+  OnBoardingPage,
 } from "../pages";
 
 interface RouteItem {
@@ -29,9 +30,15 @@ export const ROUTE: Routes = {
   },
 
   LOGIN_PAGE: {
-    path: "/login",
-    link: "/login",
-    element: <LoginPage />,
+    path: "/auth",
+    link: "/auth",
+    element: <AuthPage />,
+  },
+
+  ONBOARDING_PAGE: {
+    path: "/onBoarding",
+    link: "/onBoarding",
+    element: <OnBoardingPage />,
   },
 
   FEED_PAGE: {
