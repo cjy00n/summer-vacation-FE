@@ -1,0 +1,146 @@
+.react-calendar {
+  width: 100%;
+  margin: 0 auto;
+  border: none;
+  font-family: "Noto Sans KR !important";
+}
+
+/* 월 선택 스타일 */
+.react-calendar__navigation {
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.16);
+  height: 56px;
+}
+
+/* 월 선택 텍스트 스타일 */
+.react-calendar__navigation__label__labelText {
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 월 선택 불가하도록 */
+.react-calendar__navigation__label {
+  /* pointer-events: none;  */
+}
+
+/* 월 이동 화살표 스타일링 */
+.react-calendar__navigation__arrow {
+  font-size: 30px;
+}
+
+/* 월화수목금토일 텍스트 스타일 */
+abbr[title] {
+  color: gray;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center !important;
+}
+
+/* 날짜 부분 스타일 */
+.react-calendar__viewContainer {
+  width: 95%;
+  margin: 0 auto;
+}
+
+/* 날짜 타일 스타일 */
+.react-calendar__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  position: relative;
+  color: gray;
+}
+
+/* 날짜 타일 아래 이모지 */
+.react-calendar__tile > span {
+  position: absolute;
+  bottom: 0;
+}
+
+.react-calendar__tile > abbr {
+  margin: 10px 0 !important;
+  padding: 12% 20%;
+  border-radius: 50% !important;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 15px !important;
+}
+
+/* 타일 호버 시 스타일링 */
+.react-calendar__tile:hover > abbr {
+  background-color: lightgray;
+}
+.react-calendar__tile:hover,
+.react-calendar__tile--now:hover,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus,
+.react-calendar__tile--range {
+  background-color: transparent !important;
+}
+
+/* 선택된 날짜 */
+.react-calendar__tile--active abbr {
+  background-color: #d1cdca !important;
+  color: black !important;
+}
+
+/* 오늘 날짜에 "오늘" 말풍선 추가 */
+.react-calendar__tile--now.react-calendar__month-view__days__day::before {
+  z-index: 10;
+  content: "오늘";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  font-weight: 400;
+  color: white;
+  background-image: url("../../assets/svg/speechBubble.svg");
+  background-size: cover;
+  font-size: 10px;
+}
+
+/* 오늘 날짜의 텍스트 스타일 */
+.react-calendar__tile--now > abbr {
+  color: black;
+  background-color: white !important;
+  border: 2px solid black !important;
+}
+
+/* 오늘 + 선택타일 스타일링 */
+.react-calendar__tile--active.react-calendar__tile--now > abbr {
+  background-color: #d1cdca !important;
+  color: black !important;
+}
+
+/* 일기 쓴 날짜 오렌지색 배경 */
+.tile-bg-orange > abbr {
+  background-color: #ff6d3c !important;
+  color: white !important;
+}
+
+/* 일기 쓴 날짜 + 셀렉트 */
+.tile-bg-orange.react-calendar__tile--active > abbr {
+  background-color: #27be69 !important;
+}
+
+/* 이웃한 달의 텍스트 스타일 */
+.react-calendar__month-view__days__day--neighboringMonth > abbr {
+  opacity: 0.5;
+}
+
+/* 월 선택 4*3으로 변경 */
+.react-calendar__year-view__months__month {
+  flex: 0 0 25% !important;
+  padding: 10px 0 !important;
+}
+
+/* 월 선택 시 현재 달 스타일 */
+.react-calendar__tile--hasActive.react-calendar__year-view__months__month
+  > abbr {
+  border: none !important;
+  background-color: #ff6d3c !important;
+  color: white !important;
+}
