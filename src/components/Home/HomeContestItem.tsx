@@ -23,8 +23,9 @@ const HomeContestItem = ({
       <div className="relative">
         <img
           src={img}
-          className="w-[320px] h-[320px] object-cover rounded-lg"
+          className="w-[320px] h-[320px] object-cover rounded-lg bg-custom-gradient"
         />
+        <div className="w-[320px] h-[320px] absolute top-0 bg-opacity-5 bg-black"></div>
         <span className="absolute top-0 left-0 p-2 text-white text-lg font-bold">
           {ranking}등
         </span>
