@@ -13,6 +13,7 @@ export default {
         "primary-orange": "#FF6D3C",
         "primary-white": "#F6F6F6",
         "primary-yellow": "#FFCE3C",
+        "error-red": "#DF0020",
         "gray-90": "#FDF8F4",
         "gray-70": "#D1CDCA",
         "gray-50": "#A3A09D",
@@ -20,6 +21,9 @@ export default {
       },
       boxShadow: {
         custom: "0px 1px 1px 0px rgba(0, 0, 0, 0.16)",
+      },
+      textShadow: {
+        custom: "0px 2px 4px rgba(0, 0, 0, 0.16)",
       },
     },
   },

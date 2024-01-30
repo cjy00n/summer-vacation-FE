@@ -1,16 +1,35 @@
-import { Switch } from "antd";
+import { Modal, Switch } from "antd";
 import { TopAppBar } from "../../components/common";
-import { AddIcon } from "../../assets/icons";
+import { AddIcon, CloseIcon } from "../../assets/icons";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 
 const AddDiaryPage = () => {
+  const navigate = useNavigate();
   const [content, setContent] = useState("");
+  const [isStopModalOpen, setIsStopModalOpen] = useState(false);
+
+  const showStopModal = () => {
+    setIsStopModalOpen(true);
+  };
+
+  const handleStopOk = () => {
+    setIsStopModalOpen(false);
+    navigate(ROUTE.HOME_PAGE.link);
+  };
+
+  const handleStopCancel = () => {
+    setIsStopModalOpen(false);
+  };
 
   return (
     <div className="mb-4 bg-primary-white">
-      <TopAppBar title="일기쓰기" />
+      <TopAppBar
+        title="일기쓰기"
+        rightIcon={<CloseIcon />}
+        rightOnClick={showStopModal}
+      />
       <div className="flex h-14 items-center px-6 py-2 border-b">
         <span className="font-medium text-sm mr-8">날짜</span>
       </div>
@@ -60,6 +79,34 @@ const AddDiaryPage = () => {
           </span>
         </button>
       </div>
+      <Modal
+        style={{ height: 162 }}
+        width={"90%"}
+        title={
+          <h1 className="mt-4 text-center text-lg font-semibold">
+            일기를 그만 쓸까요?
+          </h1>
+        }
+        open={isStopModalOpen}
+        onCancel={handleStopCancel}
+        footer={null}
+        centered
+      >
+        <div className="flex justify-center items-end h-24">
+          <button
+            onClick={handleStopCancel}
+            className="flex justify-center items-center h-12 w-36 mx-1 bg-white rounded-[81px] text-black border-2 border-solid border-black"
+          >
+            닫기
+          </button>
+          <button
+            onClick={handleStopOk}
+            className="flex justify-center items-center h-12 w-36 mx-1 bg-error-red rounded-[81px] text-white"
+          >
+            그만 쓸래요
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };

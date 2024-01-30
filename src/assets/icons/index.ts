@@ -7,3 +7,4 @@ export { default as ProfileIcon } from "./ProfileIcon";
 export { default as NotificationIcon } from "./NotificationIcon";
 export { default as ArrowLeftIcon } from "./ArrowLeftIcon";
 export { default as PersonIcon } from "./PersonIcon";
+export { default as CloseIcon } from "./CloseIcon";
