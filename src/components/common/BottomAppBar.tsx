@@ -7,10 +7,11 @@ import {
   ProfileIcon,
   FeedIcon,
 } from "../../assets/icons";
-import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { bottomTabState } from "../../recoil/atoms/bottomTabState";
 
 const BottomAppbar = () => {
-  const [activeTab, setActiveTab] = useState("HOME");
+  const [activeBottomTab, setActiveBottomTab] = useRecoilState(bottomTabState);
 
   const navList = [
     {
@@ -61,8 +62,8 @@ const BottomAppbar = () => {
           link={item.link}
           key={item.link}
           icon={item.icon}
-          isActive={activeTab === item.id}
-          onClick={() => setActiveTab(item.id)}
+          isActive={activeBottomTab === item.id}
+          onClick={() => setActiveBottomTab(item.id)}
         />
       ))}
     </div>
