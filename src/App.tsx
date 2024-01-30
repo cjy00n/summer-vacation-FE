@@ -3,9 +3,12 @@ import { ROUTE_ARR } from "./routes/Route";
 import { BottomAppBar } from "./components/common";
 import { ConfigProvider } from "antd";
 
+import koKR from "antd/lib/locale/ko_KR";
+
 function App() {
   return (
     <ConfigProvider
+      locale={koKR}
       theme={{
         token: {
           colorPrimary: "#34C759",
