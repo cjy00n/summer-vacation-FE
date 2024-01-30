@@ -4,6 +4,7 @@ export default {
   theme: {
     fontFamily: {
       sans: ["Noto Sans KR"],
+      gamja: ["Gamja Flower"],
     },
     extend: {
       screens: {

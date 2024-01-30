@@ -1,6 +1,9 @@
 export { default as HomeIcon } from "./HomeIcon";
 export { default as FillStarIcon } from "./FillStarIcon";
+export { default as StarIcon } from "./StarIcon";
 export { default as AddIcon } from "./AddIcon";
+export { default as FillBookmarkIcon } from "./FillBookmarkIcon";
+export { default as BookmarkIcon } from "./BookmarkIcon";
 export { default as CalendarIcon } from "./CalendarIcon";
 export { default as FeedIcon } from "./FeedIcon";
 export { default as ProfileIcon } from "./ProfileIcon";
@@ -8,3 +11,5 @@ export { default as NotificationIcon } from "./NotificationIcon";
 export { default as ArrowLeftIcon } from "./ArrowLeftIcon";
 export { default as PersonIcon } from "./PersonIcon";
 export { default as CloseIcon } from "./CloseIcon";
+export { default as ShareIcon } from "./ShareIcon";
+export { default as BottomTriangle } from "./BottomTriangle";

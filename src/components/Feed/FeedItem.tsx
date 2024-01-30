@@ -1,11 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { FillStarIcon } from "../../assets/icons";
+import { ROUTE } from "../../routes/Route";
 
 interface FeedItemProps {
   img: string;
   like: number;
   idx: number;
+  _id: string;
 }
-const FeedItem = ({ img, like, idx }: FeedItemProps) => {
+
+const FeedItem = ({ img, like, idx, _id }: FeedItemProps) => {
+  const navigate = useNavigate();
+
   const getGridRatio = () => {
     switch (idx % 6) {
       case 0:
@@ -27,8 +33,15 @@ const FeedItem = ({ img, like, idx }: FeedItemProps) => {
     return `w-[${idx % 6 === 1 ? "66vw" : "33vw"}] h-[${idx % 6 === 2 || idx % 6 === 4 ? "66vw" : "33vw"}] `;
   };
 
+  const linkToDetalPage = () => {
+    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${_id}`);
+  };
+
   return (
-    <div className={`${getGridRatio()} relative bg-white`}>
+    <div
+      className={`${getGridRatio()} relative bg-white`}
+      onClick={linkToDetalPage}
+    >
       <img src={img} className={`${getSize()} object-cover`} loading="lazy" />
       <div
         className={`absolute top-0 bg-opacity-10 bg-black ${getSize()} `}

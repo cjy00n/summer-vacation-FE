@@ -3,6 +3,7 @@ import {
   AddDiaryTranslatePage,
   CalendarPage,
   FeedPage,
+  FeedDetailPage,
   HomePage,
   AuthPage,
   NotificationPage,
@@ -45,6 +46,13 @@ export const ROUTE: Routes = {
     path: "/feed",
     link: "/feed",
     element: <FeedPage />,
+    haveBottomAppBar: true,
+  },
+
+  FEED_DETAIL_PAGE: {
+    path: "/feed/:diary_id",
+    link: "/feed",
+    element: <FeedDetailPage />,
     haveBottomAppBar: true,
   },
 

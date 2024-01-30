@@ -2,6 +2,7 @@ export * from "./AddDiaryPage";
 export * from "./AddDiaryTranslatePage";
 export * from "./CalendarPage";
 export * from "./FeedPage";
+export * from "./FeedDetailPage";
 export * from "./HomePage";
 export * from "./AuthPage";
 export * from "./OnBoardingPage";
