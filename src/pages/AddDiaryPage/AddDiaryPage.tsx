@@ -1,6 +1,6 @@
 import { Modal, Switch } from "antd";
 import { TopAppBar } from "../../components/common";
-import { AddIcon, CloseIcon } from "../../assets/icons";
+import { CloseIcon, AddIcon } from "../../assets/icons";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
@@ -94,16 +94,16 @@ const AddDiaryPage = () => {
       >
         <div className="flex justify-center items-end h-24">
           <button
-            onClick={handleStopCancel}
-            className="flex justify-center items-center h-12 w-36 mx-1 bg-white rounded-[81px] text-black border-2 border-solid border-black"
-          >
-            닫기
-          </button>
-          <button
             onClick={handleStopOk}
             className="flex justify-center items-center h-12 w-36 mx-1 bg-error-red rounded-[81px] text-white"
           >
             그만 쓸래요
+          </button>
+          <button
+            onClick={handleStopCancel}
+            className="flex justify-center items-center h-12 w-36 mx-1 bg-white rounded-[81px] text-black border-2 border-solid border-black"
+          >
+            닫기
           </button>
         </div>
       </Modal>

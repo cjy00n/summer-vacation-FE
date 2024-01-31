@@ -14,6 +14,7 @@ export default {
         "primary-orange": "#FF6D3C",
         "primary-white": "#F6F6F6",
         "primary-yellow": "#FFCE3C",
+        "primary-green": "#27BE69",
         "error-red": "#DF0020",
         "gray-90": "#FDF8F4",
         "gray-70": "#D1CDCA",

@@ -2,10 +2,10 @@ import BottomTabItem from "./BottomTabItem";
 import { ROUTE } from "../../routes/Route";
 import {
   HomeIcon,
-  AddIcon,
   CalendarIcon,
   ProfileIcon,
   FeedIcon,
+  DiaryIcon,
 } from "../../assets/icons";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../../recoil/atoms/bottomTabState";
@@ -29,7 +29,7 @@ const BottomAppbar = () => {
     {
       text: "일기쓰기",
       link: ROUTE!.ADD_DIARY_PAGE.link,
-      icon: <AddIcon />,
+      icon: <DiaryIcon />,
       id: "ADD_DIARY",
     },
     {

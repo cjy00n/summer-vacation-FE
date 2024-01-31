@@ -10,6 +10,7 @@ interface FeedDetailItemProp {
   title: string;
   content: string;
   like: number;
+  stampIcon?: React.ReactElement | null;
 }
 
 const FeedDetailItem = ({
@@ -20,6 +21,7 @@ const FeedDetailItem = ({
   content,
   like,
   title,
+  stampIcon,
 }: FeedDetailItemProp) => {
   const getWeatherIcon = (weather: string) => {
     switch (weather) {
@@ -67,12 +69,22 @@ const FeedDetailItem = ({
             src={imgUrl}
             className="absolute top-0 w-full h-[320px] object-cover"
           />
+          {stampIcon && (
+            <div className="absolute bottom-8 left-2 w-18 h-18 rotate-[-10deg] rounded-full bg-[rgba(39,190,105,0.50)] border-[1px] border-primary-green">
+              <div className="z-10 flex flex-col items-center justify-center w-20 h-20">
+                <span className="scale-150 mb-2">{stampIcon}</span>
+                <span className="text-primary-white font-semibold text-xs">
+                  참 잘했어요
+                </span>
+              </div>
+            </div>
+          )}
           <div
             className="absolute flex bottom-2 left-2 bg-black bg-opacity-50 rounded-lg w-[88px] h-8
           items-center justify-center content-center"
           >
             <FillStarIcon fillColor="white" />
-            <span className="text-white mx-1">{like.toLocaleString()}</span>
+            <span className="text-white mx-1">{like.toLocaleString()}</span>d
           </div>
         </div>
         <div className="flex h-8">
