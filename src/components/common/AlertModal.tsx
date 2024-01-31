@@ -34,15 +34,13 @@ const AlertModal = ({
         <CustomButton
           onClick={handleOk}
           text={okText ?? "그만둘래요"}
-          bgColor="bg-error-red"
-          textColor="white"
+          buttonStyle="bg-error-red"
         />
         <CustomButton
           onClick={handleClose}
           text={closeText ?? "닫기"}
-          bgColor="white"
-          textColor="black"
-          border="border-black"
+          buttonStyle="bg-white border-black "
+          textStyle="text-black"
         />
       </div>
     </Modal>

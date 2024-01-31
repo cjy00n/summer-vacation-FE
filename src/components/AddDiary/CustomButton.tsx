@@ -1,24 +1,25 @@
 interface LongButtonProps {
   onClick: (param?: unknown) => void;
   text: string;
-  textColor?: string;
-  bgColor?: string;
-  border?: string;
+  buttonStyle?: string;
+  textStyle?: string;
   size?: "long" | "middle" | "short";
+  disabled?: boolean;
 }
 
 const LongButton = ({
   onClick,
   text,
-  textColor,
-  bgColor,
-  border,
+  buttonStyle,
+  textStyle,
   size,
+  disabled,
 }: LongButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`h-12 mx-auto ${bgColor ?? "bg-primary-orange"} ${
+      disabled={disabled}
+      className={`h-12 mx-auto my-1 ${buttonStyle ?? "bg-primary-orange"} border-[1px] border-solid ${
         size === "long"
           ? "w-[320px]"
           : size === "middle"
@@ -26,11 +27,9 @@ const LongButton = ({
             : size === "short"
               ? "w-28"
               : "w-36"
-      } rounded-[81px] ${border ? "border-[1px] border-solid " + border : ""}`}
+      } rounded-[81px]`}
     >
-      <span
-        className={`text-base font-medium text-${textColor ?? "primary-white"}`}
-      >
+      <span className={`text-base font-medium ${textStyle ?? "text-white"}`}>
         {text}
       </span>
     </button>

@@ -1,6 +1,6 @@
 export { default as AddDiaryPage } from "./AddDiaryPage";
 export { default as AddDiaryTranslatePage } from "./AddDiaryTranslatePage";
-export { default as AddDiaryConfrimPage } from "./AddDiaryConfirmPage";
+export { default as AddDiaryConfirmPage } from "./AddDiaryConfirmPage";
 export { default as CalendarPage } from "./CalendarPage";
 export { default as FeedPage } from "./FeedPage";
 export { default as FeedDetailPage } from "./FeedDetailPage";

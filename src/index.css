@@ -81,3 +81,30 @@ textarea {
 .content-page {
   @apply pb-20;
 }
+
+/* ant-message 스타일링 */
+
+.ant-message {
+  top: 660px !important;
+}
+
+.ant-message-notice-success .ant-message-notice-content {
+  background-color: #27be69 !important;
+}
+
+.ant-message-notice-error .ant-message-notice-content {
+  background-color: #df0020 !important;
+}
+
+.ant-message-notice-content {
+  border-radius: 50px !important;
+  padding: 10px 20px !important;
+}
+
+.anticon {
+  display: none;
+}
+
+.ant-message-notice-content span {
+  color: white !important;
+}

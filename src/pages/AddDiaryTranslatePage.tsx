@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { AlertModal, TopAppBar } from "../components/common";
-import { CustomButton } from "../components/AddDiary";
-import { CloseIcon, LoadingIcon } from "../assets/icons";
+import { CustomButton, DrawingModal } from "../components/AddDiary";
+import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
-import { Modal } from "antd";
 
-const AddDiaryTranslatePage = ({ content = "" }: { content?: string }) => {
+const AddDiaryTranslatePage = () => {
+  const content = JSON.parse(localStorage.getItem("diary-content") ?? ""); // 번역할 글 받아오기
+
   const navigate = useNavigate();
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
   const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false);
 
   const [koreanContent, setKoreanContent] = useState(
-    content ??
-      "어린아이가 우산을 쓰고 있고, 장화를 신고 도시 속 길을 걷고 있는 그림[임시]",
+    content
+      ? content
+      : "어린아이가 우산을 쓰고 있고, 장화를 신고 도시 속 길을 걷고 있는 그림[임시]",
   );
   const [englishContent, setEnglishContent] = useState(
     "Young child using umbrella, wearing rainboots, walking on the middle of the city [임시]",
@@ -62,34 +64,21 @@ const AddDiaryTranslatePage = ({ content = "" }: { content?: string }) => {
         <div className="flex my-20">
           <CustomButton
             text="글 수정하기"
-            textColor="black"
-            bgColor="white"
-            onClick={() => console.log("수정")}
-            border="border-black"
+            textStyle="text-black"
+            buttonStyle="bg-white border-black"
+            onClick={() => navigate(-1)}
             size="short"
           />
           <CustomButton
             text="그림 부탁하기"
-            textColor="white"
             onClick={() => setIsDrawingModalOpen(!isDrawingModalOpen)}
             size="middle"
           />
-          <Modal
-            open={isDrawingModalOpen}
-            title={null}
-            footer={null}
-            centered
-            closable={false}
-          >
-            <div className="flex flex-col h-80 items-center justify-center pt-10">
-              <LoadingIcon width={60} height={60} />
-              <p className="text-sm font-semibold my-10 text-center">
-                AI가 그림을 열심히 그리고 있어요!
-                <br />
-                0초 정도 소요되니 조금만 기다려 주세요!
-              </p>
-            </div>
-          </Modal>
+          <DrawingModal
+            isFirst
+            toggle={isDrawingModalOpen}
+            onSucess={() => navigate(ROUTE.ADD_DIARY_CONFIRM_PAGE.link)}
+          />
         </div>
       </div>
     </div>

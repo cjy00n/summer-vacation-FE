@@ -9,6 +9,7 @@ import {
   NotificationPage,
   ProfilePage,
   OnBoardingPage,
+  AddDiaryConfirmPage,
 } from "../pages";
 
 interface RouteItem {
@@ -66,6 +67,12 @@ export const ROUTE: Routes = {
     path: "/add/translate",
     link: "/add/translate",
     element: <AddDiaryTranslatePage />,
+  },
+
+  ADD_DIARY_CONFIRM_PAGE: {
+    path: "/add/confirm",
+    link: "/add/confirm",
+    element: <AddDiaryConfirmPage />,
   },
 
   CALENDAR_PAGE: {

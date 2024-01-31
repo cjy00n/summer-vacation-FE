@@ -1,8 +1,8 @@
 import { Switch } from "antd";
 import { AlertModal, TopAppBar } from "../components/common";
-import { CloseIcon, AddIcon } from "../assets/icons";
+import { CloseIcon, AddIcon, EditIcon } from "../assets/icons";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import {
   AngryIcon,
@@ -10,7 +10,7 @@ import {
   PleasureIcon,
   SadIcon,
   SoSoIcon,
-} from "../assets/icons/emotions";
+} from "../assets/icons/emotions";
 import { format } from "date-fns";
 import {
   ChoiceItem,
@@ -28,10 +28,18 @@ import { DateType } from "../types";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
+  const existingContent = localStorage.getItem("diary-content");
+
+  // 일기 수정하기 or 그림그리기 완료 후 다시 돌아왔을 때 기존의 내용 저장
+
+  const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
+
   const [date, setDate] = useState(new Date() as DateType);
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [emotion, setEmotion] = useState("기뻐요");
+  const [content, setContent] = useState(
+    existingContent ? JSON.parse(existingContent) : "",
+  );
+  const [emotion, setEmotion] = useState("괜찮아요");
   const [weather, setWeather] = useState("맑음");
 
   const [isChangeDateOpen, setIsChangeDateOpen] = useState(false);
@@ -48,13 +56,14 @@ const AddDiaryPage = () => {
   const handleStopOk = () => {
     setIsStopModalOpen(false);
     navigate(ROUTE.HOME_PAGE.link);
+    localStorage.removeItem("diary-content");
   };
 
   const handleStopCancel = () => {
     setIsStopModalOpen(false);
   };
 
-  const emotionText = ["괜찮아요", "기뻐요", "행복해요", "화나요", "슬퍼요"];
+  const emotionText = ["괜찮아요", "좋아요", "기뻐요", "화나요", "슬퍼요"];
   const emotionIcon = [
     <SoSoIcon
       width={24}
@@ -64,12 +73,12 @@ const AddDiaryPage = () => {
     <PleasureIcon
       width={24}
       height={24}
-      fillColor={`${emotion === "기뻐요" ? "white" : "#BAB6B4"}`}
+      fillColor={`${emotion === "좋아요" ? "white" : "#BAB6B4"}`}
     />,
     <HappyIcon
       width={24}
       height={24}
-      fillColor={`${emotion === "행복해요" ? "white" : "#BAB6B4"}`}
+      fillColor={`${emotion === "기뻐요" ? "white" : "#BAB6B4"}`}
     />,
     <AngryIcon
       width={24}
@@ -112,6 +121,11 @@ const AddDiaryPage = () => {
     />,
   ];
 
+  const linkTransferPage = () => {
+    navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
+    localStorage.setItem("diary-content", JSON.stringify(content));
+  };
+
   return (
     <div className="mb-4 bg-primary-white">
       <TopAppBar
@@ -119,7 +133,6 @@ const AddDiaryPage = () => {
         rightIcon={<CloseIcon />}
         rightOnClick={showStopModal}
       />
-
       <div className="flex h-14 items-center px-6 py-2 border-b justify-between">
         <span className="font-medium text-sm mr-8">날짜</span>
         <div className="flex w-4/5 justify-between">
@@ -211,25 +224,40 @@ const AddDiaryPage = () => {
           ))}
         </div>
       </div>
-      <div className="flex items-center h-14 p-4 mx-2 border-b">
+      <div className="flex items-center h-14 p-4 mx-2 mb-3 border-b">
         <span className="py-1 text-sm w-full font-medium">나만 보기</span>
         <Switch className="bg-gray-200" />
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
-        <Link
-          to={ROUTE.ADD_DIARY_TRANSLATE_PAGE.link}
-          className="flex flex-col items-center justify-center w-[320px] h-[320px] my-3 bg-gray-70 rounded"
-        >
-          <AddIcon fillColor="black" />
-          <span className="font-semibold text-sm">
-            선택해서 AI로 그림 그리기
-          </span>
-        </Link>
+        {state?.img ? (
+          <div className="relative ">
+            <button className="absolute right-2 top-2 p-1 rounded-full bg-black bg-opacity-20">
+              <EditIcon width={32} height={32} />
+            </button>
+            <img
+              src={state?.img}
+              className="w-[320px] h-[320px] object-cover"
+            />
+          </div>
+        ) : (
+          <button
+            onClick={linkTransferPage}
+            className="flex flex-col items-center justify-center w-[320px] h-[320px] bg-gray-70 rounded"
+          >
+            <AddIcon fillColor="black" />
+            <span className="font-semibold text-sm">
+              선택해서 AI로 그림 그리기
+            </span>
+          </button>
+        )}
         <CustomButton
           onClick={() => console.log("미리보기")}
           text="일기 미리보기"
-          textColor="white"
           size="long"
+          buttonStyle={
+            state?.img ? `bg-primary-orange` : "bg-gray-70 opacity-40"
+          }
+          disabled={state?.img === null}
         />
       </div>
       <AlertModal
