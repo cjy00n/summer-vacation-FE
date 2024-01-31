@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../../routes/Route";
+import { ROUTE } from "../routes/Route";
 
 const OnBoardingPage = () => {
   const navigate = useNavigate();

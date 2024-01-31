@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { RiKakaoTalkFill } from "react-icons/ri";
-import { postKaKaoSignIn } from "../../hooks/postKaKaoSignIn";
+import { postKaKaoSignIn } from "../hooks/postKaKaoSignIn";
 
 const AuthPage = () => {
   const REST_API_KEY = import.meta.env.VITE_APP_REST_API_KEY;

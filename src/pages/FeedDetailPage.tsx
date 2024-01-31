@@ -6,9 +6,9 @@ import {
   KebabMenuIcon,
   ShareIcon,
   StarIcon,
-} from "../../assets/icons";
-import { FeedBottomShadow, FeedDetailItem } from "../../components/Feed";
-import { TopAppBar } from "../../components/common";
+} from "../assets/icons";
+import { FeedBottomShadow, FeedDetailItem } from "../components/Feed";
+import { TopAppBar } from "../components/common";
 
 const FeedDetailPage = () => {
   // 피드데이터 (임시)

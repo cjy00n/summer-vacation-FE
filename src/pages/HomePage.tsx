@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { NotificationIcon } from "../../assets/icons";
+import { NotificationIcon } from "../assets/icons";
 import {
   Banner,
   HomeContest,
   HomeMyDiary,
   HomeTitle,
-} from "../../components/Home";
-import HomeRecentBestDiary from "../../components/Home/HomeRecentBestDiary";
-import { TopAppBar } from "../../components/common";
-import { ROUTE } from "../../routes/Route";
+} from "../components/Home";
+import HomeRecentBestDiary from "../components/Home/HomeRecentBestDiary";
+import { TopAppBar } from "../components/common";
+import { ROUTE } from "../routes/Route";
 
 const HomePage = () => {
   const month = new Date().getMonth() + 1;

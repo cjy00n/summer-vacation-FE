@@ -1,30 +1,30 @@
 import { Switch } from "antd";
-import { AlertModal, TopAppBar } from "../../components/common";
-import { CloseIcon, AddIcon } from "../../assets/icons";
+import { AlertModal, TopAppBar } from "../components/common";
+import { CloseIcon, AddIcon } from "../assets/icons";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ROUTE } from "../../routes/Route";
+import { ROUTE } from "../routes/Route";
 import {
   AngryIcon,
   HappyIcon,
   PleasureIcon,
   SadIcon,
   SoSoIcon,
-} from "../../assets/icons/\bemotions";
+} from "../assets/icons/emotions";
 import { format } from "date-fns";
 import {
   ChoiceItem,
   CustomButton,
   SelectDateModal,
-} from "../../components/AddDiary";
+} from "../components/AddDiary";
 import {
   CloudyIcon,
   SnowIcon,
   SunnyIcon,
   ThunderIcon,
   RainyIcon,
-} from "../../assets/icons/weather";
-import { DateType } from "../../types";
+} from "../assets/icons/weather";
+import { DateType } from "../types";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();

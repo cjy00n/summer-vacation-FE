@@ -1,4 +1,4 @@
-import { CustomCalendar } from "../../components/Calendar";
+import { CustomCalendar } from "../components/Calendar";
 
 const CalendarPage = () => {
   return (

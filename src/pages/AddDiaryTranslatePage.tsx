@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { AlertModal, TopAppBar } from "../../components/common";
-import { CustomButton } from "../../components/AddDiary";
-import { CloseIcon, LoadingIcon } from "../../assets/icons";
+import { AlertModal, TopAppBar } from "../components/common";
+import { CustomButton } from "../components/AddDiary";
+import { CloseIcon, LoadingIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../../routes/Route";
+import { ROUTE } from "../routes/Route";
 import { Modal } from "antd";
 
 const AddDiaryTranslatePage = ({ content = "" }: { content?: string }) => {

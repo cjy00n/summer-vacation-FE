@@ -1,5 +1,5 @@
-import NotificationItem from "../../components/Notification/NotificationItem";
-import { TopAppBar } from "../../components/common";
+import NotificationItem from "../components/Notification/NotificationItem";
+import { TopAppBar } from "../components/common";
 
 const NotificationPage = () => {
   const notificationList = [

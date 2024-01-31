@@ -1,6 +1,6 @@
-import { FillStarIcon } from "../../assets/icons";
-import { FeedItem } from "../../components/Feed";
-import { TopAppBar } from "../../components/common";
+import { FillStarIcon } from "../assets/icons";
+import { FeedItem } from "../components/Feed";
+import { TopAppBar } from "../components/common";
 
 const FeedPage = () => {
   const tempData = [
