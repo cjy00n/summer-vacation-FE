@@ -3,7 +3,7 @@ interface LongButtonProps {
   text: string;
   buttonStyle?: string;
   textStyle?: string;
-  size?: "long" | "middle" | "short";
+  size?: "long" | "middle" | "short" | "half";
   disabled?: boolean;
 }
 

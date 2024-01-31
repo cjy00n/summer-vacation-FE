@@ -5,19 +5,31 @@ import "./CustomCalendar.css";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { DateType } from "../../types";
+import { CustomButton } from "../AddDiary";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../routes/Route";
 
 interface CustomCalendarProps {
+  // 아래 props들은 날짜 선택 컴포넌트로 사용할 때만 전달받음
   date?: DateType;
   setDate?: (date: DateType) => void;
+  onRightClick?: () => void;
+  rightButtonText?: string;
 }
 
-const CustomCalendar = ({ date, setDate }: CustomCalendarProps) => {
+const CustomCalendar = ({
+  date,
+  setDate,
+  onRightClick,
+  rightButtonText,
+}: CustomCalendarProps) => {
+  const navigate = useNavigate();
+
   const [selectedDay, setSelectedDay] = useState<DateType>(date ?? new Date());
 
   const onChangeDay = (newDate: DateType) => {
-    if (setDate) {
-      setDate(newDate);
-    } else setSelectedDay(newDate);
+    if (setDate) setDate(newDate);
+    setSelectedDay(newDate);
   };
 
   const temp = [
@@ -29,6 +41,19 @@ const CustomCalendar = ({ date, setDate }: CustomCalendarProps) => {
     { date: new Date("2024-01-29"), text: "😄" },
     { date: new Date("2024-01-31"), text: "😍" },
   ];
+  const isHaveDiaryDay = temp.some(
+    (item) =>
+      format(selectedDay as Date, "yyyyMMdd", { locale: ko }) ===
+      format(item.date, "yyyyMMdd", { locale: ko }),
+  );
+
+  const handleDiaryButton = () => {
+    if (isHaveDiaryDay) {
+      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/1");
+    } else {
+      navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { date: selectedDay } });
+    }
+  };
 
   function tileContent({ date, view }: { date: Date; view: string }) {
     if (view === "month") {
@@ -61,7 +86,7 @@ const CustomCalendar = ({ date, setDate }: CustomCalendarProps) => {
   return (
     <div>
       <Calendar
-        value={date ?? selectedDay}
+        value={selectedDay}
         onChange={onChangeDay}
         onClickMonth={() => console.log("달")}
         formatDay={(_, date) => format(date, "dd")}
@@ -70,6 +95,26 @@ const CustomCalendar = ({ date, setDate }: CustomCalendarProps) => {
         next2Label={null}
         prev2Label={null}
       />
+      <div className="flex justify-center w-full my-10">
+        <CustomButton
+          onClick={() => onChangeDay(new Date())}
+          text="오늘로 이동"
+          textStyle="text-white"
+          buttonStyle="bg-black"
+          size={onRightClick ? "short" : "half"}
+        />
+        <CustomButton
+          onClick={onRightClick ? onRightClick : handleDiaryButton}
+          text={
+            rightButtonText
+              ? rightButtonText
+              : isHaveDiaryDay
+                ? "일기보기"
+                : "일기쓰기"
+          }
+          size="middle"
+        />
+      </div>
     </div>
   );
 };

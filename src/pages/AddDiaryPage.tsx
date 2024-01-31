@@ -28,13 +28,11 @@ import { DateType } from "../types";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
-  const existingContent = localStorage.getItem("diary-content");
-
-  // 일기 수정하기 or 그림그리기 완료 후 다시 돌아왔을 때 기존의 내용 저장
+  const existingContent = localStorage.getItem("diary-content"); // 기존 일기 내용 로컬스토리지에서 가져오기
 
   const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
 
-  const [date, setDate] = useState(new Date() as DateType);
+  const [date, setDate] = useState(state?.date ?? (new Date() as DateType));
   const [title, setTitle] = useState("");
   const [content, setContent] = useState(
     existingContent ? JSON.parse(existingContent) : "",
