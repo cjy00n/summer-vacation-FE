@@ -28,6 +28,9 @@ export default {
       textShadow: {
         custom: "0px 2px 4px rgba(0, 0, 0, 0.16)",
       },
+      animation: {
+        "spin-slow": "spin 2s linear infinite",
+      },
     },
   },
   plugins: [],

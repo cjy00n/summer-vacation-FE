@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { AlertModal, TopAppBar } from "../../components/common";
 import { CustomButton } from "../../components/AddDiary";
-import { CloseIcon } from "../../assets/icons";
+import { CloseIcon, LoadingIcon } from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
+import { Modal } from "antd";
 
-const AddDiaryTranslatePage = ({ content }: { content: string }) => {
+const AddDiaryTranslatePage = ({ content = "" }: { content?: string }) => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
+  const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false);
 
   const [koreanContent, setKoreanContent] = useState(
     content ??
@@ -23,13 +25,13 @@ const AddDiaryTranslatePage = ({ content }: { content: string }) => {
         title="글 확인하기"
         leftGoBack
         rightIcon={<CloseIcon />}
-        rightOnClick={() => setIsModalOpen(true)}
+        rightOnClick={() => setIsCloseModalOpen(true)}
       />
       <AlertModal
-        toggle={isModalOpen}
+        toggle={isCloseModalOpen}
         title="일기를 그만 쓸까요?"
         handleOk={() => navigate(ROUTE.HOME_PAGE.link)}
-        handleClose={() => setIsModalOpen(false)}
+        handleClose={() => setIsCloseModalOpen(false)}
       />
       <div className="flex flex-col px-4 my-auto justify-center h-full">
         <div>
@@ -69,9 +71,25 @@ const AddDiaryTranslatePage = ({ content }: { content: string }) => {
           <CustomButton
             text="그림 부탁하기"
             textColor="white"
-            onClick={() => console.log("그림")}
+            onClick={() => setIsDrawingModalOpen(!isDrawingModalOpen)}
             size="middle"
           />
+          <Modal
+            open={isDrawingModalOpen}
+            title={null}
+            footer={null}
+            centered
+            closable={false}
+          >
+            <div className="flex flex-col h-80 items-center justify-center pt-10">
+              <LoadingIcon width={60} height={60} />
+              <p className="text-sm font-semibold my-10 text-center">
+                AI가 그림을 열심히 그리고 있어요!
+                <br />
+                0초 정도 소요되니 조금만 기다려 주세요!
+              </p>
+            </div>
+          </Modal>
         </div>
       </div>
     </div>
