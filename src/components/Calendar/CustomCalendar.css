@@ -151,7 +151,12 @@ abbr[title] {
 /* 월 선택 4*3으로 변경 */
 .react-calendar__year-view__months__month {
   flex: 0 0 25% !important;
-  padding: 10px 0 !important;
+  padding: 0 !important;
+}
+
+.react-calendar__year-view__months__month > abbr {
+  color: #ff6d3c;
+  padding: 10px;
 }
 
 /* 월 선택 시 현재 달 스타일 */
