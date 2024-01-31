@@ -15,3 +15,4 @@ export { default as ShareIcon } from "./ShareIcon";
 export { default as AddIcon } from "./AddIcon";
 export { default as KebabMenuIcon } from "./KebabMenuIcon";
 export { default as LoadingIcon } from "./LoadingIcon";
+export { default as EditIcon } from "./EditIcon";
