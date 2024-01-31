@@ -12,4 +12,3 @@ export { default as ArrowLeftIcon } from "./ArrowLeftIcon";
 export { default as PersonIcon } from "./PersonIcon";
 export { default as CloseIcon } from "./CloseIcon";
 export { default as ShareIcon } from "./ShareIcon";
-export { default as BottomTriangle } from "./BottomTriangle";
