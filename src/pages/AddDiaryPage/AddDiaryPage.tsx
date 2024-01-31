@@ -1,4 +1,4 @@
-import { Modal, Switch } from "antd";
+import { Switch } from "antd";
 import { TopAppBar } from "../../components/common";
 import { CloseIcon, AddIcon } from "../../assets/icons";
 import { useState } from "react";
@@ -12,7 +12,11 @@ import {
   SoSoIcon,
 } from "../../assets/icons/\bemotions";
 import { format } from "date-fns";
-import { ChoiceItem } from "../../components/AddDiary";
+import {
+  AlertModal,
+  ChoiceItem,
+  SelectDateModal,
+} from "../../components/AddDiary";
 import {
   CloudyIcon,
   SnowIcon,
@@ -20,15 +24,22 @@ import {
   ThunderIcon,
   RainyIcon,
 } from "../../assets/icons/weather";
+import { DateType } from "../../types";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
+  const [date, setDate] = useState(new Date() as DateType);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [emotion, setEmotion] = useState("기뻐요");
   const [weather, setWeather] = useState("맑음");
 
+  const [isChangeDateOpen, setIsChangeDateOpen] = useState(false);
   const [isStopModalOpen, setIsStopModalOpen] = useState(false);
+
+  const toggleChangeDateModal = () => {
+    setIsChangeDateOpen(!isChangeDateOpen);
+  };
 
   const showStopModal = () => {
     setIsStopModalOpen(true);
@@ -108,17 +119,27 @@ const AddDiaryPage = () => {
         rightIcon={<CloseIcon />}
         rightOnClick={showStopModal}
       />
+
       <div className="flex h-14 items-center px-6 py-2 border-b justify-between">
         <span className="font-medium text-sm mr-8">날짜</span>
         <div className="flex w-4/5 justify-between">
           <span className="text-sm font-medium">
-            {format(new Date(), "yyy년 MM월 dd일")}
+            {format(date!.toString(), "yyy년 MM월 dd일")}
           </span>
-          <button className="text-primary-orange text-sm font-normal">
+          <button
+            className="text-primary-orange text-sm font-normal"
+            onClick={toggleChangeDateModal}
+          >
             변경
           </button>
         </div>
       </div>
+      <SelectDateModal
+        date={date}
+        setDate={setDate}
+        toggle={isChangeDateOpen}
+        setToggle={toggleChangeDateModal}
+      />
       <div className="flex h-14 items-center px-6 py-2 justify-between">
         <span className="font-medium text-sm mr-8">제목</span>
         <div className="flex w-4/5 justify-between">
@@ -210,34 +231,14 @@ const AddDiaryPage = () => {
           </span>
         </button>
       </div>
-      <Modal
-        style={{ height: 162 }}
-        width={"90%"}
-        title={
-          <h1 className="mt-4 text-center text-lg font-semibold">
-            일기를 그만 쓸까요?
-          </h1>
-        }
-        open={isStopModalOpen}
-        onCancel={handleStopCancel}
-        footer={null}
-        centered
-      >
-        <div className="flex justify-center items-end h-24">
-          <button
-            onClick={handleStopOk}
-            className="flex justify-center items-center h-12 w-36 mx-1 bg-error-red rounded-[81px] text-white"
-          >
-            그만 쓸래요
-          </button>
-          <button
-            onClick={handleStopCancel}
-            className="flex justify-center items-center h-12 w-36 mx-1 bg-white rounded-[81px] text-black border-2 border-solid border-black"
-          >
-            닫기
-          </button>
-        </div>
-      </Modal>
+      <AlertModal
+        toggle={isStopModalOpen}
+        title="일기를 그만 쓸까요?"
+        okText="그만둘래요"
+        handleOk={handleStopOk}
+        closeText="닫기"
+        handleClose={handleStopCancel}
+      />
     </div>
   );
 };

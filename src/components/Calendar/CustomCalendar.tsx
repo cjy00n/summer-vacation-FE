@@ -4,16 +4,20 @@ import "react-calendar/dist/Calendar.css";
 import "./CustomCalendar.css";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
+import { DateType } from "../../types";
 
-type ValuePiece = Date | null;
+interface CustomCalendarProps {
+  date?: DateType;
+  setDate?: (date: DateType) => void;
+}
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+const CustomCalendar = ({ date, setDate }: CustomCalendarProps) => {
+  const [selectedDay, setSelectedDay] = useState<DateType>(date ?? new Date());
 
-const CustomCalendar = () => {
-  const [selectedDay, setSelectedDay] = useState<Value>(new Date());
-
-  const onChangeDay = (newDate: Value) => {
-    setSelectedDay(newDate);
+  const onChangeDay = (newDate: DateType) => {
+    if (setDate) {
+      setDate(newDate);
+    } else setSelectedDay(newDate);
   };
 
   const temp = [
@@ -57,7 +61,7 @@ const CustomCalendar = () => {
   return (
     <div>
       <Calendar
-        value={selectedDay}
+        value={date ?? selectedDay}
         onChange={onChangeDay}
         onClickMonth={() => console.log("달")}
         formatDay={(_, date) => format(date, "dd")}
