@@ -18,11 +18,6 @@
   font-weight: 600;
 }
 
-/* 월 선택 불가하도록 */
-.react-calendar__navigation__label {
-  /* pointer-events: none;  */
-}
-
 /* 월 이동 화살표 스타일링 */
 .react-calendar__navigation__arrow {
   font-size: 30px;
@@ -45,10 +40,10 @@ abbr[title] {
 
 /* 날짜 타일 스타일 */
 .react-calendar__tile {
+  height: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0;
   position: relative;
   color: gray;
 }
@@ -57,8 +52,10 @@ abbr[title] {
 .react-calendar__tile > span {
   position: absolute;
   bottom: 0;
+  font-size: 13px;
 }
 
+/* 날짜 타일의 텍스트 스타일 */
 .react-calendar__tile > abbr {
   margin: 10px 0 !important;
   padding: 12% 20%;
@@ -80,10 +77,27 @@ abbr[title] {
   background-color: transparent !important;
 }
 
+/* 선택된 날짜에 "선택" 말풍선 추가 */
+.react-calendar__tile--active::before {
+  z-index: 10;
+  content: "선택";
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  font-weight: 600;
+  color: white;
+  background-image: url("../../assets/svg/speechBubble.svg");
+  background-size: cover;
+  font-size: 10px;
+}
+
 /* 선택된 날짜 */
 .react-calendar__tile--active abbr {
   background-color: #d1cdca !important;
   color: black !important;
+  border: 2px solid black !important;
 }
 
 /* 오늘 날짜에 "오늘" 말풍선 추가 */
@@ -91,22 +105,25 @@ abbr[title] {
   z-index: 10;
   content: "오늘";
   position: absolute;
-  top: 0;
+  top: 15%;
   left: 50%;
   transform: translateX(-50%);
   width: 38px;
-  font-weight: 400;
+  font-weight: 600;
   color: white;
-  background-image: url("../../assets/svg/speechBubble.svg");
+  background-image: url("../../assets/svg/graySpeechBubble.svg");
   background-size: cover;
   font-size: 10px;
 }
 
 /* 오늘 날짜의 텍스트 스타일 */
 .react-calendar__tile--now > abbr {
-  color: black;
   background-color: white !important;
-  border: 2px solid black !important;
+}
+
+/*오늘 + 선택타일에 "오늘" 말풍선 회색으로 */
+.react-calendar__tile--active.react-calendar__tile--now::before {
+  background-image: url("../../assets/svg/speechBubble.svg");
 }
 
 /* 오늘 + 선택타일 스타일링 */

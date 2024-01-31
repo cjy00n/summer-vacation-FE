@@ -23,7 +23,7 @@ const CustomCalendar = () => {
     { date: new Date("2024-01-27"), text: "😍" },
     { date: new Date("2024-01-28"), text: "😍" },
     { date: new Date("2024-01-29"), text: "😄" },
-    { date: new Date("2024-01-30"), text: "😍" },
+    { date: new Date("2024-01-31"), text: "😍" },
   ];
 
   function tileContent({ date, view }: { date: Date; view: string }) {
