@@ -108,3 +108,19 @@ textarea {
 .ant-message-notice-content span {
   color: white !important;
 }
+
+/* ant Carousel 스타일링 */
+.slick-dots li {
+  background-color: #d9d9d9;
+  height: 20px !important;
+  width: 20px !important ;
+  border-radius: 50%;
+}
+
+.slick-dots li.slick-active {
+  background-color: #ff6d3c;
+}
+
+.slick-dots button {
+  background-color: transparent !important;
+}
