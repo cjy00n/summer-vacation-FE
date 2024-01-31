@@ -30,7 +30,7 @@ const FeedItem = ({ img, like, idx, _id }: FeedItemProps) => {
   };
 
   const getSize = () => {
-    return `w-[${idx % 6 === 1 ? "66vw" : "33vw"}] h-[${idx % 6 === 2 || idx % 6 === 4 ? "66vw" : "33vw"}] `;
+    return `${idx % 6 === 1 ? "w-[66vw]" : "w-[33vw]"} ${idx % 6 === 2 || idx % 6 === 4 ? "h-[66vw]" : "h-[33vw]"} `;
   };
 
   const linkToDetalPage = () => {
@@ -49,7 +49,7 @@ const FeedItem = ({ img, like, idx, _id }: FeedItemProps) => {
       <div className="absolute bottom-1 flex">
         <FillStarIcon width={20} height={20} fillColor="white" />
         <span className="text-primary-white text-xs font-bold ">
-          {like.toLocaleString() + idx}
+          {like.toLocaleString()}
         </span>
       </div>
     </div>
