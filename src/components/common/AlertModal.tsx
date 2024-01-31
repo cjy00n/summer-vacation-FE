@@ -1,12 +1,13 @@
 import { Modal } from "antd";
+import { CustomButton } from "../AddDiary";
 
 interface AlertModalProps {
   toggle: boolean;
   title: string;
   okText?: string;
   closeText?: string;
-  handleOk?: () => void;
-  handleClose?: () => void;
+  handleOk: () => void;
+  handleClose: () => void;
 }
 
 const AlertModal = ({
@@ -30,18 +31,19 @@ const AlertModal = ({
       closable={false}
     >
       <div className="flex justify-center items-end h-24">
-        <button
+        <CustomButton
           onClick={handleOk}
-          className="flex justify-center items-center h-12 w-36 mx-1 bg-error-red rounded-[81px] text-white"
-        >
-          {okText}
-        </button>
-        <button
+          text={okText ?? "그만둘래요"}
+          bgColor="bg-error-red"
+          textColor="white"
+        />
+        <CustomButton
           onClick={handleClose}
-          className="flex justify-center items-center h-12 w-36 mx-1 bg-white rounded-[81px] text-black border-2 border-solid border-black"
-        >
-          {closeText}
-        </button>
+          text={closeText ?? "닫기"}
+          bgColor="white"
+          textColor="black"
+          border="border-black"
+        />
       </div>
     </Modal>
   );

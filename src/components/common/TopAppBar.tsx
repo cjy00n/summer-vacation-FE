@@ -7,6 +7,7 @@ interface TopAppBarProps {
   leftIcon?: React.ReactElement;
   rightIcon?: React.ReactElement;
   rightOnClick?: () => void;
+  rightClose?: boolean;
 }
 
 const TopAppBar = ({

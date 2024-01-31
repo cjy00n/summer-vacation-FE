@@ -1,5 +1,5 @@
 import { Switch } from "antd";
-import { TopAppBar } from "../../components/common";
+import { AlertModal, TopAppBar } from "../../components/common";
 import { CloseIcon, AddIcon } from "../../assets/icons";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,8 +13,8 @@ import {
 } from "../../assets/icons/\bemotions";
 import { format } from "date-fns";
 import {
-  AlertModal,
   ChoiceItem,
+  CustomButton,
   SelectDateModal,
 } from "../../components/AddDiary";
 import {
@@ -225,11 +225,12 @@ const AddDiaryPage = () => {
             선택해서 AI로 그림 그리기
           </span>
         </Link>
-        <button className="h-12  bg-primary-orange w-[320px] rounded-[81px] gap-2">
-          <span className="text-base font-medium text-primary-white">
-            일기 미리보기
-          </span>
-        </button>
+        <CustomButton
+          onClick={() => console.log("미리보기")}
+          text="일기 미리보기"
+          textColor="white"
+          size="long"
+        />
       </div>
       <AlertModal
         toggle={isStopModalOpen}

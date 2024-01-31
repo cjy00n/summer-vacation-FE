@@ -17,6 +17,7 @@ export default {
         "primary-green": "#27BE69",
         "error-red": "#DF0020",
         "gray-90": "#FDF8F4",
+        "gray-80": "#E8E3E0",
         "gray-70": "#D1CDCA",
         "gray-50": "#A3A09D",
         "gray-30": "#757371",
