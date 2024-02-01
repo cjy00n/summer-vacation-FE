@@ -1,132 +1,111 @@
-import { Switch } from "antd";
+import { Switch, message } from "antd";
 import { AlertModal, TopAppBar } from "../components/common";
 import { CloseIcon, AddIcon, EditIcon } from "../assets/icons";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
-import {
-  AngryIcon,
-  HappyIcon,
-  PleasureIcon,
-  SadIcon,
-  SoSoIcon,
-} from "../assets/icons/emotions";
+import { EmotionIcon } from "../assets/icons/emotions";
 import { format } from "date-fns";
 import {
   ChoiceItem,
   CustomButton,
   SelectDateModal,
 } from "../components/AddDiary";
-import {
-  CloudyIcon,
-  SnowIcon,
-  SunnyIcon,
-  ThunderIcon,
-  RainyIcon,
-} from "../assets/icons/weather";
+import { WeatherIcon } from "../assets/icons/weather";
 import { DateType } from "../types";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
+import { EmotionData, WeatherData } from "../assets/data";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
-  const existingContent = localStorage.getItem("diary-content"); // 기존 일기 내용 로컬스토리지에서 가져오기
+  const [, contextHolder] = message.useMessage();
+  const [, setActiveBottomTab] = useRecoilState(bottomTabState);
 
   const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
 
-  const [, setActiveBottomTab] = useRecoilState(bottomTabState);
+  const existingContent = localStorage.getItem("diary-content"); // 기존 일기 내용 로컬스토리지에서 가져오기
+  const existingTitle = localStorage.getItem("diary-title"); // 기존 일기 제목 로컬스토리지에서 가져오기
+  const existingWeather = localStorage.getItem("diary-weather"); // 기존 일기 날씨 로컬스토리지에서 가져오기
+  const existingEmotion = localStorage.getItem("diary-emotion"); // 기존 일기 기분 로컬스토리지에서 가져오기
+  const existingDate = localStorage.getItem("diary-date"); // 기존 일기 날짜 로컬스토리지에서 가져오기
 
-  const [date, setDate] = useState(state?.date ?? (new Date() as DateType));
-  const [title, setTitle] = useState("");
+  /* state 초기화 (기존 입력중이던 데이터 있으면 가져오기, 아니면 초기화) */
+  const [date, setDate] = useState(
+    existingDate
+      ? new Date(JSON.parse(existingDate))
+      : (new Date() as DateType),
+  );
+  const [title, setTitle] = useState(
+    existingTitle ? JSON.parse(existingTitle) : "",
+  );
   const [content, setContent] = useState(
     existingContent ? JSON.parse(existingContent) : "",
   );
-  const [emotion, setEmotion] = useState("괜찮아요");
-  const [weather, setWeather] = useState("맑음");
+  const [emotion, setEmotion] = useState(
+    existingEmotion ? JSON.parse(existingEmotion) : EmotionData[0],
+  );
+  const [weather, setWeather] = useState(
+    existingWeather ? JSON.parse(existingWeather) : WeatherData[0],
+  );
 
-  const [isChangeDateOpen, setIsChangeDateOpen] = useState(false);
-  const [isStopModalOpen, setIsStopModalOpen] = useState(false);
+  const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 모달 창 오픈 여부
+  const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close 모달 창 오픈 여부
 
+  /* 날짜 선택 모달 창 토글 함수 */
   const toggleChangeDateModal = () => {
     setIsChangeDateOpen(!isChangeDateOpen);
   };
 
+  /* close 모달 창 토글 함수 */
   const showStopModal = () => {
     setIsStopModalOpen(true);
   };
 
+  /* close 모달 창 - 나가기 선택 시  => 로컬스토리지 비우며 홈 화면으로 이동 */
   const handleStopOk = () => {
     setIsStopModalOpen(false);
     navigate(ROUTE.HOME_PAGE.link);
     setActiveBottomTab("HOME");
     localStorage.removeItem("diary-content");
+    localStorage.removeItem("diary-title");
+    localStorage.removeItem("diary-emotion");
+    localStorage.removeItem("diary-weather");
   };
 
+  /* close 모달 창 - 닫기 선택 시 => close 모달 닫기 */
   const handleStopCancel = () => {
     setIsStopModalOpen(false);
   };
 
-  const emotionText = ["괜찮아요", "좋아요", "기뻐요", "화나요", "슬퍼요"];
-  const emotionIcon = [
-    <SoSoIcon
-      width={24}
-      height={24}
-      fillColor={`${emotion === "괜찮아요" ? "white" : "#BAB6B4"}`}
-    />,
-    <PleasureIcon
-      width={24}
-      height={24}
-      fillColor={`${emotion === "좋아요" ? "white" : "#BAB6B4"}`}
-    />,
-    <HappyIcon
-      width={24}
-      height={24}
-      fillColor={`${emotion === "기뻐요" ? "white" : "#BAB6B4"}`}
-    />,
-    <AngryIcon
-      width={24}
-      height={24}
-      fillColor={`${emotion === "화나요" ? "white" : "#BAB6B4"}`}
-    />,
-    <SadIcon
-      width={24}
-      height={24}
-      fillColor={`${emotion === "슬퍼요" ? "white" : "#BAB6B4"}`}
-    />,
-  ];
-
-  const weatherText = ["맑음", "비", "눈", "흐림", "천둥"];
-  const weatherIcon = [
-    <SunnyIcon
-      width={28}
-      height={28}
-      fillColor={`${weather === "맑음" ? "white" : "#BAB6B4"}`}
-    />,
-    <RainyIcon
-      width={28}
-      height={28}
-      fillColor={`${weather === "비" ? "white" : "#BAB6B4"}`}
-    />,
-    <SnowIcon
-      width={28}
-      height={28}
-      fillColor={`${weather === "눈" ? "white" : "#BAB6B4"}`}
-    />,
-    <CloudyIcon
-      width={28}
-      height={28}
-      fillColor={`${weather === "흐림" ? "white" : "#BAB6B4"}`}
-    />,
-    <ThunderIcon
-      width={28}
-      height={28}
-      fillColor={`${weather === "천둥" ? "white" : "#BAB6B4"}`}
-    />,
-  ];
-
+  /* 번역 페이지로 이동 (제목, 내용 길이 0 아닐때만) */
   const linkTransferPage = () => {
-    navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
-    localStorage.setItem("diary-content", JSON.stringify(content));
+    if (title.length === 0) {
+      message.open({ type: "error", content: "제목을 입력해주세요." });
+    } else if (content.length === 0) {
+      message.open({ type: "error", content: "내용을 입력해주세요." });
+    } else {
+      navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
+      localStorage.setItem("diary-content", JSON.stringify(content));
+      localStorage.setItem("diary-title", JSON.stringify(title));
+      localStorage.setItem("diary-emotion", JSON.stringify(emotion));
+      localStorage.setItem("diary-weather", JSON.stringify(weather));
+      localStorage.setItem("diary-date", JSON.stringify(date));
+    }
+  };
+
+  /* 미리보기 페이지로 이동 (state에 데이터 담아 넘겨줌) */
+  const linkPreviewPage = () => {
+    navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link, {
+      state: {
+        content: content,
+        title: title,
+        img: state.img,
+        emotion: emotion,
+        weather: weather,
+        date: date,
+      },
+    });
   };
 
   return (
@@ -182,18 +161,25 @@ const AddDiaryPage = () => {
       <div className="flex flex-col p-4 mx-2 border-b">
         <span className="py-1 text-sm w-full font-medium">오늘의 기분</span>
         <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
-          {emotionIcon.map((item, idx) => (
+          {EmotionData.map((item) => (
             <ChoiceItem
-              key={"choice" + emotionText[idx]}
-              icon={item}
+              key={"choice-" + item}
+              icon={
+                <EmotionIcon
+                  emotion={item}
+                  width={24}
+                  height={24}
+                  fillColor={`${emotion === item ? "white" : "#BAB6B4"}`}
+                />
+              }
               choice={emotion}
               setChoice={setEmotion}
-              text={emotionText[idx]}
+              text={item}
             />
           ))}
         </div>
         <div className="flex py-2 rounded-lg items-center justify-around">
-          {emotionText.map((item) => (
+          {EmotionData.map((item) => (
             <span
               key={"emotion-text-" + item}
               className="w-12 text-xs font-normal text-center"
@@ -206,18 +192,25 @@ const AddDiaryPage = () => {
       <div className="flex flex-col p-4 mx-2 border-b">
         <span className="py-1 text-sm w-full font-medium">오늘의 날씨</span>
         <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
-          {weatherIcon.map((item, idx) => (
+          {WeatherData.map((item) => (
             <ChoiceItem
-              key={"choice" + weatherText[idx]}
-              icon={item}
+              key={"choice-" + item}
+              icon={
+                <WeatherIcon
+                  weather={item}
+                  width={24}
+                  height={24}
+                  fillColor={`${weather === item ? "white" : "#BAB6B4"}`}
+                />
+              }
               choice={weather}
               setChoice={setWeather}
-              text={weatherText[idx]}
+              text={item}
             />
           ))}
         </div>
         <div className="flex py-2 rounded-lg items-center justify-around">
-          {weatherText.map((item) => (
+          {WeatherData.map((item) => (
             <span
               key={"emotion-text-" + item}
               className="w-12 text-xs font-normal text-center"
@@ -254,18 +247,7 @@ const AddDiaryPage = () => {
           </button>
         )}
         <CustomButton
-          onClick={() =>
-            navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link, {
-              state: {
-                content: content,
-                title: title,
-                img: state.img,
-                emotion: emotion,
-                weather: weather,
-                date: date,
-              },
-            })
-          }
+          onClick={linkPreviewPage}
           text="일기 미리보기"
           size="long"
           buttonStyle={
@@ -282,6 +264,7 @@ const AddDiaryPage = () => {
         closeText="닫기"
         handleClose={handleStopCancel}
       />
+      {contextHolder}
     </div>
   );
 };
