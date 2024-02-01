@@ -52,7 +52,7 @@ export const FeedDetailItem = ({
             }
             {weather}
           </p>
-          <span className="border-[1px] w-16 text-center font-semibold text-sm leading-7 border-primary-orange border-solid">
+          <span className="w-16 text-center font-semibold text-sm leading-7 border-[1px] border-primary-orange border-solid">
             기분
           </span>
           <p className="flex items-center px-1 justify-around font-gamja w-[101px] border-[1px] border-primary-orange border-solid font-normal text-base leading-8">
@@ -60,10 +60,10 @@ export const FeedDetailItem = ({
             {emotion}
           </p>
         </div>
-        <div className="flex h-[320px] relative ">
+        <div className="flex h-[320px] relative border-[1px] border-primary-orange border-solid">
           <img
             src={imgUrl}
-            className="absolute top-0 w-full h-[320px] object-cover"
+            className="absolute top-0 w-[320px] h-[318px] object-cover"
           />
           {isLike && (
             <img
@@ -82,7 +82,7 @@ export const FeedDetailItem = ({
           )}
         </div>
         <div className="flex h-8">
-          <span className="border-[1px] w-16 text-center font-semibold text-sm leading-7 border-primary-orange border-solid">
+          <span className="w-16 text-center font-semibold text-sm leading-7 border-[1px]  border-primary-orange border-solid">
             제목
           </span>
           <p className="font-gamja w-64 pl-2 border-[1px] border-primary-orange border-solid font-normal text-base leading-8">

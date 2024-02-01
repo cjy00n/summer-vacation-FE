@@ -50,7 +50,7 @@ const CustomCalendar = ({
 
   const handleDiaryButton = () => {
     if (isHaveDiaryDay) {
-      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/1");
+      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/1", { state: { isMine: true } });
     } else {
       navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { date: selectedDay } });
     }

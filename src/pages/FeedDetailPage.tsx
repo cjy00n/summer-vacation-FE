@@ -1,13 +1,8 @@
 import { useState } from "react";
+import { FillStarIcon, KebabMenuIcon, StarIcon } from "../assets/icons";
 import {
-  BookmarkIcon,
-  FillBookmarkIcon,
-  FillStarIcon,
-  KebabMenuIcon,
-  ShareIcon,
-  StarIcon,
-} from "../assets/icons";
-import {
+  FeedBottomMine,
+  FeedBottomOthers,
   FeedDetailItem,
   FeedProgressBar,
   FeedStampMenu,
@@ -16,8 +11,16 @@ import { PageBottomShadow, TopAppBar } from "../components/common";
 import { Emotion } from "../types";
 import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
 import { EmotionData, WeatherData } from "../assets/data";
+import { useLocation } from "react-router-dom";
+import { format } from "date-fns";
 
 const FeedDetailPage = () => {
+  // 임시로, state에 내 글인지 아닌지 담아서 받음
+  let isMine = false;
+
+  const { state } = useLocation();
+  if (state?.isMine) isMine = true;
+
   // 피드데이터 (임시)
   const feedData = {
     date: new Date(),
@@ -69,7 +72,7 @@ const FeedDetailPage = () => {
   };
 
   // 참 잘했어요 버튼 클릭 시
-  const handleStampButton = () => {
+  const onStampButtonClick = () => {
     if (isLike) {
       setIsLike(!isLike);
       setStampButtonIcon(<StarIcon />);
@@ -98,7 +101,7 @@ const FeedDetailPage = () => {
     <>
       <div className="relative mb-6 pb-20">
         <TopAppBar
-          title="오늘의 일기"
+          title={isMine ? format(date, "yyy년 MM월 dd일") : "오늘의 일기"}
           leftGoBack
           rightIcon={<KebabMenuIcon />}
         />
@@ -119,35 +122,20 @@ const FeedDetailPage = () => {
             handleLikeButton={handleLikeButton}
           />
         )}
-        <div className="fixed z-10 bottom-[100px] left-[50%] transform -translate-x-1/2 flex w-[320px] justify-between">
-          <button className="flex items-center justify-center shadow-lg bg-black w-12 h-12 rounded-[81px]">
-            <ShareIcon width={24} height={24} fillColor="white" />
-          </button>
-          <button
-            onClick={toggleBookmark}
-            className={`flex items-center justify-center shadow-lg w-12 h-12 rounded-[81px] ${isBookmark ? "bg-black" : "bg-white border-[1px] border-solid border-black"}`}
-          >
-            {isBookmark ? (
-              <FillBookmarkIcon width={20} height={16} fillColor="white" />
-            ) : (
-              <BookmarkIcon width={24} height={24} />
-            )}
-          </button>
-          <button
-            onClick={handleStampButton}
-            className={`flex items-center justify-center shadow-lg ${isLike ? "bg-primary-orange" : "bg-white border-[1px] border-solid border-black"} w-[192px] h-12 rounded-[81px] `}
-          >
-            {stampButtonIcon}
-            <span
-              className={`${isLike ? "text-white" : "text-black"} font-medium text-base mx-1`}
-            >
-              참 잘했어요
-            </span>
-          </button>
-        </div>
+        {isMine ? (
+          <FeedBottomMine />
+        ) : (
+          <FeedBottomOthers
+            isBookmark={isBookmark}
+            isLike={isLike}
+            onStampButtonClick={onStampButtonClick}
+            toggleBookmark={toggleBookmark}
+            stampButtonIcon={stampButtonIcon}
+          />
+        )}
       </div>
       <PageBottomShadow />
-      <FeedProgressBar />
+      {!isMine && <FeedProgressBar />}
     </>
   );
 };

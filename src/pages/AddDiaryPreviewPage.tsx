@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { TopAppBar } from "../components/common";
+import { CircleButton, TopAppBar } from "../components/common";
 import { FeedDetailItem } from "../components/Feed";
 import { CustomButton } from "../components/AddDiary";
 import { message } from "antd";
@@ -15,6 +15,11 @@ const AddDiaryPreviewPage = () => {
   const { title, content, img, weather, emotion, date } = state;
 
   const handleCompleteDiary = () => {
+    localStorage.removeItem("diary-content");
+    localStorage.removeItem("diary-title");
+    localStorage.removeItem("diary-emotion");
+    localStorage.removeItem("diary-weather");
+    localStorage.removeItem("diary-date");
     navigate(ROUTE.ADD_DIARY_COMPLETE_PAGE.link);
   };
 
@@ -39,13 +44,10 @@ const AddDiaryPreviewPage = () => {
           emotion={emotion}
         />
         <div className="flex fixed z-10 bottom-[10px] left-[50%] transform -translate-x-1/2 w-[320px] my-2">
-          <button
-            className="flex h-12 w-12 mx-auto my-1 rounded-full bg-black items-center
-             justify-center"
+          <CircleButton
             onClick={handleDownladDrawing}
-          >
-            <FileDownloadIcon width={32} height={32} />
-          </button>
+            icon={<FileDownloadIcon width={32} height={32} />}
+          />
           <CustomButton
             text="작성 완료하기"
             onClick={handleCompleteDiary}
