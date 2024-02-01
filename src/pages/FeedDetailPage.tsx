@@ -7,15 +7,18 @@ import {
   ShareIcon,
   StarIcon,
 } from "../assets/icons";
-import { FeedDetailItem } from "../components/Feed";
+import { FeedDetailItem, FeedStampMenu } from "../components/Feed";
 import { PageBottomShadow, TopAppBar } from "../components/common";
+import { Emotion } from "../types";
+import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
+import { EmotionData, WeatherData } from "../assets/data";
 
 const FeedDetailPage = () => {
   // 피드데이터 (임시)
   const feedData = {
     date: new Date(),
-    weather: "맑음",
-    emotion: "괜찮아요",
+    weather: WeatherData[2],
+    emotion: EmotionData[1],
     imgUrl:
       "https://mblogthumb-phinf.pstatic.net/MjAxNzAyMTZfMTc1/MDAxNDg3MjA1NDE1MjY2.QH0KN_iUDKx8OviOiSe7xyfQAnITCeqMf7VW0RIDTcEg.AXQnn3XzvjDksNaSNvQh30tEN5DD0xB1q_iropXRCgQg.JPEG.narospacemuseum/%EC%9D%B8%EC%82%AC%EC%9D%B4%EB%93%9C%EC%95%84%EC%9B%832.jpg?type=w800",
     title: "오늘의 일기오늘의 일기오늘의 일기오늘의",
@@ -73,38 +76,19 @@ const FeedDetailPage = () => {
   const likeNumbers = [like1, like2, like3, like4, like5];
 
   // 참잘했어요 버튼 클릭 후, 공감 리스트에서 각각의 버튼 클릭 시
-  const handleLikeButton = (type: string, icon: React.ReactElement) => {
+  const handleLikeButton = (type: Emotion | "star") => {
     toggleLike();
     toggleLikeList();
     setIsLike(true);
     // 여기에 백엔드 api 붙이기
-    console.log(type);
-    setStampButtonIcon(icon);
+    setStampButtonIcon(
+      type === "star" ? (
+        <FillStarIcon fillColor="white" />
+      ) : (
+        <GetEmotionIcon emotion={type} fillColor="white" />
+      ),
+    );
   };
-
-  // 공감 버튼의 아이콘과 onClick 핸들러 배열(임시)
-  const emotionIcons = [
-    {
-      icon: <StarIcon fillColor="red" />,
-      onClick: () => handleLikeButton("1", <StarIcon fillColor="red" />),
-    },
-    {
-      icon: <StarIcon fillColor="orange" />,
-      onClick: () => handleLikeButton("2", <StarIcon fillColor="orange" />),
-    },
-    {
-      icon: <StarIcon fillColor="yellow" />,
-      onClick: () => handleLikeButton("3", <StarIcon fillColor="yellow" />),
-    },
-    {
-      icon: <StarIcon fillColor="green" />,
-      onClick: () => handleLikeButton("4", <StarIcon fillColor="green" />),
-    },
-    {
-      icon: <StarIcon fillColor="blue" />,
-      onClick: () => handleLikeButton("5", <StarIcon fillColor="blue" />),
-    },
-  ];
 
   return (
     <>
@@ -122,33 +106,14 @@ const FeedDetailPage = () => {
           imgUrl={imgUrl}
           content={content}
           like={like}
-          stampIcon={isLike ? stampButtonIcon : null}
+          isLike={isLike}
         />
         {isOpenLikeList && (
-          <div
-            className={`fixed bottom-[160px] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.16)] right-6 flex gap-1 my-0 items-center justify-center content-center bg-primary-white w-52 h-14 rounded-[100px]
-        after:content-[''] after:block after:absolute after:w-3 after:h-3 after:bg-white after:rotate-45 after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:border-r-2 after:border-b-2`}
-          >
-            <div className="flex flex-col items-center justify-center">
-              <FillStarIcon fillColor="black" />
-              <span className="text-[9px] font-normal">
-                {like.toLocaleString()}
-              </span>
-            </div>
-            <span className="h-2/3 border-r-[1px] border-r-black" />
-            {emotionIcons.map((item, idx) => (
-              <button
-                onClick={item.onClick}
-                className="flex flex-col items-center justify-center"
-                key={"likeIcon" + idx}
-              >
-                {item.icon}
-                <span className="text-[9px] font-normal ">
-                  {likeNumbers[idx].toLocaleString()}
-                </span>
-              </button>
-            ))}
-          </div>
+          <FeedStampMenu
+            like={like}
+            likes={likeNumbers}
+            handleLikeButton={handleLikeButton}
+          />
         )}
         <div className="fixed z-10 bottom-[100px] left-[50%] transform -translate-x-1/2 flex w-[320px] justify-between">
           <button className="flex items-center justify-center shadow-lg bg-black w-12 h-12 rounded-[81px]">

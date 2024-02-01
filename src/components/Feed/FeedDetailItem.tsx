@@ -1,21 +1,22 @@
 import { format } from "date-fns";
 import { FillStarIcon } from "../../assets/icons";
 import { ko } from "date-fns/locale";
-import { SunnyIcon } from "../../assets/icons/weather";
-import { SoSoIcon } from "../../assets/icons/emotions";
+import { WeatherIcon } from "../../assets/icons/weather";
+import { EmotionIcon } from "../../assets/icons/emotions";
+import { Emotion, Weather } from "../../types";
 
 interface FeedDetailItemProp {
   date: Date;
-  weather: string;
-  emotion: string;
+  weather: Weather;
+  emotion: Emotion;
   imgUrl: string;
-  title: string;
   content: string;
+  title: string;
   like?: number;
-  stampIcon?: React.ReactElement | null;
+  isLike?: boolean;
 }
 
-const FeedDetailItem = ({
+export const FeedDetailItem = ({
   date,
   weather,
   emotion,
@@ -23,22 +24,8 @@ const FeedDetailItem = ({
   content,
   like,
   title,
-  stampIcon,
+  isLike,
 }: FeedDetailItemProp) => {
-  const getWeatherIcon = (weather: string) => {
-    switch (weather) {
-      case "맑음":
-        return <SunnyIcon width={24} height={24} />;
-    }
-  };
-
-  const getEmotionIcon = (emotion: string) => {
-    switch (emotion) {
-      case "괜찮아요":
-        return <SoSoIcon width={24} height={24} />;
-    }
-  };
-
   return (
     <>
       <div className="flex flex-col w-[322px] mx-auto mt-6 border-[1px] border-primary-orange border-solid">
@@ -55,14 +42,21 @@ const FeedDetailItem = ({
             날씨
           </span>
           <p className="flex items-center px-2 justify-around font-gamja w-[91px]  border-[1px] border-primary-orange border-solid font-normal text-base">
-            {getWeatherIcon(weather)}
+            {
+              <WeatherIcon
+                weather={weather}
+                fillColor="black"
+                width={19}
+                height={18}
+              />
+            }
             {weather}
           </p>
           <span className="border-[1px] w-16 text-center font-semibold text-sm leading-7 border-primary-orange border-solid">
-            날씨
+            기분
           </span>
           <p className="flex items-center px-1 justify-around font-gamja w-[101px] border-[1px] border-primary-orange border-solid font-normal text-base leading-8">
-            {getEmotionIcon(emotion)}
+            {<EmotionIcon emotion={emotion} />}
             {emotion}
           </p>
         </div>
@@ -71,15 +65,11 @@ const FeedDetailItem = ({
             src={imgUrl}
             className="absolute top-0 w-full h-[320px] object-cover"
           />
-          {stampIcon && (
-            <div className="absolute bottom-8 left-2 w-18 h-18 rotate-[-10deg] rounded-full bg-[rgba(39,190,105,0.50)] border-[1px] border-primary-green">
-              <div className="z-10 flex flex-col items-center justify-center w-20 h-20">
-                <span className="scale-150 mb-2">{stampIcon}</span>
-                <span className="text-primary-white font-semibold text-xs">
-                  참 잘했어요
-                </span>
-              </div>
-            </div>
+          {isLike && (
+            <img
+              src="/image/stamp.webp"
+              className="z-10 absolute w-20 h-20 bottom-6 left-2 w-18 h-18 rotate-[-10deg] shadow-custom"
+            />
           )}
           {like && (
             <div
@@ -87,7 +77,7 @@ const FeedDetailItem = ({
           items-center justify-center content-center"
             >
               <FillStarIcon fillColor="white" />
-              <span className="text-white mx-1">{like.toLocaleString()}</span>d
+              <span className="text-white mx-1">{like.toLocaleString()}</span>
             </div>
           )}
         </div>
