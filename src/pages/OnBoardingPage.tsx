@@ -26,7 +26,7 @@ const OnBoardingPage = () => {
           </p>
           <img
             className="w-72 h-72 object-cover mx-auto"
-            src="https://s3-alpha-sig.figma.com/img/b871/75c8/9ceac944df8f0cf72bc0c61216017e7c?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iG3v1c0aM-MIGTYl8-B~MQf1v-LoykNqCaQAOBrWBN87SPtdpUX0YhFA~TNizUX6xxQJb3iMHqlp3O5xIXNSHJbRDgeUDLEEQRnl-zMoiEfizO5Ly2E26UetWnoKf7O48TYWi4EmuOU3K5x055vVJDg5Uj4GT9XxZMvJRy~rc8fRli1e0EJ1NrvtPogTgrwNwuUH5pOgdXueSfN1Dhx-Uw2s~c4GGpdZsd76ZJMurWQKpBP1hXoElbWgbE2Syfyi-EZxFTsAYXV5ATC89T7NYTBCYcJ-~rgWSWIvSG4DsD80ig5WKM5YsYllbIuyMPf7sRsoKLF9nr~1t1bz7nOUDA__"
+            src="/image/onBoarding1.svg"
           />
           <div className="py-8 text-center text-base font-semibold mb-10">
             <p>그림일기를 통해, </p>
