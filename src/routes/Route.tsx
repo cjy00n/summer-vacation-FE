@@ -15,6 +15,7 @@ import {
   AddDiaryFinishPage,
   AddDiaryBeforePage,
   AddDiaryDrawingSelectPage,
+  AddDiaryCompletePage,
 } from "../pages";
 
 interface RouteItem {
@@ -108,6 +109,12 @@ export const ROUTE: Routes = {
     path: "/add/finish",
     link: "/add/finish",
     element: <AddDiaryFinishPage />,
+  },
+
+  ADD_DIARY_COMPLETE_PAGE: {
+    path: "/add/complete",
+    link: "/add/complete",
+    element: <AddDiaryCompletePage />,
   },
 
   CALENDAR_PAGE: {
