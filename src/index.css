@@ -90,6 +90,10 @@ textarea {
   @apply bg-[#df0020] !important;
 }
 
+.ant-message-notice-warning .ant-message-notice-content {
+  @apply bg-black !important;
+}
+
 .ant-message-notice-content {
   @apply rounded-[55px] py-[10px] px-[20px] !important;
 }

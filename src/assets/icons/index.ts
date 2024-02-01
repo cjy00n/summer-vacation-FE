@@ -18,3 +18,4 @@ export { default as LoadingIcon } from "./LoadingIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as FullScreenIcon } from "./FullScreenIcon";
 export { default as AddPhotoIcon } from "./AddPhotoIcon";
+export { default as FileDownloadIcon } from "./FileDownloadIcon";
