@@ -1,9 +1,12 @@
+import { Emotion, Weather } from "../../types";
+
 interface ChoiceItemProps {
-  choice: string; // state
-  setChoice: (text: string) => void;
-  text: string;
+  choice: Emotion | Weather; // state
+  setChoice: React.Dispatch<Emotion | Weather>;
+  text: Emotion | Weather;
   icon: React.ReactElement;
 }
+
 const ChoiceItem = ({ choice, setChoice, text, icon }: ChoiceItemProps) => (
   <div
     onClick={() => setChoice(text)}

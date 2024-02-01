@@ -22,7 +22,7 @@ const AddDiaryTranslatePage = () => {
   );
 
   return (
-    <div className="flex flex-col bg-primary-white h-[100vh]">
+    <div className="flex flex-col h-[100vh]">
       <TopAppBar
         title="글 확인하기"
         leftGoBack
