@@ -1,19 +1,32 @@
 import BottomTabItem from "./BottomTabItem";
-import { ROUTE } from "../../routes/Route";
-import {
-  HomeIcon,
-  CalendarIcon,
-  ProfileIcon,
-  FeedIcon,
-  DiaryIcon,
-} from "../../assets/icons";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../../recoil/atoms/bottomTabState";
+import { BottomTab } from "../../types";
+import { ROUTE } from "../../routes/Route";
+import {
+  CalendarIcon,
+  DiaryIcon,
+  FeedIcon,
+  HomeIcon,
+  PersonIcon,
+} from "../../assets/icons";
+
+interface BottomTabDataType {
+  text: "홈" | "피드" | "일기쓰기" | "달력" | "프로필";
+  link: string;
+  icon: React.ReactElement;
+  id: BottomTab;
+}
 
 const BottomAppbar = () => {
   const [activeBottomTab, setActiveBottomTab] = useRecoilState(bottomTabState);
 
-  const navList = [
+  const handleClickBottomTab = (id: BottomTab) => {
+    setActiveBottomTab(id);
+    window.scrollTo(0, 0);
+  };
+
+  const bottomTabData: BottomTabDataType[] = [
     {
       text: "홈",
       link: ROUTE!.HOME_PAGE.link,
@@ -41,7 +54,7 @@ const BottomAppbar = () => {
     {
       text: "프로필",
       link: ROUTE!.PROFILE_PAGE.link,
-      icon: <ProfileIcon />,
+      icon: <PersonIcon />,
       id: "PROFILE",
     },
   ];
@@ -56,14 +69,14 @@ const BottomAppbar = () => {
       fixed bottom-0
       z-10"
     >
-      {navList.map((item) => (
+      {bottomTabData.map((item) => (
         <BottomTabItem
           text={item.text}
           link={item.link}
           key={item.link}
           icon={item.icon}
           isActive={activeBottomTab === item.id}
-          onClick={() => setActiveBottomTab(item.id)}
+          onClick={() => handleClickBottomTab(item.id)}
         />
       ))}
     </div>
