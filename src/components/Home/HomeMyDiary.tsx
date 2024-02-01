@@ -1,4 +1,4 @@
-import HomeMyDiaryItem from "./HomeMyDiaryItem";
+import { HomeDiaryItem } from ".";
 
 const HomeMyDiary = () => {
   const data = [
@@ -23,7 +23,7 @@ const HomeMyDiary = () => {
   return (
     <div className="flex flex-row gap-2 whitespace-nowrap overflow-x-auto hide-scrollbar">
       {data.map((item, idx) => (
-        <HomeMyDiaryItem
+        <HomeDiaryItem
           key={"my-diary-item-" + idx}
           img={item.img}
           like={item.like}

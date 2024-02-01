@@ -1,3 +1,2 @@
 export { default as FeedItem } from "./FeedItem";
 export { default as FeedDetailItem } from "./FeedDetailItem";
-export { default as FeedBottomShadow } from "./FeedBottomShadow";

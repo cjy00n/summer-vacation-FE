@@ -4,6 +4,5 @@ export { default as HomeContentItem } from "./HomeContentItem";
 export { default as HomeContest } from "./HomeContest";
 export { default as HomeContestItem } from "./HomeContestItem";
 export { default as HomeMyDiary } from "./HomeMyDiary";
-export { default as HomeMyDiaryItem } from "./HomeMyDiaryItem";
 export { default as HomeMyRecentBestDiary } from "./HomeRecentBestDiary";
-export { default as HomeMyRecentBestDiaryItem } from "./HomeRecentBestDiaryItem";
+export { default as HomeDiaryItem } from "./HomeDiaryItem";

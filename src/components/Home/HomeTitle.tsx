@@ -9,7 +9,7 @@ const HomeTitle = ({ title, description }: HomeTitleProps) => {
     <div className="py-2">
       <div className="flex items-center my-1">
         <span className="text-xl font-bold mr-1">{title}</span>
-        <FillStarIcon />
+        <FillStarIcon fillColor="black" />
       </div>
       <p className="text-sm">{description}</p>
     </div>

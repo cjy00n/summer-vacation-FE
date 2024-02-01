@@ -7,8 +7,8 @@ import {
   ShareIcon,
   StarIcon,
 } from "../assets/icons";
-import { FeedBottomShadow, FeedDetailItem } from "../components/Feed";
-import { TopAppBar } from "../components/common";
+import { FeedDetailItem } from "../components/Feed";
+import { PageBottomShadow, TopAppBar } from "../components/common";
 
 const FeedDetailPage = () => {
   // 피드데이터 (임시)
@@ -150,16 +150,13 @@ const FeedDetailPage = () => {
             ))}
           </div>
         )}
-        <div
-          className="fixed z-10 bottom-[100px] left-[50%] transform -translate-x-1/2 flex w-[320px] mx-auto justify-between
-      "
-        >
+        <div className="fixed z-10 bottom-[100px] left-[50%] transform -translate-x-1/2 flex w-[320px] justify-between">
           <button className="flex items-center justify-center shadow-lg bg-black w-12 h-12 rounded-[81px]">
             <ShareIcon width={24} height={24} fillColor="white" />
           </button>
           <button
             onClick={toggleBookmark}
-            className={`flex items-center justify-center shadow-lg  w-12 h-12 rounded-[81px] ${isBookmark ? "bg-black" : "bg-white border-[1px] border-solid border-black"}`}
+            className={`flex items-center justify-center shadow-lg w-12 h-12 rounded-[81px] ${isBookmark ? "bg-black" : "bg-white border-[1px] border-solid border-black"}`}
           >
             {isBookmark ? (
               <FillBookmarkIcon width={20} height={16} fillColor="white" />
@@ -180,7 +177,7 @@ const FeedDetailPage = () => {
           </button>
         </div>
       </div>
-      <FeedBottomShadow />
+      <PageBottomShadow />
     </>
   );
 };
