@@ -4,10 +4,11 @@ import "react-calendar/dist/Calendar.css";
 import "./CustomCalendar.css";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { DateType } from "../../types";
+import { DateType, Emotion } from "../../types";
 import { CustomButton } from "../AddDiary";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
+import { EmotionIcon } from "../../assets/icons/emotions";
 
 interface CustomCalendarProps {
   // 아래 props들은 날짜 선택 컴포넌트로 사용할 때만 전달받음
@@ -32,14 +33,14 @@ const CustomCalendar = ({
     setSelectedDay(newDate);
   };
 
-  const temp = [
-    { date: new Date("2024-01-09"), text: "😍" },
-    { date: new Date("2024-01-10"), text: "😍" },
-    { date: new Date("2024-01-11"), text: "😍" },
-    { date: new Date("2024-01-27"), text: "😍" },
-    { date: new Date("2024-01-28"), text: "😍" },
-    { date: new Date("2024-01-29"), text: "😄" },
-    { date: new Date("2024-01-31"), text: "😍" },
+  const temp: { date: Date; emotion: Emotion }[] = [
+    { date: new Date("2024-01-09"), emotion: "괜찮아요" },
+    { date: new Date("2024-01-10"), emotion: "슬퍼요" },
+    { date: new Date("2024-01-11"), emotion: "화나요" },
+    { date: new Date("2024-01-27"), emotion: "기뻐요" },
+    { date: new Date("2024-01-28"), emotion: "슬퍼요" },
+    { date: new Date("2024-01-29"), emotion: "괜찮아요" },
+    { date: new Date("2024-01-31"), emotion: "좋아요" },
   ];
   const isHaveDiaryDay = temp.some(
     (item) =>
@@ -63,7 +64,11 @@ const CustomCalendar = ({
           format(e.date, "yyyMMdd", { locale: ko }),
       );
       if (event) {
-        return <span>{event.text}</span>;
+        return (
+          <span className="bg-white rounded-full">
+            {<EmotionIcon emotion={event.emotion} />}
+          </span>
+        );
       }
     }
     return null;
