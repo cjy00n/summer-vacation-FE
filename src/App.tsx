@@ -10,6 +10,12 @@ function App() {
     <ConfigProvider
       locale={koKR}
       theme={{
+        components: {
+          Modal: {
+            contentBg: "#F6F6F6",
+            headerBg: "#F6F6F6",
+          },
+        },
         token: {
           colorPrimary: "#34C759",
         },
@@ -21,8 +27,10 @@ function App() {
             path={el.path}
             key={el.path}
             element={
-              <div className={el.haveBottomAppBar ? "content-page" : ""}>
-                {el.element}
+              <div>
+                <div className={`${el.haveBottomAppBar ? "pb-20" : ""}`}>
+                  {el.element}
+                </div>
                 {el.haveBottomAppBar && <BottomAppBar />}
               </div>
             }

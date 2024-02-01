@@ -5,6 +5,7 @@
 /* HTML 및 Body 기본 스타일 */
 html {
   @apply bg-white;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -14,22 +15,20 @@ html {
 body {
   -ms-overflow-style: none;
 }
+
 ::-webkit-scrollbar {
-  display: none;
+  @apply hidden;
 }
 
 body {
-  @apply w-[480px] min-h-screen;
-  @apply mx-auto bg-white;
-  @apply antialiased;
+  @apply w-[480px] min-h-screen mx-auto bg-primary-white antialiased;
 }
 
 /* 반응형 디자인 */
 @media screen and (max-width: 480px) {
   body,
   html {
-    @apply max-w-full !important;
-    @apply border-none;
+    @apply max-w-full border-none !important;
   }
 }
 
@@ -37,8 +36,7 @@ body {
 *,
 *::before,
 *::after {
-  @apply m-0 p-0 border-0;
-  @apply text-base align-baseline;
+  @apply m-0 p-0 border-0 text-base align-baseline;
 }
 
 /* 구조적 요소 */
@@ -78,49 +76,41 @@ textarea {
   @apply outline-none;
 }
 
-.content-page {
-  @apply pb-20;
-}
-
 /* ant-message 스타일링 */
 
 .ant-message {
-  top: 660px !important;
+  @apply top-[660px] !important;
 }
 
 .ant-message-notice-success .ant-message-notice-content {
-  background-color: #27be69 !important;
+  @apply bg-[#27be69] !important;
 }
 
 .ant-message-notice-error .ant-message-notice-content {
-  background-color: #df0020 !important;
+  @apply bg-[#df0020] !important;
 }
 
 .ant-message-notice-content {
-  border-radius: 50px !important;
-  padding: 10px 20px !important;
+  @apply rounded-[55px] py-[10px] px-[20px] !important;
 }
 
-.anticon {
-  display: none;
+.ant-message .anticon {
+  @apply hidden;
 }
 
 .ant-message-notice-content span {
-  color: white !important;
+  @apply text-white !important;
 }
 
 /* ant Carousel 스타일링 */
 .slick-dots li {
-  background-color: #d9d9d9;
-  height: 20px !important;
-  width: 20px !important ;
-  border-radius: 50%;
+  @apply bg-[#d9d9d9] h-4 w-4 rounded-full !important;
 }
 
 .slick-dots li.slick-active {
-  background-color: #ff6d3c;
+  @apply bg-[#ff6d3c];
 }
 
 .slick-dots button {
-  background-color: transparent !important;
+  @apply bg-transparent !important;
 }
