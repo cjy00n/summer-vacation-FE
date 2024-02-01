@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import { CustomButton } from "../AddDiary";
 
 interface AlertModalProps {
-  toggle: boolean;
+  toggle?: boolean;
   title: string;
   okText?: string;
   closeText?: string;
@@ -29,6 +29,7 @@ const AlertModal = ({
       footer={null}
       centered
       closable={false}
+      onCancel={handleClose}
     >
       <div className="flex justify-center items-end h-24">
         <CustomButton

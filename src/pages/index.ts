@@ -5,6 +5,7 @@ export { default as AddDiaryBeforePage } from "./AddDiaryBeforePage";
 export { default as AddDiaryChoicePage } from "./AddDiaryChoicePage";
 export { default as AddDiaryPreviewPage } from "./AddDiaryPreviewPage";
 export { default as AddDiaryFinishPage } from "./AddDiaryFinishPage";
+export { default as AddDiaryDrawingSelectPage } from "./AddDiaryDrawingSelectPage";
 export { default as CalendarPage } from "./CalendarPage";
 export { default as FeedPage } from "./FeedPage";
 export { default as FeedDetailPage } from "./FeedDetailPage";

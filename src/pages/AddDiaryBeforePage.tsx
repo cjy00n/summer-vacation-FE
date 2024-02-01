@@ -3,9 +3,34 @@ import { FullScreenIcon } from "../assets/icons";
 import { TopAppBar } from "../components/common";
 import { Modal } from "antd";
 import { CustomButton } from "../components/AddDiary";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../routes/Route";
 
 const AddDiaryBeforePage = () => {
+  const navigate = useNavigate();
+
   const [isshowModal, setIsShowModal] = useState(false);
+  const [previewImg, setPreviewImg] = useState("");
+
+  const toggleShowModal = () => {
+    setIsShowModal(!isshowModal);
+  };
+
+  const handlePreviewImg = (img: string) => {
+    setPreviewImg(img);
+  };
+
+  /* 전에 그린 그림 아이템 각각 클릭 시 */
+  const onClickItem = (img: string) => {
+    handlePreviewImg(img);
+    toggleShowModal();
+  };
+
+  const handleSelectDrawing = () => {
+    navigate(ROUTE.ADD_DIARY_DRAWING_SELECT_PAGE.link, {
+      state: { img: previewImg },
+    });
+  };
 
   const before = [
     "/rabbit.webp",
@@ -19,12 +44,11 @@ const AddDiaryBeforePage = () => {
     <div className="">
       <TopAppBar title="전에 그린 그림 보기" leftGoBack />
       <div className="w-full grid grid-cols-2">
-        {before.map((img) => (
-          <>
+        {before.map((img, idx) => (
+          <div key={img + idx}>
             <div
-              onClick={() => setIsShowModal(true)}
+              onClick={() => onClickItem(img)}
               className="relative border-[2px_solid_white] p-[1px]"
-              key={img}
             >
               <span className="absolute top-1 right-1">
                 <FullScreenIcon />
@@ -35,10 +59,17 @@ const AddDiaryBeforePage = () => {
               />
             </div>
 
-            <Modal title={null} footer={null} centered open={isshowModal}>
+            <Modal
+              title={null}
+              footer={null}
+              centered
+              open={isshowModal}
+              onCancel={toggleShowModal}
+              closeIcon={null}
+            >
               <div className="flex flex-col items-center justify-center">
                 <img
-                  src={img}
+                  src={previewImg}
                   className="w-[300px] h-[300px] object-cover mb-2"
                 />
                 <div className="flex justify-around w-full">
@@ -46,18 +77,18 @@ const AddDiaryBeforePage = () => {
                     text="닫기"
                     buttonStyle=" border-black bg-white"
                     textStyle="text-black"
-                    onClick={() => setIsShowModal(false)}
+                    onClick={toggleShowModal}
                     size="half"
                   />
                   <CustomButton
                     text="선택"
-                    onClick={() => setIsShowModal(false)}
+                    onClick={handleSelectDrawing}
                     size="half"
                   />
                 </div>
               </div>
             </Modal>
-          </>
+          </div>
         ))}
       </div>
     </div>

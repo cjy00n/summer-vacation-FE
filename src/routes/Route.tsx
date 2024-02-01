@@ -14,6 +14,7 @@ import {
   AddDiaryPreviewPage,
   AddDiaryFinishPage,
   AddDiaryBeforePage,
+  AddDiaryDrawingSelectPage,
 } from "../pages";
 
 interface RouteItem {
@@ -95,6 +96,12 @@ export const ROUTE: Routes = {
     path: "/add/preview",
     link: "/add/preview",
     element: <AddDiaryPreviewPage />,
+  },
+
+  ADD_DIARY_DRAWING_SELECT_PAGE: {
+    path: "/add/select",
+    link: "/add/select",
+    element: <AddDiaryDrawingSelectPage />,
   },
 
   ADD_DIARY_FINISH_PAGE: {
