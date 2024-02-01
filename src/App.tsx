@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { ROUTE_ARR } from "./routes/Route";
 import { BottomAppBar } from "./components/common";
 import { ConfigProvider } from "antd";
-
 import koKR from "antd/lib/locale/ko_KR";
 
 function App() {
@@ -14,6 +13,9 @@ function App() {
           Modal: {
             contentBg: "#F6F6F6",
             headerBg: "#F6F6F6",
+          },
+          Drawer: {
+            colorBgElevated: "#F6F6F6",
           },
         },
         token: {

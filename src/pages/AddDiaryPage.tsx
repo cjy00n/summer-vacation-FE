@@ -1,17 +1,15 @@
-import { Switch, message } from "antd";
+import { Drawer, Switch, message } from "antd";
 import { AlertModal, TopAppBar } from "../components/common";
 import { CloseIcon, AddIcon, EditIcon } from "../assets/icons";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
-import { EmotionIcon } from "../assets/icons/emotions";
 import { format } from "date-fns";
 import {
-  ChoiceItem,
   CustomButton,
   SelectDateModal,
+  TodayChoiceSection,
 } from "../components/AddDiary";
-import { WeatherIcon } from "../assets/icons/weather";
 import { DateType } from "../types";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
@@ -49,8 +47,9 @@ const AddDiaryPage = () => {
     existingWeather ? JSON.parse(existingWeather) : WeatherData[0],
   );
 
-  const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 모달 창 오픈 여부
-  const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close 모달 창 오픈 여부
+  const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
+  const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close Modal 창 오픈 여부
+  const [isEditDrawingOpen, setIsEditDrawingOpen] = useState(false); // 사진 수정 Drawer 오픈 여부
 
   /* 날짜 선택 모달 창 토글 함수 */
   const toggleChangeDateModal = () => {
@@ -60,6 +59,11 @@ const AddDiaryPage = () => {
   /* close 모달 창 토글 함수 */
   const showStopModal = () => {
     setIsStopModalOpen(true);
+  };
+
+  /* 사진 수정 Drawer 토글 함수 */
+  const toggleEditDrawing = () => {
+    setIsEditDrawingOpen(!isEditDrawingOpen);
   };
 
   /* close 모달 창 - 나가기 선택 시  => 로컬스토리지 비우며 홈 화면으로 이동 */
@@ -107,6 +111,11 @@ const AddDiaryPage = () => {
         date: date,
       },
     });
+  };
+
+  /* 전에 그린 그림 보기 => 전에 그린 그림 페이지로 이동 */
+  const linkBeforePage = () => {
+    navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link);
   };
 
   return (
@@ -159,68 +168,16 @@ const AddDiaryPage = () => {
           {content.length + "/80"}
         </span>
       </div>
-      <div className="flex flex-col p-4 mx-2 border-b">
-        <span className="py-1 text-sm w-full font-medium">오늘의 기분</span>
-        <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
-          {EmotionData.map((item) => (
-            <ChoiceItem
-              key={"choice-" + item}
-              icon={
-                <EmotionIcon
-                  emotion={item}
-                  width={24}
-                  height={24}
-                  fillColor={`${emotion === item ? "white" : "#BAB6B4"}`}
-                />
-              }
-              choice={emotion}
-              setChoice={setEmotion}
-              text={item}
-            />
-          ))}
-        </div>
-        <div className="flex py-2 rounded-lg items-center justify-around">
-          {EmotionData.map((item) => (
-            <span
-              key={"emotion-text-" + item}
-              className="w-12 text-xs font-normal text-center"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col p-4 mx-2 border-b">
-        <span className="py-1 text-sm w-full font-medium">오늘의 날씨</span>
-        <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
-          {WeatherData.map((item) => (
-            <ChoiceItem
-              key={"choice-" + item}
-              icon={
-                <WeatherIcon
-                  weather={item}
-                  width={24}
-                  height={24}
-                  fillColor={`${weather === item ? "white" : "#BAB6B4"}`}
-                />
-              }
-              choice={weather}
-              setChoice={setWeather}
-              text={item}
-            />
-          ))}
-        </div>
-        <div className="flex py-2 rounded-lg items-center justify-around">
-          {WeatherData.map((item) => (
-            <span
-              key={"emotion-text-" + item}
-              className="w-12 text-xs font-normal text-center"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
+      <TodayChoiceSection
+        target="emotion"
+        choice={emotion}
+        setChoice={setEmotion}
+      />
+      <TodayChoiceSection
+        target="weather"
+        choice={weather}
+        setChoice={setWeather}
+      />
       <div className="flex items-center h-14 p-4 mx-2 mb-3 border-b">
         <span className="py-1 text-sm w-full font-medium">나만 보기</span>
         <Switch className="bg-gray-200" />
@@ -228,7 +185,10 @@ const AddDiaryPage = () => {
       <div className="flex flex-col items-center justify-center gap-6">
         {state?.img ? (
           <div className="relative ">
-            <button className="absolute right-2 top-2 p-1 rounded-full bg-black bg-opacity-20">
+            <button
+              onClick={toggleEditDrawing}
+              className="absolute right-2 top-2 p-1 rounded-full bg-black bg-opacity-20"
+            >
               <EditIcon width={32} height={32} />
             </button>
             <img
@@ -265,6 +225,21 @@ const AddDiaryPage = () => {
         closeText="닫기"
         handleClose={handleStopCancel}
       />
+      <Drawer
+        open={isEditDrawingOpen}
+        placement="bottom"
+        title="그림 수정"
+        closeIcon={<CloseIcon />}
+        onClose={toggleEditDrawing}
+        height={230}
+        style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
+      >
+        <button onClick={linkBeforePage}>전에 그린 그림 보기</button>
+        <button className="justify-between text-gray-50">
+          <span>다시 그리기(0/3)</span>
+          <span>그릴 수 있는 횟수가 끝났어요</span>
+        </button>
+      </Drawer>
       {contextHolder}
     </div>
   );

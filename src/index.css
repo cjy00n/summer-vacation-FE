@@ -114,3 +114,25 @@ textarea {
 .slick-dots button {
   @apply bg-transparent !important;
 }
+
+/* ant-drawer 스타일링 */
+
+.ant-drawer-bottom .ant-drawer-close {
+  @apply absolute right-0;
+}
+
+.ant-drawer-title {
+  @apply text-base font-bold pt-2 pb-1 !important;
+}
+
+.ant-drawer-body {
+  @apply h-10 py-1 !important;
+}
+
+.ant-drawer-body button {
+  @apply flex w-full py-4 border-b-2 border-gray-80 border-solid font-semibold text-sm;
+}
+
+.ant-drawer-body button > span {
+  @apply font-semibold text-sm;
+}
