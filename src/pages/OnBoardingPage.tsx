@@ -25,7 +25,7 @@ const OnBoardingPage = () => {
             괜히 설레이던 여름방학
           </p>
           <img
-            className="w-72 h-72 object-cover mx-auto"
+            className="w-60 object-cover mx-auto"
             src="/image/onBoarding1.svg"
           />
           <div className="py-8 text-center text-base font-semibold mb-10">
