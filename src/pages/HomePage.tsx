@@ -14,17 +14,18 @@ const HomePage = () => {
   const month = new Date().getMonth() + 1;
 
   return (
-    <div className="bg-primary-white">
+    <div className="bg-primary-orange">
       <TopAppBar
         title="AI 그림일기"
+        bgColor="bg-primary-orange"
         rightIcon={
           <Link to={ROUTE.NOTIFICATION_PAGE.link}>
-            <NotificationIcon />
+            <NotificationIcon fillColor="white" />
           </Link>
         }
       />
       <Banner />
-      <div className="px-4 py-2">
+      <div className="px-4 py-2 bg-primary-white">
         <HomeTitle
           title={`${month}월 사생대회`}
           description="AI가 그린 기린 그림"

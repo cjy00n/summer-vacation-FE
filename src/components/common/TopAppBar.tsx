@@ -3,6 +3,7 @@ import { ArrowLeftIcon } from "../../assets/icons";
 
 interface TopAppBarProps {
   title: string;
+  bgColor?: string;
   leftGoBack?: boolean;
   leftIcon?: React.ReactElement;
   rightIcon?: React.ReactElement;
@@ -12,6 +13,7 @@ interface TopAppBarProps {
 
 const TopAppBar = ({
   title,
+  bgColor,
   leftGoBack,
   leftIcon,
   rightIcon,
@@ -24,7 +26,9 @@ const TopAppBar = ({
   };
 
   return (
-    <header className="flex bg-primary-white items-center px-4 py-3 w-full h-14 justify-between shadow-custom ">
+    <header
+      className={`flex ${bgColor ?? "bg-primary-white"} items-center px-4 py-3 w-full h-14 justify-between ${bgColor ? "" : " shadow-custom"}`}
+    >
       <div className="flex">
         {leftGoBack ? (
           <button onClick={goBack}>
