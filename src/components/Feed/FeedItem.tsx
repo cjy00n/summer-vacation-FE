@@ -30,7 +30,7 @@ const FeedItem = ({ img, like, idx, _id }: FeedItemProps) => {
   };
 
   const getSize = () => {
-    return `${idx % 6 === 1 ? "w-[66vw]" : "w-[33vw]"} ${idx % 6 === 2 || idx % 6 === 4 ? "h-[66vw]" : "h-[33vw]"} `;
+    return `${idx % 6 === 1 ? "w-[66vw] custom-breakpoint:w-[320px]" : "w-[33vw] custom-breakpoint:w-[160px]"} ${idx % 6 === 2 || idx % 6 === 4 ? "h-[66vw] custom-breakpoint:h-[320px]" : "h-[33vw] custom-breakpoint:w-[160px]"} `;
   };
 
   const linkToDetalPage = () => {
@@ -38,13 +38,10 @@ const FeedItem = ({ img, like, idx, _id }: FeedItemProps) => {
   };
 
   return (
-    <div
-      className={`${getGridRatio()} relative bg-white`}
-      onClick={linkToDetalPage}
-    >
+    <div className={`${getGridRatio()} relative `} onClick={linkToDetalPage}>
       <img src={img} className={`${getSize()} object-cover`} loading="lazy" />
       <div
-        className={`absolute top-0 bg-opacity-10 bg-black ${getSize()} `}
+        className={`absolute top-0 bg-opacity-10 bg-black ${getSize()}`}
       ></div>
       <div className="absolute bottom-1 flex">
         <FillStarIcon width={20} height={20} fillColor="white" />

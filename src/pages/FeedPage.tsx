@@ -1,8 +1,12 @@
+import { useRecoilState } from "recoil";
 import { FillStarIcon } from "../assets/icons";
 import { FeedItem } from "../components/Feed";
 import { TopAppBar } from "../components/common";
+import { bottomTabState } from "../recoil/atoms/bottomTabState";
+import { useEffect } from "react";
 
 const FeedPage = () => {
+  const [, setActiveBottomTab] = useRecoilState(bottomTabState);
   const tempData = [
     {
       img: "https://image.kmib.co.kr/online_image/2022/1023/2022102113444970898_1666327489_0017592082.jpg",
@@ -65,6 +69,10 @@ const FeedPage = () => {
       id: "14",
     },
   ];
+
+  useEffect(() => {
+    setActiveBottomTab("FEED");
+  }, [setActiveBottomTab]);
 
   return (
     <div className="bg-primary-white">

@@ -47,7 +47,7 @@ const HomePage = () => {
         <HomeContest />
         <div className="fixed z-10 bottom-24 left-[50%] transform -translate-x-1/2">
           <CustomButton
-            buttonStyle="border-0 bg-primary-orange"
+            buttonStyle="border-none bg-primary-orange"
             onClick={linkAddDiaryPage}
             text="일기 쓰러가기"
             size="long"

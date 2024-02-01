@@ -55,7 +55,7 @@ const AddDiaryBeforePage = () => {
               </span>
               <img
                 src={img}
-                className="row-span-1 w-[50vw] h-[50vw] object-cover "
+                className="row-span-1 w-[50vw] h-[50vw] custom-breakpoint:w-[240px] custom-breakpoint:h-[240px] object-cover "
               />
             </div>
 

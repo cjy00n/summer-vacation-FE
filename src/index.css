@@ -4,7 +4,7 @@
 
 /* HTML 및 Body 기본 스타일 */
 html {
-  @apply bg-white;
+  @apply bg-primary-white;
   scroll-behavior: smooth;
 }
 

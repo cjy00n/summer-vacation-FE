@@ -7,7 +7,11 @@ import {
   ShareIcon,
   StarIcon,
 } from "../assets/icons";
-import { FeedDetailItem, FeedStampMenu } from "../components/Feed";
+import {
+  FeedDetailItem,
+  FeedProgressBar,
+  FeedStampMenu,
+} from "../components/Feed";
 import { PageBottomShadow, TopAppBar } from "../components/common";
 import { Emotion } from "../types";
 import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
@@ -143,6 +147,7 @@ const FeedDetailPage = () => {
         </div>
       </div>
       <PageBottomShadow />
+      <FeedProgressBar />
     </>
   );
 };
