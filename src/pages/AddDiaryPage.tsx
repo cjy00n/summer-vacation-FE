@@ -71,6 +71,7 @@ const AddDiaryPage = () => {
     localStorage.removeItem("diary-title");
     localStorage.removeItem("diary-emotion");
     localStorage.removeItem("diary-weather");
+    localStorage.removeItem("diary-date");
   };
 
   /* close 모달 창 - 닫기 선택 시 => close 모달 닫기 */
@@ -109,7 +110,7 @@ const AddDiaryPage = () => {
   };
 
   return (
-    <div className="mb-4 bg-primary-white">
+    <div className="mb-4">
       <TopAppBar
         title="일기쓰기"
         rightIcon={<CloseIcon />}

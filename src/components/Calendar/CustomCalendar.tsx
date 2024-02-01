@@ -34,12 +34,12 @@ const CustomCalendar = ({
   };
 
   const temp: { date: Date; emotion: Emotion }[] = [
-    { date: new Date("2024-01-09"), emotion: "괜찮아요" },
-    { date: new Date("2024-01-10"), emotion: "슬퍼요" },
-    { date: new Date("2024-01-11"), emotion: "화나요" },
-    { date: new Date("2024-01-27"), emotion: "기뻐요" },
-    { date: new Date("2024-01-28"), emotion: "슬퍼요" },
-    { date: new Date("2024-01-29"), emotion: "괜찮아요" },
+    { date: new Date("2024-02-01"), emotion: "괜찮아요" },
+    { date: new Date("2024-02-10"), emotion: "슬퍼요" },
+    { date: new Date("2024-02-11"), emotion: "화나요" },
+    { date: new Date("2024-02-27"), emotion: "기뻐요" },
+    { date: new Date("2024-02-28"), emotion: "슬퍼요" },
+    { date: new Date("2024-02-29"), emotion: "괜찮아요" },
     { date: new Date("2024-01-31"), emotion: "좋아요" },
   ];
   const isHaveDiaryDay = temp.some(
@@ -65,8 +65,8 @@ const CustomCalendar = ({
       );
       if (event) {
         return (
-          <span className="bg-white rounded-full">
-            {<EmotionIcon emotion={event.emotion} />}
+          <span className="bg-primary-yellow rounded-full">
+            {<EmotionIcon emotion={event.emotion} width={15} height={15} />}
           </span>
         );
       }

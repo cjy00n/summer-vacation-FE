@@ -25,6 +25,7 @@ const SelectDateModal = ({
       }}
       closeIcon={<CloseIcon />}
       footer={null}
+      className="bg-primary-white"
     >
       <div className="p-0 m-0">
         <CustomCalendar

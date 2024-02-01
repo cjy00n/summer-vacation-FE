@@ -1,4 +1,3 @@
-import { LoadingIcon } from "../../assets/icons";
 import { Modal, message } from "antd";
 
 interface DrawingModalProp {
@@ -30,7 +29,7 @@ const DrawingModal = ({ toggle, onSucess, isFirst }: DrawingModalProp) => {
           );
         }}
       >
-        <LoadingIcon width={60} height={60} />
+        <img src="/image/loading.png" />
         <p className="text-sm font-semibold my-10 text-center">
           AI가 그림을 열심히 그리고 있어요!
           <br />
