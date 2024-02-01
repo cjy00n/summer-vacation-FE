@@ -254,7 +254,18 @@ const AddDiaryPage = () => {
           </button>
         )}
         <CustomButton
-          onClick={() => console.log("미리보기")}
+          onClick={() =>
+            navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link, {
+              state: {
+                content: content,
+                title: title,
+                img: state.img,
+                emotion: emotion,
+                weather: weather,
+                date: date,
+              },
+            })
+          }
           text="일기 미리보기"
           size="long"
           buttonStyle={

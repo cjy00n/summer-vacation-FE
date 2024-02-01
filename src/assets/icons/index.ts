@@ -17,3 +17,4 @@ export { default as KebabMenuIcon } from "./KebabMenuIcon";
 export { default as LoadingIcon } from "./LoadingIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as FullScreenIcon } from "./FullScreenIcon";
+export { default as AddPhotoIcon } from "./AddPhotoIcon";
