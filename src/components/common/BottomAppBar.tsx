@@ -51,7 +51,7 @@ const BottomAppbar = () => {
       className="w-[100vw] custom-breakpoint:w-[480px] px-0 py-2
       flex justify-around items-center
       bg-gray-90
-      shadow-[0_-5px_10px_-5px_lightgray]
+      shadow-[0_-5px_10px_-5px_gray]
       h-20
       fixed bottom-0
       z-10"
