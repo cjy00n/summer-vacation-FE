@@ -67,7 +67,7 @@ const FeedPage = () => {
   ];
 
   return (
-    <div>
+    <div className="bg-primary-white">
       <TopAppBar
         title="오늘의 일기"
         leftIcon={<FillStarIcon fillColor="black" />}

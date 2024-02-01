@@ -18,7 +18,7 @@ const LongButton = ({
   return (
     <button
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled ?? false}
       className={`h-12 mx-auto my-1 ${buttonStyle ?? "bg-primary-orange"} border-[1px] border-solid ${
         size === "long"
           ? "w-[320px]"

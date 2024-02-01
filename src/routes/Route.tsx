@@ -10,6 +10,10 @@ import {
   ProfilePage,
   OnBoardingPage,
   AddDiaryConfirmPage,
+  AddDiaryChoicePage,
+  AddDiaryPreviewPage,
+  AddDiaryFinishPage,
+  AddDiaryBeforePage,
 } from "../pages";
 
 interface RouteItem {
@@ -73,6 +77,30 @@ export const ROUTE: Routes = {
     path: "/add/confirm",
     link: "/add/confirm",
     element: <AddDiaryConfirmPage />,
+  },
+
+  ADD_DIARY_CHOICE_PAGE: {
+    path: "/add/choice",
+    link: "/add/choice",
+    element: <AddDiaryChoicePage />,
+  },
+
+  ADD_DIARY_BEFORE_PAGE: {
+    path: "/add/before",
+    link: "/add/before",
+    element: <AddDiaryBeforePage />,
+  },
+
+  ADD_DIARY_PREVIEW_PAGE: {
+    path: "/add/preview",
+    link: "/add/preview",
+    element: <AddDiaryPreviewPage />,
+  },
+
+  ADD_DIARY_FINISH_PAGE: {
+    path: "/add/finish",
+    link: "/add/finish",
+    element: <AddDiaryFinishPage />,
   },
 
   CALENDAR_PAGE: {

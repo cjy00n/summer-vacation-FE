@@ -21,12 +21,12 @@ const AddDiaryConfirmPage = () => {
         <img src={img} className="w-[320px] h-[320px] object-cover" />
         <div className="flex flex-col my-4">
           <CustomButton
-            disabled
+            disabled={retryCount === 3}
             size="long"
             buttonStyle={`${retryCount <= 2 ? ` ` : " opacity-20 "} bg-white border-black  `}
             text="전에 그린 그림 보기"
             textStyle={`text-black`}
-            onClick={() => console.log("전")}
+            onClick={() => navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link)}
           />
           <CustomButton
             text={`다시 그리기(${retryCount}/3)`}

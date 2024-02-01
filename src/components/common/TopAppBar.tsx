@@ -24,7 +24,7 @@ const TopAppBar = ({
   };
 
   return (
-    <header className="flex items-center px-4 py-3 w-full h-14 justify-between shadow-custom ">
+    <header className="flex bg-primary-white items-center px-4 py-3 w-full h-14 justify-between shadow-custom ">
       <div className="flex">
         {leftGoBack ? (
           <button onClick={goBack}>

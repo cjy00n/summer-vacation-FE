@@ -14,7 +14,7 @@ const HomePage = () => {
   const month = new Date().getMonth() + 1;
 
   return (
-    <div>
+    <div className="bg-primary-white">
       <TopAppBar
         title="AI 그림일기"
         rightIcon={

@@ -25,12 +25,16 @@ import {
   RainyIcon,
 } from "../assets/icons/weather";
 import { DateType } from "../types";
+import { useRecoilState } from "recoil";
+import { bottomTabState } from "../recoil/atoms/bottomTabState";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
   const existingContent = localStorage.getItem("diary-content"); // 기존 일기 내용 로컬스토리지에서 가져오기
 
   const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
+
+  const [, setActiveBottomTab] = useRecoilState(bottomTabState);
 
   const [date, setDate] = useState(state?.date ?? (new Date() as DateType));
   const [title, setTitle] = useState("");
@@ -54,6 +58,7 @@ const AddDiaryPage = () => {
   const handleStopOk = () => {
     setIsStopModalOpen(false);
     navigate(ROUTE.HOME_PAGE.link);
+    setActiveBottomTab("HOME");
     localStorage.removeItem("diary-content");
   };
 
