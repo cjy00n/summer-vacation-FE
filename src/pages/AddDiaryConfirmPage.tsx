@@ -12,14 +12,15 @@ const AddDiaryConfirmPage = () => {
   const [retryCount, setRetryCount] = useState(2);
   const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false);
 
-  const img = "/sample.webp";
+  const image = "/sample.webp"; // 받아오는 이미지로 해야함
+
   return (
     <div className="flex flex-col">
       <TopAppBar title="AI 그림 확인" leftGoBack />
       <div className="mx-auto flex flex-col items-center p-4">
         <h2 className="py-3 text-lg font-semibold">AI는 이렇게 그렸어요</h2>
-        <img src={img} className="h-[320px] w-[320px] object-cover" />
-        <div className="my-4 flex flex-col">
+        <img src={image} className="h-[320px] w-[320px] object-cover" />
+        <div className="my-6 flex h-40 flex-col">
           <CustomButton
             type={retryCount >= 2 ? "disabled" : "white"}
             size="long"
@@ -49,7 +50,7 @@ const AddDiaryConfirmPage = () => {
             content={`이 그림으로 할래요`}
             size="long"
             onClick={() =>
-              navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { img: img } })
+              navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { image: image } })
             }
           />
           {contextHolder}

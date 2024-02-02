@@ -6,7 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { format } from "date-fns";
 import { SelectDateModal, TodayChoiceSection } from "../components/AddDiary";
-import { DateType, Diary, Emotion, Weather } from "../types";
+import {
+  DateType,
+  Diary,
+  DiaryLocalstorageType,
+  Emotion,
+  Weather,
+} from "../types";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
 import { EmotionData, WeatherData } from "../assets/data";
@@ -24,12 +30,13 @@ const AddDiaryPage = () => {
   const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
 
   const existingData = getDiaryLocalStorage();
-  const [diaryData, setDiaryData] = useState<Omit<Diary, "img">>({
-    content: existingData.content ?? "",
+  const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>({
+    contents: existingData.contents ?? "",
     title: existingData.title ?? "",
     emotion: existingData.emotion ?? EmotionData[0],
     weather: existingData.weather ?? WeatherData[0],
     date: existingData.date ?? new Date(),
+    isPublic: existingData.isPublic ?? 1,
   });
 
   const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
@@ -72,7 +79,7 @@ const AddDiaryPage = () => {
   const linkTransferPage = () => {
     if (diaryData.title.length === 0) {
       message.open({ type: "error", content: "제목을 입력해주세요." });
-    } else if (diaryData.content.length === 0) {
+    } else if (diaryData.contents.length === 0) {
       message.open({ type: "error", content: "내용을 입력해주세요." });
     } else {
       navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
@@ -82,16 +89,13 @@ const AddDiaryPage = () => {
 
   /* 미리보기 페이지로 이동 (state에 데이터 담아 넘겨줌) */
   const linkPreviewPage = () => {
-    navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link, {
-      state: {
-        content: diaryData.content,
-        title: diaryData.title,
-        img: state.img,
-        emotion: diaryData.emotion,
-        weather: diaryData.weather,
-        date: diaryData.date,
-      },
-    });
+    let image;
+    if (state?.image) {
+      image = state?.image;
+      navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link, {
+        state: { ...diaryData, image },
+      });
+    }
   };
 
   /* 전에 그린 그림 보기 => 전에 그린 그림 페이지로 이동 */
@@ -142,13 +146,13 @@ const AddDiaryPage = () => {
       </div>
       <div className="flex flex-col border-y-2 px-6">
         <textarea
-          value={diaryData.content}
-          onChange={(e) => updateField("content", e.target.value)}
+          value={diaryData.contents}
+          onChange={(e) => updateField("contents", e.target.value)}
           placeholder="내용 쓰기"
           className="h-28 bg-transparent pt-3 text-xs outline-none "
         />
         <span className="w-full pb-2 text-right text-xs text-gray-30">
-          {diaryData.content.length + "/80"}
+          {diaryData.contents.length + "/80"}
         </span>
       </div>
       <TodayChoiceSection
@@ -159,10 +163,15 @@ const AddDiaryPage = () => {
       />
       <div className="mx-2 mb-3 flex h-14 items-center border-b p-4">
         <span className="w-full py-1 text-sm font-medium">나만 보기</span>
-        <Switch className="bg-gray-200" />
+        <Switch
+          className="bg-gray-200"
+          onChange={(checked) =>
+            updateField("isPublic", checked === true ? 0 : 1)
+          }
+        />
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
-        {state?.img ? (
+        {state?.image ? (
           <div className="relative ">
             <button
               onClick={toggleEditDrawing}
@@ -171,7 +180,7 @@ const AddDiaryPage = () => {
               <EditIcon width={32} height={32} />
             </button>
             <img
-              src={state?.img}
+              src={state?.image}
               className="h-[320px] w-[320px] object-cover"
             />
           </div>
@@ -190,7 +199,7 @@ const AddDiaryPage = () => {
           onClick={linkPreviewPage}
           content="일기 미리보기"
           size="long"
-          type={state?.img ? "default" : "disabled"}
+          type={state?.image ? "default" : "disabled"}
         />
       </div>
       <AlertModal

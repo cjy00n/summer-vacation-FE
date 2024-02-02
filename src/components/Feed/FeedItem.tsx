@@ -3,13 +3,13 @@ import { FillStarIcon } from "../../assets/icons";
 import { ROUTE } from "../../routes/Route";
 
 interface FeedItemProps {
-  img: string;
+  image: string;
   like: number;
   idx: number;
   _id: string;
 }
 
-const FeedItem = ({ img, like, idx, _id }: FeedItemProps) => {
+const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
   const navigate = useNavigate();
 
   const getGridRatio = () => {
@@ -39,13 +39,13 @@ const FeedItem = ({ img, like, idx, _id }: FeedItemProps) => {
 
   return (
     <div className={`${getGridRatio()} relative `} onClick={linkToDetalPage}>
-      <img src={img} className={`${getSize()} object-cover`} loading="lazy" />
+      <img src={image} className={`${getSize()} object-cover`} loading="lazy" />
       <div
-        className={`absolute top-0 bg-opacity-10 bg-black ${getSize()}`}
+        className={`absolute top-0 bg-black bg-opacity-10 ${getSize()}`}
       ></div>
       <div className="absolute bottom-1 flex">
         <FillStarIcon width={20} height={20} fillColor="white" />
-        <span className="text-primary-white text-xs font-bold ">
+        <span className="text-xs font-bold text-primary-white ">
           {like.toLocaleString()}
         </span>
       </div>

@@ -5,7 +5,7 @@ import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 const AddDiaryTranslatePage = () => {
-  const content = JSON.parse(localStorage.getItem("diary-content") ?? ""); // 번역할 글 받아오기
+  const content = JSON.parse(localStorage.getItem("diary-contents") ?? ""); // 번역할 글 받아오기
 
   // const { data, mutate } = usePostDiaryTranslation(content);
   // if (content) mutate();

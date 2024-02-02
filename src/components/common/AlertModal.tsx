@@ -36,6 +36,7 @@ const AlertModal = ({
           onClick={handleOk}
           content={okText ?? "그만둘래요"}
           type="dangerous"
+          size="half"
         />
         <CustomButton
           onClick={handleClose}

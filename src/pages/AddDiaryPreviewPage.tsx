@@ -12,7 +12,8 @@ const AddDiaryPreviewPage = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const { state } = useLocation();
-  const { title, content, img, weather, emotion, date } = state;
+
+  const { title, contents, weather, emotion, date, image } = state;
 
   const handleCompleteDiary = () => {
     clearDiaryLocalStorage();
@@ -30,8 +31,8 @@ const AddDiaryPreviewPage = () => {
         <FeedDetailItem
           date={date}
           title={title}
-          content={content}
-          imgUrl={img}
+          contents={contents}
+          image={image}
           weather={weather}
           emotion={emotion}
         />

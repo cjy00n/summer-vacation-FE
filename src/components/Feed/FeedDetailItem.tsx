@@ -9,8 +9,8 @@ interface FeedDetailItemProp {
   date: Date;
   weather: Weather;
   emotion: Emotion;
-  imgUrl: string;
-  content: string;
+  image: string;
+  contents: string;
   title: string;
   like?: number;
   isLike?: boolean;
@@ -20,28 +20,28 @@ export const FeedDetailItem = ({
   date,
   weather,
   emotion,
-  imgUrl,
-  content,
+  image,
+  contents,
   like,
   title,
   isLike,
 }: FeedDetailItemProp) => {
   return (
     <>
-      <div className="flex flex-col w-[322px] mx-auto mt-6 border-[1px] border-primary-orange border-solid">
+      <div className="mx-auto mt-6 flex w-[322px] flex-col border-[1px] border-solid border-primary-orange">
         <div className="flex h-8">
-          <span className="border-[1px] w-16 text-center font-semibold text-sm leading-7 border-primary-orange border-solid">
+          <span className="w-16 border-[1px] border-solid border-primary-orange text-center text-sm font-semibold leading-7">
             날짜
           </span>
-          <p className="font-gamja w-64 pl-2 border-[1px] border-primary-orange border-solid font-normal text-base leading-8">
+          <p className="w-64 border-[1px] border-solid border-primary-orange pl-2 font-gamja text-base font-normal leading-8">
             {format(date, "yyyy년 MM월 dd일 eeee", { locale: ko })}
           </p>
         </div>
         <div className="flex h-8">
-          <span className="border-[1px] w-16 text-center font-semibold text-sm leading-7 border-primary-orange border-solid ">
+          <span className="w-16 border-[1px] border-solid border-primary-orange text-center text-sm font-semibold leading-7 ">
             날씨
           </span>
-          <p className="flex items-center px-2 justify-around font-gamja w-[91px]  border-[1px] border-primary-orange border-solid font-normal text-base">
+          <p className="flex w-[91px] items-center justify-around border-[1px] border-solid  border-primary-orange px-2 font-gamja text-base font-normal">
             {
               <WeatherIcon
                 weather={weather}
@@ -52,50 +52,50 @@ export const FeedDetailItem = ({
             }
             {weather}
           </p>
-          <span className="w-16 text-center font-semibold text-sm leading-7 border-[1px] border-primary-orange border-solid">
+          <span className="w-16 border-[1px] border-solid border-primary-orange text-center text-sm font-semibold leading-7">
             기분
           </span>
-          <p className="flex items-center px-1 justify-around font-gamja w-[101px] border-[1px] border-primary-orange border-solid font-normal text-base leading-8">
+          <p className="flex w-[101px] items-center justify-around border-[1px] border-solid border-primary-orange px-1 font-gamja text-base font-normal leading-8">
             {<EmotionIcon emotion={emotion} />}
             {emotion}
           </p>
         </div>
-        <div className="flex h-[320px] relative border-[1px] border-primary-orange border-solid">
+        <div className="relative flex h-[320px] border-[1px] border-solid border-primary-orange">
           <img
-            src={imgUrl}
-            className="absolute top-0 w-[320px] h-[318px] object-cover"
+            src={image}
+            className="absolute top-0 h-[318px] w-[320px] object-cover"
           />
           {isLike && (
             <img
               src="/image/stamp.webp"
-              className="z-10 absolute w-20 h-20 bottom-6 left-2 w-18 h-18 rotate-[-10deg] shadow-custom"
+              className="w-18 h-18 absolute bottom-6 left-2 z-10 h-20 w-20 rotate-[-10deg] shadow-custom"
             />
           )}
           {like && (
             <div
-              className="absolute flex bottom-2 left-2 bg-black bg-opacity-50 rounded-lg w-[88px] h-8
-          items-center justify-center content-center"
+              className="absolute bottom-2 left-2 flex h-8 w-[88px] content-center items-center justify-center
+          rounded-lg bg-black bg-opacity-50"
             >
               <FillStarIcon fillColor="white" />
-              <span className="text-white mx-1">{like.toLocaleString()}</span>
+              <span className="mx-1 text-white">{like.toLocaleString()}</span>
             </div>
           )}
         </div>
         <div className="flex h-8">
-          <span className="w-16 text-center font-semibold text-sm leading-7 border-[1px]  border-primary-orange border-solid">
+          <span className="w-16 border-[1px] border-solid border-primary-orange text-center text-sm  font-semibold leading-7">
             제목
           </span>
-          <p className="font-gamja w-64 pl-2 border-[1px] border-primary-orange border-solid font-normal text-base leading-8">
+          <p className="w-64 border-[1px] border-solid border-primary-orange pl-2 font-gamja text-base font-normal leading-8">
             {title}
           </p>
         </div>
         <div className="flex flex-wrap">
-          {(content + " ".repeat(80 - content.length))
+          {(contents + " ".repeat(80 - contents.length))
             .split("")
             .map((s, idx) => (
               <span
                 key={idx}
-                className="flex w-8 h-8 font-gamja text-lg font-normal items-center justify-center text-center leading-8 border-[1px] border-primary-orange border-solid"
+                className="flex h-8 w-8 items-center justify-center border-[1px] border-solid border-primary-orange text-center font-gamja text-lg font-normal leading-8"
               >
                 {s}
               </span>

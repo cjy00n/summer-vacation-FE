@@ -29,7 +29,7 @@ const FeedDetailPage = () => {
     date: new Date(),
     weather: WeatherData[2],
     emotion: EmotionData[1],
-    imgUrl:
+    image:
       "https://mblogthumb-phinf.pstatic.net/MjAxNzAyMTZfMTc1/MDAxNDg3MjA1NDE1MjY2.QH0KN_iUDKx8OviOiSe7xyfQAnITCeqMf7VW0RIDTcEg.AXQnn3XzvjDksNaSNvQh30tEN5DD0xB1q_iropXRCgQg.JPEG.narospacemuseum/%EC%9D%B8%EC%82%AC%EC%9D%B4%EB%93%9C%EC%95%84%EC%9B%832.jpg?type=w800",
     title: "오늘의 일기오늘의 일기오늘의 일기오늘의",
     content:
@@ -46,7 +46,7 @@ const FeedDetailPage = () => {
     date,
     weather,
     emotion,
-    imgUrl,
+    image,
     title,
     content,
     like,
@@ -124,8 +124,8 @@ const FeedDetailPage = () => {
           date={date}
           weather={weather}
           emotion={emotion}
-          imgUrl={imgUrl}
-          content={content}
+          image={image}
+          contents={content}
           like={like}
           isLike={isLike}
         />
