@@ -1,9 +1,10 @@
 import { atom } from "recoil";
 import { loadDrawingRecord } from "../utils/loadDrawingRecord";
 
-interface DrawingRecordStateType {
-  lastAttemptDate: Date;
+export interface DrawingRecordStateType {
+  lastAttemptDate: string;
   remainingTries: number;
+  beforeImages: string[];
 }
 
 export const drawingRecordState = atom<DrawingRecordStateType>({

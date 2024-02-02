@@ -3,11 +3,12 @@ export function loadDrawingRecord() {
   const today = new Date().toDateString();
 
   if (drawingRecord) {
-    const { lastAttemptDate, remainingTries } = JSON.parse(drawingRecord);
+    const { lastAttemptDate, remainingTries, beforeImages } =
+      JSON.parse(drawingRecord);
     if (lastAttemptDate === today) {
-      return { lastAttemptDate, remainingTries };
+      return { lastAttemptDate, remainingTries, beforeImages };
     }
   }
 
-  return { lastAttemptDate: today, remainingTries: 3 };
+  return { lastAttemptDate: today, remainingTries: 3, beforeImages: [] };
 }
