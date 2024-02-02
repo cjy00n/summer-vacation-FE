@@ -3,8 +3,8 @@ import IconComponentProps from "./IconComponentProps";
 const NotificationIcon = ({ width, height, fillColor }: IconComponentProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={width ?? "11"}
-    height={height ?? "17"}
+    width={width ?? "17"}
+    height={height ?? "19"}
     viewBox="0 0 11 17"
     fill="none"
   >

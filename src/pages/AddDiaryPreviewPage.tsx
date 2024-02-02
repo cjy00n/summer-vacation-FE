@@ -5,6 +5,7 @@ import { CustomButton } from "../components/AddDiary";
 import { message } from "antd";
 import { FileDownloadIcon } from "../assets/icons";
 import { ROUTE } from "../routes/Route";
+import { clearDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
 
 const AddDiaryPreviewPage = () => {
   const navigate = useNavigate();
@@ -15,20 +16,12 @@ const AddDiaryPreviewPage = () => {
   const { title, content, img, weather, emotion, date } = state;
 
   const handleCompleteDiary = () => {
-    localStorage.removeItem("diary-content");
-    localStorage.removeItem("diary-title");
-    localStorage.removeItem("diary-emotion");
-    localStorage.removeItem("diary-weather");
-    localStorage.removeItem("diary-date");
+    clearDiaryLocalStorage();
     navigate(ROUTE.ADD_DIARY_COMPLETE_PAGE.link);
   };
 
   const handleDownladDrawing = () => {
-    messageApi.open({
-      type: "warning",
-      content: "현재 준비중인 기능이에요.",
-      duration: 1,
-    });
+    messageApi.warning("다운로드 기능은 현재 준비중이에요.");
   };
 
   return (

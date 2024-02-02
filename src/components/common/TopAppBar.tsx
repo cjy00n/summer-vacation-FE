@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "../../assets/icons";
 
 interface TopAppBarProps {
-  title: string;
+  title?: string;
   bgColor?: string;
   leftGoBack?: boolean;
   leftIcon?: React.ReactElement;
@@ -37,7 +37,11 @@ const TopAppBar = ({
         ) : (
           <button>{leftIcon}</button>
         )}
-        <span className="text-base font-semibold">{title}</span>
+        {title ? (
+          <span className="text-base font-semibold">{title}</span>
+        ) : (
+          <span className="">{<img src="/logo.svg" />}</span>
+        )}
       </div>
 
       <button onClick={rightOnClick}>{rightIcon}</button>

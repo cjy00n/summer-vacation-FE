@@ -9,7 +9,7 @@ const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
 
   const [messageApi, contextHolder] = message.useMessage();
-  const [retryCount, setRetryCount] = useState(3);
+  const [retryCount, setRetryCount] = useState(2);
   const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false);
 
   const img = "/sample.webp";

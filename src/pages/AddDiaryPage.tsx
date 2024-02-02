@@ -10,10 +10,15 @@ import {
   SelectDateModal,
   TodayChoiceSection,
 } from "../components/AddDiary";
-import { DateType } from "../types";
+import { DateType, Diary, Emotion, Weather } from "../types";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
 import { EmotionData, WeatherData } from "../assets/data";
+import {
+  clearDiaryLocalStorage,
+  getDiaryLocalStorage,
+  setDiaryLocalStorage,
+} from "../utils/handleDiaryLocalStorage";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
@@ -22,34 +27,22 @@ const AddDiaryPage = () => {
 
   const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
 
-  const existingContent = localStorage.getItem("diary-content"); // 기존 일기 내용 로컬스토리지에서 가져오기
-  const existingTitle = localStorage.getItem("diary-title"); // 기존 일기 제목 로컬스토리지에서 가져오기
-  const existingWeather = localStorage.getItem("diary-weather"); // 기존 일기 날씨 로컬스토리지에서 가져오기
-  const existingEmotion = localStorage.getItem("diary-emotion"); // 기존 일기 기분 로컬스토리지에서 가져오기
-  const existingDate = localStorage.getItem("diary-date"); // 기존 일기 날짜 로컬스토리지에서 가져오기
-
-  /* state 초기화 (기존 입력중이던 데이터 있으면 가져오기, 아니면 초기화) */
-  const [date, setDate] = useState(
-    existingDate
-      ? new Date(JSON.parse(existingDate))
-      : (new Date() as DateType),
-  );
-  const [title, setTitle] = useState(
-    existingTitle ? JSON.parse(existingTitle) : "",
-  );
-  const [content, setContent] = useState(
-    existingContent ? JSON.parse(existingContent) : "",
-  );
-  const [emotion, setEmotion] = useState(
-    existingEmotion ? JSON.parse(existingEmotion) : EmotionData[0],
-  );
-  const [weather, setWeather] = useState(
-    existingWeather ? JSON.parse(existingWeather) : WeatherData[0],
-  );
+  const existingData = getDiaryLocalStorage();
+  const [diaryData, setDiaryData] = useState<Omit<Diary, "img">>({
+    content: existingData.content ?? "",
+    title: existingData.title ?? "",
+    emotion: existingData.emotion ?? EmotionData[0],
+    weather: existingData.weather ?? WeatherData[0],
+    date: existingData.date ?? new Date(),
+  });
 
   const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
   const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close Modal 창 오픈 여부
   const [isEditDrawingOpen, setIsEditDrawingOpen] = useState(false); // 사진 수정 Drawer 오픈 여부
+
+  const updateField = <K extends keyof Diary>(field: K, value: Diary[K]) => {
+    setDiaryData((prevData) => ({ ...prevData, [field]: value }));
+  };
 
   /* 날짜 선택 모달 창 토글 함수 */
   const toggleChangeDateModal = () => {
@@ -71,11 +64,7 @@ const AddDiaryPage = () => {
     setIsStopModalOpen(false);
     navigate(ROUTE.HOME_PAGE.link);
     setActiveBottomTab("HOME");
-    localStorage.removeItem("diary-content");
-    localStorage.removeItem("diary-title");
-    localStorage.removeItem("diary-emotion");
-    localStorage.removeItem("diary-weather");
-    localStorage.removeItem("diary-date");
+    clearDiaryLocalStorage();
   };
 
   /* close 모달 창 - 닫기 선택 시 => close 모달 닫기 */
@@ -85,17 +74,13 @@ const AddDiaryPage = () => {
 
   /* 번역 페이지로 이동 (제목, 내용 길이 0 아닐때만) */
   const linkTransferPage = () => {
-    if (title.length === 0) {
+    if (diaryData.title.length === 0) {
       message.open({ type: "error", content: "제목을 입력해주세요." });
-    } else if (content.length === 0) {
+    } else if (diaryData.content.length === 0) {
       message.open({ type: "error", content: "내용을 입력해주세요." });
     } else {
       navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
-      localStorage.setItem("diary-content", JSON.stringify(content));
-      localStorage.setItem("diary-title", JSON.stringify(title));
-      localStorage.setItem("diary-emotion", JSON.stringify(emotion));
-      localStorage.setItem("diary-weather", JSON.stringify(weather));
-      localStorage.setItem("diary-date", JSON.stringify(date));
+      setDiaryLocalStorage(diaryData);
     }
   };
 
@@ -103,12 +88,12 @@ const AddDiaryPage = () => {
   const linkPreviewPage = () => {
     navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link, {
       state: {
-        content: content,
-        title: title,
+        content: diaryData.content,
+        title: diaryData.title,
         img: state.img,
-        emotion: emotion,
-        weather: weather,
-        date: date,
+        emotion: diaryData.emotion,
+        weather: diaryData.weather,
+        date: diaryData.date,
       },
     });
   };
@@ -129,7 +114,7 @@ const AddDiaryPage = () => {
         <span className="font-medium text-sm mr-8">날짜</span>
         <div className="flex w-4/5 justify-between">
           <span className="text-sm font-medium">
-            {format(date!.toString(), "yyy년 MM월 dd일")}
+            {format(diaryData.date!.toString(), "yyy년 MM월 dd일")}
           </span>
           <button
             className="text-primary-orange text-sm font-normal"
@@ -140,8 +125,8 @@ const AddDiaryPage = () => {
         </div>
       </div>
       <SelectDateModal
-        date={date}
-        setDate={setDate}
+        date={diaryData.date}
+        setDate={(date: DateType) => updateField("date", date)}
         toggle={isChangeDateOpen}
         setToggle={toggleChangeDateModal}
       />
@@ -149,34 +134,32 @@ const AddDiaryPage = () => {
         <span className="font-medium text-sm mr-8">제목</span>
         <div className="flex w-4/5 justify-between">
           <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={diaryData.title}
+            onChange={(e) => updateField("title", e.target.value)}
             placeholder="제목을 입력하세요"
             className="text-sm bg-transparent"
           />
-          <span className=" text-gray-30 text-xs">{title.length + "/18"}</span>
+          <span className=" text-gray-30 text-xs">
+            {diaryData.title.length + "/18"}
+          </span>
         </div>
       </div>
       <div className="flex flex-col border-y-2 px-6">
         <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          value={diaryData.content}
+          onChange={(e) => updateField("content", e.target.value)}
           placeholder="내용 쓰기"
           className="h-28 pt-3 text-xs bg-transparent outline-none "
         />
         <span className="w-full pb-2 text-right text-gray-30 text-xs">
-          {content.length + "/80"}
+          {diaryData.content.length + "/80"}
         </span>
       </div>
       <TodayChoiceSection
-        target="emotion"
-        choice={emotion}
-        setChoice={setEmotion}
-      />
-      <TodayChoiceSection
-        target="weather"
-        choice={weather}
-        setChoice={setWeather}
+        emotion={diaryData.emotion}
+        weather={diaryData.weather}
+        setWeather={(weather: Weather) => updateField("weather", weather)}
+        setEmotion={(emotion: Emotion) => updateField("emotion", emotion)}
       />
       <div className="flex items-center h-14 p-4 mx-2 mb-3 border-b">
         <span className="py-1 text-sm w-full font-medium">나만 보기</span>

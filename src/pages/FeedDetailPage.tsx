@@ -13,6 +13,7 @@ import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
 import { EmotionData, WeatherData } from "../assets/data";
 import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
+import { message } from "antd";
 
 const FeedDetailPage = () => {
   // 임시로, state에 내 글인지 아닌지 담아서 받음
@@ -20,6 +21,8 @@ const FeedDetailPage = () => {
 
   const { state } = useLocation();
   if (state?.isMine) isMine = true;
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   // 피드데이터 (임시)
   const feedData = {
@@ -59,6 +62,7 @@ const FeedDetailPage = () => {
   const [isBookmark, setIsBookmark] = useState(false);
   const [stampButtonIcon, setStampButtonIcon] = useState(<StarIcon />);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const toggleBookmark = () => {
     setIsBookmark(!isBookmark);
   };
@@ -69,6 +73,11 @@ const FeedDetailPage = () => {
 
   const toggleLike = () => {
     setIsLike(!isLike);
+  };
+
+  const handleBookMark = () => {
+    messageApi.warning("북마크 기능은 현재 준비 중이에요.");
+    // toggleBookmark();
   };
 
   // 참 잘했어요 버튼 클릭 시
@@ -129,13 +138,14 @@ const FeedDetailPage = () => {
             isBookmark={isBookmark}
             isLike={isLike}
             onStampButtonClick={onStampButtonClick}
-            toggleBookmark={toggleBookmark}
+            toggleBookmark={handleBookMark}
             stampButtonIcon={stampButtonIcon}
           />
         )}
       </div>
       <PageBottomShadow />
       {!isMine && <FeedProgressBar />}
+      {contextHolder}
     </>
   );
 };

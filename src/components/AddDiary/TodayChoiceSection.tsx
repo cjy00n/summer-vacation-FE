@@ -1,70 +1,82 @@
-import { ChoiceItem } from ".";
 import { EmotionData, WeatherData } from "../../assets/data";
 import { EmotionIcon } from "../../assets/icons/emotions";
 import { WeatherIcon } from "../../assets/icons/weather";
 import { Emotion, Weather } from "../../types";
 
 interface TodayChoiceSection {
-  target: "emotion" | "weather";
-  choice: Emotion | Weather;
-  setChoice: React.Dispatch<Emotion | Weather>;
+  emotion: Emotion;
+  weather: Weather;
+  setWeather: (weather: Weather) => void;
+  setEmotion: (choice: Emotion) => void;
 }
 
 const TodayChoiceSection = ({
-  target,
-  choice,
-  setChoice,
+  emotion,
+  weather,
+  setEmotion,
+  setWeather,
 }: TodayChoiceSection) => {
-  const targetData =
-    target === "emotion"
-      ? EmotionData
-      : target === "weather"
-        ? WeatherData
-        : null;
-
   return (
-    targetData && (
+    <>
       <div className="flex flex-col p-4 mx-2 border-b">
-        <span className="py-1 text-sm w-full font-medium">{`오늘의 ${target === "emotion" ? "기분" : "날씨"}`}</span>
+        <span className="py-1 text-sm w-full font-medium">{"오늘의 기분"}</span>
         <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
-          {targetData.map((item) => (
-            <ChoiceItem
-              key={`${target}-text-${item}`}
-              icon={
-                target === "emotion" ? (
-                  <EmotionIcon
-                    emotion={item as Emotion}
-                    width={24}
-                    height={24}
-                    fillColor={`${choice === item ? "white" : "#BAB6B4"}`}
-                  />
-                ) : (
-                  <WeatherIcon
-                    weather={item as Weather}
-                    width={24}
-                    height={24}
-                    fillColor={`${choice === item ? "white" : "#BAB6B4"}`}
-                  />
-                )
-              }
-              choice={choice}
-              setChoice={setChoice}
-              text={item}
-            />
+          {EmotionData.map((item) => (
+            <button
+              key={"emotion-choice" + item}
+              onClick={() => setEmotion(item)}
+              className={`${emotion === item ? "bg-primary-orange" : ""} rounded-full  w-10 h-10 flex items-center justify-center`}
+            >
+              <EmotionIcon
+                emotion={item as Emotion}
+                width={24}
+                height={24}
+                fillColor={`${emotion === item ? "white" : "#BAB6B4"}`}
+              />
+            </button>
           ))}
         </div>
-        <div className="flex py-2 rounded-lg items-center justify-around">
-          {targetData.map((item) => (
+        <div className="flex w-full items-center justify-around">
+          {EmotionData.map((item) => (
             <span
-              key={`${target}-text-${item}`}
-              className="w-12 text-xs font-normal text-center"
+              className="text-xs w-12 text-center"
+              key={"emotion-text" + item}
             >
               {item}
             </span>
           ))}
         </div>
       </div>
-    )
+      <div className="flex flex-col p-4 mx-2 border-b">
+        <span className="py-1 text-sm w-full font-medium">{"오늘의 기분"}</span>
+        <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
+          {WeatherData.map((item) => (
+            <button
+              key={"emotion-choice" + item}
+              onClick={() => setWeather(item)}
+              className={`${weather === item ? "bg-primary-orange" : ""} rounded-full  w-10 h-10 flex items-center justify-center`}
+            >
+              <WeatherIcon
+                weather={item}
+                width={24}
+                height={24}
+                fillColor={`${weather === item ? "white" : "#BAB6B4"}`}
+              />
+            </button>
+          ))}
+        </div>
+        <div className="flex w-full items-center justify-around">
+          {WeatherData.map((item) => (
+            <span
+              className="text-xs w-12 text-center"
+              key={"weather-text" + item}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

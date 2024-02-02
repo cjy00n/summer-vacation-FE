@@ -23,7 +23,7 @@ const HomePage = () => {
   return (
     <div className="bg-primary-orange">
       <TopAppBar
-        title="AI 그림일기"
+        title="여름방학"
         bgColor="bg-primary-orange"
         rightIcon={
           <Link to={ROUTE.NOTIFICATION_PAGE.link}>
