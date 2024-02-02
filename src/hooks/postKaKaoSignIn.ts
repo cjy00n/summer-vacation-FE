@@ -1,30 +1,30 @@
-import axios from "axios";
 import { instance } from ".";
-// import { useNavigate } from "react-router-dom";
-// import { useMutation } from "react-query";
+import { ROUTE } from "../routes/Route";
 
-export const postKaKaoSignIn = async (code: string, redirectUrl: string) => {
+interface SignInResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export const postKaKaoSignIn = async (
+  code: string,
+  redirectUri: string,
+  navigate: (path: string) => void,
+) => {
   try {
-    const response = await axios.post(`/api/users/sign-in/kakao`, {
-      code,
-      redirectUrl,
-    });
-    console.log(response);
+    const response = await instance.post<SignInResponse>(
+      "/users/sign-in/kakao",
+      {
+        code: code,
+        redirectUri: redirectUri,
+      },
+    );
+    console.log(response.data);
+    localStorage.setItem("accessToken", response.data.accessToken);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
+
+    navigate(ROUTE.ONBOARDING_PAGE.link);
   } catch (e) {
     console.error(e);
   }
 };
-
-// export function usePostKaKaoSignIn(code:string, redirectUrl:string) {
-//   const navigate = useNavigate();
-
-//   return useMutation(() => postKaKaoSignIn(code, redirectUrl), {
-//     onSuccess: (response) => {
-//       const token = response.data.token;
-//     },
-
-//     onError: (error) => {
-//       showAlert("Error", error.response.data.message, "error", () => {});
-//     },
-//   });
-// }
