@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "../components/AddDiary";
+import { CustomButton } from "../components/common";
 import { ROUTE } from "../routes/Route";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
@@ -14,10 +14,10 @@ const AddDiaryCompletePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-[100vh] justify-center">
+    <div className="flex h-[100vh] flex-col items-center justify-center">
       <img src="/image/complete.webp" className="w-32" />
-      <h1 className="mt-1 mb-24 font-semibold">일기 쓰기를 완료했어요!</h1>
-      <CustomButton text="참 잘했어요!" onClick={linkHomePage} size="long" />
+      <h1 className="mb-24 mt-1 font-semibold">일기 쓰기를 완료했어요!</h1>
+      <CustomButton content="참 잘했어요!" onClick={linkHomePage} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { BookmarkIcon, FillBookmarkIcon, ShareIcon } from "../../assets/icons";
-import { CircleButton } from "../common";
+import { CircleButton, CustomButton } from "../common";
 
 interface FeedBottomOthersProps {
   toggleBookmark: () => void;
@@ -15,38 +15,37 @@ const FeedBottomOthers = ({
   onStampButtonClick,
   isLike,
   stampButtonIcon,
-}: FeedBottomOthersProps) => {
-  return (
-    <div className="fixed z-10 bottom-[100px] left-[50%] transform -translate-x-1/2 flex w-[320px] justify-between">
-      <CircleButton
-        icon={<ShareIcon fillColor="white" />}
-        onClick={() => console.log("준비중")}
-      />
-      <CircleButton
-        type="toggle"
-        onClick={toggleBookmark}
-        icon={
-          isBookmark ? (
-            <FillBookmarkIcon width={20} height={16} fillColor="white" />
-          ) : (
-            <BookmarkIcon width={24} height={24} />
-          )
-        }
-        toggle={isBookmark}
-      />
-      <button
-        onClick={onStampButtonClick}
-        className={`flex items-center justify-center shadow-lg ${isLike ? "bg-primary-orange" : "bg-white border-[1px] border-solid border-black"} w-[192px] h-12 rounded-[81px] `}
-      >
-        {stampButtonIcon}
+}: FeedBottomOthersProps) => (
+  <div className="fixed bottom-[100px] left-[50%] z-10 flex w-[320px] -translate-x-1/2 transform justify-between">
+    <CircleButton
+      icon={<ShareIcon fillColor="white" />}
+      onClick={() => console.log("준비중")}
+    />
+    <CircleButton
+      type="toggle"
+      onClick={toggleBookmark}
+      icon={
+        isBookmark ? (
+          <FillBookmarkIcon width={20} height={16} fillColor="white" />
+        ) : (
+          <BookmarkIcon width={24} height={24} />
+        )
+      }
+      toggle={isBookmark}
+    />
+    <CustomButton
+      type={isLike ? "default" : "white"}
+      size="middle"
+      onClick={onStampButtonClick}
+      content={
         <span
-          className={`${isLike ? "text-white" : "text-black"} font-medium text-base mx-1`}
+          className={`flex items-center justify-around px-10 ${isLike ? "text-white" : "text-black"} mx-1 text-base font-medium`}
         >
-          참 잘했어요
+          {stampButtonIcon} 참 잘했어요
         </span>
-      </button>
-    </div>
-  );
-};
+      }
+    ></CustomButton>
+  </div>
+);
 
 export default FeedBottomOthers;

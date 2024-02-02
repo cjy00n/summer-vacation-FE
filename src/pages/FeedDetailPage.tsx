@@ -101,7 +101,12 @@ const FeedDetailPage = () => {
       type === "star" ? (
         <FillStarIcon fillColor="white" />
       ) : (
-        <GetEmotionIcon emotion={type} fillColor="white" />
+        <GetEmotionIcon
+          emotion={type}
+          fillColor="white"
+          width={22}
+          height={22}
+        />
       ),
     );
   };

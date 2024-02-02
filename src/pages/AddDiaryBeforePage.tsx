@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { FullScreenIcon } from "../assets/icons";
-import { TopAppBar } from "../components/common";
+import { TopAppBar, CustomButton } from "../components/common";
 import { Modal } from "antd";
-import { CustomButton } from "../components/AddDiary";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 
@@ -43,19 +42,19 @@ const AddDiaryBeforePage = () => {
   return (
     <div className="">
       <TopAppBar title="전에 그린 그림 보기" leftGoBack />
-      <div className="w-full grid grid-cols-2">
+      <div className="grid w-full grid-cols-2">
         {before.map((img, idx) => (
           <div key={img + idx}>
             <div
               onClick={() => onClickItem(img)}
               className="relative border-[2px_solid_white] p-[1px]"
             >
-              <span className="absolute top-1 right-1">
+              <span className="absolute right-1 top-1">
                 <FullScreenIcon />
               </span>
               <img
                 src={img}
-                className="row-span-1 w-[50vw] h-[50vw] custom-breakpoint:w-[240px] custom-breakpoint:h-[240px] object-cover "
+                className="row-span-1 h-[50vw] w-[50vw] object-cover custom-breakpoint:h-[240px] custom-breakpoint:w-[240px] "
               />
             </div>
 
@@ -70,18 +69,16 @@ const AddDiaryBeforePage = () => {
               <div className="flex flex-col items-center justify-center">
                 <img
                   src={previewImg}
-                  className="w-[300px] h-[300px] object-cover mb-2"
+                  className="mb-2 h-[300px] w-[300px] object-cover"
                 />
-                <div className="flex justify-around w-full">
+                <div className="flex w-full justify-around">
                   <CustomButton
-                    text="닫기"
-                    buttonStyle=" border-black bg-white"
-                    textStyle="text-black"
+                    content="닫기"
                     onClick={toggleShowModal}
                     size="half"
                   />
                   <CustomButton
-                    text="선택"
+                    content="선택"
                     onClick={handleSelectDrawing}
                     size="half"
                   />

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { TopAppBar } from "../components/common";
-import { CustomButton, DrawingModal } from "../components/AddDiary";
+import { CustomButton, TopAppBar } from "../components/common";
+import { DrawingModal } from "../components/AddDiary";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
@@ -16,22 +16,19 @@ const AddDiaryConfirmPage = () => {
   return (
     <div className="flex flex-col">
       <TopAppBar title="AI 그림 확인" leftGoBack />
-      <div className="flex flex-col p-4 mx-auto items-center">
-        <h2 className="text-lg font-semibold py-3">AI는 이렇게 그렸어요</h2>
-        <img src={img} className="w-[320px] h-[320px] object-cover" />
-        <div className="flex flex-col my-4">
+      <div className="mx-auto flex flex-col items-center p-4">
+        <h2 className="py-3 text-lg font-semibold">AI는 이렇게 그렸어요</h2>
+        <img src={img} className="h-[320px] w-[320px] object-cover" />
+        <div className="my-4 flex flex-col">
           <CustomButton
-            disabled={retryCount === 3}
+            type={retryCount >= 2 ? "disabled" : "white"}
             size="long"
-            buttonStyle={`${retryCount <= 2 ? ` ` : " opacity-20 "} bg-white border-black  `}
-            text="전에 그린 그림 보기"
-            textStyle={`text-black`}
+            content="전에 그린 그림 보기"
             onClick={() => navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link)}
           />
           <CustomButton
-            text={`다시 그리기(${retryCount}/3)`}
-            buttonStyle={`${retryCount === 0 ? "opacity-20" : ""} bg-black`}
-            size="long"
+            content={`다시 그리기(${retryCount}/3)`}
+            type={retryCount === 0 ? "disabled" : "black"}
             onClick={() => {
               if (retryCount === 0) {
                 messageApi.open({
@@ -49,7 +46,7 @@ const AddDiaryConfirmPage = () => {
             onSucess={() => setIsDrawingModalOpen(!isDrawingModalOpen)}
           />
           <CustomButton
-            text={`이 그림으로 할래요`}
+            content={`이 그림으로 할래요`}
             size="long"
             onClick={() =>
               navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { img: img } })

@@ -27,7 +27,7 @@ const CircleButton = ({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center justify-center shadow-lg w-12 h-12 mx-auto rounded-[81px] ${getButtonStyle()}`}
+      className={`mx-auto flex h-12 w-12 items-center justify-center rounded-[81px] shadow-lg ${getButtonStyle()}`}
     >
       {icon}
     </button>

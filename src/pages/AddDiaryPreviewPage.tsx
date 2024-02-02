@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { CircleButton, TopAppBar } from "../components/common";
+import { CircleButton, CustomButton, TopAppBar } from "../components/common";
 import { FeedDetailItem } from "../components/Feed";
-import { CustomButton } from "../components/AddDiary";
 import { message } from "antd";
 import { FileDownloadIcon } from "../assets/icons";
 import { ROUTE } from "../routes/Route";
@@ -27,7 +26,7 @@ const AddDiaryPreviewPage = () => {
   return (
     <div>
       <TopAppBar title="일기쓰기" leftGoBack />
-      <div className="flex flex-col relative mx-auto w-[320px]">
+      <div className="relative mx-auto flex w-[320px] flex-col">
         <FeedDetailItem
           date={date}
           title={title}
@@ -36,13 +35,13 @@ const AddDiaryPreviewPage = () => {
           weather={weather}
           emotion={emotion}
         />
-        <div className="flex fixed z-10 bottom-[10px] left-[50%] transform -translate-x-1/2 w-[320px] my-2">
+        <div className="fixed bottom-[10px] left-[50%] z-10 my-2 flex w-[320px] -translate-x-1/2 transform">
           <CircleButton
             onClick={handleDownladDrawing}
             icon={<FileDownloadIcon width={32} height={32} />}
           />
           <CustomButton
-            text="작성 완료하기"
+            content="작성 완료하기"
             onClick={handleCompleteDiary}
             size="middleLong"
           />

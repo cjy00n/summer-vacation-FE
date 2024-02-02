@@ -1,15 +1,11 @@
 import { Drawer, Switch, message } from "antd";
-import { AlertModal, TopAppBar } from "../components/common";
+import { AlertModal, CustomButton, TopAppBar } from "../components/common";
 import { CloseIcon, AddIcon, EditIcon } from "../assets/icons";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { format } from "date-fns";
-import {
-  CustomButton,
-  SelectDateModal,
-  TodayChoiceSection,
-} from "../components/AddDiary";
+import { SelectDateModal, TodayChoiceSection } from "../components/AddDiary";
 import { DateType, Diary, Emotion, Weather } from "../types";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
@@ -110,14 +106,14 @@ const AddDiaryPage = () => {
         rightIcon={<CloseIcon />}
         rightOnClick={showStopModal}
       />
-      <div className="flex h-14 items-center px-6 py-2 border-b justify-between">
-        <span className="font-medium text-sm mr-8">날짜</span>
+      <div className="flex h-14 items-center justify-between border-b px-6 py-2">
+        <span className="mr-8 text-sm font-medium">날짜</span>
         <div className="flex w-4/5 justify-between">
           <span className="text-sm font-medium">
             {format(diaryData.date!.toString(), "yyy년 MM월 dd일")}
           </span>
           <button
-            className="text-primary-orange text-sm font-normal"
+            className="text-sm font-normal text-primary-orange"
             onClick={toggleChangeDateModal}
           >
             변경
@@ -130,16 +126,16 @@ const AddDiaryPage = () => {
         toggle={isChangeDateOpen}
         setToggle={toggleChangeDateModal}
       />
-      <div className="flex h-14 items-center px-6 py-2 justify-between">
-        <span className="font-medium text-sm mr-8">제목</span>
+      <div className="flex h-14 items-center justify-between px-6 py-2">
+        <span className="mr-8 text-sm font-medium">제목</span>
         <div className="flex w-4/5 justify-between">
           <input
             value={diaryData.title}
             onChange={(e) => updateField("title", e.target.value)}
             placeholder="제목을 입력하세요"
-            className="text-sm bg-transparent"
+            className="bg-transparent text-sm"
           />
-          <span className=" text-gray-30 text-xs">
+          <span className=" text-xs text-gray-30">
             {diaryData.title.length + "/18"}
           </span>
         </div>
@@ -149,9 +145,9 @@ const AddDiaryPage = () => {
           value={diaryData.content}
           onChange={(e) => updateField("content", e.target.value)}
           placeholder="내용 쓰기"
-          className="h-28 pt-3 text-xs bg-transparent outline-none "
+          className="h-28 bg-transparent pt-3 text-xs outline-none "
         />
-        <span className="w-full pb-2 text-right text-gray-30 text-xs">
+        <span className="w-full pb-2 text-right text-xs text-gray-30">
           {diaryData.content.length + "/80"}
         </span>
       </div>
@@ -161,8 +157,8 @@ const AddDiaryPage = () => {
         setWeather={(weather: Weather) => updateField("weather", weather)}
         setEmotion={(emotion: Emotion) => updateField("emotion", emotion)}
       />
-      <div className="flex items-center h-14 p-4 mx-2 mb-3 border-b">
-        <span className="py-1 text-sm w-full font-medium">나만 보기</span>
+      <div className="mx-2 mb-3 flex h-14 items-center border-b p-4">
+        <span className="w-full py-1 text-sm font-medium">나만 보기</span>
         <Switch className="bg-gray-200" />
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
@@ -170,34 +166,31 @@ const AddDiaryPage = () => {
           <div className="relative ">
             <button
               onClick={toggleEditDrawing}
-              className="absolute right-2 top-2 p-1 rounded-full bg-black bg-opacity-20"
+              className="absolute right-2 top-2 rounded-full bg-black bg-opacity-20 p-1"
             >
               <EditIcon width={32} height={32} />
             </button>
             <img
               src={state?.img}
-              className="w-[320px] h-[320px] object-cover"
+              className="h-[320px] w-[320px] object-cover"
             />
           </div>
         ) : (
           <button
             onClick={linkTransferPage}
-            className="flex flex-col items-center justify-center w-[320px] h-[320px] bg-gray-70 rounded"
+            className="flex h-[320px] w-[320px] flex-col items-center justify-center rounded bg-gray-70"
           >
             <AddIcon fillColor="black" />
-            <span className="font-semibold text-sm">
+            <span className="text-sm font-semibold">
               선택해서 AI로 그림 그리기
             </span>
           </button>
         )}
         <CustomButton
           onClick={linkPreviewPage}
-          text="일기 미리보기"
+          content="일기 미리보기"
           size="long"
-          buttonStyle={
-            state?.img ? `bg-primary-orange` : "bg-gray-70 opacity-40"
-          }
-          disabled={state?.img === null}
+          type={state?.img ? "default" : "disabled"}
         />
       </div>
       <AlertModal

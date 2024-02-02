@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import { CustomButton } from "../AddDiary";
+import { CustomButton } from ".";
 
 interface AlertModalProps {
   toggle?: boolean;
@@ -31,17 +31,17 @@ const AlertModal = ({
       closable={false}
       onCancel={handleClose}
     >
-      <div className="flex justify-center items-end h-24">
+      <div className="flex h-24 items-end justify-center">
         <CustomButton
           onClick={handleOk}
-          text={okText ?? "그만둘래요"}
-          buttonStyle="bg-error-red"
+          content={okText ?? "그만둘래요"}
+          type="dangerous"
         />
         <CustomButton
           onClick={handleClose}
-          text={closeText ?? "닫기"}
-          buttonStyle="bg-white border-black "
-          textStyle="text-black"
+          content={closeText ?? "닫기"}
+          type="white"
+          size="half"
         />
       </div>
     </Modal>

@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { TopAppBar } from "../components/common";
-import { CustomButton } from "../components/AddDiary";
+import { TopAppBar, CustomButton } from "../components/common";
 import { ROUTE } from "../routes/Route";
 
 const AddDiaryDrawingSelectPage = () => {
@@ -10,26 +9,25 @@ const AddDiaryDrawingSelectPage = () => {
   const { img } = state;
 
   return (
-    <div className="flex flex-col h-[100vh]">
+    <div className="flex h-[100vh] flex-col">
       <TopAppBar title="AI 그림 선택" leftGoBack />
-      <div className="flex flex-col justify-center items-center h-full">
-        <h1 className="text-lg font-semibold text-left w-[320px] py-2">
+      <div className="flex h-full flex-col items-center justify-center">
+        <h1 className="w-[320px] py-2 text-left text-lg font-semibold">
           이 그림을 선택할까요?
         </h1>
         <img
           src={img}
-          className="w-[320px] h-[320px] object-cover rounded-md"
+          className="h-[320px] w-[320px] rounded-md object-cover"
         />
-        <div className="w-[320px] flex justify-between py-2">
+        <div className="flex w-[320px] justify-between py-2">
           <CustomButton
-            text="뒤로"
-            buttonStyle=" border-black bg-white"
-            textStyle="text-black"
+            content="뒤로"
+            type="white"
             onClick={() => navigate(-1)}
             size="half"
           />
           <CustomButton
-            text="선택"
+            content="선택"
             onClick={() =>
               navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { img: img } })
             }

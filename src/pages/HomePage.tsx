@@ -7,9 +7,12 @@ import {
   HomeTitle,
 } from "../components/Home";
 import HomeRecentBestDiary from "../components/Home/HomeRecentBestDiary";
-import { PageBottomShadow, TopAppBar } from "../components/common";
+import {
+  PageBottomShadow,
+  CustomButton,
+  TopAppBar,
+} from "../components/common";
 import { ROUTE } from "../routes/Route";
-import { CustomButton } from "../components/AddDiary";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -32,7 +35,7 @@ const HomePage = () => {
         }
       />
       <Banner />
-      <div className="relative px-4 pt-10 pb-20 bg-primary-white">
+      <div className="relative bg-primary-white px-4 pb-20 pt-10">
         <HomeTitle
           title="최근 관심을 받는 일기"
           description="가장 큰 관심을 받고 있어요"
@@ -45,11 +48,10 @@ const HomePage = () => {
           description="AI가 그린 기린 그림"
         />
         <HomeContest />
-        <div className="fixed z-10 bottom-24 left-[50%] transform -translate-x-1/2">
+        <div className="fixed bottom-24 left-[50%] z-10 -translate-x-1/2 transform">
           <CustomButton
-            buttonStyle="border-none bg-primary-orange"
             onClick={linkAddDiaryPage}
-            text="일기 쓰러가기"
+            content="일기 쓰러가기"
             size="long"
           />
         </div>

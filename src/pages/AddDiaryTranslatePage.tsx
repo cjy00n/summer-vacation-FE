@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { AlertModal, TopAppBar } from "../components/common";
-import { CustomButton, DrawingModal } from "../components/AddDiary";
+import { AlertModal, CustomButton, TopAppBar } from "../components/common";
+import { DrawingModal } from "../components/AddDiary";
 import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
-
 const AddDiaryTranslatePage = () => {
   const content = JSON.parse(localStorage.getItem("diary-content") ?? ""); // 번역할 글 받아오기
+
+  // const { data, mutate } = usePostDiaryTranslation(content);
+  // if (content) mutate();
+  // console.log(data);
 
   const navigate = useNavigate();
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
@@ -22,7 +25,7 @@ const AddDiaryTranslatePage = () => {
   );
 
   return (
-    <div className="flex flex-col h-[100vh]">
+    <div className="flex h-[100vh] flex-col">
       <TopAppBar
         title="글 확인하기"
         leftGoBack
@@ -35,42 +38,41 @@ const AddDiaryTranslatePage = () => {
         handleOk={() => navigate(ROUTE.HOME_PAGE.link)}
         handleClose={() => setIsCloseModalOpen(false)}
       />
-      <div className="flex flex-col px-4 my-auto justify-center h-full">
+      <div className="my-auto flex h-full flex-col justify-center px-4">
         <div>
           <h2 className="text-lg font-semibold">
             AI는 이렇게 생각했어요(역번역)
           </h2>
-          <p className="text-sm font-normal py-2">
+          <p className="py-2 text-sm font-normal">
             부탁한 그림을 영어로 번역해 그리고 있어요.
             <br />
             번역된 단어가 어울리지 않을 경우 수정해 주세요.
           </p>
-          <div className="bg-gray-80 my-2">
+          <div className="my-2 bg-gray-80">
             <textarea
-              className="w-full bg-transparent text-xs p-4 rounded-md"
+              className="w-full rounded-md bg-transparent p-4 text-xs"
               value={koreanContent}
               onChange={(e) => setKoreanContent(e.target.value)}
             />
           </div>
-          <h3 className="font-semibold pt-6 py-2">번역된 글</h3>
-          <div className="bg-gray-80 my-2">
+          <h3 className="py-2 pt-6 font-semibold">번역된 글</h3>
+          <div className="my-2 bg-gray-80">
             <textarea
-              className="w-full bg-transparent text-xs p-4 rounded-md text-gray-30"
+              className="w-full rounded-md bg-transparent p-4 text-xs text-gray-30"
               value={englishContent}
               onChange={(e) => setEnglishContent(e.target.value)}
             />
           </div>
         </div>
-        <div className="flex my-20">
+        <div className="my-20 flex">
           <CustomButton
-            text="글 수정하기"
-            textStyle="text-black"
-            buttonStyle="bg-white border-black"
+            content="글 수정하기"
             onClick={() => navigate(-1)}
             size="short"
+            type="black"
           />
           <CustomButton
-            text="그림 부탁하기"
+            content="그림 부탁하기"
             onClick={() => setIsDrawingModalOpen(!isDrawingModalOpen)}
             size="middle"
           />
