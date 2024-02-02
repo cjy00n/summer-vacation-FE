@@ -1,18 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomButton, TopAppBar } from "../components/common";
 import { DrawingModal } from "../components/AddDiary";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
+import { usePostDiaryDrawing } from "../hooks/postDiaryDrawing";
 
 const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
 
   const [messageApi, contextHolder] = message.useMessage();
   const [retryCount, setRetryCount] = useState(2);
-  const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false);
 
-  const image = "/sample.webp"; // 받아오는 이미지로 해야함
+  let image = ""; // 받아오는 이미지로 해야함
+  let engContents = "";
+
+  const { state } = useLocation();
+  if (state && state.image) image = state.image;
+  if (state && state.engContents) engContents = state.engContents;
+
+  const { mutate: drawing, data, isSuccess, isLoading } = usePostDiaryDrawing();
+
+  const handleDrawing = () => {
+    if (engContents) {
+      drawing(engContents);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      console.log(data);
+      image = data;
+    }
+  }, [isSuccess, data, navigate]);
 
   return (
     <div className="flex flex-col">
@@ -37,15 +57,12 @@ const AddDiaryConfirmPage = () => {
                   content: "그릴 수 있는 횟수가 끝났어요",
                 });
               } else {
+                handleDrawing();
                 setRetryCount(retryCount - 1);
-                setIsDrawingModalOpen(!isDrawingModalOpen);
               }
             }}
           />
-          <DrawingModal
-            toggle={isDrawingModalOpen}
-            onSucess={() => setIsDrawingModalOpen(!isDrawingModalOpen)}
-          />
+          <DrawingModal open={isLoading} />
           <CustomButton
             content={`이 그림으로 할래요`}
             size="long"

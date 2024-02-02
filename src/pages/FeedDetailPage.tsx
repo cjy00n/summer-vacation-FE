@@ -77,7 +77,7 @@ const FeedDetailPage = () => {
 
   const handleBookMark = () => {
     messageApi.warning("북마크 기능은 현재 준비 중이에요.");
-    // toggleBookmark();
+    toggleBookmark();
   };
 
   // 참 잘했어요 버튼 클릭 시

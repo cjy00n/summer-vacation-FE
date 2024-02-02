@@ -2,9 +2,13 @@ import { instance } from ".";
 import { useMutation } from "react-query";
 
 interface DiaryTranslationResponse {
-  srcLangType: "ko";
-  tarLangTyle: "en";
-  translatedText: string;
+  message: {
+    result: {
+      srcLangType: "ko";
+      tarLangTyle: "en";
+      translatedText: string;
+    };
+  };
 }
 
 export const postDiaryTranslation = async (input: string) => {
@@ -13,8 +17,8 @@ export const postDiaryTranslation = async (input: string) => {
       "/diary/translation-text",
       { input: input },
     );
-    console.log("response:", response);
-    response.data.translatedText;
+
+    return response.data.message.result.translatedText;
   } catch (e) {
     console.error(e);
   }
