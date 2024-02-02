@@ -13,7 +13,10 @@ export interface Diary {
   createdAt: Date;
 }
 
-export type DiaryLocalstorageType = Pick<
-  Diary,
-  "date" | "weather" | "emotion" | "contents" | "title" | "isPublic"
->;
+export interface DiaryLocalstorageType
+  extends Pick<
+    Diary,
+    "date" | "weather" | "emotion" | "contents" | "title" | "isPublic"
+  > {
+  englishContents: string;
+}

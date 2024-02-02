@@ -30,14 +30,17 @@ const AddDiaryPage = () => {
   const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
 
   const existingData = getDiaryLocalStorage();
-  const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>({
-    contents: existingData.contents ?? "",
-    title: existingData.title ?? "",
-    emotion: existingData.emotion ?? EmotionData[0],
-    weather: existingData.weather ?? WeatherData[0],
-    date: existingData.date ?? new Date(),
-    isPublic: existingData.isPublic ?? 1,
-  });
+  const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>(
+    existingData ?? {
+      contents: "",
+      emotion: EmotionData[0],
+      weather: WeatherData[0],
+      title: "",
+      englishContents: "",
+      isPublic: 1,
+      date: new Date(),
+    },
+  );
 
   const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
   const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close Modal 창 오픈 여부
@@ -79,8 +82,11 @@ const AddDiaryPage = () => {
   const linkTransferPage = () => {
     if (diaryData.title.length === 0) {
       message.open({ type: "error", content: "제목을 입력해주세요." });
-    } else if (diaryData.contents.length === 0) {
-      message.open({ type: "error", content: "내용을 입력해주세요." });
+    } else if (diaryData.contents.length < 10) {
+      message.open({
+        type: "error",
+        content: "내용을 10자 이상 입력해주세요.",
+      });
     } else {
       navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
       setDiaryLocalStorage(diaryData);

@@ -1,16 +1,19 @@
-import { useMutation } from "react-query";
 import { instance } from ".";
 
-export const usePostDiaryDrawing = () => {
-  const mutation = useMutation(async (input: string) => {
+export const postDiaryDrawing = async (input: string) => {
+  console.log(input);
+  input = input + "Like a cartoon drawn with crayon";
+  try {
+    console.log(input);
     const response = await instance.post<{ imageUrl: string }>(
       "diary/generate-image",
       {
         input: input,
       },
     );
-    return response.data.imageUrl;
-  });
 
-  return mutation;
+    return response.data.imageUrl;
+  } catch (e) {
+    console.error;
+  }
 };
