@@ -18,14 +18,14 @@ const TodayChoiceSection = ({
 }: TodayChoiceSection) => {
   return (
     <>
-      <div className="flex flex-col p-4 mx-2 border-b">
-        <span className="py-1 text-sm w-full font-medium">{"오늘의 기분"}</span>
-        <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
+      <div className="mx-2 flex flex-col border-b p-4">
+        <span className="w-full pb-2 text-sm font-medium">{"오늘의 기분"}</span>
+        <div className="flex w-full items-center justify-around rounded-lg bg-white py-2">
           {EmotionData.map((item) => (
             <button
               key={"emotion-choice" + item}
               onClick={() => setEmotion(item)}
-              className={`${emotion === item ? "bg-primary-orange" : ""} rounded-full  w-10 h-10 flex items-center justify-center`}
+              className={`${emotion === item ? "bg-primary-orange" : ""} flex  h-10 w-10 items-center justify-center rounded-full`}
             >
               <EmotionIcon
                 emotion={item as Emotion}
@@ -39,7 +39,7 @@ const TodayChoiceSection = ({
         <div className="flex w-full items-center justify-around">
           {EmotionData.map((item) => (
             <span
-              className="text-xs w-12 text-center"
+              className="w-12 pt-2 text-center text-xs"
               key={"emotion-text" + item}
             >
               {item}
@@ -47,14 +47,14 @@ const TodayChoiceSection = ({
           ))}
         </div>
       </div>
-      <div className="flex flex-col p-4 mx-2 border-b">
-        <span className="py-1 text-sm w-full font-medium">{"오늘의 기분"}</span>
-        <div className="flex bg-white w-full py-2 rounded-lg items-center justify-around">
+      <div className="mx-2 flex flex-col border-b p-4">
+        <span className="w-full pb-2 text-sm font-medium">{"오늘의 날씨"}</span>
+        <div className="flex w-full items-center justify-around rounded-lg bg-white py-2">
           {WeatherData.map((item) => (
             <button
               key={"emotion-choice" + item}
               onClick={() => setWeather(item)}
-              className={`${weather === item ? "bg-primary-orange" : ""} rounded-full  w-10 h-10 flex items-center justify-center`}
+              className={`${weather === item ? "bg-primary-orange" : ""} flex  h-10 w-10 items-center justify-center rounded-full`}
             >
               <WeatherIcon
                 weather={item}
@@ -68,7 +68,7 @@ const TodayChoiceSection = ({
         <div className="flex w-full items-center justify-around">
           {WeatherData.map((item) => (
             <span
-              className="text-xs w-12 text-center"
+              className="w-12 pt-2 text-center text-xs"
               key={"weather-text" + item}
             >
               {item}
