@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { NotificationIcon } from "../assets/icons";
 import {
   Banner,
@@ -13,6 +13,7 @@ import {
   TopAppBar,
 } from "../components/common";
 import { ROUTE } from "../routes/Route";
+import { message } from "antd";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -27,11 +28,8 @@ const HomePage = () => {
     <div className="bg-primary-orange">
       <TopAppBar
         bgColor="bg-primary-orange"
-        rightIcon={
-          <Link to={ROUTE.NOTIFICATION_PAGE.link}>
-            <NotificationIcon fillColor="white" />
-          </Link>
-        }
+        rightIcon={<NotificationIcon fillColor="white" />}
+        rightOnClick={() => message.warning("알림 기능은 현재 준비중이에요.")}
       />
       <Banner />
       <div className="relative bg-primary-white px-4 pb-20 pt-10">

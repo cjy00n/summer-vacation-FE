@@ -3,7 +3,7 @@ import { Carousel } from "antd";
 const Banner = () => {
   return (
     <div id="main-banner" className="bg-primary-orange">
-      <Carousel autoplay autoplaySpeed={3000} effect="fade">
+      <Carousel autoplay autoplaySpeed={3000}>
         <div className="relative flex h-[300px] ">
           <img src="/image/main.webp" className="mx-auto h-[210px] w-[210px]" />
           <div className="absolute bottom-5 left-5 ">

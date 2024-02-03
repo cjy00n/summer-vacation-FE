@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { FillStarIcon, KebabMenuIcon, StarIcon } from "../assets/icons";
+import {
+  CloseIcon,
+  FillStarIcon,
+  KebabMenuIcon,
+  StarIcon,
+} from "../assets/icons";
 import {
   FeedBottomMine,
   FeedBottomOthers,
@@ -13,7 +18,7 @@ import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
 import { EmotionData, WeatherData } from "../assets/data";
 import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
-import { message } from "antd";
+import { Drawer, message } from "antd";
 
 const FeedDetailPage = () => {
   // 임시로, state에 내 글인지 아닌지 담아서 받음
@@ -21,8 +26,6 @@ const FeedDetailPage = () => {
 
   const { state } = useLocation();
   if (state?.isMine) isMine = true;
-
-  const [messageApi, contextHolder] = message.useMessage();
 
   // 피드데이터 (임시)
   const feedData = {
@@ -40,6 +43,8 @@ const FeedDetailPage = () => {
     like3: 1414,
     like4: 1515,
     like5: 1616,
+    isPublic: 1,
+    isWirte: 1,
   };
 
   const {
@@ -55,14 +60,15 @@ const FeedDetailPage = () => {
     like3,
     like4,
     like5,
+    isPublic,
   } = feedData;
 
   const [isOpenLikeList, setIsOpenLikeList] = useState(false);
   const [isLike, setIsLike] = useState(false);
   const [isBookmark, setIsBookmark] = useState(false);
+  const [isMoreDrawerOpen, setIsMoreDrawerOpen] = useState(false);
   const [stampButtonIcon, setStampButtonIcon] = useState(<StarIcon />);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const toggleBookmark = () => {
     setIsBookmark(!isBookmark);
   };
@@ -75,12 +81,22 @@ const FeedDetailPage = () => {
     setIsLike(!isLike);
   };
 
+  /* 다른 사람의 글일 때 > 더보기 메뉴 토글 */
+  const toggleMoreDrawer = () => {
+    setIsMoreDrawerOpen(!isMoreDrawerOpen);
+  };
+
+  /* 신고하기 버튼 클릭 시 */
+  const handleRepost = () => {
+    message.warning("신고 기능은 현재 준비 중이에요.");
+  };
+  /* 북마크 버튼 클릭 시 */
   const handleBookMark = () => {
-    messageApi.warning("북마크 기능은 현재 준비 중이에요.");
+    message.warning("북마크 기능은 현재 준비 중이에요.");
     toggleBookmark();
   };
 
-  // 참 잘했어요 버튼 클릭 시
+  /* 참 잘했어요 버튼 클릭 시 */
   const onStampButtonClick = () => {
     if (isLike) {
       setIsLike(!isLike);
@@ -118,6 +134,7 @@ const FeedDetailPage = () => {
           title={isMine ? format(date, "yyy년 MM월 dd일") : "오늘의 일기"}
           leftGoBack
           rightIcon={<KebabMenuIcon />}
+          rightOnClick={toggleMoreDrawer}
         />
         <FeedDetailItem
           title={title}
@@ -128,7 +145,10 @@ const FeedDetailPage = () => {
           contents={content}
           like={like}
           isLike={isLike}
+          isPublic={isPublic ? 1 : 0}
+          isWrite={1}
         />
+
         {isOpenLikeList && (
           <FeedStampMenu
             like={like}
@@ -150,7 +170,18 @@ const FeedDetailPage = () => {
       </div>
       <PageBottomShadow />
       {!isMine && <FeedProgressBar />}
-      {contextHolder}
+
+      <Drawer
+        open={isMoreDrawerOpen}
+        placement="bottom"
+        title="더 보기"
+        closeIcon={<CloseIcon />}
+        onClose={toggleMoreDrawer}
+        height={230}
+        style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
+      >
+        <button onClick={handleRepost}>신고하기</button>
+      </Drawer>
     </>
   );
 };

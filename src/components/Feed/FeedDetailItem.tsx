@@ -3,15 +3,10 @@ import { FillStarIcon } from "../../assets/icons";
 import { ko } from "date-fns/locale";
 import { WeatherIcon } from "../../assets/icons/weather";
 import { EmotionIcon } from "../../assets/icons/emotions";
-import { Emotion, Weather } from "../../types";
+import { Diary } from "../../types";
 
-interface FeedDetailItemProp {
-  date: Date;
-  weather: Weather;
-  emotion: Emotion;
-  image: string;
-  contents: string;
-  title: string;
+interface FeedDetailItemProp
+  extends Omit<Diary, "isWirte" | "createdAt" | "id"> {
   like?: number;
   isLike?: boolean;
 }
@@ -34,7 +29,7 @@ export const FeedDetailItem = ({
             날짜
           </span>
           <p className="w-64 border-[1px] border-solid border-primary-orange pl-2 font-gamja text-base font-normal leading-8">
-            {format(date, "yyyy년 MM월 dd일 eeee", { locale: ko })}
+            {format(date as Date, "yyyy년 MM월 dd일 eeee", { locale: ko })}
           </p>
         </div>
         <div className="flex h-8">

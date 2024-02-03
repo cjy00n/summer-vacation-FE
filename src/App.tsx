@@ -3,10 +3,9 @@ import { ROUTE_ARR } from "./routes/Route";
 import { BottomAppBar } from "./components/common";
 import { ConfigProvider, message } from "antd";
 import koKR from "antd/lib/locale/ko_KR";
-import React from "react";
 
 function App() {
-  const [messageApi, contextHolder] = message.useMessage();
+  const [, contextHolder] = message.useMessage();
 
   return (
     <ConfigProvider
@@ -30,7 +29,6 @@ function App() {
         },
       }}
     >
-      {contextHolder}
       <Routes>
         {ROUTE_ARR.map((el) => (
           <Route
@@ -39,7 +37,8 @@ function App() {
             element={
               <div>
                 <div className={`${el.haveBottomAppBar ? "pb-20" : ""}`}>
-                  {React.cloneElement(el.element, { messageApi })}
+                  {el.element}
+                  {contextHolder}
                 </div>
                 {el.haveBottomAppBar && <BottomAppBar />}
               </div>
