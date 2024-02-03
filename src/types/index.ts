@@ -5,3 +5,4 @@ export * from "./Diary";
 export * from "./IconComponentProps";
 export * from "./BottomTab";
 export * from "./Gender";
+export * from "./User";
