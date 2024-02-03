@@ -4,6 +4,8 @@ import { TopAppBar, CustomButton } from "../components/common";
 import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
+import { useRecoilState } from "recoil";
+import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 
 const AddDiaryBeforePage = () => {
   const navigate = useNavigate();
@@ -31,19 +33,14 @@ const AddDiaryBeforePage = () => {
     });
   };
 
-  const before = [
-    "/rabbit.webp",
-    "/sample.webp",
-    "/sample.webp",
-    "/rabbit.webp",
-    "/sample.webp",
-  ];
+  const [drawingData] = useRecoilState(drawingRecordState);
+  const { beforeImages } = drawingData;
 
   return (
     <div className="">
       <TopAppBar title="전에 그린 그림 보기" leftGoBack />
       <div className="grid w-full grid-cols-2">
-        {before.map((img, idx) => (
+        {beforeImages.slice(0, -1).map((img, idx) => (
           <div key={img + idx}>
             <div
               onClick={() => onClickItem(img)}
@@ -76,6 +73,7 @@ const AddDiaryBeforePage = () => {
                     content="닫기"
                     onClick={toggleShowModal}
                     size="half"
+                    type="white"
                   />
                   <CustomButton
                     content="선택"

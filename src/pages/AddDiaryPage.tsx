@@ -2,7 +2,7 @@ import { Drawer, Switch, message } from "antd";
 import { AlertModal, CustomButton, TopAppBar } from "../components/common";
 import { CloseIcon, AddIcon, EditIcon } from "../assets/icons";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { format } from "date-fns";
 import { SelectDateModal, TodayChoiceSection } from "../components/AddDiary";
@@ -21,13 +21,13 @@ import {
   getDiaryLocalStorage,
   setDiaryLocalStorage,
 } from "../utils/handleDiaryLocalStorage";
+import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
   const [, contextHolder] = message.useMessage();
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
-
-  const { state } = useLocation(); // 이미지 그린 후 다시 돌아올 경우 이미지를 state에 저장
+  const [drawingRecord] = useRecoilState(drawingRecordState);
 
   const existingData = getDiaryLocalStorage();
   const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>(
@@ -95,13 +95,7 @@ const AddDiaryPage = () => {
 
   /* 미리보기 페이지로 이동 (state에 데이터 담아 넘겨줌) */
   const linkPreviewPage = () => {
-    let image;
-    if (state?.image) {
-      image = state?.image;
-      navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link, {
-        state: { ...diaryData, image },
-      });
-    }
+    navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link);
   };
 
   /* 전에 그린 그림 보기 => 전에 그린 그림 페이지로 이동 */
@@ -177,7 +171,7 @@ const AddDiaryPage = () => {
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
-        {state?.image ? (
+        {drawingRecord.beforeImages.length ? (
           <div className="relative ">
             <button
               onClick={toggleEditDrawing}
@@ -186,7 +180,7 @@ const AddDiaryPage = () => {
               <EditIcon width={32} height={32} />
             </button>
             <img
-              src={state?.image}
+              src={drawingRecord.beforeImages[0]}
               className="h-[320px] w-[320px] object-cover"
             />
           </div>
@@ -205,7 +199,7 @@ const AddDiaryPage = () => {
           onClick={linkPreviewPage}
           content="일기 미리보기"
           size="long"
-          type={state?.image ? "default" : "disabled"}
+          type={drawingRecord.beforeImages.length ? "default" : "disabled"}
         />
       </div>
       <AlertModal

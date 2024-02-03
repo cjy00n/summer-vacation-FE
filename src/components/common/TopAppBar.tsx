@@ -27,7 +27,7 @@ const TopAppBar = ({
 
   return (
     <header
-      className={`flex ${bgColor ?? "bg-primary-white"} items-center px-4 py-3 w-full h-14 justify-between ${bgColor ? "" : " shadow-custom"}`}
+      className={`flex ${bgColor ?? "bg-primary-white"} h-14 w-full items-center justify-between px-4 py-3 ${bgColor ? "" : " shadow-custom"}`}
     >
       <div className="flex">
         {leftGoBack ? (
@@ -40,7 +40,7 @@ const TopAppBar = ({
         {title ? (
           <span className="text-base font-semibold">{title}</span>
         ) : (
-          <span className="">{<img src="/logo.svg" />}</span>
+          <span className="w-28">{<img src="/image/logo_top.png" />}</span>
         )}
       </div>
 

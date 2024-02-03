@@ -1,6 +1,6 @@
 import { CustomButton, TopAppBar } from "../components/common";
 import { DrawingModal } from "../components/AddDiary";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
@@ -8,24 +8,21 @@ import { useRecoilState } from "recoil";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { postDiaryDrawing } from "../hooks/postDiaryDrawing";
 import { useState } from "react";
+import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
 
 const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
 
-  let engContents = "";
-
-  const { state } = useLocation();
-  if (state && state.engContents) engContents = state.engContents;
-
+  const { englishContents } = getDiaryLocalStorage();
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
-  const [messageApi, contextHolder] = message.useMessage();
+  const [, contextHolder] = message.useMessage();
 
   /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
   const handleDrawing = async () => {
     setDrawingModalOpen(true);
     try {
-      const newImage = await postDiaryDrawing(engContents);
+      const newImage = await postDiaryDrawing(englishContents);
       if (newImage) {
         updateDrawingRecord(setDrawingRecord, {
           ...drawingRecord,
@@ -62,10 +59,7 @@ const AddDiaryConfirmPage = () => {
             type={drawingRecord.remainingTries === 0 ? "disabled" : "black"}
             onClick={() => {
               if (drawingRecord.remainingTries === 0) {
-                messageApi.open({
-                  type: "error",
-                  content: "그릴 수 있는 횟수가 끝났어요",
-                });
+                message.error("그릴 수 있는 횟수가 끝났어요");
               } else {
                 handleDrawing();
               }

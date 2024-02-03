@@ -1,19 +1,23 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CircleButton, CustomButton, TopAppBar } from "../components/common";
 import { FeedDetailItem } from "../components/Feed";
 import { message } from "antd";
 import { FileDownloadIcon } from "../assets/icons";
 import { ROUTE } from "../routes/Route";
-import { clearDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
+import {
+  clearDiaryLocalStorage,
+  getDiaryLocalStorage,
+} from "../utils/handleDiaryLocalStorage";
+import { useRecoilState } from "recoil";
+import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 
 const AddDiaryPreviewPage = () => {
   const navigate = useNavigate();
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const { state } = useLocation();
-
-  const { title, contents, weather, emotion, date, image } = state;
+  const [drawingRecord] = useRecoilState(drawingRecordState);
+  const { title, contents, weather, emotion, date } = getDiaryLocalStorage();
 
   const handleCompleteDiary = () => {
     clearDiaryLocalStorage();
@@ -32,7 +36,7 @@ const AddDiaryPreviewPage = () => {
           date={date}
           title={title}
           contents={contents}
-          image={image}
+          image={drawingRecord.beforeImages[0]}
           weather={weather}
           emotion={emotion}
         />
