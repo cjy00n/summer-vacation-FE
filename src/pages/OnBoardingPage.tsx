@@ -12,23 +12,23 @@ const OnBoardingPage = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-90 h-[100vh]">
+    <div className="flex h-[100vh] flex-col bg-gray-90">
       <Carousel
-        autoplay
+        // autoplay
         autoplaySpeed={5000}
         fade
         infinite={false}
         afterChange={finishOnBoarding}
       >
         <div>
-          <p className="text-xl font-bold px-10 py-16">
+          <p className="px-10 py-16 text-xl font-bold">
             괜히 설레이던 여름방학
           </p>
           <img
-            className="w-60 object-cover mx-auto"
+            className="mx-auto w-60 object-cover"
             src="/image/onBoarding1.svg"
           />
-          <div className="py-8 text-center text-base font-semibold mb-10">
+          <div className="mb-10 py-8 text-center text-base font-semibold">
             <p>그림일기를 통해, </p>
             <p>일상을 가장 꾸준히 남겼던 때를 추억해요</p>
           </div>
@@ -38,12 +38,12 @@ const OnBoardingPage = () => {
             className="absolute top-0 w-full"
             src="https://cdn.pixabay.com/animation/2023/12/20/04/49/04-49-40-378_512.gif"
           />
-          <p className="absolute z-10 px-10 text-xl font-bold py-16">
+          <p className="absolute z-10 px-10 py-16 text-xl font-bold">
             대신, 이제는 AI가 <br />
             당신의 일상을 그려줄게요
           </p>
           <div>
-            <p className="z-10 mt-[450px] py-8 text-center text-base font-semibold mb-10">
+            <p className="z-10 mb-10 mt-[450px] py-8 text-center text-base font-semibold">
               오늘 하루를 어떻게 표현할지
               <br />
               궁금하지 않나요?
@@ -52,13 +52,13 @@ const OnBoardingPage = () => {
         </div>
         <div>
           <div className="flex flex-col">
-            <p className="px-10 text-xl font-bold py-16">
+            <p className="px-10 py-16 text-xl font-bold">
               나만 보기엔 아까운 <br /> AI 그림일기
             </p>
           </div>
-          <img className="w-52 h-56 object-cover mx-auto" src="/rabbit.webp" />
+          <img className="mx-auto h-56 w-52 object-cover" src="/rabbit.webp" />
           <div>
-            <p className="py-8 text-center text-base font-semibold mb-10">
+            <p className="mb-10 py-8 text-center text-base font-semibold">
               다른 사람들에게 자랑할 수 있어요!
             </p>
           </div>
@@ -67,8 +67,8 @@ const OnBoardingPage = () => {
 
       {showStartButton && (
         <button
-          onClick={() => navigate(ROUTE.HOME_PAGE.link)}
-          className="mx-auto my-10 w-60 h-12 rounded-[81px] text-base font-medium bg-primary-orange text-white"
+          onClick={() => navigate(ROUTE.START_PAGE.link)}
+          className="mx-auto my-10 h-12 w-60 rounded-[81px] bg-primary-orange text-base font-medium text-white"
         >
           시작하기
         </button>

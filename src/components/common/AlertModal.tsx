@@ -3,7 +3,7 @@ import { CustomButton } from ".";
 
 interface AlertModalProps {
   toggle?: boolean;
-  title: string;
+  title: string | React.ReactElement;
   okText?: string;
   closeText?: string;
   handleOk: () => void;

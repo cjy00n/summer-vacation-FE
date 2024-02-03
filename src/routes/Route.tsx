@@ -16,6 +16,7 @@ import {
   AddDiaryBeforePage,
   AddDiaryDrawingSelectPage,
   AddDiaryCompletePage,
+  StartPage,
 } from "../pages";
 
 interface RouteItem {
@@ -47,6 +48,12 @@ export const ROUTE: Routes = {
     path: "/onBoarding",
     link: "/onBoarding",
     element: <OnBoardingPage />,
+  },
+
+  START_PAGE: {
+    path: "/start",
+    link: "/start",
+    element: <StartPage />,
   },
 
   FEED_PAGE: {
