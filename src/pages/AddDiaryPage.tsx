@@ -22,12 +22,13 @@ import {
   setDiaryLocalStorage,
 } from "../utils/handleDiaryLocalStorage";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
+import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
   const [, contextHolder] = message.useMessage();
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
-  const [drawingRecord] = useRecoilState(drawingRecordState);
+  const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
 
   const existingData = getDiaryLocalStorage();
   const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>(
@@ -71,6 +72,10 @@ const AddDiaryPage = () => {
     navigate(ROUTE.HOME_PAGE.link);
     setActiveBottomTab("HOME");
     clearDiaryLocalStorage();
+    updateDrawingRecord(setDrawingRecord, {
+      ...drawingRecord,
+      beforeImages: [],
+    });
   };
 
   /* close 모달 창 - 닫기 선택 시 => close 모달 닫기 */
@@ -180,7 +185,11 @@ const AddDiaryPage = () => {
               <EditIcon width={32} height={32} />
             </button>
             <img
-              src={drawingRecord.beforeImages[0]}
+              src={
+                drawingRecord.beforeImages[
+                  drawingRecord.beforeImages.length - 1
+                ]
+              }
               className="h-[320px] w-[320px] object-cover"
             />
           </div>

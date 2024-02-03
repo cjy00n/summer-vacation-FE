@@ -3,6 +3,8 @@ import { CustomButton } from "../components/common";
 import { ROUTE } from "../routes/Route";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
+import { useEffect } from "react";
+import { clearDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
 
 const AddDiaryCompletePage = () => {
   const navigate = useNavigate();
@@ -12,6 +14,10 @@ const AddDiaryCompletePage = () => {
     navigate(ROUTE.HOME_PAGE.link);
     setBottomTabState("HOME");
   };
+
+  useEffect(() => {
+    clearDiaryLocalStorage();
+  }, []);
 
   return (
     <div className="flex h-[100vh] flex-col items-center justify-center">

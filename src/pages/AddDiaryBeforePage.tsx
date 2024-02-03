@@ -32,11 +32,10 @@ const AddDiaryBeforePage = () => {
   };
 
   const handleSelectDrawing = (idx: number) => {
-    const selectedImage = drawingRecord.beforeImages.splice(idx, 1)[0];
-
+    const selectedImage = drawingRecord.beforeImages.slice(idx + 1, 1)[0];
     updateDrawingRecord(setDrawingRecord, {
       ...drawingRecord,
-      beforeImages: [selectedImage, ...drawingRecord.beforeImages],
+      beforeImages: [...drawingRecord.beforeImages, selectedImage],
     });
 
     navigate(ROUTE.ADD_DIARY_CONFIRM_PAGE.link);

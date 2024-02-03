@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 const FeedPage = () => {
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
+
   const tempData = [
     {
       image:

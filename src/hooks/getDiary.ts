@@ -7,8 +7,7 @@ const getDiary = async (targetId: string) => {
 
   try {
     const response = await instance.get<Diary>(`diary/get-diary/${targetId}`);
-
-    return response.data;
+    if (response.data) return response.data;
   } catch (e) {
     console.error;
   }

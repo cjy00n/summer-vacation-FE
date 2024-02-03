@@ -12,7 +12,8 @@ const AuthPage = () => {
 
   const code = new URL(window.location.href).searchParams.get("code");
 
-  if (code) postKaKaoSignIn(code!, REDIRECT_URI, navigate);
+  console.log(code);
+  if (code) postKaKaoSignIn(code, REDIRECT_URI, navigate);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");

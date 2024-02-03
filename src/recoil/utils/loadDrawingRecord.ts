@@ -1,3 +1,4 @@
+export const defaultTries = 7;
 export function loadDrawingRecord() {
   const drawingRecord = localStorage.getItem("drawingRecord");
   const today = new Date().toDateString();
@@ -10,5 +11,9 @@ export function loadDrawingRecord() {
     }
   }
 
-  return { lastAttemptDate: today, remainingTries: 3, beforeImages: [] };
+  return {
+    lastAttemptDate: today,
+    remainingTries: defaultTries,
+    beforeImages: [],
+  };
 }

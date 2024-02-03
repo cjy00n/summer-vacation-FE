@@ -21,12 +21,13 @@ const HomeMyDiary = () => {
   ];
 
   return (
-    <div className="flex flex-row gap-2 whitespace-nowrap overflow-x-auto hide-scrollbar">
+    <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
       {data.map((item, idx) => (
         <HomeDiaryItem
           key={"my-diary-item-" + idx}
-          img={item.img}
+          image={item.img}
           like={item.like}
+          id={""}
         />
       ))}
     </div>

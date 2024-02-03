@@ -15,10 +15,10 @@ import {
 import { PageBottomShadow, TopAppBar } from "../components/common";
 import { Emotion } from "../types";
 import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
-import { EmotionData, WeatherData } from "../assets/data";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Drawer, message } from "antd";
+import { useGetDiary } from "../hooks/getDiary";
 
 const FeedDetailPage = () => {
   // 임시로, state에 내 글인지 아닌지 담아서 받음
@@ -27,41 +27,15 @@ const FeedDetailPage = () => {
   const { state } = useLocation();
   if (state?.isMine) isMine = true;
 
-  // 피드데이터 (임시)
-  const feedData = {
-    date: new Date(),
-    weather: WeatherData[2],
-    emotion: EmotionData[1],
-    image:
-      "https://mblogthumb-phinf.pstatic.net/MjAxNzAyMTZfMTc1/MDAxNDg3MjA1NDE1MjY2.QH0KN_iUDKx8OviOiSe7xyfQAnITCeqMf7VW0RIDTcEg.AXQnn3XzvjDksNaSNvQh30tEN5DD0xB1q_iropXRCgQg.JPEG.narospacemuseum/%EC%9D%B8%EC%82%AC%EC%9D%B4%EB%93%9C%EC%95%84%EC%9B%832.jpg?type=w800",
-    title: "오늘의 일기오늘의 일기오늘의 일기오늘의",
-    content:
-      "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세.",
-    like: 1000,
-    like1: 1212,
-    like2: 1313,
-    like3: 1414,
-    like4: 1515,
-    like5: 1616,
-    isPublic: 1,
-    isWirte: 1,
-  };
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading, error } = useGetDiary(id ?? "0");
 
-  const {
-    date,
-    weather,
-    emotion,
-    image,
-    title,
-    content,
-    like,
-    like1,
-    like2,
-    like3,
-    like4,
-    like5,
-    isPublic,
-  } = feedData;
+  const like = 5000;
+  const like1 = 700;
+  const like2 = 1100;
+  const like3 = 1200;
+  const like4 = 600;
+  const like5 = 400;
 
   const [isOpenLikeList, setIsOpenLikeList] = useState(false);
   const [isLike, setIsLike] = useState(false);
@@ -127,63 +101,71 @@ const FeedDetailPage = () => {
     );
   };
 
-  return (
-    <>
-      <div className="relative mb-6 pb-20">
-        <TopAppBar
-          title={isMine ? format(date, "yyy년 MM월 dd일") : "오늘의 일기"}
-          leftGoBack
-          rightIcon={<KebabMenuIcon />}
-          rightOnClick={toggleMoreDrawer}
-        />
-        <FeedDetailItem
-          title={title}
-          date={date}
-          weather={weather}
-          emotion={emotion}
-          image={image}
-          contents={content}
-          like={like}
-          isLike={isLike}
-          isPublic={isPublic ? 1 : 0}
-          isWrite={1}
-        />
-
-        {isOpenLikeList && (
-          <FeedStampMenu
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>An error occurred</div>;
+  if (!data) return <div>No data found</div>;
+  else {
+    const { title, contents, image, date, emotion, weather, isPublic } = data;
+    return (
+      <>
+        <div className="relative mb-6 pb-20">
+          <TopAppBar
+            title={
+              isMine ? format(date as Date, "yyy년 MM월 dd일") : "오늘의 일기"
+            }
+            leftGoBack
+            rightIcon={<KebabMenuIcon />}
+            rightOnClick={toggleMoreDrawer}
+          />
+          <FeedDetailItem
+            title={title}
+            date={date}
+            weather={weather}
+            emotion={emotion}
+            image={image}
+            contents={contents}
             like={like}
-            likes={likeNumbers}
-            handleLikeButton={handleLikeButton}
-          />
-        )}
-        {isMine ? (
-          <FeedBottomMine />
-        ) : (
-          <FeedBottomOthers
-            isBookmark={isBookmark}
             isLike={isLike}
-            onStampButtonClick={onStampButtonClick}
-            toggleBookmark={handleBookMark}
-            stampButtonIcon={stampButtonIcon}
+            isPublic={isPublic ? 1 : 0}
+            isWrite={1}
           />
-        )}
-      </div>
-      <PageBottomShadow />
-      {!isMine && <FeedProgressBar />}
 
-      <Drawer
-        open={isMoreDrawerOpen}
-        placement="bottom"
-        title="더 보기"
-        closeIcon={<CloseIcon />}
-        onClose={toggleMoreDrawer}
-        height={230}
-        style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
-      >
-        <button onClick={handleRepost}>신고하기</button>
-      </Drawer>
-    </>
-  );
+          {isOpenLikeList && (
+            <FeedStampMenu
+              like={like}
+              likes={likeNumbers}
+              handleLikeButton={handleLikeButton}
+            />
+          )}
+          {isMine ? (
+            <FeedBottomMine />
+          ) : (
+            <FeedBottomOthers
+              isBookmark={isBookmark}
+              isLike={isLike}
+              onStampButtonClick={onStampButtonClick}
+              toggleBookmark={handleBookMark}
+              stampButtonIcon={stampButtonIcon}
+            />
+          )}
+        </div>
+        <PageBottomShadow />
+        {!isMine && <FeedProgressBar />}
+
+        <Drawer
+          open={isMoreDrawerOpen}
+          placement="bottom"
+          title="더 보기"
+          closeIcon={<CloseIcon />}
+          onClose={toggleMoreDrawer}
+          height={230}
+          style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
+        >
+          <button onClick={handleRepost}>신고하기</button>
+        </Drawer>
+      </>
+    );
+  }
 };
 
 export default FeedDetailPage;

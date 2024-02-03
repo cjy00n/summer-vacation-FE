@@ -4,14 +4,12 @@ import { FeedDetailItem } from "../components/Feed";
 import { message } from "antd";
 import { FileDownloadIcon } from "../assets/icons";
 import { ROUTE } from "../routes/Route";
-import {
-  clearDiaryLocalStorage,
-  getDiaryLocalStorage,
-} from "../utils/handleDiaryLocalStorage";
+import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
 import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
-import { postDiary } from "../hooks/postDiary";
+import { usePostDiary } from "../hooks/postDiary";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
+import { useEffect } from "react";
 
 const AddDiaryPreviewPage = () => {
   const navigate = useNavigate();
@@ -22,30 +20,30 @@ const AddDiaryPreviewPage = () => {
   const { title, contents, weather, emotion, date, isPublic } =
     getDiaryLocalStorage();
 
-  const handleCompleteDiary = async () => {
-    try {
-      const response = await postDiary({
-        title,
-        contents,
-        weather,
-        emotion,
-        date,
-        image: drawingRecord.beforeImages[0],
-        isPublic,
-        isWrite: 1,
-      });
-      if (response) {
-        clearDiaryLocalStorage();
-        updateDrawingRecord(setDrawingRecord, {
-          ...drawingRecord,
-          beforeImages: [],
-        });
-        navigate(ROUTE.ADD_DIARY_COMPLETE_PAGE.link);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  const { mutate: postDiary, isSuccess } = usePostDiary({
+    title,
+    contents,
+    weather,
+    emotion,
+    date,
+    image: drawingRecord.beforeImages[0],
+    isPublic,
+    isWrite: 1,
+  });
+  const handleCompleteDiary = () => {
+    postDiary();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(ROUTE.ADD_DIARY_COMPLETE_PAGE.link);
+      updateDrawingRecord(setDrawingRecord, {
+        ...drawingRecord,
+        beforeImages: [],
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   const handleDownladDrawing = () => {
     messageApi.warning("다운로드 기능은 현재 준비중이에요.");
@@ -59,7 +57,9 @@ const AddDiaryPreviewPage = () => {
           date={date}
           title={title}
           contents={contents}
-          image={drawingRecord.beforeImages[0]}
+          image={
+            drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1]
+          }
           weather={weather}
           emotion={emotion}
           isPublic={1}

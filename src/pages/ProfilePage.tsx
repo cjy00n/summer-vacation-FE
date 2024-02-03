@@ -136,7 +136,6 @@ const ProfilePage = () => {
               </div>
             </div>
           ))}
-          d
         </div>
       </div>
     </>

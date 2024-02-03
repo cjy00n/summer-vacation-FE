@@ -1,4 +1,3 @@
-import { message } from "antd";
 import { instance } from ".";
 import { ROUTE } from "../routes/Route";
 
@@ -27,6 +26,5 @@ export const postKaKaoSignIn = async (
     navigate(ROUTE.ONBOARDING_PAGE.link);
   } catch (e) {
     console.error(e);
-    message.open({ type: "error", content: "로그인에 실패했습니다." });
   }
 };

@@ -64,7 +64,7 @@ export const ROUTE: Routes = {
   },
 
   FEED_DETAIL_PAGE: {
-    path: "/feed/:diary_id",
+    path: "/feed/:id",
     link: "/feed",
     element: <FeedDetailPage />,
     haveBottomAppBar: true,

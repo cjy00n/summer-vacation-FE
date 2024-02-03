@@ -9,6 +9,7 @@ import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { postDiaryDrawing } from "../hooks/postDiaryDrawing";
 import { useState } from "react";
 import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
+import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 
 const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
@@ -60,13 +61,15 @@ const AddDiaryConfirmPage = () => {
           />
           <div className="my-6 flex h-40 flex-col">
             <CustomButton
-              type={drawingRecord.remainingTries >= 2 ? "disabled" : "white"}
+              type={
+                drawingRecord.beforeImages.length < 2 ? "disabled" : "white"
+              }
               size="long"
               content="전에 그린 그림 보기"
               onClick={() => navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link)}
             />
             <CustomButton
-              content={`다시 그리기(${drawingRecord.remainingTries}/3)`}
+              content={`다시 그리기(${drawingRecord.remainingTries}/${defaultTries})`}
               type={drawingRecord.remainingTries === 0 ? "disabled" : "black"}
               onClick={() => {
                 if (drawingRecord.remainingTries === 0) {
