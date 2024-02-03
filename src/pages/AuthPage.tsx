@@ -23,12 +23,12 @@ const AuthPage = () => {
   }, [navigate]);
 
   return (
-    <div className="flex min-h-[100vh] flex-col content-center items-center justify-center bg-primary-white">
-      <img src="/image/mainImg.svg" />
-      <img src="/logo.svg" />
+    <div className="flex h-[100vh] flex-col items-center bg-primary-white pb-[20vh] pt-[20vh]">
+      <img className="w-44" src="/image/splash1.png" />
+      <img className="mt-[7vh] w-28" src="/image/splash2.png" />
       <Link to={KAKAO_AUTH_URI}>
-        <button className="mt-10 flex h-12 w-40 items-center justify-center rounded-[50px] bg-primary-yellow">
-          <span className="mx-1 text-base font-semibold">카카오 로그인</span>
+        <button className="mt-[25vh] flex h-12 w-40 items-center justify-center rounded-[50px] bg-primary-yellow shadow-lg">
+          <span className="text-base font-semibold">카카오 로그인</span>
         </button>
       </Link>
     </div>
