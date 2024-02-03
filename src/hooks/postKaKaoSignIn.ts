@@ -27,6 +27,6 @@ export const postKaKaoSignIn = async (
     navigate(ROUTE.ONBOARDING_PAGE.link);
   } catch (e) {
     console.error(e);
-    message.error("로그인에 실패했습니다.");
+    message.open({ type: "error", content: "로그인에 실패했습니다." });
   }
 };

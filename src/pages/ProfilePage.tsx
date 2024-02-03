@@ -76,7 +76,7 @@ const ProfilePage = () => {
 
   /* 피드 상세 페이지로 이동 */
   const linkToDetailPage = (id: string) => {
-    navigate(ROUTE.FEED_DETAUL_PAGE.link + id);
+    navigate(ROUTE.FEED_DETAIL_PAGE.link + id);
   };
 
   return (

@@ -14,6 +14,7 @@ import {
 } from "../components/common";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -23,6 +24,13 @@ const HomePage = () => {
     navigate(ROUTE.ADD_DIARY_PAGE.link);
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      navigate(ROUTE.LOGIN_PAGE.link);
+    }
+  }, [navigate]);
 
   return (
     <div className="bg-primary-orange">
