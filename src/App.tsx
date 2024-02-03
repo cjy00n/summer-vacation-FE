@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ROUTE_ARR } from "./routes/Route";
 import { BottomAppBar } from "./components/common";
 import { ConfigProvider, message } from "antd";
@@ -45,6 +45,7 @@ function App() {
             }
           />
         ))}
+        <Route path="/" element={<Navigate replace to="/home" />} />
       </Routes>
     </ConfigProvider>
   );
