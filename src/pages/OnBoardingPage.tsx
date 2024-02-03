@@ -26,7 +26,7 @@ const OnBoardingPage = () => {
           </p>
           <img
             className="mx-auto w-60 object-cover"
-            src="/image/onBoarding1.svg"
+            src="/image/onBoarding1.webp"
           />
           <div className="mb-10 py-8 text-center text-base font-semibold">
             <p>그림일기를 통해, </p>
