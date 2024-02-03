@@ -10,18 +10,41 @@ import {
 } from "../utils/handleDiaryLocalStorage";
 import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
+import { postDiary } from "../hooks/postDiary";
+import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 
 const AddDiaryPreviewPage = () => {
   const navigate = useNavigate();
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const [drawingRecord] = useRecoilState(drawingRecordState);
-  const { title, contents, weather, emotion, date } = getDiaryLocalStorage();
+  const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
+  const { title, contents, weather, emotion, date, isPublic } =
+    getDiaryLocalStorage();
 
-  const handleCompleteDiary = () => {
-    clearDiaryLocalStorage();
-    navigate(ROUTE.ADD_DIARY_COMPLETE_PAGE.link);
+  const handleCompleteDiary = async () => {
+    try {
+      const response = await postDiary({
+        title,
+        contents,
+        weather,
+        emotion,
+        date,
+        image: drawingRecord.beforeImages[0],
+        isPublic,
+        isWrite: 1,
+      });
+      if (response) {
+        clearDiaryLocalStorage();
+        updateDrawingRecord(setDrawingRecord, {
+          ...drawingRecord,
+          beforeImages: [],
+        });
+        navigate(ROUTE.ADD_DIARY_COMPLETE_PAGE.link);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleDownladDrawing = () => {

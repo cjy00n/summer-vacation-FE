@@ -6,12 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
+import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 
 const AddDiaryBeforePage = () => {
   const navigate = useNavigate();
 
   const [isshowModal, setIsShowModal] = useState(false);
   const [previewImg, setPreviewImg] = useState("");
+
+  const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
+  const { beforeImages } = drawingRecord;
 
   const toggleShowModal = () => {
     setIsShowModal(!isshowModal);
@@ -27,14 +31,16 @@ const AddDiaryBeforePage = () => {
     toggleShowModal();
   };
 
-  const handleSelectDrawing = () => {
-    navigate(ROUTE.ADD_DIARY_DRAWING_SELECT_PAGE.link, {
-      state: { img: previewImg },
-    });
-  };
+  const handleSelectDrawing = (idx: number) => {
+    const selectedImage = drawingRecord.beforeImages.splice(idx, 1)[0];
 
-  const [drawingData] = useRecoilState(drawingRecordState);
-  const { beforeImages } = drawingData;
+    updateDrawingRecord(setDrawingRecord, {
+      ...drawingRecord,
+      beforeImages: [selectedImage, ...drawingRecord.beforeImages],
+    });
+
+    navigate(ROUTE.ADD_DIARY_CONFIRM_PAGE.link);
+  };
 
   return (
     <div className="">
@@ -77,7 +83,7 @@ const AddDiaryBeforePage = () => {
                   />
                   <CustomButton
                     content="선택"
-                    onClick={handleSelectDrawing}
+                    onClick={() => handleSelectDrawing(idx)}
                     size="half"
                   />
                 </div>

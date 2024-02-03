@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "../../assets/icons";
+import TopLogoIcon from "../../assets/icons/TopLogoIcon";
 
 interface TopAppBarProps {
   title?: string;
@@ -40,7 +41,7 @@ const TopAppBar = ({
         {title ? (
           <span className="text-base font-semibold">{title}</span>
         ) : (
-          <span className="w-28">{<img src="/image/logo_top.png" />}</span>
+          <TopLogoIcon />
         )}
       </div>
 
