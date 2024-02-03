@@ -11,6 +11,6 @@ const getUserInfo = async () => {
   }
 };
 
-export function useGetDiary() {
+export function useGetUserInfo() {
   return useQuery(["getUserInfo"], () => getUserInfo());
 }

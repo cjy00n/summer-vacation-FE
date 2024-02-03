@@ -7,9 +7,12 @@ import { ROUTE } from "../routes/Route";
 import { Diary } from "../types";
 import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
 import GetWeatherIcon from "../assets/icons/weather/GetWeatherIcon";
+import { useGetUserInfo } from "../hooks/getMyUserInfo";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const data = useGetUserInfo();
+  console.log(data);
 
   const temp: Diary[] = [
     {
