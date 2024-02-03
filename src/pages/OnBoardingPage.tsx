@@ -12,10 +12,10 @@ const OnBoardingPage = () => {
   };
 
   return (
-    <div className="flex h-[100vh] flex-col bg-gray-90">
+    <div className="scrollbar-hide flex h-[100vh] flex-col overflow-y-scroll bg-gray-90">
       <Carousel
-        // autoplay
-        autoplaySpeed={5000}
+        autoplay
+        autoplaySpeed={3000}
         fade
         infinite={false}
         afterChange={finishOnBoarding}
@@ -68,7 +68,7 @@ const OnBoardingPage = () => {
       {showStartButton && (
         <button
           onClick={() => navigate(ROUTE.START_PAGE.link)}
-          className="mx-auto my-10 h-12 w-60 rounded-[81px] bg-primary-orange text-base font-medium text-white"
+          className="fixed bottom-[15vh] left-[50%] z-10 flex h-12 w-60 -translate-x-1/2 transform items-center justify-center rounded-[81px] bg-primary-orange text-base font-medium text-white"
         >
           시작하기
         </button>

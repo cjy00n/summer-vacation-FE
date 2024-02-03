@@ -2,6 +2,7 @@ import { useMutation } from "react-query";
 import { instance } from ".";
 
 export const patchNickname = async (nickname: string): Promise<string> => {
+  console.log(nickname);
   try {
     const response = await instance.patch(`users/${nickname}`);
 

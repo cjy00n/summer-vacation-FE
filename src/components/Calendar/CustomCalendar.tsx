@@ -58,7 +58,7 @@ const CustomCalendar = ({
     if (isHaveDiaryDay) {
       /* 일기가 있는 날이면 상세페이지로 이동 */
       setActiveBottomTab("CALENDAR");
-      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/7", { state: { isMine: true } });
+      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/9", { state: { isMine: true } });
     } else {
       /* 일기가 없는 날이면 일기쓰기 페이지로 이동 */
       setActiveBottomTab("ADD_DIARY");

@@ -13,7 +13,7 @@ import {
   FeedStampMenu,
 } from "../components/Feed";
 import { PageBottomShadow, TopAppBar } from "../components/common";
-import { Emotion } from "../types";
+import { Diary, Emotion } from "../types";
 import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
 import { useLocation, useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -138,7 +138,7 @@ const FeedDetailPage = () => {
             />
           )}
           {isMine ? (
-            <FeedBottomMine id={id!} />
+            <FeedBottomMine diaryData={data as Diary} />
           ) : (
             <FeedBottomOthers
               isBookmark={isBookmark}

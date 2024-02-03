@@ -23,10 +23,11 @@ const StartPage = () => {
     // 닉네임 저장 api
 
     console.log(nickname);
+    scrollTo(0, 0);
     navigate(ROUTE.HOME_PAGE.link);
   };
   return (
-    <div className="flex h-[100vh] flex-col  items-center bg-gray-90 py-[10vh]">
+    <div className="scrollbar-hide flex h-[100vh] flex-col items-center overflow-y-scroll bg-gray-90 py-[10vh]">
       {currentPage === "first" && (
         <GenderBirthYear
           handleAgree={(gender: "남자" | "여자", birthYear: number) =>

@@ -21,7 +21,7 @@ const StartGenderBirthYear = ({
         저희에게 알려주세요.
       </p>
 
-      <div className="pt-[10vh]">
+      <div className="pt-[8vh]">
         <h2 className="py-[2vh] text-lg font-semibold">성별</h2>
         <div className="flex content-between px-8">
           <CustomButton
@@ -65,7 +65,7 @@ const StartGenderBirthYear = ({
         </div>
       </div>
       <div className="fixed bottom-[3vh] pb-[5vh] pt-[10vh] ">
-        <p className="py-6 text-center text-sm font-normal opacity-70">
+        <p className="py-5 text-center text-sm font-normal opacity-70">
           동의해요 버튼을 누를 경우, <br />
           작성한 개인 정보 수집/이용에 <br />
           동의하는 것으로 간주합니다. <br />

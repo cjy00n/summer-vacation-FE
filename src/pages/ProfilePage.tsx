@@ -1,5 +1,5 @@
 import { ko } from "date-fns/locale";
-import { AddPhotoIcon, EditIcon, KebabMenuIcon } from "../assets/icons";
+import { EditIcon } from "../assets/icons";
 import { CustomButton, TopAppBar } from "../components/common";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
@@ -104,12 +104,12 @@ const ProfilePage = () => {
 
   return (
     <>
-      <TopAppBar title="프로필" rightIcon={<KebabMenuIcon />} />
+      <TopAppBar title="프로필" />
       <div className="flex justify-between px-14 py-8">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-80">
+        {/* <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-80">
           <AddPhotoIcon />
-        </div>
-        <div className="flex flex-col px-10">
+        </div> */}
+        <div className="flex px-10">
           <div className="mb-2 flex">
             <span className="text-base font-semibold">{nickname}</span>
             <span className="px-2" onClick={toggleEditNicknameModal}>
@@ -148,7 +148,9 @@ const ProfilePage = () => {
           </Modal>
 
           <span className="text-sm font-semibold">작성한 일기</span>
-          <span>{temp.length.toLocaleString()}</span>
+          <span className="font-bold text-primary-orange">
+            {temp.length.toLocaleString()}
+          </span>
         </div>
       </div>
       <div>

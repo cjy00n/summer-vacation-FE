@@ -7,6 +7,13 @@ export default {
       gamja: ["Gamja Flower"],
     },
     extend: {
+      scrollbarHide: {
+        "-ms-overflow-style": "none", // IE와 Edge를 위한 설정
+        "scrollbar-width": "none", // Firefox를 위한 설정
+        "&::-webkit-scrollbar": {
+          display: "none", // Chrome, Safari, Opera를 위한 설정
+        },
+      },
       screens: {
         "custom-breakpoint": "480px",
       },

@@ -10,8 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
 import { useDeleteDiary } from "../../hooks/deleteDiary";
+import { Diary } from "../../types";
 
-const FeedBottomMine = ({ id }: { id: string }) => {
+const FeedBottomMine = ({ diaryData }: { diaryData: Diary }) => {
   const navigate = useNavigate();
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -35,18 +36,16 @@ const FeedBottomMine = ({ id }: { id: string }) => {
     messageApi.success("주소가 클립보드에 복사되었어요");
   };
 
-  const { mutate: deleteDiary } = useDeleteDiary(id);
+  const { mutate: deleteDiary } = useDeleteDiary(diaryData.id);
 
   /* 일기 삭제 함수 */
   const handleDeleteDiary = async () => {
-    // 백엔드 연결 필요
     deleteDiary();
   };
 
   /* 일기 수정 함수 */
   const handleEditDiary = () => {
-    // 백엔드 연결 필요
-    navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { title: "기존일기" } });
+    navigate(ROUTE.ADD_DIARY_PAGE.link, { state: diaryData });
   };
 
   /* 파일 다운로드 => 준비중 */

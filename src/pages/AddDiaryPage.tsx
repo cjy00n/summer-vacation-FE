@@ -2,7 +2,7 @@ import { Drawer, Switch, message } from "antd";
 import { AlertModal, CustomButton, TopAppBar } from "../components/common";
 import { CloseIcon, AddIcon, EditIcon } from "../assets/icons";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { format } from "date-fns";
 import { SelectDateModal, TodayChoiceSection } from "../components/AddDiary";
@@ -24,23 +24,27 @@ import {
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { defaultTries } from "../recoil/utils/loadDrawingRecord";
+import { usePatchDiary } from "../hooks/patchDiary";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
 
   const existingData = getDiaryLocalStorage();
   const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>(
-    existingData ?? {
-      contents: "",
-      emotion: EmotionData[0],
-      weather: WeatherData[0],
-      title: "",
-      englishContents: "",
-      isPublic: 1,
-      date: new Date(),
-    },
+    state
+      ? state
+      : existingData ?? {
+          contents: "",
+          emotion: EmotionData[0],
+          weather: WeatherData[0],
+          title: "",
+          englishContents: "",
+          isPublic: 1,
+          date: new Date(),
+        },
   );
 
   const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
@@ -57,8 +61,8 @@ const AddDiaryPage = () => {
   };
 
   /* close 모달 창 토글 함수 */
-  const showStopModal = () => {
-    setIsStopModalOpen(true);
+  const toggleStopModal = () => {
+    setIsStopModalOpen(!isStopModalOpen);
   };
 
   /* 사진 수정 Drawer 토글 함수 */
@@ -85,9 +89,9 @@ const AddDiaryPage = () => {
 
   /* 번역 페이지로 이동 (제목, 내용 길이 0 아닐때만) */
   const linkTransferPage = () => {
-    if (diaryData.title.length === 0) {
+    if (diaryData.title?.length === 0) {
       message.open({ type: "error", content: "제목을 입력해주세요." });
-    } else if (diaryData.contents.length < 10) {
+    } else if (diaryData.contents?.length < 10) {
       message.open({
         type: "error",
         content: "내용을 10자 이상 입력해주세요.",
@@ -108,12 +112,22 @@ const AddDiaryPage = () => {
     navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link);
   };
 
+  const { mutate: patchDiary } = usePatchDiary({
+    ...state,
+    ...diaryData,
+  });
+
+  const handleEditDiary = () => {
+    patchDiary();
+  };
+
+  console.log("다이어리,", diaryData);
   return (
     <div className="mb-4">
       <TopAppBar
         title="일기쓰기"
         rightIcon={<CloseIcon />}
-        rightOnClick={showStopModal}
+        rightOnClick={toggleStopModal}
       />
       <div className="flex h-14 items-center justify-between border-b px-6 py-2">
         <span className="mr-8 text-sm font-medium">날짜</span>
@@ -121,12 +135,14 @@ const AddDiaryPage = () => {
           <span className="text-sm font-medium">
             {format(diaryData.date!.toString(), "yyy년 MM월 dd일")}
           </span>
-          <button
-            className="text-sm font-normal text-primary-orange"
-            onClick={toggleChangeDateModal}
-          >
-            변경
-          </button>
+          {!state && (
+            <button
+              className="text-sm font-normal text-primary-orange"
+              onClick={toggleChangeDateModal}
+            >
+              변경
+            </button>
+          )}
         </div>
       </div>
       <SelectDateModal
@@ -145,7 +161,7 @@ const AddDiaryPage = () => {
             className="bg-transparent text-sm"
           />
           <span className=" text-xs text-gray-30">
-            {diaryData.title.length + "/18"}
+            {diaryData.title?.length + "/18"}
           </span>
         </div>
       </div>
@@ -176,19 +192,21 @@ const AddDiaryPage = () => {
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
-        {drawingRecord.beforeImages.length ? (
+        {drawingRecord.beforeImages.length || state ? (
           <div className="relative ">
             <button
               onClick={toggleEditDrawing}
               className="absolute right-2 top-2 rounded-full bg-black bg-opacity-20 p-1"
             >
-              <EditIcon width={32} height={32} />
+              {!state && <EditIcon width={32} height={32} />}
             </button>
             <img
               src={
-                drawingRecord.beforeImages[
-                  drawingRecord.beforeImages.length - 1
-                ]
+                state
+                  ? state.image
+                  : drawingRecord.beforeImages[
+                      drawingRecord.beforeImages.length - 1
+                    ]
               }
               className="h-[320px] w-[320px] object-cover"
             />
@@ -204,12 +222,32 @@ const AddDiaryPage = () => {
             </span>
           </button>
         )}
-        <CustomButton
-          onClick={linkPreviewPage}
-          content="일기 미리보기"
-          size="long"
-          type={drawingRecord.beforeImages.length ? "default" : "disabled"}
-        />
+        {state ? (
+          <div className="flex w-[320px] justify-between">
+            <CustomButton
+              content={"취소"}
+              type="white"
+              size="half"
+              onClick={toggleStopModal}
+            />
+            <CustomButton
+              content={"일기 수정하기"}
+              size="half"
+              onClick={handleEditDiary}
+            />
+          </div>
+        ) : (
+          <CustomButton
+            onClick={linkPreviewPage}
+            content="일기 미리보기"
+            size="long"
+            type={
+              drawingRecord.beforeImages.length || state
+                ? "default"
+                : "disabled"
+            }
+          />
+        )}
       </div>
       <AlertModal
         toggle={isStopModalOpen}
