@@ -1,5 +1,6 @@
 import { instance } from ".";
 import { useMutation } from "react-query";
+import { Emotion, Weather } from "../types";
 
 interface DiaryTranslationResponse {
   message: {
@@ -11,11 +12,20 @@ interface DiaryTranslationResponse {
   };
 }
 
-export const postDiaryTranslation = async (input: string) => {
+export const postDiaryTranslation = async ({
+  input,
+  weather,
+  emotion,
+}: {
+  input: string;
+  weather: Weather;
+  emotion: Emotion;
+}) => {
+  const addConditionInput = `${weather} and ${emotion}\n` + input + "\n";
   try {
     const response = await instance.post<DiaryTranslationResponse>(
       "/diary/translation-text",
-      { input: input },
+      { input: addConditionInput },
     );
 
     return response.data.message.result.translatedText;
@@ -24,6 +34,10 @@ export const postDiaryTranslation = async (input: string) => {
   }
 };
 
-export const usePostDiaryTranslation = (input: string) => {
-  return useMutation(() => postDiaryTranslation(input));
+export const usePostDiaryTranslation = (
+  input: string,
+  weather: Weather,
+  emotion: Emotion,
+) => {
+  return useMutation(() => postDiaryTranslation({ input, weather, emotion }));
 };

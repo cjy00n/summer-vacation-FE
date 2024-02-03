@@ -138,7 +138,7 @@ const FeedDetailPage = () => {
             />
           )}
           {isMine ? (
-            <FeedBottomMine />
+            <FeedBottomMine id={id!} />
           ) : (
             <FeedBottomOthers
               isBookmark={isBookmark}

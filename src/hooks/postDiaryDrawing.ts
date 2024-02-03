@@ -2,7 +2,7 @@ import { instance } from ".";
 
 export const postDiaryDrawing = async (input: string) => {
   console.log(input);
-  input = input + "\nby crayon like animation";
+  input = input + "\nby crayon like animation without any text";
   try {
     console.log(input);
     const response = await instance.post<{ imageUrl: string }>(

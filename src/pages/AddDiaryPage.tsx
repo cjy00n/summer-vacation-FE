@@ -23,10 +23,10 @@ import {
 } from "../utils/handleDiaryLocalStorage";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
+import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
-  const [, contextHolder] = message.useMessage();
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
 
@@ -196,11 +196,11 @@ const AddDiaryPage = () => {
         ) : (
           <button
             onClick={linkTransferPage}
-            className="flex h-[320px] w-[320px] flex-col items-center justify-center rounded bg-gray-70"
+            className="flex h-[320px] w-[320px] flex-col items-center justify-center rounded bg-primary-orange"
           >
-            <AddIcon fillColor="black" />
-            <span className="text-sm font-semibold">
-              선택해서 AI로 그림 그리기
+            <AddIcon fillColor="white" />
+            <span className="text-sm font-semibold text-white">
+              AI로 그림 그리기
             </span>
           </button>
         )}
@@ -230,11 +230,12 @@ const AddDiaryPage = () => {
       >
         <button onClick={linkBeforePage}>전에 그린 그림 보기</button>
         <button className="justify-between text-gray-50">
-          <span>다시 그리기(0/3)</span>
+          <span>
+            다시 그리기({drawingRecord.remainingTries}/{defaultTries})
+          </span>
           <span>그릴 수 있는 횟수가 끝났어요</span>
         </button>
       </Drawer>
-      {contextHolder}
     </div>
   );
 };

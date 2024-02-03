@@ -9,8 +9,9 @@ import { AlertModal, CircleButton } from "../common";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
+import { useDeleteDiary } from "../../hooks/deleteDiary";
 
-const FeedBottomMine = () => {
+const FeedBottomMine = ({ id }: { id: string }) => {
   const navigate = useNavigate();
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -34,9 +35,12 @@ const FeedBottomMine = () => {
     messageApi.success("주소가 클립보드에 복사되었어요");
   };
 
+  const { mutate: deleteDiary } = useDeleteDiary(id);
+
   /* 일기 삭제 함수 */
-  const handleDeleteDiary = () => {
+  const handleDeleteDiary = async () => {
     // 백엔드 연결 필요
+    deleteDiary();
   };
 
   /* 일기 수정 함수 */
@@ -53,7 +57,7 @@ const FeedBottomMine = () => {
   return (
     <div
       id="feed-bottom-mine"
-      className="fixed z-10 bottom-[100px] left-[50%] transform -translate-x-1/2 flex w-[320px] justify-between"
+      className="fixed bottom-[100px] left-[50%] z-10 flex w-[320px] -translate-x-1/2 transform justify-between"
     >
       <CircleButton
         type="dangerous"
@@ -65,6 +69,7 @@ const FeedBottomMine = () => {
       <CircleButton icon={<FileDownloadIcon />} onClick={handleFileDownload} />
       {contextHolder}
       <AlertModal
+        toggle={isSureDeleteModalOpen}
         title="일기를 정말 삭제할까요?"
         closeText="다시 생각할게요"
         okText="삭제할래요"

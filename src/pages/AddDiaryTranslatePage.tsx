@@ -4,15 +4,12 @@ import { DrawingModal } from "../components/AddDiary";
 import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
-import { postDiaryTranslation } from "../hooks/postDiaryTranslation";
+import { usePostDiaryTranslation } from "../hooks/postDiaryTranslation";
 import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { postDiaryDrawing } from "../hooks/postDiaryDrawing";
-import {
-  getDiaryLocalStorage,
-  setDiaryLocalStorage,
-} from "../utils/handleDiaryLocalStorage";
+import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
 const AddDiaryTranslatePage = () => {
   const navigate = useNavigate();
 
@@ -42,19 +39,20 @@ const AddDiaryTranslatePage = () => {
       console.error(e);
     }
   };
+  const { mutate: translate, data: output } = usePostDiaryTranslation(
+    koreanContent,
+    diaryData.weather,
+    diaryData.emotion,
+  );
 
   useEffect(() => {
-    const translate = async () => {
-      try {
-        const result = await postDiaryTranslation(koreanContent);
-        setEnglishContent(result ?? ""); // 번역된 내용으로 상태 업데이트
-        setDiaryLocalStorage({ ...diaryData, englishContents: result });
-      } catch (error) {
-        console.error(error);
-      }
-    };
     translate();
-  }, [diaryData, koreanContent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setEnglishContent(output!);
+  }, [output]);
 
   return (
     <div className="flex h-[100vh] flex-col">
