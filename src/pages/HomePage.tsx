@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { NotificationIcon } from "../assets/icons";
-import {
-  Banner,
-  HomeContest,
-  HomeMyDiary,
-  HomeTitle,
-} from "../components/Home";
+import { Banner, HomeMyDiary, HomeTitle } from "../components/Home";
 import HomeRecentBestDiary from "../components/Home/HomeRecentBestDiary";
 import {
   PageBottomShadow,
@@ -52,8 +47,7 @@ const HomePage = () => {
           title={`${month}월 사생대회`}
           description="AI가 그린 기린 그림"
         />
-        <HomeContest />
-        <div className="fixed bottom-24 left-[50%] z-10 -translate-x-1/2 transform">
+        <div className="fixed bottom-20 left-[50%] z-10 -translate-x-1/2 transform">
           <CustomButton
             onClick={linkAddDiaryPage}
             content="일기 쓰러가기"
