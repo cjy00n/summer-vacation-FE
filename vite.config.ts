@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://49.50.162.10", // 백엔드 서버 주소
+        target: "http://118.67.142.166/", // 백엔드 서버 주소
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
