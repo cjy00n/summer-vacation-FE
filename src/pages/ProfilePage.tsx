@@ -1,6 +1,6 @@
 import { ko } from "date-fns/locale";
 import { AddPhotoIcon, EditIcon, KebabMenuIcon } from "../assets/icons";
-import { TopAppBar } from "../components/common";
+import { CustomButton, TopAppBar } from "../components/common";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
@@ -8,9 +8,14 @@ import { Diary } from "../types";
 import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
 import GetWeatherIcon from "../assets/icons/weather/GetWeatherIcon";
 import { useGetUserInfo } from "../hooks/getMyUserInfo";
+import { useEffect, useState } from "react";
+import { Modal, message } from "antd";
+import { usePatchNickname } from "../hooks/patchNickname";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
+  const [nickname, setNickname] = useState("닉네임");
   const data = useGetUserInfo();
   console.log(data);
 
@@ -84,6 +89,19 @@ const ProfilePage = () => {
     navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${id}`);
   };
 
+  const toggleEditNicknameModal = () => {
+    setIsEditNicknameOpen(!isEditNicknameOpen);
+  };
+
+  const { mutate: patchNickname, isSuccess } = usePatchNickname(nickname);
+  const handlePatchNickname = () => {
+    patchNickname();
+  };
+
+  useEffect(() => {
+    if (isSuccess) message.success("닉네임이 변경되었습니다.");
+  }, [isSuccess]);
+
   return (
     <>
       <TopAppBar title="프로필" rightIcon={<KebabMenuIcon />} />
@@ -93,9 +111,42 @@ const ProfilePage = () => {
         </div>
         <div className="flex flex-col px-10">
           <div className="mb-2 flex">
-            <span className="text-base font-semibold">Nickname</span>
-            <EditIcon fillColor="black" />
+            <span className="text-base font-semibold">{nickname}</span>
+            <span className="px-2" onClick={toggleEditNicknameModal}>
+              <EditIcon fillColor="black" />
+            </span>
           </div>
+          <Modal
+            centered
+            open={isEditNicknameOpen}
+            title={
+              <div className="mx-4 text-center text-lg font-semibold">
+                닉네임 변경하기
+                <input
+                  className="my-2 w-full rounded-lg border-none bg-gray-70 bg-opacity-70 p-2 text-sm"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
+              </div>
+            }
+            footer={null}
+            closeIcon={null}
+          >
+            <div className="flex">
+              <CustomButton
+                type="white"
+                size="half"
+                content={"닫기"}
+                onClick={toggleEditNicknameModal}
+              />
+              <CustomButton
+                size="half"
+                content={"변경하기"}
+                onClick={handlePatchNickname}
+              />
+            </div>
+          </Modal>
+
           <span className="text-sm font-semibold">작성한 일기</span>
           <span>{temp.length.toLocaleString()}</span>
         </div>
