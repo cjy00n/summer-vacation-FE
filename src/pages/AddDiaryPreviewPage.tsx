@@ -62,6 +62,8 @@ const AddDiaryPreviewPage = () => {
           image={drawingRecord.beforeImages[0]}
           weather={weather}
           emotion={emotion}
+          isPublic={1}
+          isWrite={1}
         />
         <div className="fixed bottom-[10px] left-[50%] z-10 my-2 flex w-[320px] -translate-x-1/2 transform">
           <CircleButton
