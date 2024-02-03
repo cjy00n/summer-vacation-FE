@@ -19,29 +19,31 @@ const HomeContestItem = ({
   date,
 }: HomeContestItemProps) => {
   return (
-    <div className="flex flex-col flex-shrink-0">
+    <div className="flex flex-shrink-0 flex-col">
       <div className="relative">
         <img
           src={img}
-          className="w-[320px] h-[320px] object-cover rounded-lg bg-custom-gradient"
+          className="bg-custom-gradient h-[300px] w-[300px] rounded-lg object-cover"
         />
-        <div className="w-[320px] h-[320px] absolute top-0 bg-opacity-5 bg-black"></div>
-        <span className="absolute top-0 left-0 p-2 text-white text-lg font-bold">
+        <div className="absolute top-0 h-[300px] w-[300px] bg-black bg-opacity-5"></div>
+        <span className="absolute left-0 top-0 p-2 text-lg font-bold text-white">
           {ranking}등
         </span>
+        <div className="absolute bottom-0 w-[300px] rounded-b-lg bg-[#474645] bg-opacity-80 p-2">
+          <HomeContentItem
+            icon={<FillStarIcon width={20} height={20} fillColor="white" />}
+            content={like.toLocaleString()}
+          />
+          <HomeContentItem
+            icon={<PersonIcon width={20} height={20} fillColor="white" />}
+            content={nickname}
+          />
+          <HomeContentItem
+            icon={<CalendarIcon width={20} height={20} fillColor="white" />}
+            content={format(date, "yy.MM.dd", { locale: ko })}
+          />
+        </div>
       </div>
-      <HomeContentItem
-        icon={<FillStarIcon width={20} height={20} fillColor="black" />}
-        content={like.toLocaleString()}
-      />
-      <HomeContentItem
-        icon={<PersonIcon width={20} height={20} fillColor="black" />}
-        content={nickname}
-      />
-      <HomeContentItem
-        icon={<CalendarIcon width={20} height={20} fillColor="black" />}
-        content={format(date, "yy.MM.dd", { locale: ko })}
-      />
     </div>
   );
 };

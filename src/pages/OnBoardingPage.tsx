@@ -12,7 +12,7 @@ const OnBoardingPage = () => {
   };
 
   return (
-    <div className="scrollbar-hide flex h-[100vh] flex-col overflow-y-scroll bg-gray-90">
+    <div className="scrollbar-hide flex h-[100vh] flex-col bg-gray-90">
       <Carousel
         autoplay
         autoplaySpeed={3000}

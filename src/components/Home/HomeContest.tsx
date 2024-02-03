@@ -26,7 +26,7 @@ const HomeContest = () => {
   ];
 
   return (
-    <div className="flex flex-row gap-4 whitespace-nowrap overflow-x-auto hide-scrollbar">
+    <div className="hide-scrollbar flex flex-row gap-4 overflow-x-auto whitespace-nowrap px-3">
       {data.map((item, idx) => (
         <HomeContestItem
           key={"contest-item-" + idx}

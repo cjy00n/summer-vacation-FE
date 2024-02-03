@@ -3,7 +3,7 @@ import { ArrowLeftIcon } from "../../assets/icons";
 import TopLogoIcon from "../../assets/icons/TopLogoIcon";
 
 interface TopAppBarProps {
-  title?: string;
+  title?: string | React.ReactElement;
   bgColor?: string;
   leftGoBack?: boolean;
   leftIcon?: React.ReactElement;

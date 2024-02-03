@@ -43,7 +43,7 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
       <div
         className={`absolute top-0 bg-black bg-opacity-10 ${getSize()}`}
       ></div>
-      <div className="absolute bottom-1 flex">
+      <div className="absolute bottom-1 left-2 flex w-14 items-center rounded-lg bg-black bg-opacity-50 px-2 py-1">
         <FillStarIcon width={20} height={20} fillColor="white" />
         <span className="text-xs font-bold text-primary-white ">
           {like.toLocaleString()}

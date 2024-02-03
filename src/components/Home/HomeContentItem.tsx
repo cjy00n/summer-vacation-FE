@@ -4,9 +4,9 @@ interface HomeContentItemProps {
 }
 const HomeContentItem = ({ icon, content }: HomeContentItemProps) => {
   return (
-    <div className="flex items-center my-1">
+    <div className="my-1 flex items-center">
       {icon}
-      <span className="ml-1 text-xs text-black">{content}</span>
+      <span className="ml-1 text-xs text-white">{content}</span>
     </div>
   );
 };
