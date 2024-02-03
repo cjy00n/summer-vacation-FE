@@ -1,3 +1,4 @@
+import { useMutation } from "react-query";
 import { instance } from ".";
 import { Gender } from "../types";
 
@@ -6,7 +7,10 @@ interface patchAddUserInfoProps {
   birth: string;
 }
 
-export const patchDiary = async ({ gender, birth }: patchAddUserInfoProps) => {
+export const patchAddUserInfo = async ({
+  gender,
+  birth,
+}: patchAddUserInfoProps) => {
   console.log(gender, birth);
 
   try {
@@ -19,4 +23,7 @@ export const patchDiary = async ({ gender, birth }: patchAddUserInfoProps) => {
   } catch (e) {
     console.error;
   }
+};
+export const usePatchAddUserInfo = (gender: Gender, birth: string) => {
+  return useMutation(() => patchAddUserInfo({ gender, birth }));
 };
