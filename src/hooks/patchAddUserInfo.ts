@@ -15,8 +15,8 @@ export const patchAddUserInfo = async ({
 
   try {
     const response = await instance.patch("users/addInfo", {
-      gender: "여자",
-      birth: "2000",
+      gender,
+      birth,
     });
 
     return response.data;
