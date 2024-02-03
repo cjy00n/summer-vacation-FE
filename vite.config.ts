@@ -9,6 +9,7 @@ export default defineConfig({
       "/api": {
         target: "http://118.67.142.166/", // 백엔드 서버 주소
         changeOrigin: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
