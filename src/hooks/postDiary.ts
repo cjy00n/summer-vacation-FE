@@ -6,7 +6,7 @@ type PostDrawingType = Omit<Diary, "id" | "createdAt">;
 export const postDiary = async (dairy: PostDrawingType) => {
   try {
     console.log(dairy);
-    const response = await instance.post<{ imageUrl: string }>(
+    const response = await instance.post<{ result: string }>(
       "diary/create-diary",
       dairy,
     );
