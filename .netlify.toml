@@ -1,7 +1,14 @@
 [build]
   publish = "build"
-  command = "npm run build"
+  command = "yarn build"
+
 [[redirects]]
   from = "/*"
   to = "index.html"
   status = 200
+
+  [[redirects]]
+  from = "/api/*"
+  to = "http://118.67.142.166/"
+  status = 200
+  force = true
