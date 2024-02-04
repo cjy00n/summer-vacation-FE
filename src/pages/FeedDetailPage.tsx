@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CloseIcon,
   FillStarIcon,
   KebabMenuIcon,
+  LoadingIcon,
   StarIcon,
 } from "../assets/icons";
 import {
@@ -15,20 +16,40 @@ import {
 import { PageBottomShadow, TopAppBar } from "../components/common";
 import { Diary, Emotion } from "../types";
 import GetEmotionIcon from "../assets/icons/emotions/GetEMotionIcon";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Drawer, message } from "antd";
 import { useGetDiary } from "../hooks/getDiary";
+import { useGetUserInfo } from "../hooks/getMyUserInfo";
 
 const FeedDetailPage = () => {
-  // 임시로, state에 내 글인지 아닌지 담아서 받음
-  let isMine = false;
-
-  const { state } = useLocation();
-  if (state?.isMine) isMine = true;
-
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading, error } = useGetDiary(id ?? "0");
+  const {
+    data: diaryData,
+    isLoading: isDiaryLoading,
+    isError: isDiaryError,
+  } = useGetDiary(id ?? "0");
+  const {
+    data: userInfo,
+    isLoading: isUserInfoLoading,
+    isError: isUserInfoError,
+  } = useGetUserInfo();
+  const [isMine, setIsMine] = useState(false); // 나의 일기인지 여부
+  const [diary, setDiary] = useState<Diary>();
+
+  useEffect(() => {
+    if (userInfo && diaryData) {
+      // 내가 작성한 모든 일기의 아이디와 현재 페이지의 아이디가 같은 것을 찾고, 있으면 isMine을 true로
+      const isMine = userInfo.diaries.find((item) => item.id === diaryData.id);
+      setIsMine(isMine ? true : false);
+    }
+  }, [diaryData, userInfo]);
+
+  useEffect(() => {
+    if (diaryData) {
+      setDiary(diaryData);
+    }
+  }, [diaryData]);
 
   const like = 5000;
   const like1 = 700;
@@ -101,32 +122,34 @@ const FeedDetailPage = () => {
     );
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred</div>;
-  if (!data) return <div>No data found</div>;
-  else {
-    const { title, contents, image, date, emotion, weather, isPublic } = data;
-    return (
+  return isDiaryLoading || isUserInfoLoading ? (
+    <div>{<LoadingIcon />}</div>
+  ) : isDiaryError || isUserInfoError ? (
+    <div>데이터를 불러오는 중 에러가 발생했습니다.</div>
+  ) : (
+    diary && (
       <>
         <div className="relative mb-6 pb-20">
           <TopAppBar
             title={
-              isMine ? format(date as Date, "yyy년 MM월 dd일") : "오늘의 일기"
+              isMine
+                ? format(diary.date as Date, "yyy년 MM월 dd일")
+                : "오늘의 일기"
             }
             leftGoBack
             rightIcon={<KebabMenuIcon />}
             rightOnClick={toggleMoreDrawer}
           />
           <FeedDetailItem
-            title={title}
-            date={date}
-            weather={weather}
-            emotion={emotion}
-            image={image}
-            contents={contents}
+            title={diary.title}
+            date={diary.date}
+            weather={diary.weather}
+            emotion={diary.emotion}
+            image={diary.image}
+            contents={diary.contents}
             like={like}
             isLike={isLike}
-            isPublic={isPublic ? 1 : 0}
+            isPublic={diary.isPublic ? 1 : 0}
             isWrite={1}
           />
 
@@ -138,7 +161,7 @@ const FeedDetailPage = () => {
             />
           )}
           {isMine ? (
-            <FeedBottomMine diaryData={data as Diary} />
+            <FeedBottomMine diaryData={diary} />
           ) : (
             <FeedBottomOthers
               isBookmark={isBookmark}
@@ -164,8 +187,8 @@ const FeedDetailPage = () => {
           <button onClick={handleRepost}>신고하기</button>
         </Drawer>
       </>
-    );
-  }
+    )
+  );
 };
 
 export default FeedDetailPage;

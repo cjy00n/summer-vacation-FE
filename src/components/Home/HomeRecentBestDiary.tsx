@@ -1,13 +1,17 @@
 import { HomeDiaryItem } from ".";
+import { LoadingIcon } from "../../assets/icons";
 import { useGetPublicDiary } from "../../hooks/getPublicDiary";
 
 const HomeRecentBestDiary = () => {
-  const { data } = useGetPublicDiary();
-  console.log(data);
+  const { data, isLoading } = useGetPublicDiary();
 
   return (
     <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
-      {data && data.length > 0 ? (
+      {isLoading ? (
+        <div>
+          <LoadingIcon />
+        </div>
+      ) : data && data.length > 0 ? (
         data.map((item, idx) => (
           <HomeDiaryItem
             key={"my-diary-item-" + idx}

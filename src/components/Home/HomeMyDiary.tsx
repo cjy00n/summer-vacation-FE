@@ -1,13 +1,17 @@
 import { HomeDiaryItem } from ".";
+import { LoadingIcon } from "../../assets/icons";
 import { useGetUserInfo } from "../../hooks/getMyUserInfo";
 
 const HomeMyDiary = () => {
-  const { data: userInfo } = useGetUserInfo();
-  console.log(userInfo?.diaries);
+  const { data: userInfo, isLoading } = useGetUserInfo();
 
   return (
     <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
-      {userInfo && userInfo?.diaries.length > 0 ? (
+      {isLoading ? (
+        <div>
+          <LoadingIcon />
+        </div>
+      ) : userInfo && userInfo?.diaries.length > 0 ? (
         userInfo?.diaries.map((item, idx) => (
           <HomeDiaryItem
             key={"my-diary-item-" + idx}
