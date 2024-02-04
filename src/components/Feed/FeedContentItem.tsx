@@ -1,8 +1,8 @@
-interface HomeContentItemProps {
+interface FeedContentItemProps {
   icon: React.ReactElement;
   content: string;
 }
-const HomeContentItem = ({ icon, content }: HomeContentItemProps) => {
+const FeedContentItem = ({ icon, content }: FeedContentItemProps) => {
   return (
     <div className="my-1 flex items-center">
       {icon}
@@ -11,4 +11,4 @@ const HomeContentItem = ({ icon, content }: HomeContentItemProps) => {
   );
 };
 
-export default HomeContentItem;
+export default FeedContentItem;

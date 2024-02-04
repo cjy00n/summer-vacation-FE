@@ -16,7 +16,7 @@ const HomeMyDiary = () => {
           <HomeDiaryItem
             key={"my-diary-item-" + idx}
             image={item.image}
-            like={100}
+            like={parseInt(item.id)}
             id={item.id}
           />
         ))

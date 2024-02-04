@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { CalendarIcon, FillStarIcon, PersonIcon } from "../../assets/icons";
-import { HomeContentItem } from "../Home";
+import { FeedContentItem } from ".";
 
 interface FeedContestItemProps {
   ranking: number;
@@ -30,15 +30,15 @@ const FeedContestItem = ({
           {ranking}등
         </span>
         <div className="absolute bottom-0 w-[300px] rounded-b-lg bg-[#474645] bg-opacity-80 p-2">
-          <HomeContentItem
+          <FeedContentItem
             icon={<FillStarIcon width={20} height={20} fillColor="white" />}
             content={like.toLocaleString()}
           />
-          <HomeContentItem
+          <FeedContentItem
             icon={<PersonIcon width={20} height={20} fillColor="white" />}
             content={nickname}
           />
-          <HomeContentItem
+          <FeedContentItem
             icon={<CalendarIcon width={20} height={20} fillColor="white" />}
             content={format(date, "yy.MM.dd", { locale: ko })}
           />

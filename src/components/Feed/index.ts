@@ -6,3 +6,4 @@ export { default as FeedBottomOthers } from "./FeedBottomOthers"; // 피드 상�
 export { default as FeedBottomMine } from "./FeedBottomMine"; // 피드 상세 페이지, 내 글일 때 하단 버튼
 export { default as FeedContest } from "./FeedContest";
 export { default as FeedContestItem } from "./FeedContestItem";
+export { default as FeedContentItem } from "./FeedContentItem";
