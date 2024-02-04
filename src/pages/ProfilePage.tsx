@@ -7,23 +7,30 @@ import {
   ProfileMyDiary,
   ProfileEditNicknameModal,
 } from "../components/Profile";
+import { useGetMyDiaries } from "../hooks/getMyDiaries";
+import { useGetMyNickname } from "../hooks/getMyNickname";
 
 const ProfilePage = () => {
   const { data: userInfo, isSuccess: getSuccess } = useGetUserInfo();
+  const { data: myDiariess } = useGetMyDiaries();
+  const { data: myNickname, isSuccess: nicknameSuccess } = useGetMyNickname();
 
+  console.log("내일기 리스트 : ", myDiariess);
   const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [myDiaries, setMyDiaries] = useState<Diary[]>();
-  const [nickname, setNickname] = useState(
-    userInfo?.nickname ? userInfo?.nickname : "닉네임",
-  );
+  const [nickname, setNickname] = useState("닉네임");
 
   useEffect(() => {
     if (userInfo) {
-      setNickname(userInfo?.nickname);
       setMyDiaries(userInfo?.diaries);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getSuccess]);
+
+  useEffect(() => {
+    if (nicknameSuccess && myNickname) setNickname(myNickname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nicknameSuccess]);
 
   const toggleEditNicknameModal = () => {
     setIsEditNicknameOpen(!isEditNicknameOpen);
@@ -33,15 +40,15 @@ const ProfilePage = () => {
     <>
       <TopAppBar title="프로필" />
       <div className="flex justify-between px-14 py-8">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-80">
+        <div className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gray-80">
           <AddPhotoIcon />
         </div>
         <div className="flex flex-col pr-10">
           <div className="mb-2 flex">
             <span className="text-base font-semibold">{nickname}</span>
-            <span className="px-2" onClick={toggleEditNicknameModal}>
+            <button className="px-2" onClick={toggleEditNicknameModal}>
               <EditIcon fillColor="black" />
-            </span>
+            </button>
           </div>
           <span className="text-sm font-semibold">작성한 일기</span>
           <span className="font-bold text-primary-orange">

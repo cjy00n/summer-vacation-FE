@@ -12,6 +12,5 @@ const getUserInfo = async () => {
 };
 
 export function useGetUserInfo() {
-  const accessToken = localStorage.getItem("accessToken");
-  return useQuery(["getUserInfo", accessToken], () => getUserInfo());
+  return useQuery(["getUserInfo"], () => getUserInfo());
 }

@@ -1,6 +1,7 @@
 import { HomeDiaryItem } from ".";
 import { LoadingIcon } from "../../assets/icons";
 import { useGetPublicDiary } from "../../hooks/getPublicDiary";
+import DraggableScrollContainer from "../common/DraggableScrollContainer";
 
 const HomeRecentBestDiary = () => {
   const { data, isLoading } = useGetPublicDiary();
@@ -12,14 +13,16 @@ const HomeRecentBestDiary = () => {
           <LoadingIcon />
         </div>
       ) : data && data.length > 0 ? (
-        data.map((item, idx) => (
-          <HomeDiaryItem
-            key={"my-diary-item-" + idx}
-            image={item.image}
-            like={1000}
-            id={item.id}
-          />
-        ))
+        <DraggableScrollContainer>
+          {data.map((item, idx) => (
+            <HomeDiaryItem
+              key={"my-diary-item-" + idx}
+              image={item.image}
+              like={1000}
+              id={item.id}
+            />
+          ))}
+        </DraggableScrollContainer>
       ) : (
         <div className="w-full py-10 text-center">작성된 일기가 없습니다.</div>
       )}

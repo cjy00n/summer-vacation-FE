@@ -25,6 +25,7 @@ export function usePostDiary(diary: PostDrawingType) {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
       queryClient.invalidateQueries(["getUserInfo"]);
+      queryClient.invalidateQueries(["getMyDiaries"]);
     },
     onError: () => {
       message.error("다이어리 저장에 실패했습니다.");

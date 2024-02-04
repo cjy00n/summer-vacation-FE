@@ -34,8 +34,8 @@ const AddDiaryPage = () => {
 
   const existingData = getDiaryLocalStorage();
   const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>(
-    state
-      ? state
+    state && state.existingDiary
+      ? state.existingDiary
       : existingData ?? {
           contents: "",
           emotion: EmotionData[0],
@@ -43,7 +43,7 @@ const AddDiaryPage = () => {
           title: "",
           englishContents: "",
           isPublic: 1,
-          date: new Date(),
+          date: state && state.date ? state.date : new Date(),
         },
   );
 
@@ -112,10 +112,14 @@ const AddDiaryPage = () => {
     navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link);
   };
 
-  const { mutate: patchDiary } = usePatchDiary({
-    ...state,
-    ...diaryData,
-  });
+  const { mutate: patchDiary } = usePatchDiary(
+    state && state.existingDiary
+      ? {
+          ...state.existingDiary!,
+          ...diaryData,
+        }
+      : { ...diaryData },
+  );
 
   const handleEditDiary = () => {
     patchDiary();
@@ -171,7 +175,7 @@ const AddDiaryPage = () => {
           value={diaryData.contents}
           onChange={(e) => updateField("contents", e.target.value)}
           placeholder="내용 쓰기"
-          className="h-28 bg-transparent pt-3 text-xs outline-none "
+          className="h-28 resize-none bg-transparent pt-3 text-xs outline-none"
         />
         <span className="w-full pb-2 text-right text-xs text-gray-30">
           {diaryData.contents.length + "/80"}
@@ -200,12 +204,13 @@ const AddDiaryPage = () => {
               onClick={toggleEditDrawing}
               className="absolute right-2 top-2 rounded-full bg-black bg-opacity-20 p-1"
             >
-              {!state && <EditIcon width={32} height={32} />}
+              {!state ||
+                (state && state.date && <EditIcon width={32} height={32} />)}
             </button>
             <img
               src={
-                state
-                  ? state.image
+                state && state.existingDiary
+                  ? state.existingDiary.image
                   : drawingRecord.beforeImages[
                       drawingRecord.beforeImages.length - 1
                     ]
@@ -227,7 +232,7 @@ const AddDiaryPage = () => {
             </button>
           </>
         )}
-        {state ? (
+        {state && state.existingDiary ? (
           <div className="flex w-[320px] justify-between">
             <CustomButton
               content={"취소"}
@@ -271,7 +276,17 @@ const AddDiaryPage = () => {
         height={230}
         style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
       >
-        <button onClick={linkBeforePage}>전에 그린 그림 보기</button>
+        <button
+          disabled={drawingRecord.beforeImages.length < 1}
+          className={
+            drawingRecord.beforeImages.length > 0
+              ? "text-black"
+              : "text-gray-50"
+          }
+          onClick={linkBeforePage}
+        >
+          전에 그린 그림 보기
+        </button>
         <button
           disabled={drawingRecord.remainingTries < 1}
           className={`justify-between ${drawingRecord.remainingTries < 1 ? "text-black" : "text-gray-50"}`}

@@ -20,7 +20,7 @@ import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Drawer, message } from "antd";
 import { useGetDiary } from "../hooks/getDiary";
-import { useGetUserInfo } from "../hooks/getMyUserInfo";
+import { useGetMyDiaries } from "../hooks/getMyDiaries";
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,20 +30,21 @@ const FeedDetailPage = () => {
     isError: isDiaryError,
   } = useGetDiary(id ?? "0");
   const {
-    data: userInfo,
+    data: myDiaries,
     isLoading: isUserInfoLoading,
     isError: isUserInfoError,
-  } = useGetUserInfo();
+  } = useGetMyDiaries();
   const [isMine, setIsMine] = useState(false); // 나의 일기인지 여부
   const [diary, setDiary] = useState<Diary>();
+  console.log(diary);
 
   useEffect(() => {
-    if (userInfo && diaryData) {
+    if (myDiaries && diaryData) {
       // 내가 작성한 모든 일기의 아이디와 현재 페이지의 아이디가 같은 것을 찾고, 있으면 isMine을 true로
-      const isMine = userInfo.diaries.find((item) => item.id === diaryData.id);
+      const isMine = myDiaries.find((item) => item.id === diaryData.id);
       setIsMine(isMine ? true : false);
     }
-  }, [diaryData, userInfo]);
+  }, [diaryData, myDiaries]);
 
   useEffect(() => {
     if (diaryData) {
