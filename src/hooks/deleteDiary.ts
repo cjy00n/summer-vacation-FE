@@ -21,6 +21,8 @@ export function useDeleteDiary(targetId: string) {
   return useMutation(() => deleteDiary(targetId), {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
+      queryClient.invalidateQueries(["getDiary" + targetId]);
+      queryClient.invalidateQueries(["getUserInfo"]);
 
       message.success("삭제가 완료되었습니다.");
       navigate(-1);

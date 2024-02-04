@@ -7,4 +7,5 @@ export interface User {
   birth: string;
   createdAt: Date;
   diaries: Diary[];
+  nickname: string;
 }

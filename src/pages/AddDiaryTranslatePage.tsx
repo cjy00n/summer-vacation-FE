@@ -9,7 +9,10 @@ import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { postDiaryDrawing } from "../hooks/postDiaryDrawing";
-import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
+import {
+  getDiaryLocalStorage,
+  setDiaryLocalStorage,
+} from "../utils/handleDiaryLocalStorage";
 const AddDiaryTranslatePage = () => {
   const navigate = useNavigate();
 
@@ -27,6 +30,7 @@ const AddDiaryTranslatePage = () => {
     try {
       const newImage = await postDiaryDrawing(englishContent);
       if (newImage) {
+        setDiaryLocalStorage({ ...diaryData, englishContents: englishContent });
         updateDrawingRecord(setDrawingRecord, {
           ...drawingRecord,
           beforeImages: [...drawingRecord.beforeImages, newImage],

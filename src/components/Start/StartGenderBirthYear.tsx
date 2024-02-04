@@ -2,15 +2,35 @@ import { useState } from "react";
 import { CustomButton } from "../common";
 import { Select } from "antd";
 import { Gender } from "../../types";
+import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../routes/Route";
 const { Option } = Select;
 
-const StartGenderBirthYear = ({
-  handleAgree,
-}: {
-  handleAgree: (gender: Gender, birthYear: number) => void;
-}) => {
+// interface StartGenderBirtYearProps {
+//   // gender: Gender;
+//   // birthYear: number;
+//   // setGender: () => void;
+//   // setBirthYear: () => void;
+//   handleAgree?:()=>void;
+// }
+
+const StartGenderBirthYear = () => {
   const [gender, setGender] = useState<Gender>("남자");
   const [birthYear, setBirthYear] = useState(2000);
+
+  const navigate = useNavigate();
+
+  const { mutate: patchAddUserInfo } = usePatchAddUserInfo();
+
+  const handleGenderAndBirtYearAgree = () => {
+    // 성별, 태어난 해 저장 api
+    patchAddUserInfo({ gender, birth: birthYear.toString() });
+    console.log(gender, birthYear);
+    // setCurrentPage("second");
+    scrollTo(0, 0);
+    navigate(ROUTE.HOME_PAGE.link);
+  };
 
   return (
     <div className="w-[320px]">
@@ -73,7 +93,7 @@ const StartGenderBirthYear = ({
         <CustomButton
           size="long"
           content={"동의해요"}
-          onClick={() => handleAgree(gender, birthYear)}
+          onClick={handleGenderAndBirtYearAgree}
         />
       </div>
     </div>

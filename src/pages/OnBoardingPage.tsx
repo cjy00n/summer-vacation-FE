@@ -15,7 +15,7 @@ const OnBoardingPage = () => {
     <div className="scrollbar-hide flex h-[100vh] flex-col bg-gray-90">
       <Carousel
         autoplay
-        autoplaySpeed={3000}
+        autoplaySpeed={2000}
         fade
         infinite={false}
         afterChange={finishOnBoarding}
@@ -68,7 +68,7 @@ const OnBoardingPage = () => {
       {showStartButton && (
         <button
           onClick={() => navigate(ROUTE.START_PAGE.link)}
-          className="fixed bottom-[10vh] left-[50%] z-10 flex h-10 w-60 -translate-x-1/2 transform items-center justify-center rounded-[81px] bg-primary-orange text-base font-medium text-white"
+          className="fixed bottom-[7vh] left-[50%] z-10 flex h-10 w-60 -translate-x-1/2 transform items-center justify-center rounded-[81px] bg-primary-orange text-base font-medium text-white"
         >
           시작하기
         </button>

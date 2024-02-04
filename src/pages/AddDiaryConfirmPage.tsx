@@ -14,8 +14,6 @@ import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
 
-  console.log(getDiaryLocalStorage());
-
   if (!getDiaryLocalStorage) {
     message.error("잘못된 접근입니다.");
   }
@@ -23,6 +21,7 @@ const AddDiaryConfirmPage = () => {
   const [englishContents] = useState(
     getDiaryLocalStorage() ? getDiaryLocalStorage().englishContents : "",
   );
+  console.log(getDiaryLocalStorage(), englishContents);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const [, contextHolder] = message.useMessage();
@@ -32,6 +31,7 @@ const AddDiaryConfirmPage = () => {
     setDrawingModalOpen(true);
     try {
       const newImage = await postDiaryDrawing(englishContents);
+      console.log(newImage);
       if (newImage) {
         updateDrawingRecord(setDrawingRecord, {
           ...drawingRecord,

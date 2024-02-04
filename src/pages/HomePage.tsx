@@ -13,7 +13,6 @@ import { useEffect } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const month = new Date().getMonth() + 1;
 
   const linkAddDiaryPage = () => {
     navigate(ROUTE.ADD_DIARY_PAGE.link);
@@ -43,10 +42,7 @@ const HomePage = () => {
         <HomeRecentBestDiary />
         <HomeTitle title="내 일기" description="최근 7일 간 받은 공감 순" />
         <HomeMyDiary />
-        <HomeTitle
-          title={`${month}월 사생대회`}
-          description="AI가 그린 기린 그림"
-        />
+
         <div className="fixed bottom-20 left-[50%] z-10 -translate-x-1/2 transform">
           <CustomButton
             onClick={linkAddDiaryPage}

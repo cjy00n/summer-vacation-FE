@@ -4,8 +4,9 @@ import { Diary } from "../types";
 
 const getPublicDiary = async () => {
   try {
-    const response = await instance.get<Diary[]>(`diary/get-diaries?type=1`);
+    const response = await instance.get<Diary[]>("diary/get-diaries/1");
 
+    console.log(response.data);
     return response.data;
   } catch (e) {
     console.error;

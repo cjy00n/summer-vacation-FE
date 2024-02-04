@@ -1,35 +1,24 @@
 import { HomeDiaryItem } from ".";
+import { useGetUserInfo } from "../../hooks/getMyUserInfo";
 
 const HomeMyDiary = () => {
-  const data = [
-    {
-      img: "https://image.kmib.co.kr/online_image/2022/1023/2022102113444970898_1666327489_0017592082.jpg",
-      like: 1000,
-    },
-    {
-      img: "https://image.kmib.co.kr/online_image/2022/1023/2022102113444970898_1666327489_0017592082.jpg",
-      like: 900,
-    },
-    {
-      img: "https://image.kmib.co.kr/online_image/2022/1023/2022102113444970898_1666327489_0017592082.jpg",
-      like: 800,
-    },
-    {
-      img: "https://image.kmib.co.kr/online_image/2022/1023/2022102113444970898_1666327489_0017592082.jpg",
-      like: 700,
-    },
-  ];
+  const { data: userInfo } = useGetUserInfo();
+  console.log(userInfo?.diaries);
 
   return (
     <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
-      {data.map((item, idx) => (
-        <HomeDiaryItem
-          key={"my-diary-item-" + idx}
-          image={item.img}
-          like={item.like}
-          id={""}
-        />
-      ))}
+      {userInfo && userInfo?.diaries.length > 0 ? (
+        userInfo?.diaries.map((item, idx) => (
+          <HomeDiaryItem
+            key={"my-diary-item-" + idx}
+            image={item.image}
+            like={100}
+            id={item.id}
+          />
+        ))
+      ) : (
+        <div className="w-full py-10 text-center">작성된 일기가 없습니다.</div>
+      )}
     </div>
   );
 };

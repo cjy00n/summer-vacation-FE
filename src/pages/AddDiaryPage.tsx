@@ -121,7 +121,6 @@ const AddDiaryPage = () => {
     patchDiary();
   };
 
-  console.log("다이어리,", diaryData);
   return (
     <div className="mb-4">
       <TopAppBar
