@@ -14,17 +14,18 @@ import { useEffect } from "react";
 const HomePage = () => {
   const navigate = useNavigate();
 
-  const linkAddDiaryPage = () => {
-    navigate(ROUTE.ADD_DIARY_PAGE.link);
-    window.scrollTo(0, 0);
-  };
-
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
       navigate(ROUTE.LOGIN_PAGE.link);
     }
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const linkAddDiaryPage = () => {
+    navigate(ROUTE.ADD_DIARY_PAGE.link);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="bg-primary-orange">

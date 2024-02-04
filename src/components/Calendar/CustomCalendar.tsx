@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -11,6 +11,7 @@ import "react-calendar/dist/Calendar.css";
 import "./CustomCalendar.css";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../../recoil/atoms/bottomTabState";
+import { useGetUserInfo } from "../../hooks/getMyUserInfo";
 
 interface CustomCalendarProps {
   // 아래 props들은 날짜 선택 컴포넌트로 사용할 때만 전달받음
@@ -30,6 +31,14 @@ const CustomCalendar = ({
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
 
   const [selectedDay, setSelectedDay] = useState<DateType>(date ?? new Date());
+
+  const { data: userInfo } = useGetUserInfo();
+
+  useEffect(() => {
+    if (userInfo) {
+      console.log(userInfo.diaries);
+    }
+  }, [userInfo]);
 
   const onChangeDay = (newDate: DateType) => {
     if (setDate) setDate(newDate);
@@ -58,7 +67,7 @@ const CustomCalendar = ({
     if (isHaveDiaryDay) {
       /* 일기가 있는 날이면 상세페이지로 이동 */
       setActiveBottomTab("CALENDAR");
-      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/9", { state: { isMine: true } });
+      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/9");
     } else {
       /* 일기가 없는 날이면 일기쓰기 페이지로 이동 */
       setActiveBottomTab("ADD_DIARY");

@@ -22,7 +22,9 @@ const AddDiaryTranslatePage = () => {
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [koreanContent] = useState(diaryData.contents ?? "");
-  const [englishContent, setEnglishContent] = useState("");
+  const [englishContent, setEnglishContent] = useState(
+    "열심히 번역을 하고 있어요 . . ",
+  );
 
   /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
   const handleDrawing = async () => {

@@ -46,9 +46,7 @@ const ProfilePage = () => {
 
   /* 피드 상세 페이지로 이동 */
   const linkToDetailPage = (id: string) => {
-    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${id}`, {
-      state: { isMine: true },
-    });
+    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${id}`);
   };
 
   const toggleEditNicknameModal = () => {
