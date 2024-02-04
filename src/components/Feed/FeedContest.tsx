@@ -1,6 +1,7 @@
-import HomeContestItem from "./HomeContestItem";
+import DraggableScrollContainer from "../common/DraggableScrollContainer";
+import FeedContestItem from "./FeedContestItem";
 
-const HomeContest = () => {
+const FeedContest = () => {
   const data = [
     {
       ranking: 1,
@@ -27,18 +28,20 @@ const HomeContest = () => {
 
   return (
     <div className="hide-scrollbar flex flex-row gap-4 overflow-x-auto whitespace-nowrap px-3">
-      {data.map((item, idx) => (
-        <HomeContestItem
-          key={"contest-item-" + idx}
-          ranking={item.ranking}
-          img={item.img}
-          like={item.like}
-          date={item.date}
-          nickname={item.nickname}
-        />
-      ))}
+      <DraggableScrollContainer>
+        {data.map((item, idx) => (
+          <FeedContestItem
+            key={"contest-item-" + idx}
+            ranking={item.ranking}
+            img={item.img}
+            like={item.like}
+            date={item.date}
+            nickname={item.nickname}
+          />
+        ))}
+      </DraggableScrollContainer>
     </div>
   );
 };
 
-export default HomeContest;
+export default FeedContest;

@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { CalendarIcon, FillStarIcon, PersonIcon } from "../../assets/icons";
-import { HomeContentItem } from ".";
+import { HomeContentItem } from "../Home";
 
-interface HomeContestItemProps {
+interface FeedContestItemProps {
   ranking: number;
   img: string;
   like: number;
@@ -11,15 +11,15 @@ interface HomeContestItemProps {
   date: Date;
 }
 
-const HomeContestItem = ({
+const FeedContestItem = ({
   ranking,
   img,
   like,
   nickname,
   date,
-}: HomeContestItemProps) => {
+}: FeedContestItemProps) => {
   return (
-    <div className="flex flex-shrink-0 flex-col">
+    <div className="flex flex-shrink-0 cursor-pointer flex-col">
       <div className="relative">
         <img
           src={img}
@@ -48,4 +48,4 @@ const HomeContestItem = ({
   );
 };
 
-export default HomeContestItem;
+export default FeedContestItem;

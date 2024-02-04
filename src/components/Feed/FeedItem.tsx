@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { FillStarIcon } from "../../assets/icons";
 import { ROUTE } from "../../routes/Route";
+import { StarCountInImage } from "../common";
 
 interface FeedItemProps {
   image: string;
@@ -30,7 +30,7 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
   };
 
   const getSize = () => {
-    return `${idx % 6 === 1 ? "w-[66vw] custom-breakpoint:w-[320px]" : "w-[33vw] custom-breakpoint:w-[160px]"} ${idx % 6 === 2 || idx % 6 === 4 ? "h-[66vw] custom-breakpoint:h-[320px]" : "h-[33vw] custom-breakpoint:w-[160px]"} `;
+    return `${idx % 6 === 1 ? "w-[66vw] custom-breakpoint:w-[320px]" : "w-[33vw] custom-breakpoint:w-[160px]"} ${idx % 6 === 2 || idx % 6 === 4 ? "h-[66vw] custom-breakpoint:h-[320px]" : "h-[33vw] custom-breakpoint:h-[160px]"} `;
   };
 
   const linkToDetalPage = () => {
@@ -38,17 +38,15 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
   };
 
   return (
-    <div className={`${getGridRatio()} relative `} onClick={linkToDetalPage}>
+    <div
+      className={`${getGridRatio()} relative cursor-pointer p-[1px] `}
+      onClick={linkToDetalPage}
+    >
       <img src={image} className={`${getSize()} object-cover`} loading="lazy" />
       <div
         className={`absolute top-0 bg-black bg-opacity-10 ${getSize()}`}
       ></div>
-      <div className="absolute bottom-1 left-2 flex w-14 items-center rounded-lg bg-black bg-opacity-50 px-2 py-1">
-        <FillStarIcon width={20} height={20} fillColor="white" />
-        <span className="text-xs font-bold text-primary-white ">
-          {like.toLocaleString()}
-        </span>
-      </div>
+      <StarCountInImage like={like} />
     </div>
   );
 };
