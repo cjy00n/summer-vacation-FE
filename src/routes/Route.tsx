@@ -12,7 +12,6 @@ import {
   AddDiaryConfirmPage,
   AddDiaryChoicePage,
   AddDiaryPreviewPage,
-  AddDiaryFinishPage,
   AddDiaryBeforePage,
   AddDiaryDrawingSelectPage,
   AddDiaryCompletePage,
@@ -110,12 +109,6 @@ export const ROUTE: Routes = {
     path: "/add/select",
     link: "/add/select",
     element: <AddDiaryDrawingSelectPage />,
-  },
-
-  ADD_DIARY_FINISH_PAGE: {
-    path: "/add/finish",
-    link: "/add/finish",
-    element: <AddDiaryFinishPage />,
   },
 
   ADD_DIARY_COMPLETE_PAGE: {
