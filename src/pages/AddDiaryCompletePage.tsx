@@ -23,7 +23,7 @@ const AddDiaryCompletePage = () => {
     <div className="flex h-[100vh] flex-col items-center justify-center">
       <img src="/image/complete.webp" className="w-32" />
       <h1 className="mb-24 mt-1 font-semibold">일기 쓰기를 완료했어요!</h1>
-      <CustomButton content="참 잘했어요!" onClick={linkHomePage} />
+      <CustomButton content="내가해냄!" onClick={linkHomePage} />
     </div>
   );
 };
