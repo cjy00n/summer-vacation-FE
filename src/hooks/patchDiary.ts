@@ -29,7 +29,7 @@ export const usePatchDiary = (newDiary: Diary) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
       queryClient.invalidateQueries(["getUserInfo"]);
-      queryClient.invalidateQueries("getDiary" + newDiary.id);
+      queryClient.invalidateQueries(["getDiary"] + newDiary.id);
       navigate(ROUTE.HOME_PAGE.link, { replace: true });
       message.success("다이어리가 수정되었습니다.");
     },

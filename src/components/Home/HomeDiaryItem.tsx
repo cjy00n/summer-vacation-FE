@@ -15,7 +15,9 @@ const HomeRecentBestDiaryItem = ({
 }: HomeRecentBestDiaryItemProps) => {
   const navigate = useNavigate();
   const linkToDetailPage = () => {
-    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${id}`);
+    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${id}`, {
+      state: { isMine: true },
+    });
   };
 
   return (
