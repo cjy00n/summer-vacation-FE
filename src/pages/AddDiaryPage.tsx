@@ -128,6 +128,7 @@ const AddDiaryPage = () => {
         rightIcon={<CloseIcon />}
         rightOnClick={toggleStopModal}
       />
+      {/* ↓ 날짜 선택 컨테이너 */}
       <div className="flex h-14 items-center justify-between border-b px-6 py-2">
         <span className="mr-8 text-sm font-medium">날짜</span>
         <div className="flex w-4/5 justify-between">
@@ -164,6 +165,7 @@ const AddDiaryPage = () => {
           </span>
         </div>
       </div>
+      {/* ↓ 일기 내용 컨테이너 */}
       <div className="flex flex-col border-y-2 px-6">
         <textarea
           value={diaryData.contents}
@@ -191,6 +193,7 @@ const AddDiaryPage = () => {
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
+        {/* ↓ 일기 수정일 때 or 그린 이미지가 있으면 -> 이미지 미리보기 */}
         {drawingRecord.beforeImages.length || state ? (
           <div className="relative ">
             <button
@@ -211,15 +214,18 @@ const AddDiaryPage = () => {
             />
           </div>
         ) : (
-          <button
-            onClick={linkTransferPage}
-            className="flex h-[320px] w-[320px] flex-col items-center justify-center rounded bg-primary-orange"
-          >
-            <AddIcon fillColor="white" />
-            <span className="text-sm font-semibold text-white">
-              AI로 그림 그리기
-            </span>
-          </button>
+          <>
+            {/* ↓ 일기 추가일때면 -> 번역 후 이미지 추가되도록 */}
+            <button
+              onClick={linkTransferPage}
+              className="flex h-[320px] w-[320px] flex-col items-center justify-center rounded bg-primary-orange"
+            >
+              <AddIcon fillColor="white" />
+              <span className="text-sm font-semibold text-white">
+                AI로 그림 그리기
+              </span>
+            </button>
+          </>
         )}
         {state ? (
           <div className="flex w-[320px] justify-between">
@@ -266,11 +272,16 @@ const AddDiaryPage = () => {
         style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
       >
         <button onClick={linkBeforePage}>전에 그린 그림 보기</button>
-        <button className="justify-between text-gray-50">
+        <button
+          disabled={drawingRecord.remainingTries < 1}
+          className={`justify-between ${drawingRecord.remainingTries < 1 ? "text-black" : "text-gray-50"}`}
+        >
           <span>
             다시 그리기({drawingRecord.remainingTries}/{defaultTries})
           </span>
-          <span>그릴 수 있는 횟수가 끝났어요</span>
+          {drawingRecord.remainingTries < 1 && (
+            <span>그릴 수 있는 횟수가 끝났어요</span>
+          )}
         </button>
       </Drawer>
     </div>

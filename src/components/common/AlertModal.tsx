@@ -22,7 +22,7 @@ const AlertModal = ({
     <Modal
       open={toggle}
       style={{ height: 162 }}
-      width={"90%"}
+      width={"350px"}
       title={
         <h1 className="mt-4 text-center text-lg font-semibold">{title}</h1>
       }
