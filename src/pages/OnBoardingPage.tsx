@@ -14,7 +14,7 @@ const OnBoardingPage = () => {
   return (
     <div className="scrollbar-hide flex h-[100vh] flex-col bg-gray-90">
       <Carousel
-        autoplay
+        // autoplay
         autoplaySpeed={2000}
         fade
         infinite={false}
@@ -36,14 +36,18 @@ const OnBoardingPage = () => {
         <div className="relative">
           <img
             className="absolute top-0 w-full"
-            src="https://cdn.pixabay.com/animation/2023/12/20/04/49/04-49-40-378_512.gif"
+            src="/image/onBoarding2.webp"
+          />
+          <img
+            className="absolute top-0 w-full"
+            src="/image/onBoarding2-back.webp"
           />
           <p className="absolute z-10 px-10 py-16 text-xl font-bold">
             대신, 이제는 AI가 <br />
             당신의 일상을 그려줄게요
           </p>
           <div>
-            <p className="z-10 mb-10 mt-[450px] py-8 text-center text-base font-semibold">
+            <p className="absolute left-[50%] z-10 mb-10 mt-[450px] -translate-x-1/2 transform py-8 text-center text-base font-semibold">
               오늘 하루를 어떻게 표현할지
               <br />
               궁금하지 않나요?
