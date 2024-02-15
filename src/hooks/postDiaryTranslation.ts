@@ -21,7 +21,8 @@ export const postDiaryTranslation = async ({
   weather: Weather;
   emotion: Emotion;
 }) => {
-  const addConditionInput = `${weather} and ${emotion}\n` + input + "\n";
+  const addConditionInput =
+    `weather is ${weather} and I am ${emotion}.` + input + "\n";
   try {
     const response = await instance.post<DiaryTranslationResponse>(
       "/diary/translation-text",

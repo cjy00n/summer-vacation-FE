@@ -22,9 +22,10 @@ const AddDiaryTranslatePage = () => {
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [koreanContent] = useState(diaryData.contents ?? "");
-  const [englishContent, setEnglishContent] = useState(
+  const [previewEnglishContent, setPreviewEnglishContent] = useState(
     "열심히 번역을 하고 있어요 . . ",
   );
+  const [englishContent, setEnglishContent] = useState("");
 
   /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
   const handleDrawing = async () => {
@@ -57,7 +58,10 @@ const AddDiaryTranslatePage = () => {
   }, []);
 
   useEffect(() => {
-    setEnglishContent(output!);
+    if (output) {
+      setEnglishContent(output!);
+      setPreviewEnglishContent(output.split(".").splice(1).join(""));
+    }
   }, [output]);
 
   return (
@@ -92,7 +96,7 @@ const AddDiaryTranslatePage = () => {
           <h3 className="py-2 pt-6 font-semibold">번역된 글</h3>
           <div className="my-2 bg-gray-80">
             <div className="w-full rounded-md bg-transparent p-4 text-sm text-black">
-              {englishContent}
+              {previewEnglishContent}
             </div>
           </div>
         </div>
