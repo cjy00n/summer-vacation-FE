@@ -1,2 +1,2 @@
-/api/*  http://118.67.142.166/:splat  200
+/api/*  https://picture-diary.site:3000/:splat  200
 /*      /index.html                   200

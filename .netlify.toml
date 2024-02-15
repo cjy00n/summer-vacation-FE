@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/api/*"
-  to = "http://118.67.142.166/:splat"
+  to = "https://picture-diary.site:3000/:splat"
   status = 200
   force = true
   
