@@ -127,6 +127,8 @@ const AddDiaryPage = () => {
     patchDiary();
   };
 
+  console.log(diaryData.isPublic);
+
   return (
     <div className="mb-4">
       <TopAppBar
@@ -192,6 +194,7 @@ const AddDiaryPage = () => {
       <div className="mx-2 mb-3 flex h-14 items-center border-b p-4">
         <span className="w-full py-1 text-sm font-medium">나만 보기</span>
         <Switch
+          checked={diaryData.isPublic === 0}
           className="bg-gray-200"
           onChange={(checked) =>
             updateField("isPublic", checked === true ? 0 : 1)
@@ -280,9 +283,9 @@ const AddDiaryPage = () => {
         style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
       >
         <button
-          disabled={drawingRecord.beforeImages.length < 1}
+          disabled={drawingRecord.beforeImages.length < 2}
           className={
-            drawingRecord.beforeImages.length > 0
+            drawingRecord.beforeImages.length > 1
               ? "text-black"
               : "text-gray-50"
           }
@@ -292,7 +295,7 @@ const AddDiaryPage = () => {
         </button>
         <button
           disabled={drawingRecord.remainingTries < 1}
-          className={`justify-between ${drawingRecord.remainingTries < 1 ? "text-black" : "text-gray-50"}`}
+          className={`justify-between ${drawingRecord.remainingTries > 1 ? "text-black" : "text-gray-50"}`}
         >
           <span>
             다시 그리기({drawingRecord.remainingTries}/{defaultTries})
