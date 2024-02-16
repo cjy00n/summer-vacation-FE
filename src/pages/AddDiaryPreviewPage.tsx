@@ -26,7 +26,7 @@ const AddDiaryPreviewPage = () => {
     weather,
     emotion,
     date,
-    image: drawingRecord.beforeImages[0],
+    imageUrl: drawingRecord.beforeImages[0],
     isPublic,
     isWrite: 1,
   });
@@ -57,7 +57,7 @@ const AddDiaryPreviewPage = () => {
           date={date}
           title={title}
           contents={contents}
-          image={
+          imageUrl={
             drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1]
           }
           weather={weather}

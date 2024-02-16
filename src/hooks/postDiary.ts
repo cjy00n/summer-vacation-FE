@@ -13,7 +13,7 @@ export const postDiary = async (diary: PostDrawingType) => {
     formData.append("title", diary.title);
     formData.append("text", diary.contents);
     formData.append("date", diary.date!.toString());
-    formData.append("input", diary.image);
+    formData.append("input", diary.imageUrl);
     formData.append("emotion", diary.emotion);
     formData.append("weather", diary.weather);
     formData.append("isPublic", diary.isPublic.toString());
