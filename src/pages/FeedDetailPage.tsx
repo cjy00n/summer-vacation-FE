@@ -20,7 +20,10 @@ import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Drawer, message } from "antd";
 import { useGetDiary } from "../hooks/getDiary";
-import { useGetMyDiaries } from "../hooks/getMyDiaries";
+import { usePostLike } from "../hooks/postLike";
+import { useGetUserInfo } from "../hooks/getMyUserInfo";
+import { useGetCheckBookmark } from "../hooks/getCheckBookmark";
+import { usePostBookmark } from "../hooks/postBookmark";
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,23 +31,36 @@ const FeedDetailPage = () => {
     data: diaryData,
     isLoading: isDiaryLoading,
     isError: isDiaryError,
+    refetch: refetchDiary,
   } = useGetDiary(id ?? "0");
+
   const {
-    data: myDiaries,
+    data: userInfo,
     isLoading: isUserInfoLoading,
     isError: isUserInfoError,
-  } = useGetMyDiaries();
+  } = useGetUserInfo();
+
+  const { data: checkBookmark, refetch: refetchCheckBookmark } =
+    useGetCheckBookmark(id!);
+  const { mutate: postBookmark, data: postBookmarkResult } = usePostBookmark(
+    id!,
+  );
+
   const [isMine, setIsMine] = useState(false); // 나의 일기인지 여부
-  const [diary, setDiary] = useState<Diary>();
-  console.log(diary);
+  const [diary, setDiary] = useState<Diary>(); // 보여줄 일기 데이터
+
+  const [isOpenLikeList, setIsOpenLikeList] = useState(false); // 참잘했어요 모달 오픈 여부
+  const [isLike, setIsLike] = useState(false); // 참잘했어요 여부
+  const [isBookmark, setIsBookmark] = useState(false); // 북마크 여부
+  const [isMoreDrawerOpen, setIsMoreDrawerOpen] = useState(false);
+  const [stampButtonIcon, setStampButtonIcon] = useState(<StarIcon />);
 
   useEffect(() => {
-    if (myDiaries && diaryData) {
-      // 내가 작성한 모든 일기의 아이디와 현재 페이지의 아이디가 같은 것을 찾고, 있으면 isMine을 true로
-      const isMine = myDiaries.find((item) => item.id === diaryData.id);
+    if (userInfo && diaryData?.user) {
+      const isMine = diaryData.user.id === userInfo.id;
       setIsMine(isMine ? true : false);
     }
-  }, [diaryData, myDiaries]);
+  }, [diaryData, userInfo]);
 
   useEffect(() => {
     if (diaryData) {
@@ -52,22 +68,18 @@ const FeedDetailPage = () => {
     }
   }, [diaryData]);
 
+  useEffect(() => {
+    if (checkBookmark != undefined) {
+      setIsBookmark(checkBookmark);
+    }
+  }, [checkBookmark]);
+
   const like = 5000;
   const like1 = 700;
   const like2 = 1100;
   const like3 = 1200;
   const like4 = 600;
   const like5 = 400;
-
-  const [isOpenLikeList, setIsOpenLikeList] = useState(false);
-  const [isLike, setIsLike] = useState(false);
-  const [isBookmark, setIsBookmark] = useState(false);
-  const [isMoreDrawerOpen, setIsMoreDrawerOpen] = useState(false);
-  const [stampButtonIcon, setStampButtonIcon] = useState(<StarIcon />);
-
-  const toggleBookmark = () => {
-    setIsBookmark(!isBookmark);
-  };
 
   const toggleLikeList = () => {
     setIsOpenLikeList(!isOpenLikeList);
@@ -86,11 +98,21 @@ const FeedDetailPage = () => {
   const handleRepost = () => {
     message.warning("신고 기능은 현재 준비 중이에요.");
   };
+
   /* 북마크 버튼 클릭 시 */
   const handleBookMark = () => {
-    message.warning("북마크 기능은 현재 준비 중이에요.");
-    toggleBookmark();
+    postBookmark();
+    // toggleBookmark();
   };
+
+  useEffect(() => {
+    if (postBookmarkResult) {
+      console.log(postBookmarkResult);
+      message.warning(postBookmarkResult);
+      refetchCheckBookmark();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postBookmarkResult]);
 
   /* 참 잘했어요 버튼 클릭 시 */
   const onStampButtonClick = () => {
@@ -103,12 +125,18 @@ const FeedDetailPage = () => {
   };
   const likeNumbers = [like1, like2, like3, like4, like5];
 
+  const { mutate: postLike } = usePostLike(id!);
+
   // 참잘했어요 버튼 클릭 후, 공감 리스트에서 각각의 버튼 클릭 시
   const handleLikeButton = (type: Emotion | "star") => {
     toggleLike();
     toggleLikeList();
     setIsLike(true);
     // 여기에 백엔드 api 붙이기
+    if (type === "star") {
+      postLike();
+      refetchDiary();
+    }
     setStampButtonIcon(
       type === "star" ? (
         <FillStarIcon fillColor="white" />
@@ -151,7 +179,6 @@ const FeedDetailPage = () => {
             like={diary.likeCount ?? 0}
             isLike={isLike}
             isPublic={diary.isPublic ? 1 : 0}
-            isWrite={1}
           />
 
           {isOpenLikeList && (
