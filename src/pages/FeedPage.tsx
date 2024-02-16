@@ -11,7 +11,6 @@ const FeedPage = () => {
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
 
   const { data: publicDiaries } = useGetPublicDiary();
-  console.log(publicDiaries);
 
   useEffect(() => {
     setActiveBottomTab("FEED");

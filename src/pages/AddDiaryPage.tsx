@@ -127,8 +127,6 @@ const AddDiaryPage = () => {
     patchDiary();
   };
 
-  console.log(diaryData.isPublic);
-
   return (
     <div className="mb-4">
       <TopAppBar

@@ -7,12 +7,11 @@ import { CustomButton } from "../common";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 import { EmotionIcon } from "../../assets/icons/emotions";
-import "react-calendar/dist/Calendar.css";
-import "./CustomCalendar.css";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../../recoil/atoms/bottomTabState";
-import { useGetUserInfo } from "../../hooks/getMyUserInfo";
 import { useGetMyDiaries } from "../../hooks/getMyDiaries";
+import "react-calendar/dist/Calendar.css";
+import "./CustomCalendar.css";
 
 interface CustomCalendarProps {
   // 아래 props들은 날짜 선택 컴포넌트로 사용할 때만 전달받음
@@ -33,14 +32,7 @@ const CustomCalendar = ({
 
   const [selectedDay, setSelectedDay] = useState<DateType>(date ?? new Date());
 
-  const { data: userInfo } = useGetUserInfo();
-
-  useEffect(() => {
-    if (userInfo) {
-      console.log(userInfo.diaries);
-    }
-  }, [userInfo]);
-
+  /* 현재 선택된 날짜를 변경하는 함수 */
   const onChangeDay = (newDate: DateType) => {
     if (setDate) setDate(newDate);
     setSelectedDay(newDate);
@@ -49,6 +41,7 @@ const CustomCalendar = ({
   const { data: myDiaryData } = useGetMyDiaries();
   const [myDiaries, setMyDiaries] = useState<Diary[]>([]);
 
+  /* 내 일기 정보 불러와서 다이어리 배열만 넘기기 */
   useEffect(() => {
     if (myDiaryData) {
       setMyDiaries(myDiaryData.map(({ diary }) => diary));
@@ -120,7 +113,6 @@ const CustomCalendar = ({
       <Calendar
         value={selectedDay}
         onChange={onChangeDay}
-        onClickMonth={() => console.log("달")}
         formatDay={(_, date) => format(date, "dd")}
         tileContent={tileContent}
         tileClassName={tileClassName}

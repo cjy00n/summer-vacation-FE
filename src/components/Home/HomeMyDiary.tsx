@@ -5,7 +5,6 @@ import DraggableScrollContainer from "../common/DraggableScrollContainer";
 
 const HomeMyDiary = () => {
   const { data: myDiaries, isLoading } = useGetMyDiaries();
-  console.log("내일기:", myDiaries);
 
   return (
     <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">

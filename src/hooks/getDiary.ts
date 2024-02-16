@@ -3,8 +3,6 @@ import { instance } from ".";
 import { Diary } from "../types";
 
 const getDiary = async (targetId: string) => {
-  console.log(targetId);
-
   try {
     const response = await instance.get<Diary>(`diary/get-diary/${targetId}`);
     if (response.data) return response.data;

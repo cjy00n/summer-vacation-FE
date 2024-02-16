@@ -9,7 +9,6 @@ interface MyBookResponse {
 const getMyBookmark = async () => {
   try {
     const response = await instance.get<MyBookResponse[]>("bookmark");
-    console.log("응답", response.data);
     if (response.data != undefined) return response.data;
   } catch (e) {
     console.error;
