@@ -7,8 +7,6 @@ type PostDrawingType = Omit<Diary, "id" | "createdAt">;
 
 export const postDiary = async (diary: PostDrawingType) => {
   try {
-    console.log(diary);
-
     const formData = new FormData();
     formData.append("title", diary.title);
     formData.append("text", diary.contents);
@@ -23,7 +21,6 @@ export const postDiary = async (diary: PostDrawingType) => {
       "diary/create-diary",
       formData,
     );
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.error;

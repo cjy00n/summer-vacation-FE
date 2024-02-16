@@ -1,4 +1,4 @@
-import { DateType, Emotion, Weather } from ".";
+import { DateType, Emotion, User, Weather } from ".";
 
 export interface Diary {
   id: string;
@@ -12,6 +12,7 @@ export interface Diary {
   isPublic: 1 | 0;
   createdAt: Date;
   likeCount?: number;
+  user?: User;
 }
 
 export interface DiaryLocalstorageType
