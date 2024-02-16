@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { DateType, Emotion } from "../../types";
+import { DateType, Diary } from "../../types";
 import { CustomButton } from "../common";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
@@ -12,6 +12,7 @@ import "./CustomCalendar.css";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../../recoil/atoms/bottomTabState";
 import { useGetUserInfo } from "../../hooks/getMyUserInfo";
+import { useGetMyDiaries } from "../../hooks/getMyDiaries";
 
 interface CustomCalendarProps {
   // 아래 props들은 날짜 선택 컴포넌트로 사용할 때만 전달받음
@@ -45,29 +46,34 @@ const CustomCalendar = ({
     setSelectedDay(newDate);
   };
 
-  const temp: { date: Date; emotion: Emotion }[] = [
-    { date: new Date("2024-02-01"), emotion: "괜찮아요" },
-    { date: new Date("2024-01-10"), emotion: "슬퍼요" },
-    { date: new Date("2024-02-03"), emotion: "화나요" },
-    { date: new Date("2024-01-27"), emotion: "기뻐요" },
-    { date: new Date("2024-01-28"), emotion: "슬퍼요" },
-    { date: new Date("2024-01-29"), emotion: "괜찮아요" },
-    { date: new Date("2024-01-31"), emotion: "좋아요" },
-  ];
+  const { data: myDiaryData } = useGetMyDiaries();
+  const [myDiaries, setMyDiaries] = useState<Diary[]>([]);
+
+  useEffect(() => {
+    if (myDiaryData) {
+      setMyDiaries(myDiaryData.map(({ diary }) => diary));
+    }
+  }, [myDiaryData]);
 
   // 다이어리가 있는 날인지 여부 리턴 */
-  const isHaveDiaryDay = temp.some(
-    (item) =>
+  const isHaveDiaryDay = myDiaries.some(
+    (diary) =>
       format(selectedDay as Date, "yyyyMMdd", { locale: ko }) ===
-      format(item.date, "yyyyMMdd", { locale: ko }),
+      format(diary.date as Date, "yyyyMMdd", { locale: ko }),
   );
 
   /* 하단 오늘로 이동 / 일기 쓰기(또는 보기) 버튼 클릭 시 수행 */
   const handleDiaryButton = () => {
     if (isHaveDiaryDay) {
       /* 일기가 있는 날이면 상세페이지로 이동 */
+      const targetDiary = myDiaries.filter(
+        (diary) =>
+          format(diary.date as Date, "yyyyMMdd") ===
+          format(selectedDay as Date, "yyyyMMdd"),
+      )[0];
+
       setActiveBottomTab("CALENDAR");
-      navigate(ROUTE.FEED_DETAIL_PAGE.link + "/9");
+      navigate(`${ROUTE.FEED_DETAIL_PAGE.link}/${targetDiary.id}`);
     } else {
       /* 일기가 없는 날이면 일기쓰기 페이지로 이동 */
       setActiveBottomTab("ADD_DIARY");
@@ -75,12 +81,13 @@ const CustomCalendar = ({
     }
   };
 
+  /* 해당 날짜의 다이어리 emotion 표시하기 */
   function tileContent({ date, view }: { date: Date; view: string }) {
     if (view === "month") {
-      const event = temp.find(
+      const event = myDiaries.find(
         (e) =>
           format(date, "yyyMMdd", { locale: ko }) ===
-          format(e.date, "yyyMMdd", { locale: ko }),
+          format(e.date as Date, "yyyMMdd", { locale: ko }),
       );
       if (event) {
         return (
@@ -93,12 +100,13 @@ const CustomCalendar = ({
     return null;
   }
 
+  /* 선택된 날짜이면 배경색을 오렌지로 변경하기 */
   function tileClassName({ date, view }: { date: Date; view: string }) {
     if (view === "month") {
-      const event = temp.find(
+      const event = myDiaries.find(
         (e) =>
           format(date, "yyyMMdd", { locale: ko }) ===
-          format(e.date, "yyyMMdd", { locale: ko }),
+          format(e.date!.toString(), "yyyMMdd", { locale: ko }),
       );
       if (event) {
         return "tile-bg-orange";

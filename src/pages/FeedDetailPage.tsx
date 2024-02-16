@@ -40,8 +40,6 @@ const FeedDetailPage = () => {
     isError: isUserInfoError,
   } = useGetUserInfo();
 
-  console.log(diaryData);
-
   const { data: checkBookmark, refetch: refetchCheckBookmark } =
     useGetCheckBookmark(id!);
   const { mutate: postBookmark, data: postBookmarkResult } = usePostBookmark(
@@ -109,7 +107,6 @@ const FeedDetailPage = () => {
 
   useEffect(() => {
     if (postBookmarkResult) {
-      console.log(postBookmarkResult);
       message.warning(postBookmarkResult);
       refetchCheckBookmark();
     }

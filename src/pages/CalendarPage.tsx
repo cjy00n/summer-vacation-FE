@@ -6,6 +6,8 @@ import { useEffect } from "react";
 
 const CalendarPage = () => {
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
+
+  /* 하단 탭을 항상 <캘린더>로 유지 */
   useEffect(() => {
     setActiveBottomTab("CALENDAR");
   }, [setActiveBottomTab]);
