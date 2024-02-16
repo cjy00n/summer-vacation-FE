@@ -11,6 +11,7 @@ export interface Diary {
   isWrite: 1 | 0;
   isPublic: 1 | 0;
   createdAt: Date;
+  likeCount?: number;
 }
 
 export interface DiaryLocalstorageType

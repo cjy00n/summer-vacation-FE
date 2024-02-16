@@ -70,15 +70,16 @@ export const FeedDetailItem = ({
               className="w-18 h-18 absolute bottom-6 left-2 z-10 h-20 w-20 rotate-[-10deg] shadow-custom"
             />
           )}
-          {like && (
-            <div
-              className="absolute bottom-2 left-2 flex h-8 w-[88px] content-center items-center justify-center
+          {like ||
+            (like === 0 && (
+              <div
+                className="absolute bottom-2 left-2 flex h-8 w-[88px] content-center items-center justify-around
           rounded-lg bg-black bg-opacity-50"
-            >
-              <FillStarIcon fillColor="white" />
-              <span className="mx-1 text-white">{like.toLocaleString()}</span>
-            </div>
-          )}
+              >
+                <FillStarIcon fillColor="white" />
+                <span className="mx-1 text-white">{like.toLocaleString()}</span>
+              </div>
+            ))}
         </div>
         <div className="flex h-8">
           <span className="w-16 border-[1px] border-solid border-primary-orange text-center text-sm  font-semibold leading-7">

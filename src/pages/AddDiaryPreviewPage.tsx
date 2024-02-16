@@ -30,6 +30,7 @@ const AddDiaryPreviewPage = () => {
     isPublic,
     isWrite: 1,
   });
+
   const handleCompleteDiary = () => {
     postDiary();
   };

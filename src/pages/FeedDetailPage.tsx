@@ -148,7 +148,7 @@ const FeedDetailPage = () => {
             emotion={diary.emotion}
             imageUrl={diary.imageUrl}
             contents={diary.contents}
-            like={like}
+            like={diary.likeCount ?? 0}
             isLike={isLike}
             isPublic={diary.isPublic ? 1 : 0}
             isWrite={1}

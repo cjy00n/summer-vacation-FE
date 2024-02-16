@@ -28,14 +28,14 @@ import { usePatchDiary } from "../hooks/patchDiary";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const { state: originalData } = useLocation(); // 수정 시 기존 데이터
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
 
   const existingData = getDiaryLocalStorage();
   const [diaryData, setDiaryData] = useState<DiaryLocalstorageType>(
-    state && state.existingDiary
-      ? state.existingDiary
+    originalData && originalData.existingDiary
+      ? originalData.existingDiary
       : existingData ?? {
           contents: "",
           emotion: EmotionData[0],
@@ -43,7 +43,8 @@ const AddDiaryPage = () => {
           title: "",
           englishContents: "",
           isPublic: 1,
-          date: state && state.date ? state.date : new Date(),
+          date:
+            originalData && originalData.date ? originalData.date : new Date(),
         },
   );
 
@@ -112,10 +113,11 @@ const AddDiaryPage = () => {
     navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link);
   };
 
+  /* 일기 수정하기 */
   const { mutate: patchDiary } = usePatchDiary(
-    state && state.existingDiary
+    originalData && originalData.existingDiary
       ? {
-          ...state.existingDiary!,
+          ...originalData.existingDiary!,
           ...diaryData,
         }
       : { ...diaryData },
@@ -139,7 +141,7 @@ const AddDiaryPage = () => {
           <span className="text-sm font-medium">
             {format(diaryData.date!.toString(), "yyy년 MM월 dd일")}
           </span>
-          {!state && (
+          {!originalData && (
             <button
               className="text-sm font-normal text-primary-orange"
               onClick={toggleChangeDateModal}
@@ -198,19 +200,20 @@ const AddDiaryPage = () => {
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
         {/* ↓ 일기 수정일 때 or 그린 이미지가 있으면 -> 이미지 미리보기 */}
-        {drawingRecord.beforeImages.length || state ? (
+        {drawingRecord.beforeImages.length || originalData ? (
           <div className="relative ">
-            <button
-              onClick={toggleEditDrawing}
-              className="absolute right-2 top-2 rounded-full bg-black bg-opacity-20 p-1"
-            >
-              {!state ||
-                (state && state.date && <EditIcon width={32} height={32} />)}
-            </button>
+            {!originalData && (
+              <button
+                onClick={toggleEditDrawing}
+                className="absolute right-2 top-2 rounded-full bg-black bg-opacity-20 p-1"
+              >
+                <EditIcon width={32} height={32} />
+              </button>
+            )}
             <img
               src={
-                state && state.existingDiary
-                  ? state.existingDiary.image
+                originalData && originalData.existingDiary
+                  ? "https://" + originalData.existingDiary.imageUrl
                   : drawingRecord.beforeImages[
                       drawingRecord.beforeImages.length - 1
                     ]
@@ -232,7 +235,7 @@ const AddDiaryPage = () => {
             </button>
           </>
         )}
-        {state && state.existingDiary ? (
+        {originalData && originalData.existingDiary ? (
           <div className="flex w-[320px] justify-between">
             <CustomButton
               content={"취소"}
@@ -252,7 +255,7 @@ const AddDiaryPage = () => {
             content="일기 미리보기"
             size="long"
             type={
-              drawingRecord.beforeImages.length || state
+              drawingRecord.beforeImages.length || originalData
                 ? "default"
                 : "disabled"
             }

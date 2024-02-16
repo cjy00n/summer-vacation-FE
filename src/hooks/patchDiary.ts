@@ -13,7 +13,7 @@ export const patchDiary = async (newDiary: patchDiaryInput) => {
   try {
     const response = await instance.patch<{ result: string }>(
       "diary/edit-diary/" + newDiary.id,
-      newDiary,
+      { ...newDiary, text: newDiary.contents },
     );
 
     return response.data;
@@ -22,14 +22,15 @@ export const patchDiary = async (newDiary: patchDiaryInput) => {
   }
 };
 
-export const usePatchDiary = (newDiary: Diary) => {
+export const usePatchDiary = (newDiary?: Diary) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  return useMutation(() => patchDiary(newDiary), {
+  return useMutation(() => patchDiary(newDiary!), {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
       queryClient.invalidateQueries(["getUserInfo"]);
-      queryClient.invalidateQueries(["getDiary"] + newDiary.id);
+      queryClient.invalidateQueries(["getDiary"] + newDiary!.id);
+      queryClient.invalidateQueries(["getMyDiaries"]);
       navigate(ROUTE.HOME_PAGE.link, { replace: true });
       message.success("다이어리가 수정되었습니다.");
     },
