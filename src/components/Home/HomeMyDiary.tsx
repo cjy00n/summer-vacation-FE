@@ -5,7 +5,7 @@ import DraggableScrollContainer from "../common/DraggableScrollContainer";
 
 const HomeMyDiary = () => {
   const { data: myDiaries, isLoading } = useGetMyDiaries();
-  console.log(myDiaries);
+  console.log("내일기:", myDiaries);
 
   return (
     <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
@@ -18,7 +18,7 @@ const HomeMyDiary = () => {
           {myDiaries?.map((item, idx) => (
             <HomeDiaryItem
               key={"my-diary-item-" + idx}
-              image={item.image}
+              image={item.imageUrl}
               like={parseInt(item.id)}
               id={item.id}
             />

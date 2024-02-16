@@ -15,7 +15,7 @@ export const FeedDetailItem = ({
   date,
   weather,
   emotion,
-  image,
+  imageUrl,
   contents,
   like,
   title,
@@ -57,7 +57,7 @@ export const FeedDetailItem = ({
         </div>
         <div className="relative flex h-[320px] border-[1px] border-solid border-primary-orange">
           <img
-            src={image}
+            src={imageUrl}
             className="absolute top-0 h-[318px] w-[320px] object-cover"
           />
           {isLike && (
@@ -84,18 +84,23 @@ export const FeedDetailItem = ({
             {title}
           </p>
         </div>
-        <div className="flex flex-wrap">
-          {(contents + " ".repeat(80 - contents.length))
-            .split("")
-            .map((s, idx) => (
-              <span
-                key={idx}
-                className="flex h-8 w-8 items-center justify-center border-[1px] border-solid border-primary-orange text-center font-gamja text-lg font-normal leading-8"
-              >
-                {s}
-              </span>
-            ))}
-        </div>
+        {contents && (
+          <div className="flex flex-wrap">
+            {(
+              contents +
+              " ".repeat(80 - contents.length > 80 ? 0 : contents.length)
+            )
+              .split("")
+              .map((s, idx) => (
+                <span
+                  key={idx}
+                  className="flex h-8 w-8 items-center justify-center border-[1px] border-solid border-primary-orange text-center font-gamja text-lg font-normal leading-8"
+                >
+                  {s}
+                </span>
+              ))}
+          </div>
+        )}
       </div>
     </>
   );

@@ -34,7 +34,7 @@ const FeedPage = () => {
             {data.map((item, idx) => (
               <FeedItem
                 key={"feed-item-" + idx}
-                image={item.image}
+                image={item.imageUrl}
                 idx={idx}
                 like={idx * 10}
                 _id={item.id}

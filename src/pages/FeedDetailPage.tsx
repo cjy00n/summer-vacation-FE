@@ -146,7 +146,7 @@ const FeedDetailPage = () => {
             date={diary.date}
             weather={diary.weather}
             emotion={diary.emotion}
-            image={diary.image}
+            imageUrl={diary.imageUrl}
             contents={diary.contents}
             like={like}
             isLike={isLike}

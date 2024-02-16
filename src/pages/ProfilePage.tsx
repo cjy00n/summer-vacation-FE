@@ -11,21 +11,22 @@ import { useGetMyDiaries } from "../hooks/getMyDiaries";
 import { useGetMyNickname } from "../hooks/getMyNickname";
 
 const ProfilePage = () => {
-  const { data: userInfo, isSuccess: getSuccess } = useGetUserInfo();
-  const { data: myDiariess } = useGetMyDiaries();
+  const { data: userInfo } = useGetUserInfo();
+  const { data: myDiariesData, isSuccess: getMySuccess } = useGetMyDiaries();
   const { data: myNickname, isSuccess: nicknameSuccess } = useGetMyNickname();
 
-  console.log("내일기 리스트 : ", myDiariess);
+  console.log("유저 정보 : ", userInfo);
+  console.log("내일기 리스트 : ", myDiariesData);
   const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [myDiaries, setMyDiaries] = useState<Diary[]>();
   const [nickname, setNickname] = useState("닉네임");
 
   useEffect(() => {
-    if (userInfo) {
-      setMyDiaries(userInfo?.diaries);
+    if (myDiariesData) {
+      setMyDiaries(myDiariesData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getSuccess]);
+  }, [getMySuccess]);
 
   useEffect(() => {
     if (nicknameSuccess && myNickname) setNickname(myNickname);

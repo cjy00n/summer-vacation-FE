@@ -19,7 +19,6 @@ const HomeRecentBestDiaryItem = ({
       state: { isMine: true },
     });
   };
-
   return (
     <div
       onClick={linkToDetailPage}

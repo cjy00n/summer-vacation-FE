@@ -7,7 +7,7 @@ export interface Diary {
   emotion: Emotion;
   title: string;
   contents: string;
-  image: string;
+  imageUrl: string;
   isWrite: 1 | 0;
   isPublic: 1 | 0;
   createdAt: Date;

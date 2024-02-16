@@ -17,7 +17,7 @@ const HomeRecentBestDiary = () => {
           {data.map((item, idx) => (
             <HomeDiaryItem
               key={"my-diary-item-" + idx}
-              image={item.image}
+              image={item.imageUrl}
               like={1000}
               id={item.id}
             />
