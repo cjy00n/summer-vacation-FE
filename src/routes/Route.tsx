@@ -16,6 +16,7 @@ import {
   AddDiaryDrawingSelectPage,
   AddDiaryCompletePage,
   StartPage,
+  ProfileMorePage,
 } from "../pages";
 
 interface RouteItem {
@@ -129,6 +130,12 @@ export const ROUTE: Routes = {
     link: "/profile",
     element: <ProfilePage />,
     haveBottomAppBar: true,
+  },
+
+  PROFILE_MORE_PAGE: {
+    path: "/profile/more",
+    link: "/profile/more",
+    element: <ProfileMorePage />,
   },
 
   NOTIFICATION_PAGE: {

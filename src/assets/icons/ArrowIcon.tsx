@@ -1,12 +1,18 @@
 import IconComponentProps from "./IconComponentProps";
 
-const ArrowLeftIcon = ({ width, height, fillColor }: IconComponentProps) => (
+const ArrowIcon = ({
+  width,
+  height,
+  fillColor,
+  direction,
+}: IconComponentProps & { direction?: "right" | "bottom" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width ?? "24"}
     height={height ?? "24"}
     viewBox="0 0 24 24"
     fill="none"
+    className={direction === "right" ? "rotate-180" : ""}
   >
     <path
       fillRule="evenodd"
@@ -17,4 +23,4 @@ const ArrowLeftIcon = ({ width, height, fillColor }: IconComponentProps) => (
   </svg>
 );
 
-export default ArrowLeftIcon;
+export default ArrowIcon;

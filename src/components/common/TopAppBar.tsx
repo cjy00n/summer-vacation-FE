@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeftIcon } from "../../assets/icons";
+import { ArrowIcon } from "../../assets/icons";
 import TopLogoIcon from "../../assets/icons/TopLogoIcon";
 
 interface TopAppBarProps {
@@ -28,12 +28,12 @@ const TopAppBar = ({
 
   return (
     <header
-      className={`flex ${bgColor ?? "bg-primary-white"} h-14 w-full items-center justify-between px-4 py-3 ${bgColor ? "" : " shadow-custom"}`}
+      className={`flex ${bgColor ?? "bg-primary-white"} h-14 w-full items-center justify-between px-4 py-3 `}
     >
       <div className="flex">
         {leftGoBack ? (
           <button onClick={goBack}>
-            <ArrowLeftIcon />
+            <ArrowIcon />
           </button>
         ) : (
           <button>{leftIcon}</button>

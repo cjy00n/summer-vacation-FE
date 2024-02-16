@@ -1,4 +1,4 @@
-import { AddPhotoIcon, EditIcon } from "../assets/icons";
+import { AddPhotoIcon, EditIcon, KebabMenuIcon } from "../assets/icons";
 import { TopAppBar } from "../components/common";
 import { Diary } from "../types";
 import { useGetUserInfo } from "../hooks/getMyUserInfo";
@@ -10,18 +10,21 @@ import {
 import { useGetMyDiaries } from "../hooks/getMyDiaries";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../routes/Route";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
+
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
+
+  // 하단 탭 바를 <프로필>로 유지하기
   useEffect(() => {
     setActiveBottomTab("PROFILE");
   }, [setActiveBottomTab]);
 
   const { data: userInfo, isSuccess: userInfoSuccess } = useGetUserInfo();
   const { data: myDiariesData, isSuccess: getMySuccess } = useGetMyDiaries();
-
-  console.log("유저 정보 : ", userInfo);
-  console.log("내일기 리스트 : ", myDiariesData);
 
   const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [myDiaries, setMyDiaries] = useState<Diary[]>();
@@ -43,9 +46,18 @@ const ProfilePage = () => {
     setIsEditNicknameOpen(!isEditNicknameOpen);
   };
 
+  /* 프로필 더 보기 페이지로 이동 */
+  const linkToProfileMorePage = () => {
+    navigate(ROUTE.PROFILE_MORE_PAGE.link);
+  };
+
   return (
     <>
-      <TopAppBar title="프로필" />
+      <TopAppBar
+        title="프로필"
+        rightIcon={<KebabMenuIcon />}
+        rightOnClick={linkToProfileMorePage}
+      />
       <div className="flex justify-between px-14 py-8">
         <div className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gray-80">
           {userInfo?.image ? (

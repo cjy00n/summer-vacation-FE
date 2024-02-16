@@ -1,4 +1,4 @@
-interface CircleButton {
+interface CircleButtonProps {
   onClick: () => void;
   icon: React.ReactElement;
   type?: "dangerous" | "default" | "toggle";
@@ -10,7 +10,7 @@ const CircleButton = ({
   icon,
   type = "default",
   toggle,
-}: CircleButton) => {
+}: CircleButtonProps) => {
   const getButtonStyle = () => {
     if (type === "toggle" && toggle) return "bg-black";
     else if (type === "toggle" && !toggle)
