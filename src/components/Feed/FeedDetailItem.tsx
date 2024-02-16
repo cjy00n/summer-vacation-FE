@@ -6,7 +6,7 @@ import { EmotionIcon } from "../../assets/icons/emotions";
 import { Diary } from "../../types";
 
 interface FeedDetailItemProp
-  extends Omit<Diary, "createdAt" | "id" | "isWrite"> {
+  extends Omit<Diary, "createdAt" | "id" | "isWrite" | "isPublic"> {
   like?: number;
   isLike?: boolean;
 }

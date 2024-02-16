@@ -180,7 +180,6 @@ const FeedDetailPage = () => {
             contents={diary.contents}
             like={diary.likeCount ?? 0}
             isLike={isLike}
-            isPublic={diary.isPublic ? 1 : 0}
           />
 
           {isOpenLikeList && (
