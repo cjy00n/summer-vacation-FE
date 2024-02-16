@@ -48,7 +48,14 @@ const ProfilePage = () => {
       <TopAppBar title="프로필" />
       <div className="flex justify-between px-14 py-8">
         <div className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gray-80">
-          <AddPhotoIcon />
+          {userInfo?.image ? (
+            <img
+              className="h-full w-full rounded-full object-cover"
+              src={userInfo.image}
+            />
+          ) : (
+            <AddPhotoIcon />
+          )}
         </div>
         <div className="flex flex-col pr-10">
           <div className="mb-2 flex">

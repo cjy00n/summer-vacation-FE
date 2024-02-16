@@ -8,4 +8,5 @@ export interface User {
   createdAt: Date;
   diaries: Diary[];
   nickname: string;
+  image: string;
 }
