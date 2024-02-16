@@ -3,33 +3,23 @@ import { CustomButton } from "../common";
 import { Select } from "antd";
 import { Gender } from "../../types";
 import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
-import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../../routes/Route";
 const { Option } = Select;
 
-// interface StartGenderBirtYearProps {
-//   // gender: Gender;
-//   // birthYear: number;
-//   // setGender: () => void;
-//   // setBirthYear: () => void;
-//   handleAgree?:()=>void;
-// }
+interface StartGenderBirtYearProps {
+  setCurrentPage: (next: "first" | "second") => void;
+}
 
-const StartGenderBirthYear = () => {
+const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
   const [gender, setGender] = useState<Gender>("남자");
   const [birthYear, setBirthYear] = useState(2000);
-
-  const navigate = useNavigate();
 
   const { mutate: patchAddUserInfo } = usePatchAddUserInfo();
 
   const handleGenderAndBirtYearAgree = () => {
-    // 성별, 태어난 해 저장 api
     patchAddUserInfo({ gender, birth: birthYear.toString() });
     console.log(gender, birthYear);
-    // setCurrentPage("second");
+    setCurrentPage("second");
     scrollTo(0, 0);
-    navigate(ROUTE.HOME_PAGE.link);
   };
 
   return (

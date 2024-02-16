@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { CustomButton } from "../common";
 import { Modal } from "antd";
+import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../routes/Route";
 
-const StartNickname = ({
-  handleAgree,
-}: {
-  handleAgree: (nickname: string) => void;
-}) => {
+const StartNickname = () => {
+  const navigate = useNavigate();
+
   const [nickname, setNickname] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isNicknameDecisionOpen, setIsNicknameDecisionOpen] = useState(false);
@@ -34,6 +35,14 @@ const StartNickname = ({
 
   const toggleNicknameDecision = () => {
     setIsNicknameDecisionOpen(!isNicknameDecisionOpen);
+  };
+  const { mutate: patchAddUserInfo } = usePatchAddUserInfo();
+
+  const handleNicknameAgree = () => {
+    patchAddUserInfo({ nickname });
+    console.log(nickname);
+    scrollTo(0, 0);
+    navigate(ROUTE.HOME_PAGE.link);
   };
 
   return (
@@ -94,7 +103,7 @@ const StartNickname = ({
             content={"다시 고를래요"}
           />
           <CustomButton
-            onClick={() => handleAgree(nickname)}
+            onClick={handleNicknameAgree}
             size="half"
             content={"결정할래요"}
           />
