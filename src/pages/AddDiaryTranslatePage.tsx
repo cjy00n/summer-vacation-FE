@@ -10,6 +10,7 @@ import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { postDiaryDrawing } from "../hooks/postDiaryDrawing";
 import {
+  clearDiaryLocalStorage,
   getDiaryLocalStorage,
   setDiaryLocalStorage,
 } from "../utils/handleDiaryLocalStorage";
@@ -64,6 +65,11 @@ const AddDiaryTranslatePage = () => {
     }
   }, [output]);
 
+  const handleExit = () => {
+    navigate(ROUTE.HOME_PAGE.link);
+    clearDiaryLocalStorage();
+  };
+
   return (
     <div className="flex h-[100vh] flex-col">
       <TopAppBar
@@ -75,7 +81,7 @@ const AddDiaryTranslatePage = () => {
       <AlertModal
         toggle={isCloseModalOpen}
         title="일기를 그만 쓸까요?"
-        handleOk={() => navigate(ROUTE.HOME_PAGE.link)}
+        handleOk={handleExit}
         handleClose={() => setIsCloseModalOpen(false)}
       />
       <div className="my-auto flex h-full flex-col justify-center px-4">

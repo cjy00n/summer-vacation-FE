@@ -45,7 +45,9 @@ const AddDiaryConfirmPage = () => {
       message.error("잘못된 접근입니다.");
     }
   };
-
+  console.log(
+    drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
+  );
   return (
     getDiaryLocalStorage() &&
     englishContents && (

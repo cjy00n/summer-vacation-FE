@@ -25,7 +25,7 @@ const HomeRecentBestDiaryItem = ({
       className="relative flex flex-shrink-0 cursor-pointer flex-col"
     >
       <img
-        src={image}
+        src={"https://" + image}
         className="h-[140px] w-[140px] rounded-lg object-cover"
       />
       <StarCountInImage like={like} />

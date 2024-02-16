@@ -41,7 +41,10 @@ const ProfileMyDiary = ({ diaries }: { diaries: Diary[] }) => {
                 className="relative h-[33vw] w-[33vw] cursor-pointer p-[1px] custom-breakpoint:h-[160px] custom-breakpoint:w-[160px]"
                 onClick={() => linkToDetailPage(id)}
               >
-                <img src={imageUrl} className="h-full w-full object-cover" />
+                <img
+                  src={"https://" + imageUrl}
+                  className="h-full w-full object-cover"
+                />
                 <div className="absolute bottom-1 left-1 flex w-[80%] items-center justify-around rounded-md bg-black bg-opacity-35 px-1">
                   <span className="text-sm font-semibold text-primary-white">
                     {format(date as Date, "dd(eee)", { locale: ko })} |

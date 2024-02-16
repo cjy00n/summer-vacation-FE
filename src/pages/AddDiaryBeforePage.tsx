@@ -13,6 +13,7 @@ const AddDiaryBeforePage = () => {
 
   const [isshowModal, setIsShowModal] = useState(false);
   const [previewImg, setPreviewImg] = useState("");
+  const [selectedIdx, setSelectedIdx] = useState(0);
 
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const { beforeImages } = drawingRecord;
@@ -21,18 +22,20 @@ const AddDiaryBeforePage = () => {
     setIsShowModal(!isshowModal);
   };
 
-  const handlePreviewImg = (img: string) => {
+  const handlePreviewImg = (img: string, idx: number) => {
     setPreviewImg(img);
+    setSelectedIdx(idx);
   };
 
   /* 전에 그린 그림 아이템 각각 클릭 시 */
-  const onClickItem = (img: string) => {
-    handlePreviewImg(img);
+  const onClickItem = (img: string, idx: number) => {
+    handlePreviewImg(img, idx);
     toggleShowModal();
   };
 
   const handleSelectDrawing = (idx: number) => {
-    const selectedImage = drawingRecord.beforeImages.slice(idx + 1, 1)[0];
+    const selectedImage = drawingRecord.beforeImages[idx];
+    console.log("선택:", selectedImage, idx);
     updateDrawingRecord(setDrawingRecord, {
       ...drawingRecord,
       beforeImages: [...drawingRecord.beforeImages, selectedImage],
@@ -46,9 +49,9 @@ const AddDiaryBeforePage = () => {
       <TopAppBar title="전에 그린 그림 보기" leftGoBack />
       <div className="grid w-full grid-cols-2">
         {beforeImages.slice(0, -1).map((img, idx) => (
-          <div key={img + idx}>
+          <div key={img + idx} className="cursor-pointer">
             <div
-              onClick={() => onClickItem(img)}
+              onClick={() => onClickItem(img, idx)}
               className="relative border-[2px_solid_white] p-[1px]"
             >
               <span className="absolute right-1 top-1">
@@ -82,7 +85,7 @@ const AddDiaryBeforePage = () => {
                   />
                   <CustomButton
                     content="선택"
-                    onClick={() => handleSelectDrawing(idx)}
+                    onClick={() => handleSelectDrawing(selectedIdx)}
                     size="half"
                   />
                 </div>

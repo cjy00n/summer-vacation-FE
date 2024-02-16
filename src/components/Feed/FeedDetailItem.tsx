@@ -56,10 +56,14 @@ export const FeedDetailItem = ({
           </p>
         </div>
         <div className="relative flex h-[320px] border-[1px] border-solid border-primary-orange">
-          <img
-            src={imageUrl}
-            className="absolute top-0 h-[318px] w-[320px] object-cover"
-          />
+          {imageUrl && (
+            <img
+              src={
+                imageUrl.includes("https://") ? imageUrl : "https://" + imageUrl
+              }
+              className="absolute top-0 h-[318px] w-[320px] object-cover"
+            />
+          )}
           {isLike && (
             <img
               src="/image/stamp.webp"
@@ -88,7 +92,7 @@ export const FeedDetailItem = ({
           <div className="flex flex-wrap">
             {(
               contents +
-              " ".repeat(80 - contents.length > 80 ? 0 : contents.length)
+              " ".repeat(contents.length > 80 ? 0 : 80 - contents.length)
             )
               .split("")
               .map((s, idx) => (

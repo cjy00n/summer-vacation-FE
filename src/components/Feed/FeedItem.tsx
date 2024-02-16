@@ -42,7 +42,11 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
       className={`${getGridRatio()} relative cursor-pointer p-[1px] `}
       onClick={linkToDetalPage}
     >
-      <img src={image} className={`${getSize()} object-cover`} loading="lazy" />
+      <img
+        src={"https://" + image}
+        className={`${getSize()} object-cover`}
+        loading="lazy"
+      />
       <div
         className={`absolute top-0 bg-black bg-opacity-10 ${getSize()}`}
       ></div>
