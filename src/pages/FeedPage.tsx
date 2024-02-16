@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { FeedContest, FeedItem } from "../components/Feed";
+import { FeedItem } from "../components/Feed";
 import { TopAppBar } from "../components/common";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
 import { useEffect } from "react";
@@ -20,10 +20,10 @@ const FeedPage = () => {
   return (
     <div className="bg-primary-white">
       <TopAppBar title={<TopLogoIcon fillColor="black" />} />
-      <div>
+      {/* <div>
         <FeedTitle title="이번 사생대회 우승작" />
         <FeedContest />
-      </div>
+      </div> */}
       {publicDiaries && (
         <>
           <FeedTitle
