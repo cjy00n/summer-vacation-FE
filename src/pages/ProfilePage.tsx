@@ -4,20 +4,14 @@ import { Diary } from "../types";
 import { useGetUserInfo } from "../hooks/getMyUserInfo";
 import { useEffect, useState } from "react";
 import {
-  ProfileMyDiary,
+  ProfileBottomSection,
   ProfileEditNicknameModal,
-  ProfileTopTab,
 } from "../components/Profile";
 import { useGetMyDiaries } from "../hooks/getMyDiaries";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
-import { useGetMyBookmark } from "../hooks/getMyBookmark";
-import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../routes/Route";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
   useEffect(() => {
     setActiveBottomTab("PROFILE");
@@ -25,17 +19,13 @@ const ProfilePage = () => {
 
   const { data: userInfo, isSuccess: userInfoSuccess } = useGetUserInfo();
   const { data: myDiariesData, isSuccess: getMySuccess } = useGetMyDiaries();
-  const { data: myBookmark } = useGetMyBookmark();
 
   console.log("유저 정보 : ", userInfo);
   console.log("내일기 리스트 : ", myDiariesData);
-  console.log("북마크 : ", myBookmark);
+
   const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [myDiaries, setMyDiaries] = useState<Diary[]>();
   const [nickname, setNickname] = useState("닉네임");
-  const [currentTab, setCurretTab] = useState<"My-Diary" | "Bookmark">(
-    "My-Diary",
-  );
 
   useEffect(() => {
     if (myDiariesData) {
@@ -51,11 +41,6 @@ const ProfilePage = () => {
 
   const toggleEditNicknameModal = () => {
     setIsEditNicknameOpen(!isEditNicknameOpen);
-  };
-
-  /* 피드 상세 페이지로 이동 */
-  const linkToDetailPage = (id: string) => {
-    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${id}`);
   };
 
   return (
@@ -78,41 +63,7 @@ const ProfilePage = () => {
           </span>
         </div>
       </div>
-      <div>
-        <ProfileTopTab currentTab={currentTab} setCurretTab={setCurretTab} />
-        {currentTab === "My-Diary" ? (
-          <div className="bg-gray-90">
-            {myDiaries && myDiaries.length > 0 ? (
-              <ProfileMyDiary diaries={myDiaries} />
-            ) : (
-              <div className="w-full py-20 text-center">
-                작성한 일기가 없습니다.
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="bg-gray-90">
-            {myBookmark && myBookmark.length > 0 ? (
-              myBookmark.map((item) => (
-                <div
-                  key={item.toString()}
-                  className="relative h-[33vw] w-[33vw] cursor-pointer p-[1px] custom-breakpoint:h-[160px] custom-breakpoint:w-[160px]"
-                  onClick={() => linkToDetailPage(item.diary.id)}
-                >
-                  <img
-                    src={"https://" + item.diary.imageUrl}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="w-full py-20 text-center">
-                북마크한 일기가 없습니다.
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+      {myDiaries && <ProfileBottomSection myDiaries={myDiaries} />}
       <ProfileEditNicknameModal
         open={isEditNicknameOpen}
         toggle={toggleEditNicknameModal}
