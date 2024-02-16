@@ -1,7 +1,7 @@
 import { Modal, message } from "antd";
 import { CustomButton } from "../common";
-import { usePatchNickname } from "../../hooks/patchNickname";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
 
 interface ProfileEditNicknameModalProps {
   open: boolean;
@@ -14,18 +14,24 @@ const ProfileEditNicknameModal = ({
   open,
   toggle,
   nickname,
-  setNickname,
 }: ProfileEditNicknameModalProps) => {
-  const { mutate: patchNickname, isSuccess } = usePatchNickname(nickname);
+  const { mutate: patchNickname, isSuccess } = usePatchAddUserInfo();
+  const [previewNickname, setPreviewNickname] = useState(nickname);
+
   const handlePatchNickname = () => {
-    patchNickname();
+    patchNickname({ nickname: previewNickname });
   };
+
+  useEffect(() => {
+    setPreviewNickname(nickname);
+  }, [nickname]);
 
   useEffect(() => {
     if (isSuccess) {
       message.success("닉네임이 변경되었습니다.");
       toggle();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   return (
@@ -37,8 +43,8 @@ const ProfileEditNicknameModal = ({
           닉네임 변경하기
           <input
             className="my-2 w-full rounded-lg border-none bg-gray-70 bg-opacity-70 p-2 text-sm"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
+            value={previewNickname}
+            onChange={(e) => setPreviewNickname(e.target.value)}
           />
         </div>
       }

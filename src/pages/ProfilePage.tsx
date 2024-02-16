@@ -8,12 +8,17 @@ import {
   ProfileEditNicknameModal,
 } from "../components/Profile";
 import { useGetMyDiaries } from "../hooks/getMyDiaries";
-import { useGetMyNickname } from "../hooks/getMyNickname";
+import { useRecoilState } from "recoil";
+import { bottomTabState } from "../recoil/atoms/bottomTabState";
 
 const ProfilePage = () => {
-  const { data: userInfo } = useGetUserInfo();
+  const [, setActiveBottomTab] = useRecoilState(bottomTabState);
+  useEffect(() => {
+    setActiveBottomTab("PROFILE");
+  }, [setActiveBottomTab]);
+
+  const { data: userInfo, isSuccess: userInfoSuccess } = useGetUserInfo();
   const { data: myDiariesData, isSuccess: getMySuccess } = useGetMyDiaries();
-  const { data: myNickname, isSuccess: nicknameSuccess } = useGetMyNickname();
 
   console.log("유저 정보 : ", userInfo);
   console.log("내일기 리스트 : ", myDiariesData);
@@ -29,9 +34,9 @@ const ProfilePage = () => {
   }, [getMySuccess]);
 
   useEffect(() => {
-    if (nicknameSuccess && myNickname) setNickname(myNickname);
+    if (userInfoSuccess) setNickname(userInfo?.nickname ?? "닉네임");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nicknameSuccess]);
+  }, [userInfo?.nickname]);
 
   const toggleEditNicknameModal = () => {
     setIsEditNicknameOpen(!isEditNicknameOpen);
