@@ -40,6 +40,8 @@ const FeedDetailPage = () => {
     isError: isUserInfoError,
   } = useGetUserInfo();
 
+  console.log(diaryData);
+
   const { data: checkBookmark, refetch: refetchCheckBookmark } =
     useGetCheckBookmark(id!);
   const { mutate: postBookmark, data: postBookmarkResult } = usePostBookmark(
@@ -56,8 +58,8 @@ const FeedDetailPage = () => {
   const [stampButtonIcon, setStampButtonIcon] = useState(<StarIcon />);
 
   useEffect(() => {
-    if (userInfo && diaryData?.user) {
-      const isMine = diaryData.user.id === userInfo.id;
+    if (userInfo && diaryData?.userId) {
+      const isMine = diaryData?.userId === userInfo.id;
       setIsMine(isMine ? true : false);
     }
   }, [diaryData, userInfo]);
@@ -74,7 +76,7 @@ const FeedDetailPage = () => {
     }
   }, [checkBookmark]);
 
-  const like = 5000;
+  // 임시 감정 데이터
   const like1 = 700;
   const like2 = 1100;
   const like3 = 1200;
@@ -183,7 +185,7 @@ const FeedDetailPage = () => {
 
           {isOpenLikeList && (
             <FeedStampMenu
-              like={like}
+              like={diary.likeCount ?? 0}
               likes={likeNumbers}
               handleLikeButton={handleLikeButton}
             />

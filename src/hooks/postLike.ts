@@ -16,6 +16,8 @@ export const usePostLike = (id: string) => {
   return useMutation(() => postLike({ id }), {
     onSuccess: () => {
       queryClient.invalidateQueries(["getDiary"] + id);
+      queryClient.invalidateQueries(["getDiariesByLikeCount"]);
+      queryClient.invalidateQueries(["getPublicDiary"]);
     },
   });
 };

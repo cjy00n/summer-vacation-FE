@@ -10,8 +10,8 @@ import FeedTitle from "../components/Feed/FeedTitle";
 const FeedPage = () => {
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
 
-  const { data } = useGetPublicDiary();
-  console.log(data);
+  const { data: publicDiaries } = useGetPublicDiary();
+  console.log(publicDiaries);
 
   useEffect(() => {
     setActiveBottomTab("FEED");
@@ -24,20 +24,20 @@ const FeedPage = () => {
         <FeedTitle title="이번 사생대회 우승작" />
         <FeedContest />
       </div>
-      {data && (
+      {publicDiaries && (
         <>
           <FeedTitle
             title="우리의 일상"
             description="최근 가장 많은 공감을 받았어요"
           />
           <div className="grid grid-flow-dense grid-cols-3 grid-rows-3">
-            {data.map((item, idx) => (
+            {publicDiaries.map(({ diary, likeCount }, idx) => (
               <FeedItem
                 key={"feed-item-" + idx}
-                image={item.imageUrl}
+                image={diary.imageUrl}
                 idx={idx}
-                like={idx * 10}
-                _id={item.id}
+                like={likeCount}
+                _id={diary.id}
               />
             ))}
           </div>

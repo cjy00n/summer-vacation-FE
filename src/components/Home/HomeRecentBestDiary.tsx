@@ -1,10 +1,10 @@
 import { HomeDiaryItem } from ".";
 import { LoadingIcon } from "../../assets/icons";
-import { useGetPublicDiary } from "../../hooks/getPublicDiary";
+import { useGetDiariesByLikeCount } from "../../hooks/getDiariesByLikeCount";
 import DraggableScrollContainer from "../common/DraggableScrollContainer";
 
 const HomeRecentBestDiary = () => {
-  const { data, isLoading } = useGetPublicDiary();
+  const { data: bestDiaries, isLoading } = useGetDiariesByLikeCount();
 
   return (
     <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
@@ -12,14 +12,14 @@ const HomeRecentBestDiary = () => {
         <div>
           <LoadingIcon />
         </div>
-      ) : data && data.length > 0 ? (
+      ) : bestDiaries && bestDiaries.length > 0 ? (
         <DraggableScrollContainer>
-          {data.map((item, idx) => (
+          {bestDiaries.map((diary, idx) => (
             <HomeDiaryItem
               key={"my-diary-item-" + idx}
-              image={item.imageUrl}
-              like={1000}
-              id={item.id}
+              image={diary.imageUrl}
+              like={diary.likeCount ?? 0}
+              id={diary.id}
             />
           ))}
         </DraggableScrollContainer>

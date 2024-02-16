@@ -15,12 +15,12 @@ const HomeMyDiary = () => {
         </div>
       ) : myDiaries && myDiaries.length > 0 ? (
         <DraggableScrollContainer>
-          {myDiaries?.map((item, idx) => (
+          {myDiaries?.map(({ diary, likeCount }, idx) => (
             <HomeDiaryItem
               key={"my-diary-item-" + idx}
-              image={item.imageUrl}
-              like={parseInt(item.id)}
-              id={item.id}
+              image={diary.imageUrl}
+              like={likeCount}
+              id={diary.id}
             />
           ))}
         </DraggableScrollContainer>

@@ -29,7 +29,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (myDiariesData) {
-      setMyDiaries(myDiariesData);
+      setMyDiaries(myDiariesData.map(({ diary }) => diary));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getMySuccess]);
