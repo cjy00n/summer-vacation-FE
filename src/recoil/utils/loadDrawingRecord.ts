@@ -1,4 +1,5 @@
-export const defaultTries = 7;
+export const defaultTries = 100;
+
 export function loadDrawingRecord() {
   const drawingRecord = localStorage.getItem("drawingRecord");
   const today = new Date().toDateString();
