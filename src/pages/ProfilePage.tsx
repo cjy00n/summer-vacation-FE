@@ -52,13 +52,13 @@ const ProfilePage = () => {
   };
 
   return (
-    <>
+    <div className="h-[100dvh] bg-gray-80">
       <TopAppBar
         title="프로필"
         rightIcon={<KebabMenuIcon />}
         rightOnClick={linkToProfileMorePage}
       />
-      <div className="flex justify-between px-14 py-8">
+      <div className="flex justify-between bg-primary-white px-14 py-8">
         <div className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gray-80">
           {userInfo?.image ? (
             <img
@@ -89,7 +89,7 @@ const ProfilePage = () => {
         nickname={nickname}
         setNickname={setNickname}
       />
-    </>
+    </div>
   );
 };
 

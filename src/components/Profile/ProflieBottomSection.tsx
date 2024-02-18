@@ -22,7 +22,7 @@ const ProfileBottomSection = ({ myDiaries }: { myDiaries: Diary[] }) => {
     <div>
       <ProfileTopTab currentTab={currentTab} setCurretTab={setCurretTab} />
       {currentTab === "My-Diary" ? (
-        <div className="bg-gray-90">
+        <div>
           {myDiaries && myDiaries.length > 0 ? (
             <ProfileMyDiary diaries={myDiaries} />
           ) : (
@@ -32,7 +32,7 @@ const ProfileBottomSection = ({ myDiaries }: { myDiaries: Diary[] }) => {
           )}
         </div>
       ) : (
-        <div className="bg-gray-90">
+        <div>
           {myBookmark && myBookmark.length > 0 ? (
             myBookmark.map((item) => (
               <div

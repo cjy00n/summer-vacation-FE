@@ -10,10 +10,10 @@ const ProfileTopTab = ({ currentTab, setCurretTab }: ProfileTopTabProp) => {
   };
 
   return (
-    <div className="flex w-full text-center">
+    <div className="flex w-full bg-primary-white text-center">
       <div
         onClick={ToggleTopTab}
-        className={`"  w-1/2 px-3 py-3 text-lg font-bold
+        className={` w-1/2 px-3 py-3 text-lg font-bold
       ${
         currentTab === "My-Diary"
           ? "rounded-t-3xl bg-primary-orange text-primary-white"
