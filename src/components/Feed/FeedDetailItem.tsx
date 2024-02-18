@@ -5,22 +5,15 @@ import { WeatherIcon } from "../../assets/icons/weather";
 import { EmotionIcon } from "../../assets/icons/emotions";
 import { Diary } from "../../types";
 
-interface FeedDetailItemProp
-  extends Omit<Diary, "createdAt" | "id" | "isWrite" | "isPublic"> {
+interface FeedDetailItemProp {
+  diary: Omit<Diary, "createdAt" | "id" | "isPublic">;
   like?: number;
   isLike?: boolean;
 }
 
-export const FeedDetailItem = ({
-  date,
-  weather,
-  emotion,
-  imageUrl,
-  contents,
-  like,
-  title,
-  isLike,
-}: FeedDetailItemProp) => {
+export const FeedDetailItem = ({ diary, like, isLike }: FeedDetailItemProp) => {
+  const { title, date, weather, emotion, imageUrl, contents } = diary;
+
   return (
     <>
       <div className="mx-auto mt-6 flex w-[322px] flex-col border-[1px] border-solid border-primary-orange">

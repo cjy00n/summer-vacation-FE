@@ -8,7 +8,6 @@ export interface Diary {
   title: string;
   contents: string;
   imageUrl: string;
-  isWrite: 1 | 0;
   isPublic: 1 | 0;
   createdAt: Date;
   likeCount?: number;

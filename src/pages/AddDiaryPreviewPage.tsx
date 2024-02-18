@@ -28,7 +28,6 @@ const AddDiaryPreviewPage = () => {
     date,
     imageUrl: drawingRecord.beforeImages[0],
     isPublic,
-    isWrite: 1,
   });
 
   const handleCompleteDiary = () => {
@@ -55,14 +54,15 @@ const AddDiaryPreviewPage = () => {
       <TopAppBar title="일기쓰기" leftGoBack />
       <div className="relative mx-auto flex w-[320px] flex-col">
         <FeedDetailItem
-          date={date}
-          title={title}
-          contents={contents}
-          imageUrl={
-            drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1]
-          }
-          weather={weather}
-          emotion={emotion}
+          diary={{
+            date,
+            title,
+            contents,
+            imageUrl:
+              drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
+            weather,
+            emotion,
+          }}
         />
         <div className="fixed bottom-[10px] left-[50%] z-10 my-2 flex w-[320px] -translate-x-1/2 transform">
           <CircleButton
