@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { instance } from ".";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -14,7 +15,8 @@ export const usePostLike = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation(() => postLike({ id }), {
-    onSuccess: () => {
+    onSuccess: (result: string) => {
+      message.success(result);
       queryClient.invalidateQueries(["getDiary"] + id);
       queryClient.invalidateQueries(["getDiariesByLikeCount"]);
       queryClient.invalidateQueries(["getPublicDiary"]);
