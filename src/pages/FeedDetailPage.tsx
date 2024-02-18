@@ -22,8 +22,8 @@ import { Drawer, message } from "antd";
 import { useGetDiary } from "../hooks/getDiary";
 import { usePostLike } from "../hooks/postLike";
 import { useGetUserInfo } from "../hooks/getMyUserInfo";
-import { useGetCheckBookmark } from "../hooks/getCheckBookmark";
-import { usePostBookmark } from "../hooks/postBookmark";
+import { usePostEmotion } from "../hooks/postEmotion";
+import { useGetCheckEmotion } from "../hooks/getEmotion";
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,7 +32,7 @@ const FeedDetailPage = () => {
     isLoading: isDiaryLoading,
     isError: isDiaryError,
     refetch: refetchDiary,
-  } = useGetDiary(id ?? "0");
+  } = useGetDiary(id!);
 
   const {
     data: userInfo,
@@ -40,18 +40,14 @@ const FeedDetailPage = () => {
     isError: isUserInfoError,
   } = useGetUserInfo();
 
-  const { data: checkBookmark, refetch: refetchCheckBookmark } =
-    useGetCheckBookmark(id!);
-  const { mutate: postBookmark, data: postBookmarkResult } = usePostBookmark(
-    id!,
-  );
-  console.log(postBookmarkResult);
+  const { data: checkEmotion } = useGetCheckEmotion(id!);
+  console.log(checkEmotion);
+
   const [isMine, setIsMine] = useState(false); // 나의 일기인지 여부
   const [diary, setDiary] = useState<Diary>(); // 보여줄 일기 데이터
 
   const [isOpenLikeList, setIsOpenLikeList] = useState(false); // 참잘했어요 모달 오픈 여부
   const [isLike, setIsLike] = useState(false); // 참잘했어요 여부
-  const [isBookmark, setIsBookmark] = useState(false); // 북마크 여부
   const [isMoreDrawerOpen, setIsMoreDrawerOpen] = useState(false);
   const [stampButtonIcon, setStampButtonIcon] = useState(<StarIcon />);
 
@@ -68,18 +64,8 @@ const FeedDetailPage = () => {
     }
   }, [diaryData]);
 
-  useEffect(() => {
-    if (checkBookmark != undefined) {
-      setIsBookmark(checkBookmark);
-    }
-  }, [checkBookmark]);
-
   // 임시 감정 데이터
-  const like1 = 700;
-  const like2 = 1100;
-  const like3 = 1200;
-  const like4 = 600;
-  const like5 = 400;
+  const [like1, like2, like3, like4, like5] = [10, 20, 30, 40, 50];
 
   const toggleLikeList = () => {
     setIsOpenLikeList(!isOpenLikeList);
@@ -99,20 +85,6 @@ const FeedDetailPage = () => {
     message.warning("신고 기능은 현재 준비 중이에요.");
   };
 
-  /* 북마크 버튼 클릭 시 */
-  const handleBookMark = () => {
-    postBookmark();
-    // toggleBookmark();
-  };
-
-  useEffect(() => {
-    if (postBookmarkResult) {
-      message.warning(postBookmarkResult);
-      refetchCheckBookmark();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postBookmarkResult]);
-
   /* 참 잘했어요 버튼 클릭 시 */
   const onStampButtonClick = () => {
     if (isLike) {
@@ -125,17 +97,22 @@ const FeedDetailPage = () => {
   const likeNumbers = [like1, like2, like3, like4, like5];
 
   const { mutate: postLike } = usePostLike(id!);
+  const { mutate: postEmotion } = usePostEmotion(id!);
 
   // 참잘했어요 버튼 클릭 후, 공감 리스트에서 각각의 버튼 클릭 시
   const handleLikeButton = (type: Emotion | "star") => {
     toggleLike();
     toggleLikeList();
     setIsLike(true);
-    // 여기에 백엔드 api 붙이기
+
     if (type === "star") {
       postLike();
       refetchDiary();
+    } else {
+      postEmotion(type);
+      refetchDiary();
     }
+
     setStampButtonIcon(
       type === "star" ? (
         <FillStarIcon fillColor="white" />
@@ -169,12 +146,7 @@ const FeedDetailPage = () => {
             rightOnClick={toggleMoreDrawer}
           />
           <FeedDetailItem
-            title={diary.title}
-            date={diary.date}
-            weather={diary.weather}
-            emotion={diary.emotion}
-            imageUrl={diary.imageUrl}
-            contents={diary.contents}
+            diary={diary}
             like={diary.likeCount ?? 0}
             isLike={isLike}
           />
@@ -190,10 +162,9 @@ const FeedDetailPage = () => {
             <FeedBottomMine diaryData={diary} />
           ) : (
             <FeedBottomOthers
-              isBookmark={isBookmark}
+              feedId={id!}
               isLike={isLike}
               onStampButtonClick={onStampButtonClick}
-              toggleBookmark={handleBookMark}
               stampButtonIcon={stampButtonIcon}
             />
           )}
