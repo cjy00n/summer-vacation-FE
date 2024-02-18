@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { ArrowIcon } from "../assets/icons";
 import { TopAppBar } from "../components/common";
 import MenuListItem, {
   MenuListItemProps,
 } from "../components/common/MenuListItem";
+import { postLogout } from "../hooks/postLogout";
 
 const ProfileMorePage = () => {
+  const navigate = useNavigate();
+
   const ProfileMoreMenuList: MenuListItemProps[] = [
     {
       title: "알림 설정",
@@ -20,6 +24,10 @@ const ProfileMorePage = () => {
     },
     {
       title: "회원탈퇴",
+    },
+    {
+      title: "로그아웃",
+      onClick: () => postLogout(navigate),
     },
     {
       title: "오픈 라이선스",
@@ -41,6 +49,7 @@ const ProfileMorePage = () => {
       <TopAppBar leftGoBack title={"더 보기"} />
       {ProfileMoreMenuList.map((menu) => (
         <MenuListItem
+          onClick={menu.onClick}
           title={menu.title}
           key={menu.title}
           leftContents={menu.leftContents}
