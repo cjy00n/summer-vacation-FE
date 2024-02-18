@@ -23,16 +23,19 @@ const AddDiaryTranslatePage = () => {
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [koreanContent] = useState(diaryData.contents ?? "");
-  const [previewEnglishContent, setPreviewEnglishContent] = useState(
+  const [englishContent, setEnglishContent] = useState(
     "열심히 번역을 하고 있어요 . . ",
   );
-  const [englishContent, setEnglishContent] = useState("");
 
   /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
   const handleDrawing = async () => {
     setDrawingModalOpen(true);
     try {
-      const newImage = await postDiaryDrawing(englishContent);
+      const newImage = await postDiaryDrawing({
+        input: englishContent,
+        emotion: diaryData.emotion,
+        weather: diaryData.weather,
+      });
       if (newImage) {
         setDiaryLocalStorage({ ...diaryData, englishContents: englishContent });
         updateDrawingRecord(setDrawingRecord, {
@@ -47,11 +50,8 @@ const AddDiaryTranslatePage = () => {
       console.error(e);
     }
   };
-  const { mutate: translate, data: output } = usePostDiaryTranslation(
-    koreanContent,
-    diaryData.weather,
-    diaryData.emotion,
-  );
+  const { mutate: translate, data: output } =
+    usePostDiaryTranslation(koreanContent);
 
   useEffect(() => {
     translate();
@@ -61,7 +61,6 @@ const AddDiaryTranslatePage = () => {
   useEffect(() => {
     if (output) {
       setEnglishContent(output!);
-      setPreviewEnglishContent(output.split(".").splice(1).join(""));
     }
   }, [output]);
 
@@ -102,7 +101,7 @@ const AddDiaryTranslatePage = () => {
           <h3 className="py-2 pt-6 font-semibold">번역된 글</h3>
           <div className="my-2 bg-gray-80">
             <div className="w-full rounded-md bg-transparent p-4 text-sm text-black">
-              {previewEnglishContent}
+              {englishContent}
             </div>
           </div>
         </div>

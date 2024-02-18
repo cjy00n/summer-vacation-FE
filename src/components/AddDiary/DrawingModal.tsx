@@ -8,7 +8,7 @@ const DrawingModal = ({ open }: { open: boolean }) => {
         <p className="my-10 text-center text-sm font-semibold">
           AI가 그림을 열심히 그리고 있어요!
           <br />
-          3초 정도 소요되니 조금만 기다려 주세요!
+          5초 정도 소요되니 조금만 기다려 주세요!
         </p>
       </div>
     </Modal>

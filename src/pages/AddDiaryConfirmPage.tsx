@@ -13,24 +13,22 @@ import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 
 const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
+  const diaryData = getDiaryLocalStorage();
 
-  if (!getDiaryLocalStorage) {
-    message.error("잘못된 접근입니다.");
-  }
+  console.log(diaryData);
 
-  const [englishContents] = useState(
-    getDiaryLocalStorage() ? getDiaryLocalStorage().englishContents : "",
-  );
-  console.log(getDiaryLocalStorage(), englishContents);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
-  const [, contextHolder] = message.useMessage();
 
   /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
   const handleDrawing = async () => {
     setDrawingModalOpen(true);
     try {
-      const newImage = await postDiaryDrawing(englishContents);
+      const newImage = await postDiaryDrawing({
+        input: diaryData.englishContent,
+        emotion: diaryData.emotion,
+        weather: diaryData.weather,
+      });
       console.log(newImage);
       if (newImage) {
         updateDrawingRecord(setDrawingRecord, {
@@ -45,12 +43,9 @@ const AddDiaryConfirmPage = () => {
       message.error("잘못된 접근입니다.");
     }
   };
-  console.log(
-    drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
-  );
+
   return (
-    getDiaryLocalStorage() &&
-    englishContents && (
+    diaryData && (
       <div className="flex flex-col">
         <TopAppBar title="AI 그림 확인" leftGoBack />
         <div className="mx-auto flex flex-col items-center p-4">
@@ -87,7 +82,6 @@ const AddDiaryConfirmPage = () => {
               size="long"
               onClick={() => navigate(ROUTE.ADD_DIARY_PAGE.link)}
             />
-            {contextHolder}
           </div>
         </div>
       </div>
