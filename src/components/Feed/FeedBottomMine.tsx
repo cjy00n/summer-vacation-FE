@@ -11,6 +11,7 @@ import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
 import { useDeleteDiary } from "../../hooks/deleteDiary";
 import { Diary } from "../../types";
+import { copyUrlToClipBoard } from "../../utils/copyUrlToClipBoard";
 
 const FeedBottomMine = ({ diaryData }: { diaryData: Diary }) => {
   const navigate = useNavigate();
@@ -21,19 +22,6 @@ const FeedBottomMine = ({ diaryData }: { diaryData: Diary }) => {
   /* 삭제 확인 모달 토글 */
   const toggleSureDeleteModal = () => {
     setIsSureDeleteModalOpen(!isSureDeleteModalOpen);
-  };
-
-  /* 클립보드에 현재 주소 복사 */
-  const copyUrlToClipBoard = () => {
-    const dummy = document.createElement("input");
-    const text = location.href;
-
-    document.body.appendChild(dummy);
-    dummy.value = text;
-    dummy.select();
-    document.execCommand("copy");
-    document.body.removeChild(dummy);
-    messageApi.success("주소가 클립보드에 복사되었어요");
   };
 
   const { mutate: deleteDiary } = useDeleteDiary(diaryData.id);

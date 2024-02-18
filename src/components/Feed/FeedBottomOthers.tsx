@@ -1,4 +1,5 @@
 import { BookmarkIcon, FillBookmarkIcon, ShareIcon } from "../../assets/icons";
+import { copyUrlToClipBoard } from "../../utils/copyUrlToClipBoard";
 import { CircleButton, CustomButton } from "../common";
 
 interface FeedBottomOthersProps {
@@ -16,10 +17,10 @@ const FeedBottomOthers = ({
   isLike,
   stampButtonIcon,
 }: FeedBottomOthersProps) => (
-  <div className="fixed bottom-[100px] left-[50%] z-10 flex w-[320px] -translate-x-1/2 transform justify-between">
+  <div className="fixed bottom-[100px] left-[50%] z-10 flex w-[340px] -translate-x-1/2 transform justify-between">
     <CircleButton
       icon={<ShareIcon fillColor="white" />}
-      onClick={() => console.log("준비중")}
+      onClick={copyUrlToClipBoard}
     />
     <CircleButton
       type="toggle"

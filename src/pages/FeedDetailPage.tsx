@@ -45,7 +45,7 @@ const FeedDetailPage = () => {
   const { mutate: postBookmark, data: postBookmarkResult } = usePostBookmark(
     id!,
   );
-
+  console.log(postBookmarkResult);
   const [isMine, setIsMine] = useState(false); // 나의 일기인지 여부
   const [diary, setDiary] = useState<Diary>(); // 보여줄 일기 데이터
 
