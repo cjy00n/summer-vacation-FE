@@ -4,7 +4,7 @@ import { TopAppBar } from "../components/common";
 import MenuListItem, {
   MenuListItemProps,
 } from "../components/common/MenuListItem";
-import { postLogout } from "../hooks/postLogout";
+import { ROUTE } from "../routes/Route";
 
 const ProfileMorePage = () => {
   const navigate = useNavigate();
@@ -27,7 +27,12 @@ const ProfileMorePage = () => {
     },
     {
       title: "로그아웃",
-      onClick: () => postLogout(navigate),
+      onClick: () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
+        navigate(ROUTE.LOGIN_PAGE.link);
+      },
     },
     {
       title: "오픈 라이선스",
