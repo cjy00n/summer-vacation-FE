@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { postKaKaoSignIn } from "../hooks/postKaKaoSignIn";
-import { useEffect } from "react";
-import { ROUTE } from "../routes/Route";
+import { useSetRecoilState } from "recoil";
+import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -12,16 +12,16 @@ const AuthPage = () => {
 
   const code = new URL(window.location.href).searchParams.get("code");
 
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+
   console.log("code", code);
-  if (code) postKaKaoSignIn(code, REDIRECT_URI, navigate);
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-
-    if (token) {
-      navigate(ROUTE.HOME_PAGE.link);
-    }
-  }, [navigate]);
+  if (code)
+    postKaKaoSignIn({
+      code,
+      redirectUri: REDIRECT_URI,
+      navigate,
+      setIsLoggedIn,
+    });
 
   return (
     <div className="scrollbar-hide flex h-[100vh] flex-col items-center overflow-y-scroll bg-primary-white pb-[20vh] pt-[20vh]">

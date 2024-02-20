@@ -6,6 +6,7 @@ export const getCheckVaildToken = async () => {
   const accessToken = localStorage.getItem("accessToken");
 
   if (accessToken) {
+    console.log(accessToken);
     try {
       const response = await instance.post<boolean | "incorrect format">(
         "users/access-token?accessToken=" + accessToken,

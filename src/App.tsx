@@ -1,11 +1,51 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import { ROUTE_ARR } from "./routes/Route";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { ROUTE, ROUTE_ARR } from "./routes/Route";
 import { BottomAppBar } from "./components/common";
 import { ConfigProvider, message } from "antd";
 import koKR from "antd/lib/locale/ko_KR";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "./recoil/atoms/isLoggedinState";
+import { useGetCheckVaildToken } from "./hooks/getCheckValidToken";
+import { usePostTokenRefresh } from "./hooks/postTokenRefressh";
 
 function App() {
+  const navigate = useNavigate();
+
   const [, contextHolder] = message.useMessage();
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  const linkToLoginPage = () => {
+    navigate(ROUTE.LOGIN_PAGE.link);
+  };
+
+  const checkVaildToken = useGetCheckVaildToken();
+  const { mutate: tokenRefresh } = usePostTokenRefresh();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (accessToken && refreshToken) {
+      if (checkVaildToken.data === true) {
+        setIsLoggedIn(true);
+      } else if (checkVaildToken.data === false) {
+        tokenRefresh();
+      } else if (checkVaildToken.data === "incorrect format")
+        setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(false);
+    }
+
+    const currentRoute = ROUTE_ARR.find(
+      (route) => route.path === location.pathname,
+    );
+
+    if (currentRoute?.authRequired === undefined && isLoggedIn === false) {
+      linkToLoginPage();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
 
   return (
     <ConfigProvider

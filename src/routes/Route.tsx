@@ -43,6 +43,7 @@ export const ROUTE: Routes = {
     path: "/auth",
     link: "/auth",
     element: <AuthPage />,
+    authRequired: false,
   },
 
   ONBOARDING_PAGE: {
