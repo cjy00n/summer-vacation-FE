@@ -9,18 +9,9 @@ import {
 } from "../components/common";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
-import { useEffect } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      navigate(ROUTE.LOGIN_PAGE.link);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const linkAddDiaryPage = () => {
     navigate(ROUTE.ADD_DIARY_PAGE.link);
