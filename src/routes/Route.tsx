@@ -23,6 +23,7 @@ interface RouteItem {
   path: string;
   link: string;
   element: JSX.Element;
+  authRequired?: boolean;
   haveBottomAppBar?: boolean;
 }
 
