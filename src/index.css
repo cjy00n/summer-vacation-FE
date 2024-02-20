@@ -21,7 +21,7 @@ body {
 }
 
 body {
-  @apply mx-auto min-h-screen w-[480px] bg-primary-white antialiased;
+  @apply mx-auto min-h-screen w-[480px] bg-primary-white antialiased !important;
 }
 
 /* 반응형 디자인 */
