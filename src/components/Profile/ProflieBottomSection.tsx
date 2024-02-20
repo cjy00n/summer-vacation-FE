@@ -32,11 +32,11 @@ const ProfileBottomSection = ({ myDiaries }: { myDiaries: Diary[] }) => {
           )}
         </div>
       ) : (
-        <div>
+        <div className="flex">
           {myBookmark && myBookmark.length > 0 ? (
             myBookmark.map((item) => (
               <div
-                key={item.toString()}
+                key={"my-profile" + item.diary.id}
                 className="relative h-[33vw] w-[33vw] cursor-pointer p-[1px] custom-breakpoint:h-[160px] custom-breakpoint:w-[160px]"
                 onClick={() => linkToDetailPage(item.diary.id)}
               >
