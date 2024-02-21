@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { postKaKaoSignIn } from "../hooks/postKaKaoSignIn";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
-
+import { useGetCheckVaildToken } from "../hooks/getCheckValidToken";
 const AuthPage = () => {
   const navigate = useNavigate();
 
@@ -13,9 +13,11 @@ const AuthPage = () => {
   const code = new URL(window.location.href).searchParams.get("code");
 
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const checkVaildToken = useGetCheckVaildToken();
 
   console.log("code", code);
-  if (code)
+  console.log("checkVaildToken", checkVaildToken);
+  if (code && checkVaildToken.data !== true)
     postKaKaoSignIn({
       code,
       redirectUri: REDIRECT_URI,

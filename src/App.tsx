@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { ROUTE, ROUTE_ARR } from "./routes/Route";
 import { BottomAppBar } from "./components/common";
-import { ConfigProvider, message } from "antd";
+import { ConfigProvider } from "antd";
 import koKR from "antd/lib/locale/ko_KR";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
@@ -11,8 +11,6 @@ import { usePostTokenRefresh } from "./hooks/postTokenRefressh";
 
 function App() {
   const navigate = useNavigate();
-
-  const [, contextHolder] = message.useMessage();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
   const linkToLoginPage = () => {
@@ -22,30 +20,36 @@ function App() {
   const checkVaildToken = useGetCheckVaildToken();
   const { mutate: tokenRefresh } = usePostTokenRefresh();
 
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  const currentRoute = ROUTE_ARR.find(
+    (route) => route.path === location.pathname,
+  );
+
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-
-    if (accessToken && refreshToken) {
-      if (checkVaildToken.data === true) {
-        setIsLoggedIn(true);
-      } else if (checkVaildToken.data === false) {
-        tokenRefresh();
-      } else if (checkVaildToken.data === "incorrect format")
+    if (currentRoute?.authRequired === undefined) {
+      console.log("이거 때문?");
+      if (accessToken && refreshToken) {
+        if (checkVaildToken.data === true) {
+          setIsLoggedIn(true);
+        } else if (checkVaildToken.data === false) {
+          tokenRefresh();
+        } else if (checkVaildToken.data === "incorrect format")
+          setIsLoggedIn(false);
+      } else {
         setIsLoggedIn(false);
-    } else {
-      setIsLoggedIn(false);
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkVaildToken.data]);
 
-    const currentRoute = ROUTE_ARR.find(
-      (route) => route.path === location.pathname,
-    );
-
+  useEffect(() => {
     if (currentRoute?.authRequired === undefined && isLoggedIn === false) {
       linkToLoginPage();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, checkVaildToken.data]);
+  }, [isLoggedIn]);
 
   return (
     <ConfigProvider
@@ -78,7 +82,6 @@ function App() {
               <div>
                 <div className={`${el.haveBottomAppBar ? "pb-20" : ""}`}>
                   {el.element}
-                  {contextHolder}
                 </div>
                 {el.haveBottomAppBar && <BottomAppBar />}
               </div>
