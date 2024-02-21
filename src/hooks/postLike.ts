@@ -18,7 +18,7 @@ export const usePostLike = (id: string) => {
     onSuccess: (result: string) => {
       message.success(result);
       queryClient.invalidateQueries(["getDiary"] + id);
-      queryClient.invalidateQueries(["getDiariesByLikeCount"]);
+      queryClient.invalidateQueries(["getCheckLike" + id]);
       queryClient.invalidateQueries(["getPublicDiary"]);
     },
   });
