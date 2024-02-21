@@ -13,6 +13,9 @@ instance.interceptors.request.use(
     if (accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"]; // FormData를 사용하는 경우 Content-Type 헤더 제거
+    }
     return config;
   },
   (error) => {
