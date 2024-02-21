@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "./recoil/atoms/isLoggedinState";
 import { useGetCheckVaildToken } from "./hooks/getCheckValidToken";
-import { usePostTokenRefresh } from "./hooks/postTokenRefressh";
+import { usePostTokenRefresh } from "./hooks/postTokenRefresh";
 
 function App() {
   const navigate = useNavigate();
@@ -29,7 +29,6 @@ function App() {
 
   useEffect(() => {
     if (currentRoute?.authRequired === undefined) {
-      console.log("이거 때문?");
       if (accessToken && refreshToken) {
         if (checkVaildToken.data === true) {
           setIsLoggedIn(true);
