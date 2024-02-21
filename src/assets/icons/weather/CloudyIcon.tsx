@@ -2,8 +2,8 @@ import IconComponentProps from "../IconComponentProps";
 
 const CloudyIcon = ({ width, height, fillColor }: IconComponentProps) => (
   <svg
-    width={width ?? "18"}
-    height={height ?? "17"}
+    width={width ?? "16"}
+    height={height ?? "15"}
     viewBox="0 0 27 18"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

@@ -2,8 +2,8 @@ import IconComponentProps from "../IconComponentProps";
 
 const SnowIcon = ({ width, height, fillColor }: IconComponentProps) => (
   <svg
-    width={width ?? "25"}
-    height={height ?? "24"}
+    width={width ?? "15"}
+    height={height ?? "15"}
     viewBox="0 0 25 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
