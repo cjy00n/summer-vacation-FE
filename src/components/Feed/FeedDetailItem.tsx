@@ -3,16 +3,23 @@ import { FillStarIcon } from "../../assets/icons";
 import { ko } from "date-fns/locale";
 import { WeatherIcon } from "../../assets/icons/weather";
 import { EmotionIcon } from "../../assets/icons/emotions";
-import { Diary } from "../../types";
+import { DiaryDetail } from "../../types";
 
 interface FeedDetailItemProp {
-  diary: Omit<Diary, "createdAt" | "id" | "isPublic">;
+  diary: DiaryDetail;
   like?: number;
   isLike?: boolean;
 }
 
 export const FeedDetailItem = ({ diary, like, isLike }: FeedDetailItemProp) => {
-  const { title, date, weather, emotion, imageUrl, contents } = diary;
+  const {
+    diary_title: title,
+    diary_date: date,
+    diary_weather: weather,
+    diary_emotion: emotion,
+    diary_imageUrl: imageUrl,
+    diary_contents: contents,
+  } = diary;
 
   return (
     <>
