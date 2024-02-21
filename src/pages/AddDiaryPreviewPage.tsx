@@ -55,13 +55,13 @@ const AddDiaryPreviewPage = () => {
       <div className="relative mx-auto flex w-[320px] flex-col">
         <FeedDetailItem
           diary={{
-            date,
-            title,
-            contents,
-            imageUrl:
+            diary_date: date,
+            diary_title: title,
+            diary_contents: contents,
+            diary_imageUrl:
               drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
-            weather,
-            emotion,
+            diary_weather: weather,
+            diary_emotion: emotion,
           }}
         />
         <div className="fixed bottom-[10px] left-[50%] z-10 my-2 flex w-[320px] -translate-x-1/2 transform">

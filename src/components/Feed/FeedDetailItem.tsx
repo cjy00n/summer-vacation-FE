@@ -6,9 +6,16 @@ import { EmotionIcon } from "../../assets/icons/emotions";
 import { DiaryDetail, Emotion } from "../../types";
 
 interface FeedDetailItemProp {
-  diary: DiaryDetail;
+  diary: Pick<
+    DiaryDetail,
+    | "diary_title"
+    | "diary_contents"
+    | "diary_date"
+    | "diary_emotion"
+    | "diary_weather"
+    | "diary_imageUrl"
+  >;
   like?: number;
-  isLike?: boolean;
   checkLike?: "alread checked" | "possible";
   checkEmotion?: Emotion;
 }
