@@ -1,22 +1,21 @@
 import { EmotionData } from "../../assets/data";
 import { StarIcon } from "../../assets/icons";
-import GetEmotionIcon from "../../assets/icons/emotions/GetEMotionIcon";
 import { useGetDiary } from "../../hooks/getDiary";
 import { usePostEmotion } from "../../hooks/postEmotion";
 import { usePostLike } from "../../hooks/postLike";
 import { Emotion } from "../../types";
+import GetEmotionIcon from "../../assets/icons/emotions/GetEMotionIcon";
 
 interface FeedStampMenuProps {
-  id: string;
+  feedId: string;
   toggleLikeList: () => void;
 }
 
-const FeedStampMenu = ({ id, toggleLikeList }: FeedStampMenuProps) => {
-  const { mutate: postLike } = usePostLike(id!);
-  const { mutate: postEmotion } = usePostEmotion(id!);
-  const { refetch: refetchDiary } = useGetDiary(id!);
+const FeedStampMenu = ({ feedId, toggleLikeList }: FeedStampMenuProps) => {
+  const { mutate: postLike } = usePostLike(feedId);
+  const { mutate: postEmotion } = usePostEmotion(feedId);
 
-  const { data: diaryData } = useGetDiary(id);
+  const { data: diaryData } = useGetDiary(feedId);
   const likes = [
     diaryData?.좋아요,
     diaryData?.괜찮아요,
@@ -28,14 +27,8 @@ const FeedStampMenu = ({ id, toggleLikeList }: FeedStampMenuProps) => {
   // 참잘했어요 버튼 클릭 후, 공감 리스트에서 각각의 버튼 클릭 시
   const handleLikeButton = (type: Emotion | "star") => {
     toggleLikeList();
-
-    if (type === "star") {
-      postLike();
-      refetchDiary();
-    } else {
-      postEmotion(type);
-      refetchDiary();
-    }
+    if (type === "star") postLike();
+    else postEmotion(type);
   };
 
   return (

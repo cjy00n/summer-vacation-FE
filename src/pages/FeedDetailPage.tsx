@@ -13,6 +13,8 @@ import { format } from "date-fns";
 import { Drawer, message } from "antd";
 import { useGetDiary } from "../hooks/getDiary";
 import { useGetUserInfo } from "../hooks/getMyUserInfo";
+import { useGetCheckEmotion } from "../hooks/getCheckEmotion";
+import { useGetCheckLike } from "../hooks/getCheckLike";
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +29,9 @@ const FeedDetailPage = () => {
     isLoading: isUserInfoLoading,
     isError: isUserInfoError,
   } = useGetUserInfo();
+
+  const { data: checkEmotion } = useGetCheckEmotion(id!);
+  const { data: checkLike } = useGetCheckLike(id!);
 
   const [isMine, setIsMine] = useState(false); // 나의 일기인지 여부
   const [diary, setDiary] = useState<DiaryDetail>(); // 보여줄 일기 데이터
@@ -45,7 +50,6 @@ const FeedDetailPage = () => {
       setDiary(diaryData);
     }
   }, [diaryData]);
-  console.log(diaryData);
 
   /* 다른 사람의 글일 때 > 더보기 메뉴 토글 */
   const toggleMoreDrawer = () => {
@@ -75,7 +79,12 @@ const FeedDetailPage = () => {
             rightIcon={<KebabMenuIcon />}
             rightOnClick={toggleMoreDrawer}
           />
-          <FeedDetailItem diary={diary} like={diary.likeCount ?? 0} />
+          <FeedDetailItem
+            diary={diary}
+            like={diary.likeCount ?? 0}
+            checkEmotion={checkEmotion}
+            checkLike={checkLike}
+          />
 
           {isMine ? (
             <FeedBottomMine

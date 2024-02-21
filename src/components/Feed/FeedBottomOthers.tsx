@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   BookmarkIcon,
   FillBookmarkIcon,
-  // FillStarIcon,
+  FillStarIcon,
   ShareIcon,
   StarIcon,
 } from "../../assets/icons";
@@ -12,9 +12,12 @@ import { message } from "antd";
 import { usePostBookmark } from "../../hooks/postBookmark";
 import { useGetCheckBookmark } from "../../hooks/getCheckBookmark";
 import { FeedStampMenu } from ".";
-import { useGetCheckEmotion } from "../../hooks/getEmotion";
+import { useGetCheckEmotion } from "../../hooks/getCheckEmotion";
 import GetEmotionIcon from "../../assets/icons/emotions/GetEMotionIcon";
-// import { Emotion } from "../../types";
+import { useGetCheckLike } from "../../hooks/getCheckLike";
+import { usePostEmotion } from "../../hooks/postEmotion";
+import { Emotion } from "../../types";
+import { usePostLike } from "../../hooks/postLike";
 
 interface FeedBottomOthersProps {
   feedId: string;
@@ -23,33 +26,38 @@ interface FeedBottomOthersProps {
 const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
   const [isBookmark, setIsBookmark] = useState(false); // 북마크 여부
   const [isOpenLikeList, setIsOpenLikeList] = useState(false);
-
+  const [currentLike, setCurrentLike] = useState<"star" | Emotion>();
   const [stampButtonIcon, setStampButtonIcon] = useState(<StarIcon />);
 
-  const [isLike, setIsLike] = useState(false); // 참잘했어요 여부
   const { mutate: postBookmark, data: postBookmarkResult } =
     usePostBookmark(feedId); // 북마크 post
   const { data: checkBookmark, refetch: refetchCheckBookmark } =
     useGetCheckBookmark(feedId); // 북마크 여부 get
   const { data: checkEmotion } = useGetCheckEmotion(feedId);
-  console.log(checkEmotion);
+  const { data: checkLike } = useGetCheckLike(feedId);
+  const { mutate: postLike } = usePostLike(feedId);
+  const { mutate: postEmotion } = usePostEmotion(feedId);
 
+  /* 해당 다이어리에 대한 본인의 좋아요/감정 여부 확인하여 참잘했어요 버튼 UI 처리 */
   useEffect(() => {
-    if (checkEmotion) {
+    if (checkLike === "alread checked") {
+      setStampButtonIcon(<FillStarIcon fillColor="white" />);
+      setCurrentLike("star");
+    } else if (checkEmotion) {
       setStampButtonIcon(
-        // checkEmotion === "star" ? (
-        //   <FillStarIcon fillColor="white" />
-        // ) : (
         <GetEmotionIcon
           emotion={checkEmotion}
           fillColor="white"
           width={22}
           height={22}
         />,
-        // ),
       );
+      setCurrentLike(checkEmotion);
+    } else {
+      setStampButtonIcon(<StarIcon />);
+      setCurrentLike(undefined);
     }
-  }, [checkEmotion]);
+  }, [checkEmotion, checkLike]);
 
   /* 북마크 버튼 클릭 시 */
   const handleBookMark = () => {
@@ -70,15 +78,17 @@ const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postBookmarkResult]);
 
+  /* 참 잘했어요 리스트 토글 */
   const toggleLikeList = () => {
     setIsOpenLikeList(!isOpenLikeList);
   };
 
   /* 참 잘했어요 버튼 클릭 시 */
   const onStampButtonClick = () => {
-    if (isLike) {
-      setIsLike(!isLike);
-      setStampButtonIcon(<StarIcon />);
+    if (checkLike === "alread checked") {
+      postLike();
+    } else if (checkEmotion) {
+      postEmotion(checkEmotion);
     } else {
       toggleLikeList();
     }
@@ -104,19 +114,19 @@ const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
       />
 
       <CustomButton
-        type={stampButtonIcon ? "default" : "white"}
+        type={currentLike ? "default" : "white"}
         size="middle"
         onClick={onStampButtonClick}
         content={
           <span
-            className={`flex items-center justify-around px-10 ${stampButtonIcon ? "text-white" : "text-black"} mx-1 text-base font-medium`}
+            className={`flex items-center justify-around px-10 ${currentLike ? "text-white" : "text-black"} mx-1 text-base font-medium`}
           >
             {stampButtonIcon} 참 잘했어요
           </span>
         }
       ></CustomButton>
       {isOpenLikeList && (
-        <FeedStampMenu id={feedId} toggleLikeList={toggleLikeList} />
+        <FeedStampMenu feedId={feedId} toggleLikeList={toggleLikeList} />
       )}
     </div>
   );
