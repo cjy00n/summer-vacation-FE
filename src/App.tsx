@@ -45,7 +45,7 @@ function App() {
       linkToLoginPage();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
+  }, [isLoggedIn, checkVaildToken.data]);
 
   return (
     <ConfigProvider
