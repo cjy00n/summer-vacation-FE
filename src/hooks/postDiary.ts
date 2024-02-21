@@ -14,7 +14,7 @@ export const postDiary = async (diary: PostDrawingType) => {
     formData.append("input", diary.imageUrl);
     formData.append("emotion", diary.emotion);
     formData.append("weather", diary.weather);
-    formData.append("isPublic", diary.isPublic.toString());
+    formData.append("isPublic", diary.isPublic!.toString());
 
     const response = await instance.post<{ result: string }>(
       "diary/create-diary",
