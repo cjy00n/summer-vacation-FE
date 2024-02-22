@@ -50,7 +50,7 @@ const ProfileMorePage = () => {
   ];
 
   return (
-    <div>
+    <div className="h-real-screen">
       <TopAppBar leftGoBack title={"더 보기"} />
       {ProfileMoreMenuList.map((menu) => (
         <MenuListItem

@@ -10,6 +10,12 @@ export default {
       gamja: ["Gamja Flower"],
     },
     extend: {
+      height: {
+        "real-screen": "calc(var(--vh) * 100)",
+      },
+      minHeight: {
+        "real-screen": "calc(var(--vh) * 100)",
+      },
       scrollbarHide: {
         "-ms-overflow-style": "none", // IE와 Edge를 위한 설정
         "scrollbar-width": "none", // Firefox를 위한 설정
