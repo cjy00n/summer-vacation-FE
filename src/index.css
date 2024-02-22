@@ -154,7 +154,7 @@ textarea {
 
 /* ant-Select 스타일링 */
 .ant-select {
-  @apply border-b-2 border-solid border-primary-orange  !important;
+  @apply border-b-2 border-solid border-primary-orange !important;
 }
 
 .ant-select-selector {
@@ -162,7 +162,7 @@ textarea {
 }
 
 .ant-select-selector span {
-  @apply border-none  !important;
+  @apply border-none text-lg font-bold !important;
 }
 
 /* ant-progress 스타일링 */

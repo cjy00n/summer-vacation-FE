@@ -26,16 +26,19 @@ const ProfileUserInfo = ({ diariesCount }: ProfileUserInfoProps) => {
     }
   };
 
+  /* 프로필 사진 변경 후 유저 정보 refetch */
   useEffect(() => {
     if (postProfileImageData) refetchUserInfo();
   }, [postProfileImageData, refetchUserInfo]);
 
+  /* 유저정보를 불러와서 프로필 사진 설정하기 */
   useEffect(() => {
     if (userInfo) {
       setPreviewImage(userInfo.image);
     }
   }, [userInfo, userInfo?.image]);
 
+  /* 유저 정보를 불러와서 닉네임 설정하기 */
   useEffect(() => {
     if (userInfo) setNickname(userInfo?.nickname ?? "");
     // eslint-disable-next-line react-hooks/exhaustive-deps

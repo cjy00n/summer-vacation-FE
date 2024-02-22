@@ -17,7 +17,6 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
 
   const handleGenderAndBirtYearAgree = () => {
     patchAddUserInfo({ gender, birth: birthYear.toString() });
-    console.log(gender, birthYear);
     setCurrentPage("second");
     scrollTo(0, 0);
   };
@@ -31,8 +30,8 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
         저희에게 알려주세요.
       </p>
 
-      <div className="pt-[8vh]">
-        <h2 className="py-[2vh] text-lg font-semibold">성별</h2>
+      <div className="pt-[8dvh]">
+        <h2 className="py-[2dvh] text-lg font-semibold">성별</h2>
         <div className="flex content-between px-8">
           <CustomButton
             content={"남자"}
@@ -50,8 +49,8 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
         </div>
       </div>
 
-      <div className="pt-[5vh]">
-        <h2 className="py-[2vh] text-lg font-semibold">태어난 해</h2>
+      <div className="pt-[5dvh]">
+        <h2 className="py-[2dvh] text-lg font-semibold">태어난 해</h2>
         <div className="flex items-center justify-center">
           <Select
             defaultValue={birthYear}
@@ -59,6 +58,8 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
             suffixIcon={null}
             style={{
               width: 100,
+              marginRight: "5px",
+              borderBottom: "2px solid #FF6D3C",
               textAlign: "center",
             }}
           >
@@ -74,7 +75,7 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
           <span>년에 태어났어요</span>
         </div>
       </div>
-      <div className="fixed bottom-[3vh] pb-[5vh] pt-[10vh] ">
+      <div className="fixed bottom-[3dvh] pb-[5dvh] pt-[10dvh] ">
         <p className="py-5 text-center text-sm font-normal opacity-70">
           동의해요 버튼을 누를 경우, <br />
           작성한 개인 정보 수집/이용에 <br />

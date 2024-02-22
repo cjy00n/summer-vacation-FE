@@ -39,7 +39,8 @@ export const postKaKaoSignIn = async ({
       if (response.data.isNewUser) {
         navigate(ROUTE.ONBOARDING_PAGE.link);
       } else {
-        navigate(ROUTE.HOME_PAGE.link);
+        navigate(ROUTE.ONBOARDING_PAGE.link);
+        // navigate(ROUTE.HOME_PAGE.link);
       }
     }
   } catch (e) {

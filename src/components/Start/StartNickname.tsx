@@ -4,6 +4,7 @@ import { Modal } from "antd";
 import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
+import { useGetIsDuplicateNickname } from "../../hooks/getIsDuplicateNickname";
 
 const StartNickname = () => {
   const navigate = useNavigate();
@@ -11,14 +12,12 @@ const StartNickname = () => {
   const [nickname, setNickname] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isNicknameDecisionOpen, setIsNicknameDecisionOpen] = useState(false);
-  const [disableNickname, setDisableNickname] = useState<
-    "default" | "disabled"
-  >("disabled");
+  const [isPossibleNickname, setIsPossibleNickname] = useState(false);
 
   useEffect(() => {
     const regex = /^[가-힣a-zA-Z0-9.\-_]+$/;
 
-    setDisableNickname("disabled");
+    setIsPossibleNickname(false);
     if (nickname.length > 10) {
       setErrorMessage("닉네임은 10자까지 가능해요.");
     } else if (nickname.length === 1) {
@@ -29,9 +28,22 @@ const StartNickname = () => {
       );
     } else if (nickname.length !== 0) {
       setErrorMessage("");
-      setDisableNickname("default");
+      setIsPossibleNickname(true);
     }
   }, [nickname]);
+
+  const { data } = useGetIsDuplicateNickname(nickname, isPossibleNickname);
+
+  useEffect(() => {
+    if (nickname && isPossibleNickname) {
+      if (data === false) {
+        setErrorMessage("");
+      } else if (data === true) {
+        setErrorMessage("이미 사용 중인 닉네임입니다.");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, nickname, isPossibleNickname]);
 
   const toggleNicknameDecision = () => {
     setIsNicknameDecisionOpen(!isNicknameDecisionOpen);
@@ -40,7 +52,6 @@ const StartNickname = () => {
 
   const handleNicknameAgree = () => {
     patchAddUserInfo({ nickname });
-    console.log(nickname);
     scrollTo(0, 0);
     navigate(ROUTE.HOME_PAGE.link);
   };
@@ -54,8 +65,8 @@ const StartNickname = () => {
         저희에게 알려주세요.
       </p>
 
-      <div className="pt-[15vh]">
-        <h2 className="py-[2vh] text-lg font-semibold">닉네임</h2>
+      <div className="pt-[15dvh]">
+        <h2 className="py-[2dvh] text-lg font-semibold">닉네임</h2>
         <div className="flex flex-col  px-8">
           <input
             className="border-b-2 border-solid border-primary-orange bg-transparent p-1 text-center"
@@ -69,10 +80,10 @@ const StartNickname = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-[3vh] pb-[5vh] pt-[10vh] ">
+      <div className="fixed bottom-[3dvh] pb-[5dvh] pt-[10dvh] ">
         <CustomButton
           size="long"
-          type={disableNickname}
+          type={isPossibleNickname ? "default" : "disabled"}
           content={"닉네임 사용하기"}
           onClick={toggleNicknameDecision}
         />
