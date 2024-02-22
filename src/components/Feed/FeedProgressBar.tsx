@@ -26,13 +26,14 @@ const ProgressBar = () => {
   }, []);
 
   return (
-    <div className="w-full custom-breakpoint:w-[480px] fixed z-20 bottom-[64px] left-[50%] transform -translate-x-1/2">
+    <div className="fixed bottom-[66px] left-[50%] z-20 flex w-full -translate-x-1/2 transform align-bottom custom-breakpoint:w-[480px]">
       <Progress
         percent={percent}
         strokeColor={"#FF6D3C"}
         showInfo={false}
         strokeLinecap="square"
         size={"small"}
+        style={{ margin: 0 }}
       />
     </div>
   );

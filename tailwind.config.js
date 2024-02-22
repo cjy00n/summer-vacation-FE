@@ -10,11 +10,11 @@ export default {
       gamja: ["Gamja Flower"],
     },
     extend: {
-      height: {
-        "real-screen": "calc(var(--vh) * 100)",
+      spacing: {
+        "bottom-tab": "72px",
       },
-      minHeight: {
-        "real-screen": "calc(var(--vh) * 100)",
+      height: {
+        "bottom-tab": "72px",
       },
       scrollbarHide: {
         "-ms-overflow-style": "none", // IE와 Edge를 위한 설정

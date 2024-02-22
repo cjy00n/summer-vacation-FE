@@ -1,7 +1,7 @@
 const PageBottomShadow = () => (
   <div
-    className="w-[100vw] custom-breakpoint:hidden h-20 fixed bottom-20 left-[50%] transform -translate-x-1/2
-      bg-[linear-gradient(180deg,rgba(18,6,3,0.00)_0%,rgba(18,6,3,0.32)_100%)] z-0"
+    className="bottom-bottom-tab fixed left-[50%] z-0 h-20 w-[100vw] -translate-x-1/2 transform
+      bg-[linear-gradient(180deg,rgba(18,6,3,0.00)_0%,rgba(18,6,3,0.32)_100%)] custom-breakpoint:hidden"
   ></div>
 );
 

@@ -161,3 +161,8 @@ textarea {
 .ant-select-selector span {
   @apply border-none  !important;
 }
+
+/* ant-progress 스타일링 */
+.ant-progress-bg {
+  @apply after:h-0 !important;
+}
