@@ -18,7 +18,7 @@ const AddDiaryTranslatePage = () => {
   const navigate = useNavigate();
 
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
-  const diaryData = getDiaryLocalStorage(); // 번역할 글 받아오기
+  const diaryData = getDiaryLocalStorage()!; // 번역할 글 받아오기
 
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
