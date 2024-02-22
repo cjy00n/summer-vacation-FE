@@ -141,13 +141,16 @@ textarea {
   @apply h-10 py-1 !important;
 }
 
-.ant-drawer-body button {
+.ant-drawer-body > button,
+.ant-drawer-body > div {
   @apply flex w-full border-b-2 border-solid border-gray-80 py-4 text-sm font-semibold;
 }
 
-.ant-drawer-body button > span {
+.ant-drawer-body span {
   @apply text-sm font-semibold;
 }
+
+.ant-drawer-body 
 
 /* ant-Select 스타일링 */
 .ant-select {

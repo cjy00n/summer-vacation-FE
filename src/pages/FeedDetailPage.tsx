@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { CloseIcon, KebabMenuIcon, LoadingIcon } from "../assets/icons";
+import { KebabMenuIcon, LoadingIcon } from "../assets/icons";
 import {
   FeedBottomMine,
   FeedBottomOthers,
   FeedDetailItem,
+  FeedDetailMoreDrawer,
   FeedProgressBar,
 } from "../components/Feed";
 import { PageBottomShadow, TopAppBar } from "../components/common";
 import { DiaryDetail } from "../types";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
-import { Drawer, message } from "antd";
 import { useGetDiary } from "../hooks/getDiary";
 import { useGetUserInfo } from "../hooks/getMyUserInfo";
 import { useGetCheckEmotion } from "../hooks/getCheckEmotion";
@@ -57,11 +57,6 @@ const FeedDetailPage = () => {
     setIsMoreDrawerOpen(!isMoreDrawerOpen);
   };
 
-  /* 신고하기 버튼 클릭 시 */
-  const handleRepost = () => {
-    message.warning("신고 기능은 현재 준비 중이에요.");
-  };
-
   return isDiaryLoading || isUserInfoLoading ? (
     <div>{<LoadingIcon />}</div>
   ) : isDiaryError || isUserInfoError ? (
@@ -105,18 +100,12 @@ const FeedDetailPage = () => {
         </div>
         <PageBottomShadow />
         {!isMine && <FeedProgressBar />}
-
-        <Drawer
+        <FeedDetailMoreDrawer
+          id={id!}
           open={isMoreDrawerOpen}
-          placement="bottom"
-          title="더 보기"
-          closeIcon={<CloseIcon />}
-          onClose={toggleMoreDrawer}
-          height={230}
-          style={{ borderTopRightRadius: 20, borderTopLeftRadius: 20 }}
-        >
-          <button onClick={handleRepost}>신고하기</button>
-        </Drawer>
+          toggle={toggleMoreDrawer}
+          isPublic={isMine ? diaryData?.diary_isPublic : null}
+        />
       </>
     )
   );

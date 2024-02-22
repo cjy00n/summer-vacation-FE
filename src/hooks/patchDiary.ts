@@ -1,19 +1,27 @@
 import { useMutation, useQueryClient } from "react-query";
 import { instance } from ".";
-import { Diary } from "../types";
+import { Emotion, Weather } from "../types";
 import { message } from "antd";
-import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../routes/Route";
 
-type patchDiaryInput = Pick<Diary, "emotion" | "weather" | "id" | "contents">;
+interface patchDiaryInputProps {
+  emotion?: Emotion;
+  weather?: Weather;
+  id: string;
+  contents?: string;
+  isPublic?: 1 | 0;
+}
 
-export const patchDiary = async (newDiary: patchDiaryInput) => {
+export const patchDiary = async (newDiary: patchDiaryInputProps) => {
   console.log(newDiary);
 
   try {
+    const requestBody = {
+      ...newDiary,
+      ...(newDiary.contents ? { text: newDiary.contents } : {}),
+    };
     const response = await instance.patch<{ result: string }>(
       "diary/edit-diary/" + newDiary.id,
-      { ...newDiary, text: newDiary.contents },
+      requestBody,
     );
 
     return response.data;
@@ -22,8 +30,7 @@ export const patchDiary = async (newDiary: patchDiaryInput) => {
   }
 };
 
-export const usePatchDiary = (newDiary?: Diary) => {
-  const navigate = useNavigate();
+export const usePatchDiary = (newDiary: patchDiaryInputProps) => {
   const queryClient = useQueryClient();
   return useMutation(() => patchDiary(newDiary!), {
     onSuccess: () => {
@@ -31,7 +38,7 @@ export const usePatchDiary = (newDiary?: Diary) => {
       queryClient.invalidateQueries(["getUserInfo"]);
       queryClient.invalidateQueries(["getDiary"] + newDiary!.id);
       queryClient.invalidateQueries(["getMyDiaries"]);
-      navigate(ROUTE.HOME_PAGE.link, { replace: true });
+
       message.success("다이어리가 수정되었습니다.");
     },
     onError: () => {

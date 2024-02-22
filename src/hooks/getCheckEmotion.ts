@@ -12,7 +12,7 @@ interface checkEmotionResponse {
 const getCheckEmotion = async (id: string) => {
   try {
     const response = await instance.get<checkEmotionResponse>(`emotion/${id}`);
-    console.log(response.data);
+
     if (response.data != undefined) {
       const { 좋아요, 괜찮아요, 슬퍼요, 화나요, 기뻐요 } = response.data;
       return 좋아요

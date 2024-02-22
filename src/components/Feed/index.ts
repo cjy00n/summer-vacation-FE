@@ -7,3 +7,4 @@ export { default as FeedBottomMine } from "./FeedBottomMine"; // 피드 상세 �
 export { default as FeedContest } from "./FeedContest";
 export { default as FeedContestItem } from "./FeedContestItem";
 export { default as FeedContentItem } from "./FeedContentItem";
+export { default as FeedDetailMoreDrawer } from "./FeedDetailMoreDrawer";

@@ -1,7 +1,7 @@
 import { Drawer, Switch, message } from "antd";
 import { AlertModal, CustomButton, TopAppBar } from "../components/common";
 import { CloseIcon, AddIcon, EditIcon } from "../assets/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { format } from "date-fns";
@@ -114,7 +114,7 @@ const AddDiaryPage = () => {
   };
 
   /* 일기 수정하기 */
-  const { mutate: patchDiary } = usePatchDiary(
+  const { mutate: patchDiary, isSuccess: patchDiarySuccess } = usePatchDiary(
     originalData && originalData.existingDiary
       ? {
           ...originalData.existingDiary!,
@@ -126,6 +126,11 @@ const AddDiaryPage = () => {
   const handleEditDiary = () => {
     patchDiary();
   };
+
+  useEffect(() => {
+    if (patchDiarySuccess) navigate(-1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [patchDiarySuccess]);
 
   return (
     <div className="mb-4">

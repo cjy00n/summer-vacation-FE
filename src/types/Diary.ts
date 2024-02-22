@@ -23,6 +23,7 @@ export interface DiaryDetail {
   diary_weather: Weather;
   diary_imageUrl: string;
   diary_userId: string;
+  diary_isPublic: 1 | 0;
   totalCount: number;
   likeCount: number;
   괜찮아요?: number;
