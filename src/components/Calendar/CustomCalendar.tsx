@@ -119,7 +119,7 @@ const CustomCalendar = ({
         next2Label={null}
         prev2Label={null}
       />
-      <div className="my-10 flex w-full justify-center">
+      <div className="my-8 flex w-full justify-center">
         <CustomButton
           onClick={() => onChangeDay(new Date())}
           content="오늘로 이동"
