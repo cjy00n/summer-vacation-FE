@@ -24,7 +24,7 @@ const FeedDetailPage = () => {
     isLoading: isDiaryLoading,
     isError: isDiaryError,
   } = useGetDiary(id!);
-  console.log(diaryData);
+
   const {
     data: userInfo,
     isLoading: isUserInfoLoading,
