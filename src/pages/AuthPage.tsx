@@ -26,7 +26,7 @@ const AuthPage = () => {
     });
 
   return (
-    <div className="scrollbar-hide h-real-screen flex flex-col items-center overflow-y-scroll bg-primary-white pb-[20vh] pt-[20vh]">
+    <div className="scrollbar-hide flex flex-col items-center overflow-y-scroll bg-primary-white pb-[20vh] pt-[20vh]">
       <img className="w-44" src="/image/splash1.png" />
       <img className="mt-[7vh] w-28" src="/image/splash2.png" />
       <Link to={KAKAO_AUTH_URI}>
