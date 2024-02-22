@@ -2,17 +2,17 @@ import { useQuery } from "react-query";
 import { instance } from ".";
 import { Diary } from "../types";
 
-const getPublicDiary = async () => {
+const getPublicDiary = async (page = 2) => {
   try {
-    const response = await instance.get<{ diary: Diary; likeCount: number }[]>(
-      "diary/get-diaries/1",
+    const response = await instance.get<{ diary: Diary; totalCount: number }[]>(
+      `diary/get-diaries/1?page=${page}&pageSize=10`,
     );
-    return response.data;
+    if (response.data) return response.data;
   } catch (e) {
     console.error;
   }
 };
 
-export function useGetPublicDiary() {
-  return useQuery(["getPublicDiary"], () => getPublicDiary());
+export function useGetPublicDiary(page?: number) {
+  return useQuery(["getPublicDiary"], () => getPublicDiary(page));
 }

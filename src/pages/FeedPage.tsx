@@ -30,12 +30,12 @@ const FeedPage = () => {
             description="최근 가장 많은 공감을 받았어요"
           />
           <div className="grid grid-flow-dense grid-cols-3 grid-rows-3">
-            {publicDiaries.map(({ diary, likeCount }, idx) => (
+            {publicDiaries.map(({ diary, totalCount }, idx) => (
               <FeedItem
                 key={"feed-item-" + idx}
                 image={diary.imageUrl}
                 idx={idx}
-                like={likeCount}
+                like={totalCount}
                 _id={diary.id}
               />
             ))}

@@ -18,12 +18,13 @@ import { useGetCheckLike } from "../hooks/getCheckLike";
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();
+
   const {
     data: diaryData,
     isLoading: isDiaryLoading,
     isError: isDiaryError,
   } = useGetDiary(id!);
-
+  console.log(diaryData);
   const {
     data: userInfo,
     isLoading: isUserInfoLoading,
@@ -81,7 +82,7 @@ const FeedDetailPage = () => {
           />
           <FeedDetailItem
             diary={diary}
-            like={diary.likeCount ?? 0}
+            like={diary.totalCount ?? 0}
             checkEmotion={checkEmotion}
             checkLike={checkLike}
           />
