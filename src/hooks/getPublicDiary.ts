@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { instance } from ".";
 import { Diary } from "../types";
 
-const getPublicDiary = async (page = 2) => {
+const getPublicDiary = async (page = 1) => {
   try {
     const response = await instance.get<{ diary: Diary; totalCount: number }[]>(
       `diary/get-diaries/1?page=${page}&pageSize=10`,
