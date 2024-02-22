@@ -37,10 +37,11 @@ export const postKaKaoSignIn = async ({
       localStorage.setItem("refreshToken", response.data.refreshToken);
 
       if (response.data.isNewUser) {
+        // 신규 회원이면 온보딩페이지로
         navigate(ROUTE.ONBOARDING_PAGE.link);
       } else {
-        navigate(ROUTE.ONBOARDING_PAGE.link);
-        // navigate(ROUTE.HOME_PAGE.link);
+        // 기존 회원이면 홈페이지로
+        navigate(ROUTE.HOME_PAGE.link);
       }
     }
   } catch (e) {
