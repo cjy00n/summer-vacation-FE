@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "./recoil/atoms/isLoggedinState";
 import { useGetCheckVaildToken } from "./hooks/getCheckValidToken";
-import { usePostTokenRefresh } from "./hooks/postTokenRefresh";
+import { getRefreshToken } from "./hooks/getRefreshToken";
 
 function App() {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ function App() {
   };
 
   const checkVaildToken = useGetCheckVaildToken();
-  const { mutate: tokenRefresh } = usePostTokenRefresh();
 
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
@@ -33,7 +32,8 @@ function App() {
         if (checkVaildToken.data === true) {
           setIsLoggedIn(true);
         } else if (checkVaildToken.data === false) {
-          tokenRefresh();
+          const newRefreshToken = getRefreshToken();
+          console.log(newRefreshToken);
         } else if (checkVaildToken.data === "incorrect format")
           setIsLoggedIn(false);
       } else {
