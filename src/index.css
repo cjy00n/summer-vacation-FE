@@ -79,7 +79,7 @@ textarea {
 /* ant-message 스타일링 */
 
 .ant-message {
-  @apply top-[700px] !important;
+  @apply top-[80dvh] !important;
 }
 
 .ant-message-notice-success .ant-message-notice-content {
