@@ -14,11 +14,9 @@ export const postDiaryDrawing = async ({
   emotion,
   weather,
 }: postDiaryDrawingProps) => {
-  console.log(input);
-  input += ` weather is ${getEnglishWeather(weather)} and I am ${getEnglishEmotion(emotion)}. by crayon like animation without any text`;
+  input += ` weather is ${getEnglishWeather(weather)} and I am ${getEnglishEmotion(emotion)}. by crayon like cute animation without any text`;
 
   try {
-    console.log(input);
     const response = await instance.post<{ imageUrl: string }>(
       "diary/generate-image",
       {

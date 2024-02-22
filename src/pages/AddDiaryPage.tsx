@@ -165,6 +165,7 @@ const AddDiaryPage = () => {
             onChange={(e) => updateField("title", e.target.value)}
             placeholder="제목을 입력하세요"
             className="bg-transparent text-sm"
+            maxLength={18}
           />
           <span className=" text-xs text-gray-30">
             {diaryData.title?.length + "/18"}
@@ -177,7 +178,8 @@ const AddDiaryPage = () => {
           value={diaryData.contents}
           onChange={(e) => updateField("contents", e.target.value)}
           placeholder="내용 쓰기"
-          className="h-28 resize-none bg-transparent pt-3 text-xs outline-none"
+          className="h-28 resize-none bg-transparent pt-3 text-sm outline-none"
+          maxLength={80}
         />
         <span className="w-full pb-2 text-right text-xs text-gray-30">
           {diaryData.contents.length + "/80"}

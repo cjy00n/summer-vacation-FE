@@ -15,32 +15,32 @@ const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
   const diaryData = getDiaryLocalStorage();
 
-  console.log(diaryData);
-
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
 
   /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
   const handleDrawing = async () => {
     setDrawingModalOpen(true);
-    try {
-      const newImage = await postDiaryDrawing({
-        input: diaryData.englishContent,
-        emotion: diaryData.emotion,
-        weather: diaryData.weather,
-      });
-      console.log(newImage);
-      if (newImage) {
-        updateDrawingRecord(setDrawingRecord, {
-          ...drawingRecord,
-          beforeImages: [...drawingRecord.beforeImages, newImage],
-          remainingTries: drawingRecord.remainingTries - 1,
+    if (diaryData) {
+      try {
+        const newImage = await postDiaryDrawing({
+          input: diaryData.englishContents,
+          emotion: diaryData.emotion,
+          weather: diaryData.weather,
         });
-        setDrawingModalOpen(false);
+        console.log(newImage);
+        if (newImage) {
+          updateDrawingRecord(setDrawingRecord, {
+            ...drawingRecord,
+            beforeImages: [...drawingRecord.beforeImages, newImage],
+            remainingTries: drawingRecord.remainingTries - 1,
+          });
+          setDrawingModalOpen(false);
+        }
+      } catch (e) {
+        console.error(e);
+        message.error("잘못된 접근입니다.");
       }
-    } catch (e) {
-      console.error(e);
-      message.error("잘못된 접근입니다.");
     }
   };
 

@@ -18,7 +18,7 @@ const AddDiaryPreviewPage = () => {
 
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const { title, contents, weather, emotion, date, isPublic } =
-    getDiaryLocalStorage();
+    getDiaryLocalStorage()!;
 
   const { mutate: postDiary, isSuccess } = usePostDiary({
     title,
@@ -26,7 +26,7 @@ const AddDiaryPreviewPage = () => {
     weather,
     emotion,
     date,
-    imageUrl: drawingRecord.beforeImages[0],
+    imageUrl: drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
     isPublic,
   });
 
@@ -55,7 +55,7 @@ const AddDiaryPreviewPage = () => {
       <div className="relative mx-auto flex w-[320px] flex-col">
         <FeedDetailItem
           diary={{
-            diary_date: date,
+            diary_date: date as Date,
             diary_title: title,
             diary_contents: contents,
             diary_imageUrl:

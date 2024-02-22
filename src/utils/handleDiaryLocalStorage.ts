@@ -6,7 +6,9 @@ const clearDiaryLocalStorage = () => {
 
 const getDiaryLocalStorage = () => {
   const existingData = localStorage.getItem("diary-data");
-  return existingData ? JSON.parse(existingData) : null;
+  return existingData
+    ? (JSON.parse(existingData) as DiaryLocalstorageType)
+    : null;
 };
 
 const setDiaryLocalStorage = (diaryData: DiaryLocalstorageType) => {
