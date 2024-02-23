@@ -1,57 +1,31 @@
 import { useEffect, useState } from "react";
 import { AlertModal, CustomButton, TopAppBar } from "../components/common";
-import { DrawingModal } from "../components/AddDiary";
 import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { usePostDiaryTranslation } from "../hooks/postDiaryTranslation";
-import { useRecoilState } from "recoil";
-import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
-import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
-import { postDiaryDrawing } from "../hooks/postDiaryDrawing";
 import {
   clearDiaryLocalStorage,
   getDiaryLocalStorage,
   setDiaryLocalStorage,
 } from "../utils/handleDiaryLocalStorage";
+import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
 const AddDiaryTranslatePage = () => {
   const navigate = useNavigate();
 
-  const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const diaryData = getDiaryLocalStorage()!; // 번역할 글 받아오기
 
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
-  const [drawingModalOpen, setDrawingModalOpen] = useState(false);
   const [koreanContent] = useState(diaryData.contents ?? "");
   const [englishContent, setEnglishContent] = useState(
     "열심히 번역을 하고 있어요 . . ",
   );
 
-  /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
-  const handleDrawing = async () => {
-    setDrawingModalOpen(true);
-    try {
-      const newImage = await postDiaryDrawing({
-        input: englishContent,
-        emotion: diaryData.emotion,
-        weather: diaryData.weather,
-      });
-      if (newImage) {
-        setDiaryLocalStorage({ ...diaryData, englishContents: englishContent });
-        updateDrawingRecord(setDrawingRecord, {
-          ...drawingRecord,
-          beforeImages: [...drawingRecord.beforeImages, newImage],
-          remainingTries: drawingRecord.remainingTries - 1,
-        });
-        navigate(ROUTE.ADD_DIARY_CONFIRM_PAGE.link);
-        setDrawingModalOpen(false);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-  const { mutate: translate, data: output } =
-    usePostDiaryTranslation(koreanContent);
+  const {
+    mutate: translate,
+    data: output,
+    isSuccess: translateSuccess,
+  } = usePostDiaryTranslation(koreanContent);
 
   useEffect(() => {
     translate();
@@ -59,14 +33,20 @@ const AddDiaryTranslatePage = () => {
   }, []);
 
   useEffect(() => {
-    if (output) {
+    if (output && translateSuccess) {
       setEnglishContent(output!);
+      setDiaryLocalStorage({ ...diaryData, englishContents: output });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [output]);
 
   const handleExit = () => {
     navigate(ROUTE.HOME_PAGE.link);
     clearDiaryLocalStorage();
+  };
+
+  const linkToConfirmPage = () => {
+    navigate(ROUTE.ADD_DIARY_CONFIRM_PAGE.link);
   };
 
   return (
@@ -112,12 +92,14 @@ const AddDiaryTranslatePage = () => {
             size="short"
             type="black"
           />
-          <CustomButton
-            content="그림 부탁하기"
-            onClick={handleDrawing}
-            size="middle"
-          />
-          <DrawingModal open={drawingModalOpen} />
+          <RequestDrawingButton
+            input={englishContent}
+            emotion={diaryData.emotion}
+            weather={diaryData.weather}
+            handleFinish={linkToConfirmPage}
+          >
+            <CustomButton content="그림 부탁하기" size="middle" />
+          </RequestDrawingButton>
         </div>
       </div>
     </div>

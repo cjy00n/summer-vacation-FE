@@ -25,6 +25,7 @@ import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 import { usePatchDiary } from "../hooks/patchDiary";
+import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
@@ -298,17 +299,24 @@ const AddDiaryPage = () => {
         >
           전에 그린 그림 보기
         </button>
-        <button
-          disabled={drawingRecord.remainingTries < 1}
-          className={`justify-between ${drawingRecord.remainingTries > 1 ? "text-black" : "text-gray-50"}`}
+        <RequestDrawingButton
+          emotion={diaryData.emotion}
+          input={originalData?.englishContents}
+          weather={diaryData.weather}
+          handleFinish={toggleEditDrawing}
         >
-          <span>
-            다시 그리기({drawingRecord.remainingTries}/{defaultTries})
-          </span>
-          {drawingRecord.remainingTries < 1 && (
-            <span>그릴 수 있는 횟수가 끝났어요</span>
-          )}
-        </button>
+          <button
+            disabled={drawingRecord.remainingTries < 1}
+            className={`justify-between ${drawingRecord.remainingTries > 1 ? "text-black" : "text-gray-50"}`}
+          >
+            <span>
+              다시 그리기({drawingRecord.remainingTries}/{defaultTries})
+            </span>
+            {drawingRecord.remainingTries < 1 && (
+              <span>그릴 수 있는 횟수가 끝났어요</span>
+            )}
+          </button>
+        </RequestDrawingButton>
       </Drawer>
     </div>
   );

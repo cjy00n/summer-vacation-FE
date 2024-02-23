@@ -1,48 +1,18 @@
 import { CustomButton, TopAppBar } from "../components/common";
-import { DrawingModal } from "../components/AddDiary";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { useRecoilState } from "recoil";
-import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
-import { postDiaryDrawing } from "../hooks/postDiaryDrawing";
-import { useState } from "react";
 import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
 import { defaultTries } from "../recoil/utils/loadDrawingRecord";
+import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
 
 const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
   const diaryData = getDiaryLocalStorage();
 
-  const [drawingModalOpen, setDrawingModalOpen] = useState(false);
-  const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
-
-  /* 그림 부탁하기 버튼 클릭 시 -> 그림 그리기 요청 */
-  const handleDrawing = async () => {
-    setDrawingModalOpen(true);
-    if (diaryData) {
-      try {
-        const newImage = await postDiaryDrawing({
-          input: diaryData.englishContents,
-          emotion: diaryData.emotion,
-          weather: diaryData.weather,
-        });
-        console.log(newImage);
-        if (newImage) {
-          updateDrawingRecord(setDrawingRecord, {
-            ...drawingRecord,
-            beforeImages: [...drawingRecord.beforeImages, newImage],
-            remainingTries: drawingRecord.remainingTries - 1,
-          });
-          setDrawingModalOpen(false);
-        }
-      } catch (e) {
-        console.error(e);
-        message.error("잘못된 접근입니다.");
-      }
-    }
-  };
+  const [drawingRecord] = useRecoilState(drawingRecordState);
 
   return (
     diaryData && (
@@ -65,18 +35,22 @@ const AddDiaryConfirmPage = () => {
               content="전에 그린 그림 보기"
               onClick={() => navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link)}
             />
-            <CustomButton
-              content={`다시 그리기(${drawingRecord.remainingTries}/${defaultTries})`}
-              type={drawingRecord.remainingTries === 0 ? "disabled" : "black"}
-              onClick={() => {
-                if (drawingRecord.remainingTries === 0) {
-                  message.error("그릴 수 있는 횟수가 끝났어요");
-                } else {
-                  handleDrawing();
-                }
-              }}
-            />
-            <DrawingModal open={drawingModalOpen} />
+            <RequestDrawingButton
+              input={diaryData.englishContents}
+              emotion={diaryData.emotion}
+              weather={diaryData.weather}
+            >
+              <CustomButton
+                content={`다시 그리기(${drawingRecord.remainingTries}/${defaultTries})`}
+                type={drawingRecord.remainingTries === 0 ? "disabled" : "black"}
+                onClick={() => {
+                  if (drawingRecord.remainingTries === 0) {
+                    message.error("그릴 수 있는 횟수가 끝났어요");
+                  }
+                }}
+              />
+            </RequestDrawingButton>
+
             <CustomButton
               content={`이 그림으로 할래요`}
               size="long"
