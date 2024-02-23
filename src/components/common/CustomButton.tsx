@@ -1,5 +1,5 @@
 interface LongButtonProps {
-  onClick: (param?: unknown) => void;
+  onClick?: (param?: unknown) => void;
   content: string | React.ReactElement;
   type?: "default" | "dangerous" | "black" | "white" | "disabled";
   size?: "long" | "middle" | "short" | "half" | "middleLong";

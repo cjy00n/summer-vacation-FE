@@ -5,9 +5,12 @@ import MenuListItem, {
   MenuListItemProps,
 } from "../components/common/MenuListItem";
 import { ROUTE } from "../routes/Route";
+import { usePostUserWithdrawal } from "../hooks/postUserWithdrawal";
 
 const ProfileMorePage = () => {
   const navigate = useNavigate();
+
+  const { mutate: postWithdrawal } = usePostUserWithdrawal();
 
   const ProfileMoreMenuList: MenuListItemProps[] = [
     {
@@ -24,6 +27,9 @@ const ProfileMorePage = () => {
     },
     {
       title: "회원탈퇴",
+      onClick: () => {
+        postWithdrawal();
+      },
     },
     {
       title: "로그아웃",
