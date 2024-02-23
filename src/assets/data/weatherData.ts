@@ -13,7 +13,7 @@ export const getEnglishWeather = (weather: Weather) => {
     case "천둥":
       return "thunder";
     case "흐림":
-      return "cloudy";
+      return "little cloudy";
   }
 };
 export default WeatherData;

@@ -7,14 +7,16 @@ interface postDiaryDrawingProps {
   input: string;
   emotion: Emotion;
   weather: Weather;
+  gender: "남자" | "여자";
 }
 
 export const postDiaryDrawing = async ({
   input,
   emotion,
   weather,
+  gender = "남자",
 }: postDiaryDrawingProps) => {
-  input += ` weather is ${getEnglishWeather(weather)} and I am ${getEnglishEmotion(emotion)}. by crayon like cute animation without any text`;
+  input = `The weather today is ${getEnglishWeather(weather)}, and I feel ${getEnglishEmotion(emotion)}. ${input} I am a ${gender === "남자" ? "male" : "female"} person. Please Drawing by crayon like cute cartoon colorful without any text`;
 
   try {
     const response = await instance.post<{ imageUrl: string }>(
