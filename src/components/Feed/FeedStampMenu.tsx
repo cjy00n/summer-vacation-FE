@@ -41,7 +41,7 @@ const FeedStampMenu = ({ feedId, toggleLikeList }: FeedStampMenuProps) => {
         onClick={() => handleLikeButton("star")}
         className="flex flex-col items-center justify-center"
       >
-        <StarIcon fillColor="black" height={26} />
+        <StarIcon fillColor="black" height={26} width={26} />
         <span className="text-xs font-normal">{diaryData?.likeCount}</span>
       </button>
       <span className="h-2/3 border-r-[1px] border-r-black" />
@@ -51,7 +51,7 @@ const FeedStampMenu = ({ feedId, toggleLikeList }: FeedStampMenuProps) => {
           className="flex flex-col items-center justify-center"
           key={"likeIcon" + idx}
         >
-          {<GetEmotionIcon emotion={emotion} height={26} />}
+          {<GetEmotionIcon emotion={emotion} height={26} width={20} />}
           <span className="text-xs font-normal">{likes[idx]}</span>
         </button>
       ))}

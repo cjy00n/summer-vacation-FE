@@ -95,7 +95,7 @@ const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
   };
 
   return (
-    <div className="bottom-bottom-tab fixed left-[50%] z-10 flex w-[340px] -translate-x-1/2 transform justify-between pb-2">
+    <div className="fixed bottom-bottom-tab left-[50%] z-10 flex w-[340px] -translate-x-1/2 transform items-center justify-between pb-2">
       <CircleButton
         icon={<ShareIcon fillColor="white" />}
         onClick={copyUrlToClipBoard}
