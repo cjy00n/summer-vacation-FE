@@ -19,14 +19,14 @@ const HomePage = () => {
   };
 
   return (
-    <div className="bg-primary-orange">
+    <div>
       <TopAppBar
         bgColor="bg-primary-orange"
         rightIcon={<NotificationIcon fillColor="white" />}
         rightOnClick={() => message.warning("알림 기능은 현재 준비중이에요.")}
       />
       <Banner />
-      <div className="relative bg-primary-white px-4 pb-20 pt-10">
+      <div className="relative px-4 pb-20 pt-10">
         <HomeTitle
           title="최근 관심을 받는 일기"
           description="가장 큰 관심을 받고 있어요"

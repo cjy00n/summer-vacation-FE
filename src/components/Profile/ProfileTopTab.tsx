@@ -13,7 +13,7 @@ const ProfileTopTab = ({ currentTab, setCurretTab }: ProfileTopTabProp) => {
     <div className="flex w-full bg-primary-white text-center">
       <div
         onClick={ToggleTopTab}
-        className={` w-1/2 px-3 py-3 text-lg font-bold
+        className={` w-1/2 px-3 py-2 text-base font-bold
       ${
         currentTab === "My-Diary"
           ? "rounded-t-3xl bg-primary-orange text-primary-white"
@@ -24,12 +24,11 @@ const ProfileTopTab = ({ currentTab, setCurretTab }: ProfileTopTabProp) => {
       </div>
       <div
         onClick={ToggleTopTab}
-        className={`"  w-1/2 px-3 py-3 text-lg font-bold
-      ${
-        currentTab === "Bookmark"
-          ? "rounded-t-3xl bg-primary-orange text-primary-white"
-          : "bg-primary-white text-gray-50"
-      }`}
+        className={`w-1/2 px-3 py-2 text-base font-bold ${
+          currentTab === "Bookmark"
+            ? "rounded-t-3xl bg-primary-orange text-primary-white"
+            : "bg-primary-white text-gray-50"
+        }`}
       >
         북마크
       </div>

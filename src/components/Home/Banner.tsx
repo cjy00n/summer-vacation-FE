@@ -4,8 +4,8 @@ const Banner = () => {
   return (
     <div id="main-banner" className="bg-primary-orange">
       <Carousel autoplay autoplaySpeed={3000}>
-        <div className="relative flex h-[300px] ">
-          <img src="/image/main.webp" className="mx-auto h-[210px] w-[210px]" />
+        <div className="relative flex h-[250px] ">
+          <img src="/image/main.webp" className="mx-auto h-[180px] w-[180px]" />
           <div className="absolute bottom-5 left-5 ">
             <p className="text-lg font-bold text-white">
               AI가 그려주는 그림일기,
@@ -14,8 +14,8 @@ const Banner = () => {
             </p>
           </div>
         </div>
-        <div className="relative flex h-[300px] ">
-          <img src="/image/main.webp" className="mx-auto h-[210px] w-[210px]" />
+        <div className="relative flex h-[250px] ">
+          <img src="/image/main.webp" className="mx-auto h-[180px] w-[180px]" />
           <div className="absolute bottom-5 left-5 ">
             <p className="text-lg font-bold text-white">
               그림일기를 그려 자랑해봐요!
@@ -25,8 +25,8 @@ const Banner = () => {
             </p>
           </div>
         </div>
-        <div className="relative flex h-[300px] ">
-          <img src="/image/main.webp" className="mx-auto h-[210px] w-[210px]" />
+        <div className="relative flex h-[250px] ">
+          <img src="/image/main.webp" className="mx-auto h-[180px] w-[180px]" />
           <div className="absolute bottom-5 left-5 ">
             <p className="text-lg font-bold text-white">
               다른 사람의 그림일기를
