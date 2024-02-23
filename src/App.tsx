@@ -17,8 +17,9 @@ function App() {
     navigate(ROUTE.LOGIN_PAGE.link);
   };
 
-  const checkVaildToken = useGetCheckVaildToken();
-
+  const { data: checkVaildToken, isSuccess: checkVaildTokenSuccess } =
+    useGetCheckVaildToken();
+  console.log(checkVaildToken);
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
 
@@ -29,19 +30,19 @@ function App() {
   useEffect(() => {
     if (currentRoute?.authRequired === undefined) {
       if (accessToken && refreshToken) {
-        if (checkVaildToken.data === true) {
+        if (checkVaildToken && checkVaildTokenSuccess) {
           setIsLoggedIn(true);
-        } else if (checkVaildToken.data === false) {
-          const newRefreshToken = getRefreshToken();
-          console.log(newRefreshToken);
-        } else if (checkVaildToken.data === "incorrect format")
-          setIsLoggedIn(false);
+        } else if (!checkVaildToken && checkVaildTokenSuccess) {
+          getRefreshToken().then(() => {
+            location.reload();
+          });
+        }
       } else {
         setIsLoggedIn(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkVaildToken.data]);
+  }, [checkVaildToken, checkVaildTokenSuccess]);
 
   useEffect(() => {
     if (currentRoute?.authRequired === undefined && isLoggedIn === false) {

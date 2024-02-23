@@ -1,14 +1,14 @@
 import axios from "axios";
-import { instance } from ".";
 import { useQuery } from "react-query";
 
 export const getCheckVaildToken = async () => {
   const accessToken = localStorage.getItem("accessToken");
 
+  console.log(accessToken);
   if (accessToken) {
     try {
-      const response = await instance.post<boolean | "incorrect format">(
-        "users/access-token?accessToken=" + accessToken,
+      const response = await axios.post<boolean>(
+        "/api/users/access-token?accessToken=" + accessToken,
       );
 
       if (response.data !== undefined) {
@@ -16,16 +16,7 @@ export const getCheckVaildToken = async () => {
       }
     } catch (e) {
       console.error(e);
-
-      if (axios.isAxiosError(e) && e.response && e.response.status === 500) {
-        return "incorrect format";
-      } else if (
-        axios.isAxiosError(e) &&
-        e.response &&
-        e.response.status === 400
-      ) {
-        return false;
-      }
+      return false;
     }
   }
 };
