@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowIcon } from "../assets/icons";
-import { TopAppBar } from "../components/common";
+import { AlertModal, TopAppBar } from "../components/common";
 import MenuListItem, {
   MenuListItemProps,
 } from "../components/common/MenuListItem";
 import { ROUTE } from "../routes/Route";
 import { usePostUserWithdrawal } from "../hooks/postUserWithdrawal";
+import { message } from "antd";
+import { useState } from "react";
 
 const ProfileMorePage = () => {
   const navigate = useNavigate();
+  const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
   const { mutate: postWithdrawal } = usePostUserWithdrawal();
 
@@ -19,6 +22,15 @@ const ProfileMorePage = () => {
 
   const linkToLoginPage = () => {
     navigate(ROUTE.LOGIN_PAGE.link);
+  };
+
+  const toggleOpenWithdrawModal = () => {
+    setOpenWithdrawModal(!openWithdrawModal);
+  };
+
+  const withDrawal = () => {
+    postWithdrawal();
+    linkToLoginPage();
   };
 
   const ProfileMoreMenuList: MenuListItemProps[] = [
@@ -37,9 +49,7 @@ const ProfileMorePage = () => {
     {
       title: "회원탈퇴",
       onClick: () => {
-        postWithdrawal();
-        deleteTokenOfLocalStorage();
-        linkToLoginPage();
+        toggleOpenWithdrawModal();
       },
     },
     {
@@ -47,6 +57,7 @@ const ProfileMorePage = () => {
       onClick: () => {
         deleteTokenOfLocalStorage();
         linkToLoginPage();
+        message.success("로그아웃 되었습니다.");
       },
     },
     {
@@ -76,6 +87,13 @@ const ProfileMorePage = () => {
           rightContents={menu.rightContents}
         />
       ))}
+      <AlertModal
+        title={"회원탈퇴 시 모든 데이터가 삭제됩니다. 정말 탈퇴하시겠습니까?"}
+        okText="회원탈퇴하기"
+        toggle={openWithdrawModal}
+        handleClose={toggleOpenWithdrawModal}
+        handleOk={withDrawal}
+      />
     </div>
   );
 };

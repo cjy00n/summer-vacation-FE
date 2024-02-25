@@ -5,7 +5,11 @@ export const postUserWithdrawal = async () => {
   try {
     const response = await instance.post("/users/unlink");
     console.log(response.data);
-    return response.data;
+
+    if (response.data) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    }
   } catch (e) {
     console.error(e);
   }

@@ -50,6 +50,7 @@ const ProfileEditNicknameModal = ({
       );
     } else {
       setIsPossibleNickname(true);
+      setErrorMessage("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewNickname]);
