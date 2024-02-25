@@ -16,5 +16,7 @@ export const getPublicDiary = async (page = 1, pageSize = 12) => {
 };
 
 export function useGetPublicDiary(page?: number, pageSize?: number) {
-  return useQuery(["getPublicDiary"], () => getPublicDiary(page, pageSize));
+  return useQuery(["getPublicDiary", page], () =>
+    getPublicDiary(page, pageSize),
+  );
 }

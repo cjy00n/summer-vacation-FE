@@ -31,7 +31,7 @@ const FeedContainer = () => {
     if (isView && hasNextPage) {
       fetchNextPage();
     }
-  }, [isView, hasNextPage, fetchNextPage, diaryData]);
+  }, [diaryData, fetchNextPage, hasNextPage, isView]);
 
   // 데이터 통합 처리
   const diaryItems =
