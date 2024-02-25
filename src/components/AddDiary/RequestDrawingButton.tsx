@@ -1,5 +1,4 @@
 import { useRecoilState } from "recoil";
-import { useGetUserInfo } from "../../hooks/getMyUserInfo";
 import { postDiaryDrawing } from "../../hooks/postDiaryDrawing";
 import { Emotion, Weather } from "../../types";
 import { drawingRecordState } from "../../recoil/atoms/drawingRecordState";
@@ -25,8 +24,6 @@ const RequestDrawingButton = ({
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
 
-  const { data: userInfo } = useGetUserInfo();
-
   const handleDrawing = async () => {
     setDrawingModalOpen(true);
     try {
@@ -34,7 +31,6 @@ const RequestDrawingButton = ({
         input: input,
         emotion: emotion,
         weather: weather,
-        gender: userInfo!.gender,
       });
 
       if (newImage) {
