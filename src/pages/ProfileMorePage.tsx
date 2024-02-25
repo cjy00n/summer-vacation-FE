@@ -12,6 +12,15 @@ const ProfileMorePage = () => {
 
   const { mutate: postWithdrawal } = usePostUserWithdrawal();
 
+  const deleteTokenOfLocalStorage = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+  };
+
+  const linkToLoginPage = () => {
+    navigate(ROUTE.LOGIN_PAGE.link);
+  };
+
   const ProfileMoreMenuList: MenuListItemProps[] = [
     {
       title: "알림 설정",
@@ -29,15 +38,15 @@ const ProfileMorePage = () => {
       title: "회원탈퇴",
       onClick: () => {
         postWithdrawal();
+        deleteTokenOfLocalStorage();
+        linkToLoginPage();
       },
     },
     {
       title: "로그아웃",
       onClick: () => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-
-        navigate(ROUTE.LOGIN_PAGE.link);
+        deleteTokenOfLocalStorage();
+        linkToLoginPage();
       },
     },
     {
