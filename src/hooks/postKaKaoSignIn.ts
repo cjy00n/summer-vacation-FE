@@ -1,4 +1,4 @@
-import { instance } from ".";
+import axios from "axios";
 import { ROUTE } from "../routes/Route";
 
 interface postKaKaoSignInProps {
@@ -21,8 +21,8 @@ export const postKaKaoSignIn = async ({
   setIsLoggedIn,
 }: postKaKaoSignInProps) => {
   try {
-    const response = await instance.post<SignInResponse>(
-      "/users/sign-in/kakao",
+    const response = await axios.post<SignInResponse>(
+      "api/users/sign-in/kakao",
       {
         code: code,
         redirectUri: redirectUri,

@@ -16,7 +16,7 @@ const AuthPage = () => {
   const checkVaildToken = useGetCheckVaildToken();
 
   console.log("code", code);
-  console.log("checkVaildToken", checkVaildToken);
+
   if (code && checkVaildToken.data !== true)
     postKaKaoSignIn({
       code,

@@ -4,15 +4,15 @@ import { useQuery } from "react-query";
 export const getCheckVaildToken = async () => {
   const accessToken = localStorage.getItem("accessToken");
 
-  console.log(accessToken);
   if (accessToken) {
     try {
-      const response = await axios.post<boolean>(
+      const response = await axios.post<{ accessTokenValid: boolean }>(
         "/api/users/access-token?accessToken=" + accessToken,
       );
 
       if (response.data !== undefined) {
-        return response.data;
+        console.log(response.data.accessTokenValid);
+        return response.data.accessTokenValid;
       }
     } catch (e) {
       console.error(e);
