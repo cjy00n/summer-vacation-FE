@@ -22,5 +22,7 @@ export const getCheckVaildToken = async () => {
 };
 
 export const useGetCheckVaildToken = () => {
-  return useQuery(["check-access-token"], () => getCheckVaildToken());
+  return useQuery(["check-access-token"], () => getCheckVaildToken(), {
+    refetchOnWindowFocus: false,
+  });
 };

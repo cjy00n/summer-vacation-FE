@@ -12,6 +12,7 @@ export const getRefreshToken = async () => {
     const response = await instance.get<getRefreshTokenResponse>(
       "users/refresh-token?refreshToken=" + refreshToken,
     );
+
     if (response.data) {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);

@@ -28,19 +28,24 @@ function App() {
   );
 
   useEffect(() => {
+    const refreshAccessToken = async () => {
+      if (checkVaildToken === false) {
+        await getRefreshToken();
+      }
+    };
+
     if (currentRoute?.authRequired === undefined) {
       if (accessToken && refreshToken) {
         if (checkVaildToken && checkVaildTokenSuccess) {
           setIsLoggedIn(true);
         } else if (!checkVaildToken && checkVaildTokenSuccess) {
-          getRefreshToken().then(() => {
-            location.reload();
-          });
+          refreshAccessToken();
         }
       } else {
         setIsLoggedIn(false);
       }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkVaildToken, checkVaildTokenSuccess]);
 
