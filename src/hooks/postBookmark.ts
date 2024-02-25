@@ -1,5 +1,6 @@
+import { message } from "antd";
 import { instance } from ".";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export const postBookmark = async ({ id }: { id: string }) => {
   try {
@@ -13,5 +14,13 @@ export const postBookmark = async ({ id }: { id: string }) => {
 };
 
 export const usePostBookmark = (id: string) => {
-  return useMutation(() => postBookmark({ id }));
+  const queryClient = useQueryClient();
+  return useMutation(() => postBookmark({ id }), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getMyBookmark"]);
+    },
+    onError: () => {
+      message.error("북마크 저장에 실패했습니다.");
+    },
+  });
 };

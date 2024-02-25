@@ -35,7 +35,6 @@ export const usePatchDiary = (newDiary: patchDiaryInputProps) => {
   return useMutation(() => patchDiary(newDiary!), {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
-      queryClient.invalidateQueries(["getUserInfo"]);
       queryClient.invalidateQueries(["getDiary"] + newDiary!.id);
       queryClient.invalidateQueries(["getMyDiaries"]);
 

@@ -31,7 +31,6 @@ export function usePostDiary(diary: PostDrawingType) {
   return useMutation(() => postDiary(diary), {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
-      queryClient.invalidateQueries(["getUserInfo"]);
       queryClient.invalidateQueries(["getMyDiaries"]);
     },
     onError: () => {

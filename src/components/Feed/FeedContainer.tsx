@@ -19,21 +19,15 @@ const FeedContainer = () => {
     hasNextPage,
   } = useInfiniteQuery(["getPublicDiary"], fetchPublicData, {
     getNextPageParam: (lastPage, pages) => {
-      console.log(pages.length, pages, "last", lastPage);
-      if (lastPage && lastPage?.length > 0) {
-        return pages.length + 1;
-      }
-      return undefined;
+      if (lastPage && lastPage?.length > 0) return pages.length + 1;
+      else return undefined;
     },
   });
 
   useEffect(() => {
-    if (isView && hasNextPage) {
-      fetchNextPage();
-    }
+    if (isView && hasNextPage) fetchNextPage();
   }, [diaryData, fetchNextPage, hasNextPage, isView]);
 
-  // 데이터 통합 처리
   const diaryItems =
     diaryData?.pages
       ?.flat()

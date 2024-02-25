@@ -5,7 +5,7 @@ import DraggableScrollContainer from "../common/DraggableScrollContainer";
 
 const HomeRecentBestDiary = () => {
   const { data: bestDiaries, isLoading } = useGetPublicDiary();
-  console.log(bestDiaries);
+
   return (
     <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
       {isLoading ? (
