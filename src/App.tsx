@@ -19,7 +19,7 @@ function App() {
 
   const { data: checkVaildToken, isSuccess: checkVaildTokenSuccess } =
     useGetCheckVaildToken();
-  console.log(checkVaildToken);
+
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
 
