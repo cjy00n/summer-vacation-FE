@@ -7,7 +7,7 @@ import {
   FeedDetailMoreDrawer,
   FeedProgressBar,
 } from "../components/Feed";
-import { PageBottomShadow, TopAppBar } from "../components/common";
+import { NotFound, PageBottomShadow, TopAppBar } from "../components/common";
 import { DiaryDetail } from "../types";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -57,10 +57,11 @@ const FeedDetailPage = () => {
     setIsMoreDrawerOpen(!isMoreDrawerOpen);
   };
 
+  console.log("error", isDiaryError, isUserInfoError);
   return isDiaryLoading || isUserInfoLoading ? (
-    <div>{<LoadingIcon />}</div>
+    <div className="text-center">{<LoadingIcon />}</div>
   ) : isDiaryError || isUserInfoError ? (
-    <div>데이터를 불러오는 중 에러가 발생했습니다.</div>
+    <div className="text-center">{<NotFound />}</div>
   ) : (
     diary && (
       <>
