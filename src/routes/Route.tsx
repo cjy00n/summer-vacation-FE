@@ -152,6 +152,7 @@ export const ROUTE: Routes = {
     path: "*",
     link: "*",
     element: <NotFoundPage />,
+    haveBottomAppBar: true,
   },
 };
 
