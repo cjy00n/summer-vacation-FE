@@ -11,6 +11,7 @@ export { default as CalendarPage } from "./CalendarPage";
 export { default as FeedDetailPage } from "./FeedDetailPage";
 export { default as FeedPage } from "./FeedPage";
 export { default as HomePage } from "./HomePage";
+export { default as NotFoundPage } from "./NotFoundPage";
 export { default as NotificationPage } from "./NotificationPage";
 export { default as OnBoardingPage } from "./OnBoardingPage";
 export { default as ProfileMorePage } from "./ProfileMorePage";

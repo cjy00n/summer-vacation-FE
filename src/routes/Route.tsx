@@ -17,6 +17,7 @@ import {
   AddDiaryCompletePage,
   StartPage,
   ProfileMorePage,
+  NotFoundPage,
 } from "../pages";
 
 interface RouteItem {
@@ -145,6 +146,12 @@ export const ROUTE: Routes = {
     link: "/notification",
     element: <NotificationPage />,
     haveBottomAppBar: false,
+  },
+
+  NOT_FOUND_PAGE: {
+    path: "*",
+    link: "*",
+    element: <NotFoundPage />,
   },
 };
 
