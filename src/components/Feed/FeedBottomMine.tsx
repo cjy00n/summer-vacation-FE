@@ -1,17 +1,12 @@
 import { useState } from "react";
-import {
-  EditIcon,
-  FileDownloadIcon,
-  ShareIcon,
-  TrashIcon,
-} from "../../assets/icons";
+import { EditIcon, FileDownloadIcon, TrashIcon } from "../../assets/icons";
 import { AlertModal, CircleButton } from "../common";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
 import { useDeleteDiary } from "../../hooks/deleteDiary";
 import { Diary } from "../../types";
-import { copyUrlToClipBoard } from "../../utils/copyUrlToClipBoard";
+import { FeedShareButton } from ".";
 
 const FeedBottomMine = ({ diaryData }: { diaryData: Diary }) => {
   const navigate = useNavigate();
@@ -48,12 +43,12 @@ const FeedBottomMine = ({ diaryData }: { diaryData: Diary }) => {
       id="feed-bottom-mine"
       className="fixed bottom-[100px] left-[50%] z-10 flex w-[320px] -translate-x-1/2 transform justify-between"
     >
+      <FeedShareButton feedId={diaryData.id} />
       <CircleButton
         type="dangerous"
         icon={<TrashIcon />}
         onClick={toggleSureDeleteModal}
       />
-      <CircleButton icon={<ShareIcon />} onClick={copyUrlToClipBoard} />
       <CircleButton icon={<EditIcon />} onClick={handleEditDiary} />
       <CircleButton icon={<FileDownloadIcon />} onClick={handleFileDownload} />
       {contextHolder}

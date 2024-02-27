@@ -3,15 +3,13 @@ import {
   BookmarkIcon,
   FillBookmarkIcon,
   FillStarIcon,
-  ShareIcon,
   StarIcon,
 } from "../../assets/icons";
-import { copyUrlToClipBoard } from "../../utils/copyUrlToClipBoard";
 import { CircleButton, CustomButton } from "../common";
 import { message } from "antd";
 import { usePostBookmark } from "../../hooks/postBookmark";
 import { useGetCheckBookmark } from "../../hooks/getCheckBookmark";
-import { FeedStampMenu } from ".";
+import { FeedShareButton, FeedStampMenu } from ".";
 import { useGetCheckEmotion } from "../../hooks/getCheckEmotion";
 import GetEmotionIcon from "../../assets/icons/emotions/GetEMotionIcon";
 import { useGetCheckLike } from "../../hooks/getCheckLike";
@@ -95,11 +93,8 @@ const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
   };
 
   return (
-    <div className="fixed bottom-bottom-tab left-[50%] z-10 flex w-[340px] -translate-x-1/2 transform items-center justify-between pb-2">
-      <CircleButton
-        icon={<ShareIcon fillColor="white" />}
-        onClick={copyUrlToClipBoard}
-      />
+    <div className="fixed bottom-bottom-tab left-[50%] z-10 flex w-[340px] -translate-x-1/2 transform items-center justify-between pb-4">
+      <FeedShareButton feedId={feedId} />
       <CircleButton
         type="toggle"
         onClick={handleBookMark}

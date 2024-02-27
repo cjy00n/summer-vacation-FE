@@ -57,7 +57,6 @@ const FeedDetailPage = () => {
     setIsMoreDrawerOpen(!isMoreDrawerOpen);
   };
 
-  console.log("error", isDiaryError, isUserInfoError);
   return isDiaryLoading || isUserInfoLoading ? (
     <div className="text-center">{<LoadingIcon />}</div>
   ) : isDiaryError || isUserInfoError ? (
