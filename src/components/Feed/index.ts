@@ -9,3 +9,4 @@ export { default as FeedContestItem } from "./FeedContestItem";
 export { default as FeedContentItem } from "./FeedContentItem";
 export { default as FeedDetailMoreDrawer } from "./FeedDetailMoreDrawer";
 export { default as FeedContainer } from "./FeedContainer";
+export { default as FeedShareButton } from "./FeedShareButton";
