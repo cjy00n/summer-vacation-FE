@@ -11,7 +11,6 @@ export const getCheckVaildToken = async () => {
       );
 
       if (response.data !== undefined) {
-        console.log(response.data.accessTokenValid);
         return response.data.accessTokenValid;
       }
     } catch (e) {

@@ -48,7 +48,6 @@ function App() {
     };
 
     if (currentRoute?.authRequired === undefined) {
-      console.log(checkVaildTokenSuccess, checkVaildRefreshTokenSuccess);
       if (accessToken && refreshToken) {
         if (checkVaildTokenSuccess && checkVaildRefreshTokenSuccess) {
           if (checkVaildToken && checkVaildRefreshToken) {

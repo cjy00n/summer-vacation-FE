@@ -11,7 +11,6 @@ export const getCheckVaildRefreshToken = async () => {
       );
 
       if (response.data !== undefined) {
-        console.log(response.data.refreshTokenValid);
         if (!response.data.refreshTokenValid) {
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
