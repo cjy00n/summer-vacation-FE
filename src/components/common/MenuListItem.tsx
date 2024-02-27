@@ -15,14 +15,14 @@ const MenuListItem = ({
 }: MenuListItemProps) => {
   return (
     <button
-      className="mx-auto flex w-[95%] justify-between border-b-[1px] border-solid border-gray-70 px-2 py-5 text-sm"
+      className="mx-auto flex w-[95%] items-center justify-between border-b-[1px] border-solid border-gray-70 px-2 py-4 "
       onClick={onClick}
     >
       <span className="flex">
-        <span className="w-32 text-left font-medium">{title}</span>
+        <span className=" w-32 text-left text-base font-medium">{title}</span>
         <span>{leftContents}</span>
       </span>
-      <span className="font-bold">{rightContents}</span>
+      <span className="text-sm font-bold">{rightContents}</span>
     </button>
   );
 };
