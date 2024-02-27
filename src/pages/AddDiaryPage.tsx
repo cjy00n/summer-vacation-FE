@@ -301,7 +301,7 @@ const AddDiaryPage = () => {
         </button>
         <RequestDrawingButton
           emotion={diaryData.emotion}
-          input={originalData?.englishContents}
+          input={diaryData?.englishContents}
           weather={diaryData.weather}
           handleFinish={toggleEditDrawing}
         >
