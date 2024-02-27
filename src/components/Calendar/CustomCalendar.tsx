@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import { format } from "date-fns";
+import { format, isWithinInterval, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import { DateType, Diary } from "../../types";
 import { CustomButton } from "../common";
@@ -18,14 +18,14 @@ interface CustomCalendarProps {
   date?: DateType;
   setDate?: (date: DateType) => void;
   onRightClick?: () => void;
-  rightButtonText?: string;
+  isSelectedUse?: boolean;
 }
 
 const CustomCalendar = ({
   date,
   setDate,
   onRightClick,
-  rightButtonText,
+  isSelectedUse,
 }: CustomCalendarProps) => {
   const navigate = useNavigate();
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
@@ -108,6 +108,26 @@ const CustomCalendar = ({
     return null;
   }
 
+  /* 선택된 날짜가 일기 작성이 가능한 날짜인지 (오늘로부터 6일 전까지 - 일주일이내 ) */
+  const isWithInAWeek = (date: DateType) => {
+    const now = new Date(); // 현재 날짜 및 시간
+    const oneWeekAgo = subDays(now, 7); // 일주일 전
+
+    return isWithinInterval(date as Date, {
+      start: oneWeekAgo,
+      end: now,
+    });
+  };
+
+  const rightButtonType = () => {
+    if (
+      (isSelectedUse && !isWithInAWeek(selectedDay!) && !isHaveDiaryDay) ||
+      (!isHaveDiaryDay && !isWithInAWeek(selectedDay))
+    )
+      return "disabled";
+    else return "default";
+  };
+
   return (
     <div>
       <Calendar
@@ -119,24 +139,37 @@ const CustomCalendar = ({
         next2Label={null}
         prev2Label={null}
       />
-      <div className="my-8 flex w-full justify-center">
+      <div
+        className={`mx-auto my-8 flex justify-between ${isSelectedUse ? "w-full" : "w-[95%]"}`}
+      >
         <CustomButton
           onClick={() => onChangeDay(new Date())}
           content="오늘로 이동"
           type="black"
           size={onRightClick ? "short" : "half"}
         />
-        <CustomButton
-          onClick={onRightClick ? onRightClick : handleDiaryButton}
-          content={
-            rightButtonText
-              ? rightButtonText
-              : isHaveDiaryDay
-                ? "일기보기"
-                : "일기쓰기"
-          }
-          size="middle"
-        />
+        <div className="flex flex-col">
+          <CustomButton
+            onClick={onRightClick ? onRightClick : handleDiaryButton}
+            type={rightButtonType()}
+            content={
+              isSelectedUse
+                ? "선택하기"
+                : isHaveDiaryDay
+                  ? "일기보기"
+                  : "일기쓰기"
+            }
+            size={"middle"}
+          />
+          {rightButtonType() === "disabled" && !isHaveDiaryDay ? (
+            <span className="h-7 text-center text-xs text-gray-600">
+              새로운 일기 작성은 오늘로부터 <br />
+              일주일 이내만 가능해요.
+            </span>
+          ) : (
+            <span className="h-7"></span>
+          )}
+        </div>
       </div>
     </div>
   );

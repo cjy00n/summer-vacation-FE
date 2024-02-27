@@ -27,12 +27,12 @@ const SelectDateModal = ({
       footer={null}
       className="bg-primary-white"
     >
-      <div className="p-0 m-0">
+      <div className="m-0 p-0">
         <CustomCalendar
           date={date}
           setDate={setDate}
           onRightClick={() => setToggle(!toggle)}
-          rightButtonText="선택"
+          isSelectedUse
         />
       </div>
     </Modal>
