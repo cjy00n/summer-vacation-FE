@@ -6,6 +6,11 @@ import { RecoilRoot } from "recoil";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 
+const JAVASCRIPT_KET = import.meta.env.VITE_APP_JAVASCRIPT_KEY;
+
+window.Kakao.init(JAVASCRIPT_KET);
+window.Kakao.isInitialized();
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
