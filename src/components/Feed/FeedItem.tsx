@@ -30,7 +30,7 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
   };
 
   const getSize = () => {
-    return `${idx % 6 === 1 ? "w-[66vw] custom-breakpoint:w-[320px]" : "w-[33vw] custom-breakpoint:w-[160px]"} ${idx % 6 === 2 || idx % 6 === 4 ? "h-[66vw] custom-breakpoint:h-[320px]" : "h-[33vw] custom-breakpoint:h-[160px]"} `;
+    return `${idx % 6 === 1 ? "w-[66vw] custom-breakpoint:w-[300px]" : "w-[33vw] custom-breakpoint:w-[150px]"} ${idx % 6 === 2 || idx % 6 === 4 ? "h-[66vw] custom-breakpoint:h-[300px]" : "h-[33vw] custom-breakpoint:h-[150px]"} `;
   };
 
   const linkToDetalPage = () => {

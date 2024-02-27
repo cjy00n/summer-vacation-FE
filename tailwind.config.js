@@ -24,7 +24,7 @@ export default {
         },
       },
       screens: {
-        "custom-breakpoint": "480px",
+        "custom-breakpoint": "450px",
       },
       colors: {
         "primary-orange": "#FF6D3C",

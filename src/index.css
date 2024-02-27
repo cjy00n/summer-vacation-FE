@@ -21,11 +21,11 @@ body {
 }
 
 body {
-  @apply mx-auto min-h-dvh w-[480px] bg-primary-white antialiased !important;
+  @apply mx-auto min-h-dvh w-[450px] bg-primary-white antialiased !important;
 }
 
 /* 반응형 디자인 */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 450px) {
   body,
   html {
     @apply max-w-full border-none !important;
@@ -152,6 +152,10 @@ textarea {
 
 .ant-drawer-body span {
   @apply text-sm font-semibold;
+}
+
+.ant-drawer-content-wrapper {
+  @apply mx-auto w-full custom-breakpoint:w-[480px] !important;
 }
 
 /* ant-Select 스타일링 */

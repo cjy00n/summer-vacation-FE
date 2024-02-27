@@ -61,13 +61,13 @@ const BottomAppbar = () => {
 
   return (
     <div
-      className="h-bottom-tab fixed bottom-0 z-10
-      flex w-[100vw] items-center
+      className="fixed bottom-0 z-10 flex
+      h-bottom-tab w-[100vw] items-center
       justify-around
       bg-gray-90
       px-0
       py-2 shadow-[0_-5px_10px_-5px_gray]
-      custom-breakpoint:w-[480px]"
+      custom-breakpoint:w-[450px]"
     >
       {bottomTabData.map((item) => (
         <BottomTabItem

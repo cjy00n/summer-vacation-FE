@@ -37,7 +37,7 @@ const ProfileBottomSection = ({ myDiaries }: { myDiaries: Diary[] }) => {
             myBookmark.map((item) => (
               <div
                 key={"my-profile" + item.diary.id}
-                className="relative h-[33vw] w-[33vw] cursor-pointer p-[1px] custom-breakpoint:h-[160px] custom-breakpoint:w-[160px]"
+                className="relative h-[33vw] w-[33vw] cursor-pointer p-[1px] custom-breakpoint:h-[150px] custom-breakpoint:w-[150px]"
                 onClick={() => linkToDetailPage(item.diary.id)}
               >
                 <img

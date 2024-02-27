@@ -38,7 +38,7 @@ const ProfileMyDiary = ({ diaries }: { diaries: Diary[] }) => {
             ({ imageUrl, id, date, emotion, weather }, idx) => (
               <div
                 key={"profileFeedItem" + id + idx}
-                className="relative h-[33vw] w-[33vw] cursor-pointer p-[1px] custom-breakpoint:h-[160px] custom-breakpoint:w-[160px]"
+                className="relative h-[33vw] w-[33vw] cursor-pointer p-[1px] custom-breakpoint:h-[150px] custom-breakpoint:w-[150px]"
                 onClick={() => linkToDetailPage(id)}
               >
                 <img
