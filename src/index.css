@@ -155,7 +155,7 @@ textarea {
 }
 
 .ant-drawer-content-wrapper {
-  @apply mx-auto w-full custom-breakpoint:w-[480px] !important;
+  @apply mx-auto w-full custom-breakpoint:w-[450px] !important;
 }
 
 /* ant-Select 스타일링 */

@@ -76,6 +76,7 @@ const ProfileEditNicknameModal = ({
 
   return (
     <Modal
+      width={"350px"}
       centered
       open={open}
       title={
