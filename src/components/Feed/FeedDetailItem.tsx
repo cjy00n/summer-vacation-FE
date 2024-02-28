@@ -98,7 +98,7 @@ export const FeedDetailItem = ({
         <span className="w-16 border-[1px] border-solid border-primary-orange text-center text-sm  font-semibold leading-7">
           제목
         </span>
-        <p className="w-64 border-[1px] border-solid border-primary-orange pl-2 font-gamja text-base font-normal leading-8">
+        <p className="w-64 border-[1px] border-solid border-primary-orange pl-2 font-gamja text-lg font-normal leading-8">
           {title}
         </p>
       </div>
