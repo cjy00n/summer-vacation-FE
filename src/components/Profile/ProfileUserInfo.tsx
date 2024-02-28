@@ -59,6 +59,7 @@ const ProfileUserInfo = ({ diariesCount }: ProfileUserInfoProps) => {
       >
         {previeImage ? (
           <img
+            loading="lazy"
             className="h-full w-full rounded-full object-cover"
             src={
               previeImage?.includes("https")

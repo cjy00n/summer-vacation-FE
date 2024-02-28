@@ -25,6 +25,7 @@ const HomeRecentBestDiaryItem = ({
       className="relative flex flex-shrink-0 cursor-pointer flex-col"
     >
       <img
+        loading={"lazy"}
         src={"https://" + image}
         className="h-[140px] w-[140px] rounded-lg object-cover"
       />
