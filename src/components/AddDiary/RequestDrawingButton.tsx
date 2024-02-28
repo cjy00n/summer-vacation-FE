@@ -5,6 +5,7 @@ import { drawingRecordState } from "../../recoil/atoms/drawingRecordState";
 import { useState } from "react";
 import { DrawingModal } from ".";
 import { updateDrawingRecord } from "../../recoil/utils/updateDrawingRecord";
+import { useGetUserInfo } from "../../hooks/getMyUserInfo";
 
 interface RequestDrawingButton {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ const RequestDrawingButton = ({
   weather,
   handleFinish,
 }: RequestDrawingButton) => {
+  const { data: UserInfo } = useGetUserInfo();
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const [drawingModalOpen, setDrawingModalOpen] = useState(false);
 
@@ -31,11 +33,13 @@ const RequestDrawingButton = ({
         input: input,
         emotion: emotion,
         weather: weather,
+        gender: UserInfo!.gender,
       });
 
       if (newImage) {
         updateDrawingRecord(setDrawingRecord, {
           ...drawingRecord,
+          lastAttemptDate: new Date().toDateString(),
           beforeImages: [...drawingRecord.beforeImages, newImage],
           remainingTries: drawingRecord.remainingTries - 1,
         });
