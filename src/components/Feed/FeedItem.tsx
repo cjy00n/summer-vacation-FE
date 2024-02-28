@@ -39,7 +39,7 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
 
   return (
     <div
-      className={`${getGridRatio()} relative cursor-pointer p-[1px] `}
+      className={`${getGridRatio()} relative cursor-pointer p-[1px] ${getSize()} `}
       onClick={linkToDetalPage}
     >
       <img
