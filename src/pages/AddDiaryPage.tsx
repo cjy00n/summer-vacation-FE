@@ -26,6 +26,7 @@ import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 import { usePatchDiary } from "../hooks/patchDiary";
 import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
+import { ko } from "date-fns/locale";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
@@ -145,7 +146,9 @@ const AddDiaryPage = () => {
         <span className="mr-8 text-sm font-medium">날짜</span>
         <div className="flex w-4/5 justify-between">
           <span className="text-sm font-medium">
-            {format(diaryData.date!.toString(), "yyy년 MM월 dd일")}
+            {format(diaryData.date!.toString(), "yyy년 MM월 dd일 eeee", {
+              locale: ko,
+            })}
           </span>
           {!originalData && (
             <button
