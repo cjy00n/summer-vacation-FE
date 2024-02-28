@@ -21,13 +21,13 @@ export function useDeleteDiary(targetId: string) {
 
   return useMutation(() => deleteDiary(targetId), {
     onSuccess: () => {
+      navigate(-1);
       queryClient.invalidateQueries(["getPublicDiary"]);
       queryClient.invalidateQueries(["getDiary" + targetId]);
       queryClient.invalidateQueries(["getUserInfo"]);
       queryClient.invalidateQueries(["getMyDiaries"]);
 
       message.success("삭제가 완료되었습니다.");
-      navigate(-1);
     },
   });
 }
