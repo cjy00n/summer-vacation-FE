@@ -39,9 +39,9 @@ const FeedContainer = () => {
 
   return (
     <>
-      <div className="grid grid-flow-dense grid-cols-3 grid-rows-3">
-        {diaryItems &&
-          diaryItems.map(({ diary, totalCount }, idx) => (
+      {diaryItems.length > 0 ? (
+        <div className="grid grid-flow-dense grid-cols-3 grid-rows-3">
+          {diaryItems.map(({ diary, totalCount }, idx) => (
             <FeedItem
               image={diary.imageUrl}
               idx={idx}
@@ -50,8 +50,11 @@ const FeedContainer = () => {
               key={"feedItem" + diary.id}
             />
           ))}
-        <div ref={ref} />
-      </div>
+          <div ref={ref} />
+        </div>
+      ) : (
+        <div className="text-center">작성된 일기가 없습니다.</div>
+      )}
     </>
   );
 };

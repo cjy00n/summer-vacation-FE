@@ -81,7 +81,6 @@ const FeedDetailPage = () => {
             checkEmotion={checkEmotion}
             checkLike={checkLike}
           />
-
           {isMine ? (
             <FeedBottomMine
               diaryData={{
