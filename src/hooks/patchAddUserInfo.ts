@@ -14,8 +14,6 @@ export const patchAddUserInfo = async ({
   birth,
   nickname,
 }: PatchAddUserInfoProps): Promise<string> => {
-  console.log(gender, birth, nickname);
-
   try {
     const response = await instance.patch("users/addInfo", {
       gender,
