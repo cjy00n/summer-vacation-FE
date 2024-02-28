@@ -76,6 +76,14 @@ textarea {
   @apply outline-none;
 }
 
+/* ant-modal 스타일링 */
+.ant-modal {
+  @apply max-w-[350px] rounded-xl custom-breakpoint:w-[400px] !important;
+}
+
+.and-modal-mask {
+  @apply bg-gray-50 bg-opacity-5 opacity-5 !important;
+}
 /* ant-message 스타일링 */
 
 .ant-message {
