@@ -2,7 +2,15 @@ import { Modal } from "antd";
 
 const DrawingModal = ({ open }: { open: boolean }) => {
   return (
-    <Modal open={open} title={null} footer={null} centered closable={false}>
+    <Modal
+      open={open}
+      title={null}
+      footer={null}
+      centered
+      closable={false}
+      width={"350px"}
+      style={{ height: "280px" }}
+    >
       <div className="flex h-80 flex-col items-center justify-center pt-10">
         <img src="/image/loading.png" />
         <p className="my-10 text-center text-sm font-semibold">

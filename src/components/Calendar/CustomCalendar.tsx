@@ -148,7 +148,7 @@ const CustomCalendar = ({
           type="black"
           size={onRightClick ? "short" : "half"}
         />
-        <div className="flex flex-col">
+        <div className="ml-1 flex flex-col">
           <CustomButton
             onClick={onRightClick ? onRightClick : handleDiaryButton}
             type={rightButtonType()}
