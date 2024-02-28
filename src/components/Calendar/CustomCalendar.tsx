@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Calendar from "react-calendar";
 import { format, isWithinInterval, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import { DateType, Diary } from "../../types";
@@ -10,20 +9,19 @@ import { EmotionIcon } from "../../assets/icons/emotions";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../../recoil/atoms/bottomTabState";
 import { useGetMyDiaries } from "../../hooks/getMyDiaries";
+import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./CustomCalendar.css";
 
 interface CustomCalendarProps {
   // 아래 props들은 날짜 선택 컴포넌트로 사용할 때만 전달받음
   date?: DateType;
-  setDate?: (date: DateType) => void;
-  onRightClick?: () => void;
+  onRightClick?: (date: Date) => void;
   isSelectedUse?: boolean;
 }
 
 const CustomCalendar = ({
   date,
-  setDate,
   onRightClick,
   isSelectedUse,
 }: CustomCalendarProps) => {
@@ -34,7 +32,6 @@ const CustomCalendar = ({
 
   /* 현재 선택된 날짜를 변경하는 함수 */
   const onChangeDay = (newDate: DateType) => {
-    if (setDate) setDate(newDate);
     setSelectedDay(newDate);
   };
 
@@ -150,7 +147,11 @@ const CustomCalendar = ({
         />
         <div className="ml-1 flex flex-col">
           <CustomButton
-            onClick={onRightClick ? onRightClick : handleDiaryButton}
+            onClick={
+              onRightClick
+                ? () => onRightClick(selectedDay as Date)
+                : handleDiaryButton
+            }
             type={rightButtonType()}
             content={
               isSelectedUse

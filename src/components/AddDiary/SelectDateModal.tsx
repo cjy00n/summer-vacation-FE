@@ -15,6 +15,11 @@ const SelectDateModal = ({
   toggle,
   setToggle,
 }: SelectDateModalProps) => {
+  const selectDate = (date: Date) => {
+    setToggle(!toggle);
+    setDate(date);
+  };
+
   return (
     <Modal
       open={toggle}
@@ -30,8 +35,7 @@ const SelectDateModal = ({
       <div className="m-0 p-0">
         <CustomCalendar
           date={date}
-          setDate={setDate}
-          onRightClick={() => setToggle(!toggle)}
+          onRightClick={(date: Date) => selectDate(date)}
           isSelectedUse
         />
       </div>
