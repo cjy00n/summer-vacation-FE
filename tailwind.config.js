@@ -11,10 +11,10 @@ export default {
     },
     extend: {
       spacing: {
-        "bottom-tab": "72px",
+        "bottom-tab": "64px",
       },
       height: {
-        "bottom-tab": "72px",
+        "bottom-tab": "64px",
       },
       scrollbarHide: {
         "-ms-overflow-style": "none", // IE와 Edge를 위한 설정

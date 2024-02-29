@@ -19,16 +19,17 @@ const BottomTabItem = ({
   return (
     <Link
       to={link}
-      className="flex flex-col justify-center items-center w-1/5"
+      className="flex w-1/5 flex-col items-center justify-center"
       onClick={onClick}
     >
       <span>
         {React.cloneElement(icon, {
           fillColor: isActive ? "#FF6D3C" : "#A3A09D",
+          height: "24",
         })}
       </span>
       <span
-        className={`text-sm font-semibold ${isActive ? `text-primary-orange` : `text-gray-50`}`}
+        className={`text-xs font-semibold ${isActive ? `text-primary-orange` : `text-gray-50`}`}
       >
         {text}
       </span>

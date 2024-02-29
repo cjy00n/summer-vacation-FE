@@ -35,7 +35,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="h-dvh bg-gray-80 pb-[10dvh]">
+    <div className="h-dvh bg-gray-80">
       <TopAppBar
         title="프로필"
         rightIcon={<KebabMenuIcon />}

@@ -57,7 +57,7 @@ const LongButton = ({
     <button
       onClick={onClick}
       disabled={type === "disabled"}
-      className={`mx-auto my-1 h-12 rounded-[81px] ${getStyle().buttonStyle} ${getSize()}`}
+      className={`mx-auto my-1 h-11 rounded-[81px] ${getStyle().buttonStyle} ${getSize()}`}
     >
       <span className={`text-sm font-medium ${getStyle().textStyle}`}>
         {content}

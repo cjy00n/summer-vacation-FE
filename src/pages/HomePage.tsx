@@ -34,7 +34,7 @@ const HomePage = () => {
         <HomeRecentBestDiary />
         <HomeTitle title="내 일기" description="최근 7일 간 받은 공감 순" />
         <HomeMyDiary />
-        <div className="fixed bottom-20 left-[50%] z-10 -translate-x-1/2 transform">
+        <div className="fixed bottom-[72px] left-[50%] z-10 -translate-x-1/2 transform">
           <CustomButton
             onClick={linkAddDiaryPage}
             content="일기 쓰러가기"
