@@ -15,7 +15,7 @@ export const postDiaryDrawing = async ({
   gender,
 }: postDiaryDrawingProps) => {
   input = ` My feeling is so ${getEnglishEmotion(emotion)}. ${input}
-Like a cute and colorful but simple webtoon drawn with crayon without ugly things and any text `;
+Like a cute and colorful but simple webtoon drawn with Crayons in pastel tones without ugly and scary things and any text `;
   if (gender)
     input += `FYI, I am a ${gender === "남자" ? "man person" : "woman person"}`;
   console.log(input);

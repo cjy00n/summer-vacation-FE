@@ -24,7 +24,7 @@ const AddDiaryConfirmPage = () => {
             src={
               drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1]
             }
-            className="h-[320px] w-[320px] object-cover"
+            className="h-[320px] w-[320px] rounded-md object-cover"
           />
           <div className="my-6 flex h-40 flex-col">
             <CustomButton
