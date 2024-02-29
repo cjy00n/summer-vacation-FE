@@ -35,7 +35,7 @@ abbr[title] {
 
 /* 날짜 타일 아래 이모지 */
 .react-calendar__tile > span {
-  @apply absolute bottom-[2px];
+  @apply absolute bottom-[5px];
 }
 
 /* 날짜 타일의 텍스트 스타일 */
