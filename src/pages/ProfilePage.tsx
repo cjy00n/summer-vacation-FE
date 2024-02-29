@@ -27,7 +27,7 @@ const ProfilePage = () => {
       setMyDiaries(myDiariesData.map(({ diary }) => diary));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getMySuccess]);
+  }, [getMySuccess, myDiariesData]);
 
   /* 프로필 더 보기 페이지로 이동 */
   const linkToProfileMorePage = () => {
