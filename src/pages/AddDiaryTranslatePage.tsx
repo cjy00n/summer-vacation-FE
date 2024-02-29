@@ -10,11 +10,15 @@ import {
   setDiaryLocalStorage,
 } from "../utils/handleDiaryLocalStorage";
 import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
+import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
+import { useRecoilState } from "recoil";
+import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
+
 const AddDiaryTranslatePage = () => {
   const navigate = useNavigate();
 
   const diaryData = getDiaryLocalStorage()!; // 번역할 글 받아오기
-
+  const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
   const [koreanContent] = useState(diaryData.contents ?? "");
   const [englishContent, setEnglishContent] = useState(
@@ -43,6 +47,10 @@ const AddDiaryTranslatePage = () => {
   const handleExit = () => {
     navigate(ROUTE.HOME_PAGE.link);
     clearDiaryLocalStorage();
+    updateDrawingRecord(setDrawingRecord, {
+      ...drawingRecord,
+      beforeImages: [],
+    });
   };
 
   const linkToConfirmPage = () => {
