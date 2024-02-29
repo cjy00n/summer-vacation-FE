@@ -45,15 +45,23 @@ const ProfileMyDiary = ({ diaries }: { diaries: Diary[] }) => {
                   src={"https://" + imageUrl}
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute bottom-1 left-1 flex w-[80%] items-center justify-around rounded-md bg-black bg-opacity-35 px-1">
+                <div className="absolute bottom-1 left-1 flex w-[80%] items-center justify-around rounded-md bg-black bg-opacity-30 px-1">
                   <span className="text-sm font-semibold text-primary-white">
                     {format(date as Date, "dd(eee)", { locale: ko })} |
                   </span>
                   <span>
-                    <GetWeatherIcon weather={weather} fillColor="white" />
+                    <GetWeatherIcon
+                      weather={weather}
+                      fillColor="white"
+                      width={14}
+                    />
                   </span>
                   <span>
-                    <GetEmotionIcon emotion={emotion} fillColor="white" />
+                    <GetEmotionIcon
+                      emotion={emotion}
+                      fillColor="white"
+                      width={14}
+                    />
                   </span>
                 </div>
               </div>

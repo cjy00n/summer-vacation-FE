@@ -50,7 +50,7 @@ const ProfileUserInfo = ({ diariesCount }: ProfileUserInfoProps) => {
   };
 
   return (
-    <div className="flex justify-between bg-primary-white px-14 py-8">
+    <div className="flex justify-around bg-primary-white px-8 py-8">
       <label
         htmlFor="input-file"
         className={
