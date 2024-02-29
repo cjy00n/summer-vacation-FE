@@ -118,7 +118,8 @@ const CustomCalendar = ({
 
   const rightButtonType = () => {
     if (
-      (isSelectedUse && !isWithInAWeek(selectedDay!) && !isHaveDiaryDay) ||
+      (isSelectedUse && !isWithInAWeek(selectedDay!)) ||
+      (isSelectedUse && isHaveDiaryDay) ||
       (!isHaveDiaryDay && !isWithInAWeek(selectedDay))
     )
       return "disabled";
@@ -128,7 +129,7 @@ const CustomCalendar = ({
   return (
     <div>
       <Calendar
-        calendarType="US"
+        calendarType="gregory"
         value={selectedDay}
         onChange={onChangeDay}
         formatDay={(_, date) => format(date, "dd")}
@@ -138,7 +139,7 @@ const CustomCalendar = ({
         prev2Label={null}
       />
       <div
-        className={`mx-auto my-8 flex justify-between ${isSelectedUse ? "w-full" : "w-[95%]"}`}
+        className={`mx-auto flex justify-between ${isSelectedUse ? "my-1 w-full" : "my-8 w-[95%]"}`}
       >
         <CustomButton
           onClick={() => onChangeDay(new Date())}
@@ -163,14 +164,13 @@ const CustomCalendar = ({
             }
             size={"middle"}
           />
-          {rightButtonType() === "disabled" && !isHaveDiaryDay ? (
-            <span className="h-7 text-center text-xs text-gray-600">
-              새로운 일기 작성은 오늘로부터 <br />
-              일주일 이내만 가능해요.
-            </span>
-          ) : (
-            <span className="h-7"></span>
-          )}
+          <pre className="h-7 text-center text-xs text-gray-600">
+            {rightButtonType() === "disabled" && !isHaveDiaryDay
+              ? "새로운 일기는 오늘로부터" + "\n" + "일주일 이내만 가능해요"
+              : rightButtonType() === "disabled" && isHaveDiaryDay
+                ? "이미 일기를 작성한 날이에요"
+                : ""}
+          </pre>
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 import { usePatchDiary } from "../hooks/patchDiary";
 import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
 import { ko } from "date-fns/locale";
+import { useGetMyDiaries } from "../hooks/getMyDiaries";
 
 const AddDiaryPage = () => {
   const navigate = useNavigate();
@@ -52,6 +53,23 @@ const AddDiaryPage = () => {
   const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close Modal 창 오픈 여부
   const [isEditDrawingOpen, setIsEditDrawingOpen] = useState(false); // 사진 수정 Drawer 오픈 여부
 
+  // 오늘 이미 날짜를 작성했는지 여부 확인
+  const { data: myDiaryData } = useGetMyDiaries();
+  const [todayIsAlready, setTodayIsAlready] = useState(false);
+
+  useEffect(() => {
+    if (myDiaryData) {
+      setTodayIsAlready(
+        myDiaryData!.some(
+          (diary) =>
+            format(new Date(), "yyyyMMdd", { locale: ko }) ===
+            format(diary.diary.date as Date, "yyyyMMdd", { locale: ko }),
+        ),
+      );
+    }
+  }, [myDiaryData]);
+
+  /* 다이어리 데이터 state 업데이트 함수 */
   const updateField = <K extends keyof Diary>(field: K, value: Diary[K]) => {
     setDiaryData((prevData) => ({ ...prevData, [field]: value }));
   };
@@ -89,7 +107,9 @@ const AddDiaryPage = () => {
 
   /* 번역 페이지로 이동 (제목, 내용 길이 0 아닐때만) */
   const linkTransferPage = () => {
-    if (diaryData.title?.length === 0) {
+    if (todayIsAlready) {
+      message.open({ type: "error", content: "날짜를 선택해주세요." });
+    } else if (diaryData.title?.length === 0) {
       message.open({ type: "error", content: "제목을 입력해주세요." });
     } else if (diaryData.contents?.length < 10) {
       message.open({
@@ -126,6 +146,7 @@ const AddDiaryPage = () => {
     patchDiary();
   };
 
+  /* 수정 완료 시 뒤로 가기 */
   useEffect(() => {
     if (patchDiarySuccess) navigate(-1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -142,11 +163,15 @@ const AddDiaryPage = () => {
       <div className="flex h-14 items-center justify-between border-b px-6 py-2">
         <span className="mr-8 text-sm font-medium">날짜</span>
         <div className="flex w-4/5 justify-between">
-          <span className="text-sm font-medium">
-            {format(diaryData.date!.toString(), "yyy년 MM월 dd일 eeee", {
-              locale: ko,
-            })}
-          </span>
+          {todayIsAlready ? (
+            <span className="text-sm text-gray-50">날짜를 선택해주세요.</span>
+          ) : (
+            <span className={"text-sm font-medium "}>
+              {format(diaryData.date!.toString(), "yyy년 MM월 dd일 eeee", {
+                locale: ko,
+              })}
+            </span>
+          )}
           {!originalData && (
             <button
               className="text-sm font-normal text-primary-orange"
@@ -170,7 +195,7 @@ const AddDiaryPage = () => {
             value={diaryData.title}
             onChange={(e) => updateField("title", e.target.value)}
             placeholder="제목을 입력하세요"
-            className="bg-transparent text-sm"
+            className="bg-transparent text-sm placeholder-gray-50"
             maxLength={18}
           />
           <span className=" text-xs text-gray-30">
@@ -184,7 +209,7 @@ const AddDiaryPage = () => {
           value={diaryData.contents}
           onChange={(e) => updateField("contents", e.target.value)}
           placeholder="내용 쓰기"
-          className="h-28 resize-none bg-transparent pt-3 text-sm outline-none"
+          className="h-28 resize-none bg-transparent pt-3 text-sm placeholder-gray-50 outline-none"
           maxLength={80}
         />
         <span className="w-full pb-2 text-right text-xs text-gray-30">
