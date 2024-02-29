@@ -13,7 +13,7 @@ const NotFound = () => {
     <div className="flex h-dvh flex-col">
       <TopAppBar leftGoBack />
       <div className="my-auto flex h-1/2 flex-col items-center">
-        <img src="/image/notFound.svg" className="w-52" />
+        <img src="/image/notFound.webp" className="w-52" />
         <h1 className="my-2 text-lg font-bold ">이런!</h1>
         <p className="text-gray-500">페이지가 없나봐요.</p>
         <div className="my-10">

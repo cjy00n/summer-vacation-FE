@@ -27,8 +27,8 @@ const AuthPage = () => {
 
   return (
     <div className="flex max-h-dvh flex-col items-center overflow-y-scroll bg-primary-white pb-[20dvh] pt-[20dvh]">
-      <img className="w-44" src="/image/splash1.png" />
-      <img className="mt-[7dvh] w-28" src="/image/splash2.png" />
+      <img className="w-44" src="/image/splash1.webp" />
+      <img className="mt-[7dvh] w-28" src="/image/splash2.webp" />
       <Link to={KAKAO_AUTH_URI}>
         <button className="mt-[20dvh] flex h-12 w-40 items-center justify-center rounded-[50px] bg-primary-yellow shadow-lg">
           <span className="text-base font-semibold">카카오 로그인</span>
