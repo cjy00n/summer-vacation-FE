@@ -28,7 +28,7 @@ const TopAppBar = ({
 
   return (
     <header
-      className={`flex ${bgColor ?? "bg-primary-white"} h-14 w-full items-center justify-between px-4 py-3 `}
+      className={`sticky top-0 flex ${bgColor ?? "bg-primary-white"} h-14 w-full items-center justify-between px-4 py-3 `}
     >
       <div className="flex">
         {leftGoBack ? (
