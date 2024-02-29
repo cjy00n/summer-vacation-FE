@@ -27,7 +27,7 @@ const HomeRecentBestDiaryItem = ({
       <img
         loading={"lazy"}
         src={"https://" + image}
-        className="h-[140px] w-[140px] rounded-lg object-cover"
+        className="h-[120px] w-[120px] rounded-md object-cover"
       />
       <StarCountInImage like={like} />
     </div>
