@@ -26,7 +26,7 @@ const ProgressBar = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-[66px] left-[50%] z-20 flex w-full -translate-x-1/2 transform align-bottom custom-breakpoint:w-[480px]">
+    <div className="fixed bottom-[56px] left-[50%] z-20 flex w-full -translate-x-1/2 transform align-bottom custom-breakpoint:w-[480px]">
       <Progress
         percent={percent}
         strokeColor={"#FF6D3C"}
