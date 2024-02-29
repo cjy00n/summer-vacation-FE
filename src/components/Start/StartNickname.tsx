@@ -80,7 +80,7 @@ const StartNickname = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-[3dvh] pb-[5dvh] pt-[10dvh] ">
+      <div className="fixed bottom-[3dvh] pb-[3dvh]">
         <CustomButton
           size="long"
           type={isPossibleNickname ? "default" : "disabled"}

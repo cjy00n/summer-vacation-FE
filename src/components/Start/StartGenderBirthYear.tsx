@@ -32,7 +32,7 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
 
       <div className="pt-[8dvh]">
         <h2 className="py-[2dvh] text-lg font-semibold">성별</h2>
-        <div className="flex content-between px-8">
+        <div className="flex content-between px-6">
           <CustomButton
             content={"남자"}
             onClick={() => setGender("남자")}
@@ -75,7 +75,7 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
           <span>년에 태어났어요</span>
         </div>
       </div>
-      <div className="fixed bottom-[3dvh] pb-[5dvh] pt-[10dvh] ">
+      <div className="fixed bottom-[3dvh] pb-[2dvh]">
         <p className="py-5 text-center text-sm font-normal opacity-70">
           동의해요 버튼을 누를 경우, <br />
           작성한 개인 정보 수집/이용에 <br />
