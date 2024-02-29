@@ -128,6 +128,7 @@ const CustomCalendar = ({
   return (
     <div>
       <Calendar
+        calendarType="US"
         value={selectedDay}
         onChange={onChangeDay}
         formatDay={(_, date) => format(date, "dd")}
