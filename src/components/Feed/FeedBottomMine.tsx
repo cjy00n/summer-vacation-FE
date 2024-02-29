@@ -41,7 +41,7 @@ const FeedBottomMine = ({ diaryData }: { diaryData: Diary }) => {
   return (
     <div
       id="feed-bottom-mine"
-      className="fixed bottom-[100px] left-[50%] z-10 flex w-[320px] -translate-x-1/2 transform justify-between"
+      className="fixed bottom-[80px] left-[50%] z-10 flex w-[320px] -translate-x-1/2 transform justify-between"
     >
       <FeedShareButton feedId={diaryData.id} />
       <CircleButton
