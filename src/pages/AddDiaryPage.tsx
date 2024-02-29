@@ -58,16 +58,17 @@ const AddDiaryPage = () => {
   const [todayIsAlready, setTodayIsAlready] = useState(false);
 
   useEffect(() => {
+    // 현재 선택된 날짜에 일기를 작성했는지 여부 저장
     if (myDiaryData) {
       setTodayIsAlready(
         myDiaryData!.some(
           (diary) =>
-            format(new Date(), "yyyyMMdd", { locale: ko }) ===
+            format(diaryData.date as Date, "yyyyMMdd", { locale: ko }) ===
             format(diary.diary.date as Date, "yyyyMMdd", { locale: ko }),
         ),
       );
     }
-  }, [myDiaryData]);
+  }, [myDiaryData, diaryData.date]);
 
   /* 다이어리 데이터 state 업데이트 함수 */
   const updateField = <K extends keyof Diary>(field: K, value: Diary[K]) => {
@@ -177,7 +178,7 @@ const AddDiaryPage = () => {
               className="text-sm font-normal text-primary-orange"
               onClick={toggleChangeDateModal}
             >
-              변경
+              {todayIsAlready ? "선택" : "변경"}
             </button>
           )}
         </div>
