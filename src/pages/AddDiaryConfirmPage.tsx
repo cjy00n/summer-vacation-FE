@@ -18,8 +18,8 @@ const AddDiaryConfirmPage = () => {
     diaryData && (
       <div className="flex flex-col">
         <TopAppBar title="AI 그림 확인" leftGoBack />
-        <div className="mx-auto flex flex-col items-center p-4">
-          <h2 className="py-3 text-lg font-semibold">AI는 이렇게 그렸어요</h2>
+        <div className="mx-auto flex flex-col items-center p-3">
+          <h2 className="py-2 text-lg font-semibold">AI는 이렇게 그렸어요</h2>
           <img
             src={
               drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1]

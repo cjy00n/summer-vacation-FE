@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { CircleButton, CustomButton, TopAppBar } from "../components/common";
+import {
+  CircleButton,
+  CustomButton,
+  PageBottomShadow,
+  TopAppBar,
+} from "../components/common";
 import { FeedDetailItem } from "../components/Feed";
 import { message } from "antd";
 import { FileDownloadIcon } from "../assets/icons";
@@ -13,8 +18,6 @@ import { useEffect } from "react";
 
 const AddDiaryPreviewPage = () => {
   const navigate = useNavigate();
-
-  const [messageApi, contextHolder] = message.useMessage();
 
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const { title, contents, weather, emotion, date, isPublic } =
@@ -46,13 +49,13 @@ const AddDiaryPreviewPage = () => {
   }, [isSuccess]);
 
   const handleDownladDrawing = () => {
-    messageApi.warning("다운로드 기능은 현재 준비중이에요.");
+    message.warning("다운로드 기능은 현재 준비중이에요.");
   };
 
   return (
     <div>
       <TopAppBar title="일기쓰기" leftGoBack />
-      <div className="relative mx-auto flex w-[320px] flex-col">
+      <div className="relative mx-auto flex w-[320px] flex-col pb-20 ">
         <FeedDetailItem
           diary={{
             diary_date: date as Date,
@@ -75,8 +78,8 @@ const AddDiaryPreviewPage = () => {
             size="middleLong"
           />
         </div>
+        <PageBottomShadow />
       </div>
-      {contextHolder}
     </div>
   );
 };
