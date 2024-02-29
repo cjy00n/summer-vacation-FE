@@ -154,7 +154,7 @@ const AddDiaryPage = () => {
   }, [patchDiarySuccess]);
 
   return (
-    <div className="mb-4">
+    <div className="mb-16">
       <TopAppBar
         title="일기쓰기"
         rightIcon={<CloseIcon />}
