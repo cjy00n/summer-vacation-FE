@@ -59,7 +59,7 @@ const AddDiaryPage = () => {
 
   useEffect(() => {
     // 현재 선택된 날짜에 일기를 작성했는지 여부 저장
-    if (myDiaryData) {
+    if (myDiaryData && !originalData) {
       setTodayIsAlready(
         myDiaryData!.some(
           (diary) =>
@@ -68,7 +68,7 @@ const AddDiaryPage = () => {
         ),
       );
     }
-  }, [myDiaryData, diaryData.date]);
+  }, [myDiaryData, diaryData.date, originalData]);
 
   /* 다이어리 데이터 state 업데이트 함수 */
   const updateField = <K extends keyof Diary>(field: K, value: Diary[K]) => {
@@ -279,7 +279,7 @@ const AddDiaryPage = () => {
               onClick={toggleStopModal}
             />
             <CustomButton
-              content={"일기 수정하기"}
+              content={"수정 완료하기"}
               size="half"
               onClick={handleEditDiary}
             />
