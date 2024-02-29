@@ -14,7 +14,6 @@ import {
   Weather,
 } from "../types";
 import { useRecoilState } from "recoil";
-import { bottomTabState } from "../recoil/atoms/bottomTabState";
 import { EmotionData, WeatherData } from "../assets/data";
 import {
   clearDiaryLocalStorage,
@@ -31,7 +30,6 @@ import { ko } from "date-fns/locale";
 const AddDiaryPage = () => {
   const navigate = useNavigate();
   const { state: originalData } = useLocation(); // 수정 시 기존 데이터
-  const [, setActiveBottomTab] = useRecoilState(bottomTabState);
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
 
   const existingData = getDiaryLocalStorage();
@@ -77,7 +75,6 @@ const AddDiaryPage = () => {
   const handleStopOk = () => {
     setIsStopModalOpen(false);
     navigate(ROUTE.HOME_PAGE.link);
-    setActiveBottomTab("HOME");
     clearDiaryLocalStorage();
     updateDrawingRecord(setDrawingRecord, {
       ...drawingRecord,
