@@ -141,11 +141,13 @@ const AddDiarySection = () => {
   /* 미리보기 페이지로 이동 */
   const linkPreviewPage = () => {
     navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   /* 전에 그린 그림 보기 => 전에 그린 그림 페이지로 이동 */
   const linkBeforePage = () => {
     navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
