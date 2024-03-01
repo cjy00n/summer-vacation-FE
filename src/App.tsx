@@ -107,9 +107,7 @@ function App() {
             key={el.path}
             element={
               <div>
-                <div className={`${el.haveBottomAppBar ? "pb-20" : ""}`}>
-                  {el.element}
-                </div>
+                <div>{el.element}</div>
                 {el.haveBottomAppBar && <BottomAppBar />}
               </div>
             }
