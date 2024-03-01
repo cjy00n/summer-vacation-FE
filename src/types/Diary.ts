@@ -38,5 +38,5 @@ export interface DiaryLocalstorageType
     Diary,
     "date" | "weather" | "emotion" | "contents" | "title" | "isPublic"
   > {
-  englishContents: string;
+  englishContents?: string;
 }
