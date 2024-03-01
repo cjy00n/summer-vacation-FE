@@ -28,7 +28,7 @@ const FeedBottomMine = ({ diaryData }: { diaryData: Diary }) => {
 
   /* 일기 수정 함수 */
   const handleEditDiary = () => {
-    navigate(ROUTE.ADD_DIARY_PAGE.link, {
+    navigate(ROUTE.ADD_DIARY_EDIT_PAGE.link + `/${diaryData.id}`, {
       state: { existingDiary: diaryData },
     });
   };

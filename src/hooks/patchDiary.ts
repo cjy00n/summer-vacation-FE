@@ -4,6 +4,7 @@ import { Emotion, Weather } from "../types";
 import { message } from "antd";
 
 interface patchDiaryInputProps {
+  title?: string;
   emotion?: Emotion;
   weather?: Weather;
   id: string;
@@ -12,13 +13,12 @@ interface patchDiaryInputProps {
 }
 
 export const patchDiary = async (newDiary: patchDiaryInputProps) => {
-  console.log(newDiary);
-
   try {
     const requestBody = {
       ...newDiary,
       ...(newDiary.contents ? { text: newDiary.contents } : {}),
     };
+
     const response = await instance.patch<{ result: string }>(
       "diary/edit-diary/" + newDiary.id,
       requestBody,
@@ -32,6 +32,7 @@ export const patchDiary = async (newDiary: patchDiaryInputProps) => {
 
 export const usePatchDiary = (newDiary: patchDiaryInputProps) => {
   const queryClient = useQueryClient();
+
   return useMutation(() => patchDiary(newDiary!), {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
