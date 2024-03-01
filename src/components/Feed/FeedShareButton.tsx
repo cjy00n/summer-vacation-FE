@@ -10,10 +10,8 @@ interface FeedShareButton {
 }
 
 const FeedShareButton = ({ feedId }: FeedShareButton) => {
-  const { data: diaryData } = useGetDiary(feedId);
-
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const { data: diaryData } = useGetDiary(feedId); // 다이어리 데이터
+  const [drawerOpen, setDrawerOpen] = useState(false); // 공유 Drawer 오픈 여부
   const TEMPLATE_ID = parseInt(import.meta.env.VITE_APP_KAKAO_TEMPLATE_ID, 10);
 
   const shareKaKao = () => {
@@ -23,7 +21,8 @@ const FeedShareButton = ({ feedId }: FeedShareButton) => {
         title: diaryData?.diary_title,
         contents: diaryData?.diary_contents,
         image: "https://" + diaryData?.diary_imageUrl,
-        likeCount: diaryData?.totalCount,
+        likeCount: diaryData?.totalCount ?? 0,
+        url_path: "feed/" + diaryData?.diary_id,
       },
     });
   };
