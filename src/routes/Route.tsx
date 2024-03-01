@@ -74,50 +74,50 @@ export const ROUTE: Routes = {
   },
 
   ADD_DIARY_PAGE: {
-    path: "/add",
-    link: "/add",
+    path: "/add-diary",
+    link: "/add-diary",
     element: <AddDiaryPage />,
   },
 
   ADD_DIARY_TRANSLATE_PAGE: {
-    path: "/add/translate",
-    link: "/add/translate",
+    path: "/add-diary/translate",
+    link: "/add-diary/translate",
     element: <AddDiaryTranslatePage />,
   },
 
   ADD_DIARY_CONFIRM_PAGE: {
-    path: "/add/confirm",
-    link: "/add/confirm",
+    path: "/add-diary/confirm",
+    link: "/add-diary/confirm",
     element: <AddDiaryConfirmPage />,
   },
 
   ADD_DIARY_CHOICE_PAGE: {
-    path: "/add/choice",
-    link: "/add/choice",
+    path: "/add-diary/choice",
+    link: "/add-diary/choice",
     element: <AddDiaryChoicePage />,
   },
 
   ADD_DIARY_BEFORE_PAGE: {
-    path: "/add/before",
-    link: "/add/before",
+    path: "/add-diary/before",
+    link: "/add-diary/before",
     element: <AddDiaryBeforePage />,
   },
 
   ADD_DIARY_PREVIEW_PAGE: {
-    path: "/add/preview",
-    link: "/add/preview",
+    path: "/add-diary/preview",
+    link: "/add-diary/preview",
     element: <AddDiaryPreviewPage />,
   },
 
   ADD_DIARY_DRAWING_SELECT_PAGE: {
-    path: "/add/select",
-    link: "/add/select",
+    path: "/add-diary/select",
+    link: "/add-diary/select",
     element: <AddDiaryDrawingSelectPage />,
   },
 
   ADD_DIARY_COMPLETE_PAGE: {
-    path: "/add/complete",
-    link: "/add/complete",
+    path: "/add-diary/complete",
+    link: "/add-diary/complete",
     element: <AddDiaryCompletePage />,
   },
 
