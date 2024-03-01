@@ -1,25 +1,21 @@
 import { useEffect, useState } from "react";
-import { AlertModal, CustomButton, TopAppBar } from "../components/common";
+import { CustomButton, TopAppBar } from "../components/common";
 import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { usePostDiaryTranslation } from "../hooks/postDiaryTranslation";
 import {
-  clearDiaryLocalStorage,
   getDiaryLocalStorage,
   setDiaryLocalStorage,
 } from "../utils/handleDiaryLocalStorage";
 import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
-import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
-import { useRecoilState } from "recoil";
-import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
+import { AddDiaryExitModal } from "../components/AddDiary";
 
 const AddDiaryTranslatePage = () => {
   const navigate = useNavigate();
 
   const diaryData = getDiaryLocalStorage()!; // 번역할 글 받아오기
-  const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
-  const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
+  const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close Modal 창 오픈 여부
   const [koreanContent] = useState(diaryData.contents ?? "");
   const [englishContent, setEnglishContent] = useState(
     "열심히 번역을 하고 있어요 . . ",
@@ -44,17 +40,12 @@ const AddDiaryTranslatePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [output]);
 
-  const handleExit = () => {
-    navigate(ROUTE.HOME_PAGE.link);
-    clearDiaryLocalStorage();
-    updateDrawingRecord(setDrawingRecord, {
-      ...drawingRecord,
-      beforeImages: [],
-    });
-  };
-
   const linkToConfirmPage = () => {
     navigate(ROUTE.ADD_DIARY_CONFIRM_PAGE.link);
+  };
+
+  const toggleStopModalOpen = () => {
+    setIsStopModalOpen(!isStopModalOpen);
   };
 
   return (
@@ -63,13 +54,11 @@ const AddDiaryTranslatePage = () => {
         title="글 확인하기"
         leftGoBack
         rightIcon={<CloseIcon />}
-        rightOnClick={() => setIsCloseModalOpen(true)}
+        rightOnClick={toggleStopModalOpen}
       />
-      <AlertModal
-        toggle={isCloseModalOpen}
-        title="일기를 그만 쓸까요?"
-        handleOk={handleExit}
-        handleClose={() => setIsCloseModalOpen(false)}
+      <AddDiaryExitModal
+        isOpen={isStopModalOpen}
+        toggleOpen={toggleStopModalOpen}
       />
       <div className="my-auto flex h-full flex-col justify-center px-4">
         <div>
