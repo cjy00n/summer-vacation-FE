@@ -12,10 +12,7 @@ const OnBoardingPage = () => {
   };
 
   return (
-    <div
-      id="onBoarding"
-      className="scrollbar-hide flex h-[100vh] flex-col bg-gray-90"
-    >
+    <div id="onBoarding" className="scrollbar-hide flex h-[100dvh] flex-col ">
       <Carousel
         autoplay
         autoplaySpeed={3000}
@@ -23,20 +20,20 @@ const OnBoardingPage = () => {
         infinite={false}
         afterChange={finishOnBoarding}
       >
-        <div className="relative h-[100vh]">
+        <div className="relative h-[100dvh]">
           <p className="px-10 py-16 text-xl font-bold">
             괜히 설레이던 여름방학
           </p>
           <img
-            className="w-70 mx-auto object-cover"
+            className="mx-auto h-[45dvh] object-cover"
             src="/image/onBoarding1.webp"
           />
-          <div className="left-center absolute bottom-[25vh] text-center text-base font-semibold">
+          <div className="absolute bottom-[22dvh] text-center text-base font-semibold left-center">
             <p>그림일기를 통해, </p>
             <p>일상을 가장 꾸준히 남겼던 때를 추억해요</p>
           </div>
         </div>
-        <div className="relative h-[100vh]">
+        <div className="relative h-[100dvh]">
           <img
             className="absolute top-0 w-full"
             src="/image/onBoarding2.webp"
@@ -50,14 +47,14 @@ const OnBoardingPage = () => {
             당신의 일상을 그려줄게요
           </p>
           <div>
-            <p className="left-center absolute bottom-[25vh] z-10 text-center text-base font-semibold">
+            <p className="absolute bottom-[22dvh] z-10 text-center text-base font-semibold left-center">
               오늘 하루를 어떻게 표현할지
               <br />
               궁금하지 않나요?
             </p>
           </div>
         </div>
-        <div className="relative h-[100vh]">
+        <div className="relative h-[100dvh]">
           <div className="flex flex-col">
             <p className="px-10 py-16 text-xl font-bold">
               나만 보기엔 아까운 <br /> AI 그림일기
@@ -75,7 +72,7 @@ const OnBoardingPage = () => {
       {showStartButton && (
         <button
           onClick={() => navigate(ROUTE.START_PAGE.link)}
-          className="fixed bottom-[10vh] left-[50%] z-10 flex h-12 w-60 -translate-x-1/2 transform items-center justify-center rounded-[81px] bg-primary-orange text-base font-medium text-white"
+          className="fixed bottom-[7dvh] left-[50%] z-10 flex h-12 w-60 -translate-x-1/2 transform items-center justify-center rounded-[81px] bg-primary-orange text-base font-medium text-white"
         >
           시작하기
         </button>

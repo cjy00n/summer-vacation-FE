@@ -120,7 +120,7 @@ textarea {
 }
 
 #onBoarding .ant-carousel .slick-dots {
-  @apply fixed bottom-[17vh];
+  @apply fixed bottom-[18vh];
 }
 
 .slick-dots li {
