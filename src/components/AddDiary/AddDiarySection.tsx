@@ -11,7 +11,7 @@ import {
 } from ".";
 import { EmotionData, WeatherData } from "../../assets/data";
 import { Drawer, Switch, message } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 import {
   getDiaryLocalStorage,
@@ -26,7 +26,8 @@ import { defaultTries } from "../../recoil/utils/loadDrawingRecord";
 import { useGetDiary } from "../../hooks/getDiary";
 
 const AddDiarySection = () => {
-  const { diary_id } = useParams<{ diary_id: string }>();
+  const { diary_id } = useParams<{ diary_id: string }>(); // 일기 수정 시 쿼리파라미터로 해당 아이디 받아옴
+  const { state } = useLocation(); // 캘린더페이지에서 일기쓰기로 넘어오면 해당 날짜를 state로 받아옴
 
   const navigate = useNavigate();
 
@@ -48,8 +49,8 @@ const AddDiarySection = () => {
     title: existingData?.title ?? "",
     englishContents: existingData?.englishContents ?? "",
     isPublic: existingData?.isPublic != undefined ? existingData.isPublic : 1,
-    date: existingData?.date ?? new Date(),
-  });
+    date: state ? state.date : existingData?.date ?? new Date(),
+  }); // 현재 사용자에게 보여지는 다이어리 데이터(state)
 
   const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
 
