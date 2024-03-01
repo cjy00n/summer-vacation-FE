@@ -79,6 +79,12 @@ export const ROUTE: Routes = {
     element: <AddDiaryPage />,
   },
 
+  ADD_DIARY_EDIT_PAGE: {
+    path: "/add-diary/:diary_id",
+    link: "/add-diary",
+    element: <AddDiaryPage />,
+  },
+
   ADD_DIARY_TRANSLATE_PAGE: {
     path: "/add-diary/translate",
     link: "/add-diary/translate",
