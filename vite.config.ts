@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://picture-diary.site:3000", // 백엔드 서버 주소
+        target: "https://picture-diary.site/", // 백엔드 서버 주소
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""),
