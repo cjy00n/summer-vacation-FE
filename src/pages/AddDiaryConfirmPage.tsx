@@ -36,7 +36,7 @@ const AddDiaryConfirmPage = () => {
               onClick={() => navigate(ROUTE.ADD_DIARY_BEFORE_PAGE.link)}
             />
             <RequestDrawingButton
-              input={diaryData.englishContents}
+              input={diaryData.englishContents!}
               emotion={diaryData.emotion}
               weather={diaryData.weather}
             >
