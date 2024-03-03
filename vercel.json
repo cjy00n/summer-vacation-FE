@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://picture-diary.site:3000/$1"
+      "destination": "https://picture-diary.site/$1"
     },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
