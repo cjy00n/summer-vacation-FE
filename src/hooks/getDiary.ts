@@ -1,12 +1,13 @@
 import { useQuery } from "react-query";
-import { instance } from ".";
 import { DiaryDetail } from "../types";
+import axios from "axios";
 
 const getDiary = async (targetId: string) => {
   try {
-    const response = await instance.get<DiaryDetail>(
-      `diary/get-diary/${targetId}`,
+    const response = await axios.get<DiaryDetail>(
+      `/api/diary/get-diary/${targetId}`,
     );
+
     if (response.data) return { ...response.data, contents: response.data };
   } catch (e) {
     console.error(e);

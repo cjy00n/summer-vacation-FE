@@ -47,9 +47,7 @@ const FeedDetailPage = () => {
   }, [diaryData, userInfo]);
 
   useEffect(() => {
-    if (diaryData) {
-      setDiary(diaryData);
-    }
+    if (diaryData) setDiary(diaryData);
   }, [diaryData]);
 
   /* 다른 사람의 글일 때 > 더보기 메뉴 토글 */
@@ -58,7 +56,7 @@ const FeedDetailPage = () => {
   };
 
   return isDiaryLoading || isUserInfoLoading ? (
-    <div className="text-center">{<LoadingIcon />}</div>
+    <div className="mx-auto my-auto h-dvh text-center">{<LoadingIcon />}</div>
   ) : isDiaryError || isUserInfoError ? (
     <div className="text-center">{<NotFound />}</div>
   ) : (
