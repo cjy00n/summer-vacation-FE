@@ -106,13 +106,14 @@ const AddDiarySection = () => {
 
   /* 번역 페이지로 이동 (제목, 내용 길이 0 아닐때만) */
   const linkTransferPage = () => {
-    console.log(diaryDataRef.current);
     if (todayIsAlready && diaryDataRef.current.date) {
       message.open({ type: "error", content: "날짜를 선택해주세요." });
       diaryDataRef.current.date.focus();
+      diaryDataRef.current.date.scrollIntoView({ behavior: "smooth" });
     } else if (diaryData.title?.length === 0 && diaryDataRef.current.title) {
       message.open({ type: "error", content: "제목을 입력해주세요." });
       diaryDataRef.current.title.focus();
+      diaryDataRef.current.title.scrollIntoView({ behavior: "smooth" });
     } else if (
       diaryData.contents?.length < 10 &&
       diaryDataRef.current.contents
@@ -122,6 +123,7 @@ const AddDiarySection = () => {
         content: "내용을 10자 이상 입력해주세요.",
       });
       diaryDataRef.current.contents.focus();
+      diaryDataRef.current.contents.scrollIntoView({ behavior: "smooth" });
     } else {
       navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
       setDiaryLocalStorage(diaryData);
@@ -167,6 +169,7 @@ const AddDiarySection = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  /* 제목 입력칸에서 엔터 키 클릭 시 내용 입력 칸으로 이동 */
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     nextInputRef: HTMLTextAreaElement | null,
