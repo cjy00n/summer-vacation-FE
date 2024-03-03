@@ -14,10 +14,11 @@ export const postDiaryDrawing = async ({
   emotion,
   gender,
 }: postDiaryDrawingProps) => {
-  input = ` My feeling is so ${getEnglishEmotion(emotion)}. ${input}
-Like a cute and colorful but simple webtoon drawn with Crayons in pastel tones without ugly and scary things and any text `;
+  input = ` My feeling is really ${getEnglishEmotion(emotion)}. ${input}
+Please draw these like cute colored webtoons with pastel-toned crayons. There shouldn't be anything ugly and scary in the painting.
+And it shouldn't have any letters. `;
   if (gender)
-    input += `FYI, I am a ${gender === "남자" ? "man person" : "woman person"}`;
+    input += `For your information, the main character of the webtoon is myself and a ${gender === "남자" ? " man" : " woman"}`;
   console.log(input);
   try {
     const response = await instance.post<{ imageUrl: string }>(
