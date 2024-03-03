@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetMyDiaries } from "../../hooks/getMyDiaries";
 import { format } from "date-fns";
 import { DateType, DiaryLocalstorageType, Emotion, Weather } from "../../types";
@@ -31,7 +31,7 @@ const AddDiarySection = () => {
 
   const navigate = useNavigate();
 
-  const existingData = getDiaryLocalStorage();
+  const existingData = getDiaryLocalStorage(); // 페이지 전환 시 기존의 작성하던 다이어리 데이터 불러오기
 
   const { data: myDiaryData } = useGetMyDiaries();
   const [drawingRecord] = useRecoilState(drawingRecordState);
@@ -51,6 +51,16 @@ const AddDiarySection = () => {
     isPublic: existingData?.isPublic != undefined ? existingData.isPublic : 1,
     date: state ? state.date : existingData?.date ?? new Date(),
   }); // 현재 사용자에게 보여지는 다이어리 데이터(state)
+
+  const diaryDataRef = useRef<{
+    title: HTMLInputElement | null;
+    contents: HTMLTextAreaElement | null;
+    date: HTMLSpanElement | null;
+  }>({
+    title: null,
+    contents: null,
+    date: null,
+  });
 
   const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
 
@@ -96,15 +106,22 @@ const AddDiarySection = () => {
 
   /* 번역 페이지로 이동 (제목, 내용 길이 0 아닐때만) */
   const linkTransferPage = () => {
-    if (todayIsAlready) {
+    console.log(diaryDataRef.current);
+    if (todayIsAlready && diaryDataRef.current.date) {
       message.open({ type: "error", content: "날짜를 선택해주세요." });
-    } else if (diaryData.title?.length === 0) {
+      diaryDataRef.current.date.focus();
+    } else if (diaryData.title?.length === 0 && diaryDataRef.current.title) {
       message.open({ type: "error", content: "제목을 입력해주세요." });
-    } else if (diaryData.contents?.length < 10) {
+      diaryDataRef.current.title.focus();
+    } else if (
+      diaryData.contents?.length < 10 &&
+      diaryDataRef.current.contents
+    ) {
       message.open({
         type: "error",
         content: "내용을 10자 이상 입력해주세요.",
       });
+      diaryDataRef.current.contents.focus();
     } else {
       navigate(ROUTE.ADD_DIARY_TRANSLATE_PAGE.link);
       setDiaryLocalStorage(diaryData);
@@ -150,12 +167,25 @@ const AddDiarySection = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    nextInputRef: HTMLTextAreaElement | null,
+  ) => {
+    if (e.key === "Enter" && nextInputRef) {
+      e.preventDefault();
+      nextInputRef.focus();
+    }
+  };
+
   return (
     <div>
       {/* ↓ 날짜 선택 컨테이너 */}
       <div className="flex h-14 items-center justify-between border-b px-6 py-2">
         <span className="mr-8 text-sm font-medium">날짜</span>
-        <div className="flex w-4/5 justify-between">
+        <div
+          className="flex w-4/5 justify-between"
+          ref={(ref) => (diaryDataRef.current.date = ref)}
+        >
           {todayIsAlready ? (
             <span className="text-sm text-gray-50">날짜를 선택해주세요.</span>
           ) : (
@@ -186,11 +216,13 @@ const AddDiarySection = () => {
         <span className="mr-8 text-sm font-medium">제목</span>
         <div className="flex w-4/5 justify-between">
           <input
+            ref={(ref) => (diaryDataRef.current.title = ref)}
             value={diaryData.title}
             onChange={(e) => updateField("title", e.target.value)}
             placeholder="제목을 입력하세요"
             className="bg-transparent text-sm placeholder-gray-50"
             maxLength={18}
+            onKeyDown={(e) => handleKeyDown(e, diaryDataRef.current.contents)}
           />
           <span className=" text-xs text-gray-30">
             {diaryData.title?.length + "/18"}
@@ -200,6 +232,7 @@ const AddDiarySection = () => {
       {/* ↓ 일기 내용 컨테이너 */}
       <div className="flex flex-col border-y-2 px-6">
         <textarea
+          ref={(ref) => (diaryDataRef.current.contents = ref)}
           value={diaryData.contents}
           onChange={(e) => updateField("contents", e.target.value)}
           placeholder="내용 쓰기"
