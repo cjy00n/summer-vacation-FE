@@ -1,28 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { ArrowIcon } from "../assets/icons";
 import { AlertModal, TopAppBar } from "../components/common";
 import MenuListItem, {
   MenuListItemProps,
 } from "../components/common/MenuListItem";
-import { ROUTE } from "../routes/Route";
+import { usePostLogout } from "../hooks/postLogout";
 import { usePostUserWithdrawal } from "../hooks/postUserWithdrawal";
-import { message } from "antd";
 import { useState } from "react";
+import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 
 const ProfileMorePage = () => {
-  const navigate = useNavigate();
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
+  const [, setIsLoggedIn] = useRecoilState(isLoggedInState); // 로그인 여부
   const { mutate: postWithdrawal } = usePostUserWithdrawal();
-
-  const deleteTokenOfLocalStorage = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-  };
-
-  const linkToLoginPage = () => {
-    navigate(ROUTE.LOGIN_PAGE.link);
-  };
+  const { mutate: postLogout } = usePostLogout();
 
   const toggleOpenWithdrawModal = () => {
     setOpenWithdrawModal(!openWithdrawModal);
@@ -30,7 +22,7 @@ const ProfileMorePage = () => {
 
   const withDrawal = () => {
     postWithdrawal();
-    linkToLoginPage();
+    setIsLoggedIn(false);
   };
 
   const ProfileMoreMenuList: MenuListItemProps[] = [
@@ -55,9 +47,8 @@ const ProfileMorePage = () => {
     {
       title: "로그아웃",
       onClick: () => {
-        deleteTokenOfLocalStorage();
-        linkToLoginPage();
-        message.success("로그아웃 되었습니다.");
+        postLogout();
+        setIsLoggedIn(false);
       },
     },
     {
@@ -71,7 +62,7 @@ const ProfileMorePage = () => {
     },
     {
       title: "문의",
-      leftContents: "team-crayon@gmail.com",
+      leftContents: "crayon@gmail.com",
     },
   ];
 
