@@ -16,12 +16,15 @@ import { useGetCheckLike } from "../../hooks/getCheckLike";
 import { usePostEmotion } from "../../hooks/postEmotion";
 import { Emotion } from "../../types";
 import { usePostLike } from "../../hooks/postLike";
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "../../recoil/atoms/isLoggedinState";
 
 interface FeedBottomOthersProps {
   feedId: string;
 }
 
 const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
+  const [isLoggedIn] = useRecoilState(isLoggedInState); // 로그인 여부
   const [isBookmark, setIsBookmark] = useState(false); // 북마크 여부
   const [isOpenLikeList, setIsOpenLikeList] = useState(false);
   const [currentLike, setCurrentLike] = useState<"star" | Emotion>();
@@ -92,12 +95,16 @@ const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
     }
   };
 
+  const popUpRequiredLoginMessage = () => {
+    message.warning("로그인이 필요한 기능입니다.");
+  };
+
   return (
     <div className="fixed bottom-bottom-tab left-[50%] z-10 flex w-[340px] -translate-x-1/2 transform items-center justify-between pb-4">
       <FeedShareButton feedId={feedId} />
       <CircleButton
         type="toggle"
-        onClick={handleBookMark}
+        onClick={isLoggedIn ? handleBookMark : popUpRequiredLoginMessage}
         icon={
           isBookmark ? (
             <FillBookmarkIcon width={20} height={16} fillColor="white" />
@@ -111,7 +118,7 @@ const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
       <CustomButton
         type={currentLike ? "default" : "white"}
         size="middle"
-        onClick={onStampButtonClick}
+        onClick={isLoggedIn ? onStampButtonClick : popUpRequiredLoginMessage}
         content={
           <span
             className={`flex items-center justify-around px-10 ${currentLike ? "text-white" : "text-black"} mx-1 text-base font-medium`}
