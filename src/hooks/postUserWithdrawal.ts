@@ -1,10 +1,10 @@
+import { message } from "antd";
 import { instance } from ".";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export const postUserWithdrawal = async () => {
   try {
     const response = await instance.post("/users/unlink");
-    console.log(response.data);
 
     if (response.data) {
       localStorage.removeItem("accessToken");
@@ -16,5 +16,13 @@ export const postUserWithdrawal = async () => {
 };
 
 export const usePostUserWithdrawal = () => {
-  return useMutation(() => postUserWithdrawal(), {});
+  const queryClient = useQueryClient();
+
+  return useMutation(() => postUserWithdrawal(), {
+    onSuccess: () => {
+      message.success("회원탈퇴 되었습니다.");
+      queryClient.invalidateQueries(["getUserInfo"]);
+      queryClient.invalidateQueries(["getMyDiaries"]);
+    },
+  });
 };
