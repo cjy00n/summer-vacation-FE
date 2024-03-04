@@ -61,7 +61,7 @@ const BottomAppbar = () => {
 
   return (
     <div
-      className="sticky bottom-0 z-10 flex
+      className="fixed bottom-0 z-10 flex
       h-bottom-tab w-[100vw] items-center
       justify-around
       bg-gray-90
