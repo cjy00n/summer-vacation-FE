@@ -1,5 +1,5 @@
 import { KebabMenuIcon } from "../assets/icons";
-import { TopAppBar } from "../components/common";
+import { LoginRequired, TopAppBar } from "../components/common";
 import { Diary } from "../types";
 import { useEffect, useState } from "react";
 import { ProfileBottomSection, ProfileUserInfo } from "../components/Profile";
@@ -8,10 +8,11 @@ import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
+import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-
+  const [isLoggedIn] = useRecoilState(isLoggedInState);
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
 
   // 하단 탭 바를 <프로필>로 유지하기
@@ -41,8 +42,14 @@ const ProfilePage = () => {
         rightIcon={<KebabMenuIcon />}
         rightOnClick={linkToProfileMorePage}
       />
-      <ProfileUserInfo diariesCount={myDiaries ? myDiaries?.length : 0} />
-      {myDiaries && <ProfileBottomSection myDiaries={myDiaries} />}
+      {isLoggedIn ? (
+        <>
+          <ProfileUserInfo diariesCount={myDiaries ? myDiaries?.length : 0} />
+          {myDiaries && <ProfileBottomSection myDiaries={myDiaries} />}
+        </>
+      ) : (
+        <LoginRequired />
+      )}
     </div>
   );
 };
