@@ -30,7 +30,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="h-dvh">
+    <div className="min-h-dvh">
       <TopAppBar
         bgColor="bg-primary-orange"
         rightIcon={<NotificationIcon fillColor="white" />}
