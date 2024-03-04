@@ -13,7 +13,7 @@ const CalendarPage = () => {
   }, [setActiveBottomTab]);
 
   return (
-    <div className="min-h-dvh bg-primary-white">
+    <div className=" bg-primary-white">
       <TopAppBar title="달력" />
       <CustomCalendar />
     </div>

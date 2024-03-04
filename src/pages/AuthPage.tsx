@@ -15,8 +15,6 @@ const AuthPage = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const checkVaildToken = useGetCheckVaildToken();
 
-  console.log("code", code);
-
   if (code && checkVaildToken.data !== true)
     postKaKaoSignIn({
       code,
@@ -26,7 +24,7 @@ const AuthPage = () => {
     });
 
   return (
-    <div className="flex max-h-dvh flex-col items-center overflow-y-scroll bg-primary-white pb-[20dvh] pt-[20dvh]">
+    <div className="flex max-h-dvh flex-col items-center bg-primary-white pb-[20dvh] pt-[20dvh]">
       <img className="w-44" src="/image/splash1.webp" />
       <img className="mt-[7dvh] w-28" src="/image/splash2.webp" />
       <Link to={KAKAO_AUTH_URI}>
