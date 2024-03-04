@@ -99,8 +99,10 @@ function App() {
             path={el.path}
             key={el.path}
             element={
-              <div className="h-dvh">
-                <div>{el.element}</div>
+              <div className="h-min-dvh">
+                <div className={el.haveBottomAppBar ? "pb-bottom-tab" : ""}>
+                  {el.element}
+                </div>
                 {el.haveBottomAppBar && <BottomAppBar />}
               </div>
             }
