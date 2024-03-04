@@ -7,3 +7,4 @@ export { default as PageBottomShadow } from "../common/PageBottomShadow";
 export { default as StarCountInImage } from "./StarCountInImage";
 export { default as TopAppBar } from "./TopAppBar";
 export { default as NotFound } from "./NotFound";
+export { default as LoginRequired } from "./LoginRequired";
