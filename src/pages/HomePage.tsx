@@ -9,17 +9,28 @@ import {
 } from "../components/common";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 
 const HomePage = () => {
+  const [isLoggedIn] = useRecoilState(isLoggedInState); // 로그인 여부
+
   const navigate = useNavigate();
 
+  /* 로그인 한 경우 -> 일기쓰기 페이지로 이동 버튼 활성화 */
   const linkAddDiaryPage = () => {
     navigate(ROUTE.ADD_DIARY_PAGE.link);
     window.scrollTo(0, 0);
   };
 
+  /* 로그인 안한 경우 -> 로그인 페이지 이동 버튼 활성화 */
+  const linkLoginPage = () => {
+    navigate(ROUTE.LOGIN_PAGE.link);
+    window.scrollTo(0, 0);
+  };
+
   return (
-    <div>
+    <div className="h-dvh">
       <TopAppBar
         bgColor="bg-primary-orange"
         rightIcon={<NotificationIcon fillColor="white" />}
@@ -35,11 +46,14 @@ const HomePage = () => {
         <HomeTitle title="내 일기" description="최근 7일 간 받은 공감 순" />
         <HomeMyDiary />
         <div className="fixed bottom-[72px] left-[50%] z-10 -translate-x-1/2 transform">
-          <CustomButton
-            onClick={linkAddDiaryPage}
-            content="일기 쓰러가기"
-            size="long"
-          />
+          {isLoggedIn ? (
+            <CustomButton onClick={linkAddDiaryPage} content="일기 쓰러가기" />
+          ) : (
+            <CustomButton
+              content={"로그인 하러 가기"}
+              onClick={linkLoginPage}
+            />
+          )}
         </div>
       </div>
       <PageBottomShadow />
