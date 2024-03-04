@@ -56,7 +56,9 @@ const FeedDetailPage = () => {
   };
 
   return isDiaryLoading || isUserInfoLoading ? (
-    <div className="mx-auto my-auto h-dvh text-center">{<LoadingIcon />}</div>
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+      {<LoadingIcon />}
+    </div>
   ) : isDiaryError || isUserInfoError ? (
     <div className="text-center">{<NotFound />}</div>
   ) : (

@@ -14,7 +14,7 @@ const FeedPage = () => {
   }, [setActiveBottomTab]);
 
   return (
-    <div className="bg-primary-white">
+    <div className="h-dvh bg-primary-white">
       <TopAppBar title={<TopLogoIcon fillColor="black" />} />
       {/* <div>
         <FeedTitle title="이번 사생대회 우승작" />
