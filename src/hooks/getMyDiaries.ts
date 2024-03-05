@@ -8,7 +8,7 @@ const getMyDiaries = async () => {
       await instance.get<{ diary: Diary; likeCount: number }[]>(
         "/diary/diaries",
       );
-    if (response.data) return response.data;
+    if (response.data) return response.data.reverse();
   } catch (e) {
     console.error;
   }
