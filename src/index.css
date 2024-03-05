@@ -81,13 +81,18 @@ textarea {
   @apply max-w-[350px] rounded-xl custom-breakpoint:w-[400px] !important;
 }
 
-.and-modal-mask {
-  @apply bg-gray-50 bg-opacity-5 opacity-5 !important;
+.ant-modal-mask {
+  @apply bg-black bg-opacity-50 opacity-80  !important;
 }
+
+.ant-modal-content {
+  @apply shadow-lg !important;
+}
+
 /* ant-message 스타일링 */
 
 .ant-message {
-  @apply top-[80dvh] !important;
+  @apply top-[72dvh] !important;
 }
 
 .ant-message-notice-success .ant-message-notice-content {
