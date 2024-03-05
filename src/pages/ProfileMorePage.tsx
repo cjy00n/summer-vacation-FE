@@ -8,6 +8,7 @@ import { usePostLogout } from "../hooks/postLogout";
 import { usePostUserWithdrawal } from "../hooks/postUserWithdrawal";
 import { useState } from "react";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
+import { message } from "antd";
 
 const ProfileMorePage = () => {
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
@@ -28,6 +29,9 @@ const ProfileMorePage = () => {
   const ProfileMoreMenuList: MenuListItemProps[] = [
     {
       title: "알림 설정",
+      onClick: () => {
+        message.warning("알림 기능은 현재 준비중이에요.");
+      },
     },
     {
       title: "이용 안내",
