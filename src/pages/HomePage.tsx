@@ -43,7 +43,7 @@ const HomePage = () => {
           description="가장 큰 관심을 받고 있어요"
         />
         <HomeRecentBestDiary />
-        <HomeTitle title="내 일기" description="최근 7일 간 받은 공감 순" />
+        <HomeTitle title="내 일기" description="내가 최근 작성한 순" />
         <HomeMyDiary />
         <div className="fixed bottom-[72px] left-[50%] z-10 -translate-x-1/2 transform">
           {isLoggedIn ? (
