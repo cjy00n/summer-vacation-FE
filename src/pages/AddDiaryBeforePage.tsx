@@ -62,38 +62,37 @@ const AddDiaryBeforePage = () => {
                 className="row-span-1 h-[50vw] w-[50vw] object-cover custom-breakpoint:h-[240px] custom-breakpoint:w-[240px] "
               />
             </div>
-
-            <Modal
-              title={null}
-              footer={null}
-              centered
-              open={isshowModal}
-              onCancel={toggleShowModal}
-              closeIcon={null}
-            >
-              <div className="flex flex-col items-center justify-center">
-                <img
-                  src={previewImg}
-                  className="mb-2 h-[300px] w-[300px] object-cover"
-                />
-                <div className="flex w-full justify-around">
-                  <CustomButton
-                    content="닫기"
-                    onClick={toggleShowModal}
-                    size="half"
-                    type="white"
-                  />
-                  <CustomButton
-                    content="선택"
-                    onClick={() => handleSelectDrawing(selectedIdx)}
-                    size="half"
-                  />
-                </div>
-              </div>
-            </Modal>
           </div>
         ))}
-      </div>
+      </div>{" "}
+      <Modal
+        title={null}
+        footer={null}
+        centered
+        open={isshowModal}
+        onCancel={toggleShowModal}
+        closeIcon={null}
+      >
+        <div className="flex flex-col items-center justify-center">
+          <img
+            src={previewImg}
+            className="mb-2 h-[300px] w-[300px] object-cover"
+          />
+          <div className="flex w-full justify-around">
+            <CustomButton
+              content="닫기"
+              onClick={toggleShowModal}
+              size="half"
+              type="white"
+            />
+            <CustomButton
+              content="선택"
+              onClick={() => handleSelectDrawing(selectedIdx)}
+              size="half"
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
