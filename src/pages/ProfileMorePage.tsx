@@ -9,8 +9,12 @@ import { usePostUserWithdrawal } from "../hooks/postUserWithdrawal";
 import { useState } from "react";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../routes/Route";
 
 const ProfileMorePage = () => {
+  const navigate = useNavigate();
+
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
   const [, setIsLoggedIn] = useRecoilState(isLoggedInState); // 로그인 여부
@@ -24,6 +28,11 @@ const ProfileMorePage = () => {
   const withDrawal = () => {
     postWithdrawal();
     setIsLoggedIn(false);
+  };
+
+  const linkToMainPage = () => {
+    navigate(ROUTE.HOME_PAGE.link);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const ProfileMoreMenuList: MenuListItemProps[] = [
@@ -45,7 +54,7 @@ const ProfileMorePage = () => {
     {
       title: "회원탈퇴",
       onClick: () => {
-        toggleOpenWithdrawModal();
+        linkToMainPage();
       },
     },
     {
@@ -53,6 +62,7 @@ const ProfileMorePage = () => {
       onClick: () => {
         postLogout();
         setIsLoggedIn(false);
+        linkToMainPage();
       },
     },
     {
