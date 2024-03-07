@@ -49,7 +49,11 @@ const AddDiarySection = () => {
     title: existingData?.title ?? "",
     englishContents: existingData?.englishContents ?? "",
     isPublic: existingData?.isPublic != undefined ? existingData.isPublic : 1,
-    date: state ? state.date : existingData?.date ?? new Date(),
+    date: state.date
+      ? state.date
+      : existingData?.date
+        ? existingData.date
+        : new Date(),
   }); // 현재 사용자에게 보여지는 다이어리 데이터(state)
 
   const diaryDataRef = useRef<{
