@@ -11,11 +11,20 @@ import { ROUTE } from "../routes/Route";
 import { message } from "antd";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
+import { bottomTabState } from "../recoil/atoms/bottomTabState";
+import { useEffect } from "react";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const [isLoggedIn] = useRecoilState(isLoggedInState); // 로그인 여부
 
-  const navigate = useNavigate();
+  const [, setActiveBottomTab] = useRecoilState(bottomTabState);
+
+  // 하단 탭 바를 <홈>으로 유지하기
+  useEffect(() => {
+    setActiveBottomTab("HOME");
+  }, [setActiveBottomTab]);
 
   /* 로그인 한 경우 -> 일기쓰기 페이지로 이동 버튼 활성화 */
   const linkAddDiaryPage = () => {
@@ -45,6 +54,7 @@ const HomePage = () => {
         <HomeRecentBestDiary />
         <HomeTitle title="내 일기" description="내가 최근 작성한 순" />
         <HomeMyDiary />
+
         <div className="fixed bottom-[72px] left-[50%] z-10 -translate-x-1/2 transform">
           {isLoggedIn ? (
             <CustomButton onClick={linkAddDiaryPage} content="일기 쓰러가기" />
