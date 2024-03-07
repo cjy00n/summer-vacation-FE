@@ -41,7 +41,7 @@ const LongButton = ({
   const getSize = (): string => {
     switch (size) {
       case "long":
-        return "w-[320px]";
+        return "w-[320px] px-2";
       case "middleLong":
         return "w-[260px]";
       case "half":

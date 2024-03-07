@@ -106,7 +106,7 @@ textarea {
 }
 
 .ant-message-notice-content {
-  @apply rounded-[55px] px-[20px] py-[10px] !important;
+  @apply rounded-[55px] px-[20px] py-[7px] !important;
 }
 
 .ant-message .anticon {
