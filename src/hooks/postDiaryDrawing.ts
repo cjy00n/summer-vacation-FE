@@ -1,5 +1,4 @@
 import { instance } from ".";
-import { getEnglishEmotion } from "../assets/data/emotionData";
 import { Emotion, Weather } from "../types";
 
 interface postDiaryDrawingProps {
@@ -11,13 +10,13 @@ interface postDiaryDrawingProps {
 
 export const postDiaryDrawing = async ({
   input,
-  emotion,
   gender,
 }: postDiaryDrawingProps) => {
-  input = `Story is that ${input}, In webtoons pastel-toned colors, No letters, No ugly, `;
-  if (gender)
-    input += `${gender === "남자" ? "man, his" : "woman, her"} emotion is so ${getEnglishEmotion(emotion)}  
-    `;
+  const originalInput = input.replace(/We /g, "They ");
+
+  const engGender = gender === "남자" ? "He" : "She";
+
+  input = `${originalInput.replace(/I /g, engGender + " ")} ${engGender} is 16 to 30 years old, Like an animated webtoons, pastel-toned colors, No any letter, No ugly, `;
   console.log(input);
   try {
     const response = await instance.post<{ imageUrl: string }>(
