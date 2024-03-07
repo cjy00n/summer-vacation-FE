@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FullScreenIcon } from "../assets/icons";
-import { TopAppBar, CustomButton } from "../components/common";
+import { TopAppBar, CustomButton, NotFound } from "../components/common";
 import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
@@ -18,6 +18,8 @@ const AddDiaryBeforePage = () => {
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
   const { beforeImages } = drawingRecord;
 
+  const reversedBeforeImages = [...beforeImages].slice(0, -1).reverse();
+
   const toggleShowModal = () => {
     setIsShowModal(!isshowModal);
   };
@@ -34,21 +36,20 @@ const AddDiaryBeforePage = () => {
   };
 
   const handleSelectDrawing = (idx: number) => {
-    const selectedImage = drawingRecord.beforeImages[idx];
-    console.log("선택:", selectedImage, idx);
+    const selectedImage = beforeImages[beforeImages.length - 2 - idx];
     updateDrawingRecord(setDrawingRecord, {
       ...drawingRecord,
-      beforeImages: [...drawingRecord.beforeImages, selectedImage],
+      beforeImages: [...beforeImages, selectedImage],
     });
 
-    navigate(ROUTE.ADD_DIARY_CONFIRM_PAGE.link);
+    navigate(ROUTE.ADD_DIARY_PREVIEW_PAGE.link);
   };
 
-  return (
+  return beforeImages.length > 0 ? (
     <div className="">
       <TopAppBar title="전에 그린 그림 보기" leftGoBack />
       <div className="grid w-full grid-cols-2">
-        {beforeImages.slice(0, -1).map((img, idx) => (
+        {reversedBeforeImages.map((img, idx) => (
           <div key={img + idx} className="cursor-pointer">
             <div
               onClick={() => onClickItem(img, idx)}
@@ -64,7 +65,7 @@ const AddDiaryBeforePage = () => {
             </div>
           </div>
         ))}
-      </div>{" "}
+      </div>
       <Modal
         title={null}
         footer={null}
@@ -94,6 +95,8 @@ const AddDiaryBeforePage = () => {
         </div>
       </Modal>
     </div>
+  ) : (
+    <NotFound />
   );
 };
 
