@@ -21,7 +21,7 @@ const Banner = () => {
               그림일기를 그려 자랑해봐요!
             </p>
             <p className="text-sm font-light text-white">
-              현재 이미지 다운로드, 공유 기능을 준비중이에요.
+              현재 알림 기능, 공유 기능을 준비중이에요.
             </p>
           </div>
         </div>
