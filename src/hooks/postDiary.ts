@@ -26,9 +26,9 @@ export const postDiary = async (diary: PostDrawingType) => {
   }
 };
 
-export function usePostDiary(diary: PostDrawingType) {
+export function usePostDiary() {
   const queryClient = useQueryClient();
-  return useMutation(() => postDiary(diary), {
+  return useMutation((diary: PostDrawingType) => postDiary(diary), {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPublicDiary"]);
       queryClient.invalidateQueries(["getMyDiaries"]);
