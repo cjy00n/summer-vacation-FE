@@ -3,12 +3,7 @@ import { useGetMyDiaries } from "../../hooks/getMyDiaries";
 import { format } from "date-fns";
 import { DateType, DiaryLocalstorageType, Emotion, Weather } from "../../types";
 import { ko } from "date-fns/locale";
-import {
-  AddDiaryExitModal,
-  RequestDrawingButton,
-  SelectDateModal,
-  TodayChoiceSection,
-} from ".";
+import { AddDiaryExitModal, SelectDateModal, TodayChoiceSection } from ".";
 import { EmotionData, WeatherData } from "../../assets/data";
 import { Drawer, Switch, message } from "antd";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -102,7 +97,7 @@ const AddDiarySection = () => {
     updateField("contents", e.target.value);
   };
 
-  /* 일기 내용 MAX_CONTENT_LENGTH 보다 넘으면 slice 후 업데이트 */
+  /* 일기 제목 MAX_TITLE_LENGTH 보다 넘으면 slice 후 업데이트 */
   const handleTitleValue = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > MAX_TITLE_LENGTH) {
       e.target.value = e.target.value.slice(0, MAX_TITLE_LENGTH);
@@ -378,24 +373,19 @@ const AddDiarySection = () => {
         >
           전에 그린 그림 보기
         </button>
-        <RequestDrawingButton
-          emotion={diaryData.emotion}
-          input={diaryData?.englishContents ?? ""}
-          weather={diaryData.weather}
-          handleFinish={toggleEditDrawing}
+
+        <button
+          disabled={drawingRecord.remainingTries < 1}
+          className={`justify-between ${drawingRecord.remainingTries > 1 ? "text-black" : "text-gray-50"}`}
+          onClick={linkTransferPage}
         >
-          <button
-            disabled={drawingRecord.remainingTries < 1}
-            className={`justify-between ${drawingRecord.remainingTries > 1 ? "text-black" : "text-gray-50"}`}
-          >
-            <span>
-              다시 그리기({drawingRecord.remainingTries}/{DEFAULT_TRIES})
-            </span>
-            {drawingRecord.remainingTries < 1 && (
-              <span>그릴 수 있는 횟수가 끝났어요</span>
-            )}
-          </button>
-        </RequestDrawingButton>
+          <span>
+            다시 그리기({drawingRecord.remainingTries}/{DEFAULT_TRIES})
+          </span>
+          {drawingRecord.remainingTries < 1 && (
+            <span>그릴 수 있는 횟수가 끝났어요</span>
+          )}
+        </button>
       </Drawer>
     </div>
   );
