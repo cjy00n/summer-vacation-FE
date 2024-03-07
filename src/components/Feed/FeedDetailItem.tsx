@@ -4,6 +4,7 @@ import { ko } from "date-fns/locale";
 import { WeatherIcon } from "../../assets/icons/weather";
 import { EmotionIcon } from "../../assets/icons/emotions";
 import { DiaryDetail, Emotion } from "../../types";
+import { MAX_CONTENT_LENGTH } from "../../constant/constant";
 
 interface FeedDetailItemProp {
   diary: Pick<
@@ -106,7 +107,11 @@ export const FeedDetailItem = ({
         <div className="flex flex-wrap">
           {(
             contents +
-            " ".repeat(contents.length > 80 ? 0 : 80 - contents.length)
+            " ".repeat(
+              contents.length > MAX_CONTENT_LENGTH
+                ? 0
+                : MAX_CONTENT_LENGTH - contents.length,
+            )
           )
             .split("")
             .map((s, idx) => (

@@ -5,8 +5,8 @@ import { message } from "antd";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
 import { useRecoilState } from "recoil";
 import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
-import { defaultTries } from "../recoil/utils/loadDrawingRecord";
 import RequestDrawingButton from "../components/AddDiary/RequestDrawingButton";
+import { DEFAULT_TRIES } from "../constant/constant";
 
 const AddDiaryConfirmPage = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const AddDiaryConfirmPage = () => {
               weather={diaryData.weather}
             >
               <CustomButton
-                content={`다시 그리기(${drawingRecord.remainingTries}/${defaultTries})`}
+                content={`다시 그리기(${drawingRecord.remainingTries}/${DEFAULT_TRIES})`}
                 type={drawingRecord.remainingTries === 0 ? "disabled" : "black"}
                 onClick={() => {
                   if (drawingRecord.remainingTries === 0) {

@@ -1,4 +1,4 @@
-export const defaultTries = 100;
+import { DEFAULT_TRIES } from "../../constant/constant";
 
 export function loadDrawingRecord() {
   const drawingRecord = localStorage.getItem("drawingRecord");
@@ -14,7 +14,7 @@ export function loadDrawingRecord() {
 
   return {
     lastAttemptDate: today,
-    remainingTries: defaultTries,
+    remainingTries: DEFAULT_TRIES,
     beforeImages: [],
   };
 }
