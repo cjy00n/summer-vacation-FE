@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CustomButton, TopAppBar } from "../components/common";
+import { CustomButton, NotFound, TopAppBar } from "../components/common";
 import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
@@ -16,7 +16,7 @@ const AddDiaryTranslatePage = () => {
 
   const diaryData = getDiaryLocalStorage()!; // 번역할 글 받아오기
   const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close Modal 창 오픈 여부
-  const [koreanContent] = useState(diaryData.contents ?? "");
+  const [koreanContent] = useState(diaryData?.contents ?? "");
   const [englishContent, setEnglishContent] = useState(
     "열심히 번역을 하고 있어요 . . ",
   );
@@ -48,7 +48,7 @@ const AddDiaryTranslatePage = () => {
     setIsStopModalOpen(!isStopModalOpen);
   };
 
-  return (
+  return diaryData ? (
     <div className="flex h-[100vh] flex-col">
       <TopAppBar
         title="글 확인하기"
@@ -104,6 +104,8 @@ const AddDiaryTranslatePage = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <NotFound />
   );
 };
 
