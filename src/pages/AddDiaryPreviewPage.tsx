@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {
   CircleButton,
   CustomButton,
+  NotFound,
   PageBottomShadow,
   TopAppBar,
 } from "../components/common";
@@ -20,22 +21,7 @@ const AddDiaryPreviewPage = () => {
   const navigate = useNavigate();
 
   const [drawingRecord, setDrawingRecord] = useRecoilState(drawingRecordState);
-  const { title, contents, weather, emotion, date, isPublic } =
-    getDiaryLocalStorage()!;
-
-  const { mutate: postDiary, isSuccess } = usePostDiary({
-    title,
-    contents,
-    weather,
-    emotion,
-    date,
-    imageUrl: drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
-    isPublic,
-  });
-
-  const handleCompleteDiary = () => {
-    postDiary();
-  };
+  const { mutate: postDiary, isSuccess } = usePostDiary();
 
   useEffect(() => {
     if (isSuccess) {
@@ -48,40 +34,61 @@ const AddDiaryPreviewPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
-  const handleDownladDrawing = () => {
-    message.warning("다운로드 기능은 현재 준비중이에요.");
-  };
+  if (!getDiaryLocalStorage()) return <NotFound />;
+  else {
+    const { title, contents, weather, emotion, date, isPublic } =
+      getDiaryLocalStorage()!;
 
-  return (
-    <div>
-      <TopAppBar title="일기쓰기" leftGoBack />
-      <div className="relative mx-auto flex w-[320px] flex-col pb-20 ">
-        <FeedDetailItem
-          diary={{
-            diary_date: date as Date,
-            diary_title: title,
-            diary_contents: contents,
-            diary_imageUrl:
-              drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
-            diary_weather: weather,
-            diary_emotion: emotion,
-          }}
-        />
-        <div className="fixed bottom-[10px] left-[50%] z-10 my-2 flex w-[320px] -translate-x-1/2 transform">
-          <CircleButton
-            onClick={handleDownladDrawing}
-            icon={<FileDownloadIcon width={32} height={32} />}
+    const handleCompleteDiary = () => {
+      postDiary({
+        title,
+        contents,
+        weather,
+        emotion,
+        date,
+        imageUrl:
+          drawingRecord.beforeImages[drawingRecord.beforeImages.length - 1],
+        isPublic,
+      });
+    };
+
+    const handleDownladDrawing = () => {
+      message.warning("다운로드 기능은 현재 준비중이에요.");
+    };
+
+    return (
+      <div>
+        <TopAppBar title="일기쓰기" leftGoBack />
+        <div className="relative mx-auto flex w-[320px] flex-col pb-20 ">
+          <FeedDetailItem
+            diary={{
+              diary_date: date as Date,
+              diary_title: title,
+              diary_contents: contents,
+              diary_imageUrl:
+                drawingRecord.beforeImages[
+                  drawingRecord.beforeImages.length - 1
+                ],
+              diary_weather: weather,
+              diary_emotion: emotion,
+            }}
           />
-          <CustomButton
-            content="작성 완료하기"
-            onClick={handleCompleteDiary}
-            size="middleLong"
-          />
+          <div className="fixed bottom-[10px] left-[50%] z-10 my-2 flex w-[320px] -translate-x-1/2 transform">
+            <CircleButton
+              onClick={handleDownladDrawing}
+              icon={<FileDownloadIcon width={32} height={32} />}
+            />
+            <CustomButton
+              content="작성 완료하기"
+              onClick={handleCompleteDiary}
+              size="middleLong"
+            />
+          </div>
+          <PageBottomShadow />
         </div>
-        <PageBottomShadow />
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default AddDiaryPreviewPage;
