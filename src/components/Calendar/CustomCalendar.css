@@ -2,10 +2,19 @@
   @apply mx-auto my-0 w-full border-0 bg-primary-white font-sans;
 }
 
-/* 월 선택 스타일 */
+/* 월 선택 네비게이션 바 스타일 */
 .react-calendar__navigation {
-  @apply h-14;
-  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.16);
+  @apply h-14 bg-none;
+}
+
+/* 월 선택 네비게이션 바 클릭 시 배경 색 투명 */
+.react-calendar__navigation :enabled {
+  @apply bg-transparent !important;
+}
+
+/* 월 선택 네비게이션 disable */
+.react-calendar__navigation__label {
+  pointer-events: none;
 }
 
 /* 월 선택 텍스트 스타일 */

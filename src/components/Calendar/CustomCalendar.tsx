@@ -29,9 +29,11 @@ const CustomCalendar = ({
   const [, setActiveBottomTab] = useRecoilState(bottomTabState);
 
   const [selectedDay, setSelectedDay] = useState<DateType>(date ?? new Date());
+  const [activeStartDate, setActiveStartDate] = useState(date ?? new Date());
 
   /* 현재 선택된 날짜를 변경하는 함수 */
   const onChangeDay = (newDate: DateType) => {
+    // console.log(newDate);
     setSelectedDay(newDate);
   };
 
@@ -116,6 +118,7 @@ const CustomCalendar = ({
     });
   };
 
+  /* 오른쪽(주황색)버튼의 타입을 리턴하는 함수 */
   const rightButtonType = () => {
     if (
       (isSelectedUse && !isWithInAWeek(selectedDay!)) ||
@@ -125,6 +128,8 @@ const CustomCalendar = ({
       return "disabled";
     else return "default";
   };
+
+  console.log(activeStartDate);
 
   return (
     <div>
@@ -137,12 +142,22 @@ const CustomCalendar = ({
         tileClassName={tileClassName}
         next2Label={null}
         prev2Label={null}
+        maxDetail="month"
+        minDetail="year"
+        view="month"
+        activeStartDate={activeStartDate as Date}
+        onActiveStartDateChange={({ activeStartDate }) =>
+          setActiveStartDate(activeStartDate as Date)
+        }
       />
       <div
         className={`mx-auto flex justify-between ${isSelectedUse ? "my-1 w-full" : "my-8 w-[95%]"}`}
       >
         <CustomButton
-          onClick={() => onChangeDay(new Date())}
+          onClick={() => {
+            onChangeDay(new Date());
+            setActiveStartDate(new Date());
+          }}
           content="오늘로 이동"
           type="black"
           size={onRightClick ? "short" : "half"}
