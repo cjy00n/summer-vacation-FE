@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useGetMyDiaries } from "../../hooks/getMyDiaries";
 import { format } from "date-fns";
 import { DateType, DiaryLocalstorageType, Emotion, Weather } from "../../types";
@@ -22,22 +22,28 @@ import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../../recoil/atoms/drawingRecordState";
 import { CustomButton } from "../common";
 import { usePatchDiary } from "../../hooks/patchDiary";
-import { defaultTries } from "../../recoil/utils/loadDrawingRecord";
 import { useGetDiary } from "../../hooks/getDiary";
+import {
+  DEFAULT_TRIES,
+  MAX_CONTENT_LENGTH,
+  MAX_TITLE_LENGTH,
+} from "../../constant/constant";
 
 const AddDiarySection = () => {
+  const navigate = useNavigate();
+
   const { diary_id } = useParams<{ diary_id: string }>(); // 일기 수정 시 쿼리파라미터로 해당 아이디 받아옴
   const { state } = useLocation(); // 캘린더페이지에서 일기쓰기로 넘어오면 해당 날짜를 state로 받아옴
-
-  const navigate = useNavigate();
+  const [drawingRecord] = useRecoilState(drawingRecordState);
 
   const existingData = getDiaryLocalStorage(); // 페이지 전환 시 기존의 작성하던 다이어리 데이터 불러오기
 
-  const { data: myDiaryData } = useGetMyDiaries();
-  const [drawingRecord] = useRecoilState(drawingRecordState);
   const [todayIsAlready, setTodayIsAlready] = useState(false); // 새 일기 작성 시, 이미 오늘 일기를 작성했는지 여부
   const [isEditDrawingOpen, setIsEditDrawingOpen] = useState(false); // 사진 수정 Drawer 오픈 여부
   const [isStopModalOpen, setIsStopModalOpen] = useState(false); // close Modal 창 오픈 여부
+  const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
+
+  const { data: myDiaryData } = useGetMyDiaries();
   const { data: originalData, isSuccess: getDiarySuccess } = useGetDiary(
     diary_id!,
   ); // 일기 수정 시 기존 내용 불러오기
@@ -49,11 +55,12 @@ const AddDiarySection = () => {
     title: existingData?.title ?? "",
     englishContents: existingData?.englishContents ?? "",
     isPublic: existingData?.isPublic != undefined ? existingData.isPublic : 1,
-    date: state.date
-      ? state.date
-      : existingData?.date
-        ? existingData.date
-        : new Date(),
+    date:
+      state && state.date
+        ? state.date
+        : existingData?.date
+          ? existingData.date
+          : new Date(),
   }); // 현재 사용자에게 보여지는 다이어리 데이터(state)
 
   const diaryDataRef = useRef<{
@@ -65,8 +72,6 @@ const AddDiarySection = () => {
     contents: null,
     date: null,
   });
-
-  const [isChangeDateOpen, setIsChangeDateOpen] = useState(false); // 날짜 선택 Modal 오픈 여부
 
   useEffect(() => {
     // 일기 수정 시 기존 내용 불러오고 나면 화면에 적용하기
@@ -87,6 +92,22 @@ const AddDiarySection = () => {
     value: DiaryLocalstorageType[K],
   ) => {
     setDiaryData({ ...diaryData, [field]: value });
+  };
+
+  /* 일기 내용 MAX_CONTENT_LENGTH 보다 넘으면 slice 후 업데이트 */
+  const handleContentValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > MAX_CONTENT_LENGTH) {
+      e.target.value = e.target.value.slice(0, MAX_CONTENT_LENGTH);
+    }
+    updateField("contents", e.target.value);
+  };
+
+  /* 일기 내용 MAX_CONTENT_LENGTH 보다 넘으면 slice 후 업데이트 */
+  const handleTitleValue = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > MAX_TITLE_LENGTH) {
+      e.target.value = e.target.value.slice(0, MAX_TITLE_LENGTH);
+    }
+    updateField("title", e.target.value);
   };
 
   useEffect(() => {
@@ -225,14 +246,13 @@ const AddDiarySection = () => {
           <input
             ref={(ref) => (diaryDataRef.current.title = ref)}
             value={diaryData.title}
-            onChange={(e) => updateField("title", e.target.value)}
+            onChange={handleTitleValue}
             placeholder="제목을 입력하세요"
             className="bg-transparent text-sm placeholder-gray-50"
-            maxLength={18}
             onKeyDown={(e) => handleKeyDown(e, diaryDataRef.current.contents)}
           />
           <span className=" text-xs text-gray-30">
-            {diaryData.title?.length + "/18"}
+            {diaryData.title?.length + "/" + MAX_TITLE_LENGTH}
           </span>
         </div>
       </div>
@@ -241,13 +261,13 @@ const AddDiarySection = () => {
         <textarea
           ref={(ref) => (diaryDataRef.current.contents = ref)}
           value={diaryData.contents}
-          onChange={(e) => updateField("contents", e.target.value)}
+          onChange={handleContentValue}
           placeholder="내용 쓰기"
           className="h-28 resize-none bg-transparent pt-3 text-sm placeholder-gray-50 outline-none"
           maxLength={80}
         />
         <span className="w-full pb-2 text-right text-xs text-gray-30">
-          {diaryData.contents.length + "/80"}
+          {diaryData.contents.length + "/" + MAX_CONTENT_LENGTH}
         </span>
       </div>
       <TodayChoiceSection
@@ -369,7 +389,7 @@ const AddDiarySection = () => {
             className={`justify-between ${drawingRecord.remainingTries > 1 ? "text-black" : "text-gray-50"}`}
           >
             <span>
-              다시 그리기({drawingRecord.remainingTries}/{defaultTries})
+              다시 그리기({drawingRecord.remainingTries}/{DEFAULT_TRIES})
             </span>
             {drawingRecord.remainingTries < 1 && (
               <span>그릴 수 있는 횟수가 끝났어요</span>
