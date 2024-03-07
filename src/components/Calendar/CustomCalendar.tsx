@@ -71,6 +71,7 @@ const CustomCalendar = ({
       setActiveBottomTab("ADD_DIARY");
       navigate(ROUTE.ADD_DIARY_PAGE.link, { state: { date: selectedDay } });
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   /* 해당 날짜의 다이어리 emotion 표시하기 */
