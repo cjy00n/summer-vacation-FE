@@ -85,7 +85,11 @@ const AddDiaryTranslatePage = () => {
         <div className="my-20 flex">
           <CustomButton
             content="글 수정하기"
-            onClick={() => navigate(-1)}
+            onClick={() => {
+              navigate(-1);
+
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
             size="short"
             type="black"
           />
