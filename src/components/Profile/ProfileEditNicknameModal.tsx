@@ -59,8 +59,9 @@ const ProfileEditNicknameModal = ({
     if (nickname && isPossibleNickname) {
       if (data === false) {
         setErrorMessage("");
-      } else if (data === true) {
+      } else if (data === true && previewNickname !== nickname) {
         setErrorMessage("이미 사용 중인 닉네임입니다.");
+        setIsPossibleNickname(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
