@@ -12,16 +12,14 @@ html {
   @apply font-sans;
 }
 
-body {
-  -ms-overflow-style: none;
-}
-
 ::-webkit-scrollbar {
   @apply hidden;
 }
 
 body {
   @apply mx-auto min-h-dvh w-[450px] bg-primary-white antialiased !important;
+  -webkit-text-size-adjust: none;
+  -ms-overflow-style: none;
 }
 
 /* 반응형 디자인 */
