@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { Carousel } from "antd";
 import { useState } from "react";
+import { CustomButton } from "../components/common";
 
 const OnBoardingPage = () => {
   const navigate = useNavigate();
@@ -70,12 +71,13 @@ const OnBoardingPage = () => {
       </Carousel>
 
       {showStartButton && (
-        <button
-          onClick={() => navigate(ROUTE.START_PAGE.link)}
-          className="fixed bottom-[7dvh] left-[50%] z-10 flex h-12 w-60 -translate-x-1/2 transform items-center justify-center rounded-[81px] bg-primary-orange text-base font-medium text-white"
-        >
-          시작하기
-        </button>
+        <div className="fixed bottom-[7dvh] left-[50%] z-10 flex -translate-x-1/2 transform">
+          <CustomButton
+            size="middleLong"
+            content={"시작하기"}
+            onClick={() => navigate(ROUTE.START_PAGE.link)}
+          />
+        </div>
       )}
     </div>
   );
