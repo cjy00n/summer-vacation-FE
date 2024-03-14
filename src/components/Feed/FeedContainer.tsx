@@ -17,6 +17,8 @@ const FeedContainer = () => {
     data: diaryData,
     fetchNextPage,
     hasNextPage,
+    isLoading,
+    isFetchingNextPage,
   } = useInfiniteQuery(["getPublicDiary"], fetchPublicData, {
     getNextPageParam: (lastPage, pages) => {
       if (lastPage && lastPage?.length > 0) return pages.length + 1;
@@ -38,10 +40,12 @@ const FeedContainer = () => {
       ) ?? [];
 
   return (
-    <>
-      {diaryItems.length > 0 ? (
-        <div className="grid grid-flow-dense grid-cols-3 grid-rows-3">
-          {diaryItems.map(({ diary, totalCount }, idx) => (
+    <div className="grid grid-flow-dense grid-cols-3 grid-rows-3">
+      {isLoading
+        ? Array.from({ length: 12 }).map((_, idx) => (
+            <FeedItem idx={idx} key={"feedItem-skeleton" + idx} />
+          ))
+        : diaryItems.map(({ diary, totalCount }, idx) => (
             <FeedItem
               image={diary.imageUrl}
               idx={idx}
@@ -50,12 +54,12 @@ const FeedContainer = () => {
               key={"feedItem" + diary.id}
             />
           ))}
-          <div ref={ref} />
-        </div>
-      ) : (
-        <div className="text-center">작성된 일기가 없습니다.</div>
-      )}
-    </>
+      <div ref={ref} />
+      {isFetchingNextPage &&
+        Array.from({ length: 12 }).map((_, idx) => (
+          <FeedItem idx={idx} key={"feedItem-skeleton" + idx} />
+        ))}
+    </div>
   );
 };
 

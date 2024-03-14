@@ -3,10 +3,10 @@ import { ROUTE } from "../../routes/Route";
 import { StarCountInImage } from "../common";
 
 interface FeedItemProps {
-  image: string;
-  like: number;
+  image?: string;
+  like?: number;
   idx: number;
-  _id: string;
+  _id?: string;
 }
 
 const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
@@ -37,9 +37,9 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
     navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${_id}`);
   };
 
-  return (
+  return like != undefined && image ? (
     <div
-      className={`${getGridRatio()} relative cursor-pointer p-[1px] ${getSize()} `}
+      className={`${getGridRatio()} relative cursor-pointer ${getSize()} `}
       onClick={linkToDetalPage}
     >
       <img
@@ -51,6 +51,12 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
         className={`absolute top-0 bg-black bg-opacity-10 ${getSize()}`}
       ></div>
       <StarCountInImage like={like} />
+    </div>
+  ) : (
+    <div className={`${getGridRatio()} ${getSize()} `}>
+      <div
+        className={`animate-pulse bg-gray-200 ${getSize()} border-solid border-gray-100 custom-breakpoint:border-[1px]`}
+      ></div>
     </div>
   );
 };
