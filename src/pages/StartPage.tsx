@@ -5,7 +5,7 @@ const StartPage = () => {
   const [currentPage, setCurrentPage] = useState<"first" | "second">("first");
 
   return (
-    <div className="scrollbar-hide flex max-h-dvh flex-col items-center overflow-y-scroll bg-gray-90 py-[10vh]">
+    <div className="scrollbar-hide flex min-h-dvh w-full flex-col items-center overflow-y-scroll bg-gray-90 py-[10dvh] custom-breakpoint:w-[480px]">
       {currentPage === "first" && (
         <GenderBirthYear
           setCurrentPage={(next: "first" | "second") => setCurrentPage(next)}
