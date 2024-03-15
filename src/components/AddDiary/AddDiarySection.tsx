@@ -376,7 +376,7 @@ const AddDiarySection = () => {
 
         <button
           disabled={drawingRecord.remainingTries < 1}
-          className={`justify-between ${drawingRecord.remainingTries > 1 ? "text-black" : "text-gray-50"}`}
+          className={`justify-between ${drawingRecord.remainingTries >= 1 ? "text-black" : "text-gray-50"}`}
           onClick={linkTransferPage}
         >
           <span>
