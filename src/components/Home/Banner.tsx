@@ -14,7 +14,7 @@ const Banner = () => {
             </p>
           </div>
         </div>
-        <div className="relative flex h-[250px] ">
+        {/* <div className="relative flex h-[250px] ">
           <img src="/image/main.webp" className="mx-auto h-[180px] w-[180px]" />
           <div className="absolute bottom-5 left-5 ">
             <p className="text-lg font-bold text-white">
@@ -34,7 +34,7 @@ const Banner = () => {
               피드에서 탐색해보세요!
             </p>
           </div>
-        </div>
+        </div> */}
       </Carousel>
     </div>
   );
