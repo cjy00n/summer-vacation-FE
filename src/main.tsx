@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Analytics } from "@vercel/analytics/react";
 
 const JAVASCRIPT_KET = import.meta.env.VITE_APP_JAVASCRIPT_KEY;
 
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <BrowserRouter>
+          <Analytics />
           <App />
         </BrowserRouter>
       </RecoilRoot>
