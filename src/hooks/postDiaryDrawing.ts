@@ -19,8 +19,8 @@ export const postDiaryDrawing = async ({
   const engGender = gender === "남자" ? "He" : "She";
   const engPossessiveCase = gender === "남자" ? "his" : "her";
 
-  input = `${originalInput.replace(/I /g, engGender + " ").replace(/my /g, engPossessiveCase + " ")},${engGender} is a 17 years old. ${engGender} is so ${getEnglishEmotion(emotion)}, Like a an animated webtoons , by a young child, by crayons, pastel-toned colors, bright, only pictures, Never any text, No ugly person`;
-  //  Dora the Explorer
+  input = `${originalInput.replace(/I /g, engGender + " ").replace(/my /g, engPossessiveCase + " ")}. ${engGender} feels so ${getEnglishEmotion(emotion)}, Like a an animated webtoons , by a young child, by crayons, pastel-toned colors, bright, only pictures, Never any text, No ugly person`;
+
   console.log(input);
   try {
     const response = await instance.post<{ imageUrl: string }>(
