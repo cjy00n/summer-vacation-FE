@@ -130,8 +130,6 @@ const CustomCalendar = ({
     else return "default";
   };
 
-  console.log(activeStartDate);
-
   return (
     <div>
       <Calendar
