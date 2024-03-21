@@ -39,7 +39,7 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
 
   return like != undefined && image ? (
     <div
-      className={`${getGridRatio()} relative cursor-pointer ${getSize()} `}
+      className={`${getGridRatio()} relative cursor-pointer ${getSize()} animate-pulse bg-gray-200`}
       onClick={linkToDetalPage}
     >
       <img
