@@ -3,12 +3,12 @@ import { LoginRequired, TopAppBar } from "../components/common";
 import { Diary } from "../types";
 import { useEffect, useState } from "react";
 import { ProfileBottomSection, ProfileUserInfo } from "../components/Profile";
-import { useGetMyDiaries } from "../hooks/getMyDiaries";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
+import { useGetMyDiariesByDate } from "../hooks/getMyDiariesByDate";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -20,7 +20,8 @@ const ProfilePage = () => {
     setActiveBottomTab("PROFILE");
   }, [setActiveBottomTab]);
 
-  const { data: myDiariesData, isSuccess: getMySuccess } = useGetMyDiaries();
+  const { data: myDiariesData, isSuccess: getMySuccess } =
+    useGetMyDiariesByDate();
   const [myDiaries, setMyDiaries] = useState<Diary[]>();
 
   useEffect(() => {
