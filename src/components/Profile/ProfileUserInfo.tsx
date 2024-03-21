@@ -54,7 +54,7 @@ const ProfileUserInfo = ({ diariesCount }: ProfileUserInfoProps) => {
       <label
         htmlFor="input-file"
         className={
-          "flex h-20 w-20 cursor-pointer items-center justify-center rounded-full  bg-gray-80"
+          "flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gray-80"
         }
       >
         {previeImage ? (
