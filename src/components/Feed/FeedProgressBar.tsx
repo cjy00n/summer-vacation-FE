@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { Progress } from "antd";
 import { getRandomDiaryId } from "../../hooks/getRandomDiary";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 
 const ProgressBar = () => {
   const SEC = 15; // 15초 후 다음 피드로 지나감
   const navigate = useNavigate();
+  const location = useLocation();
   const [percent, setPercent] = useState(0);
 
   useEffect(() => {
+    setPercent(0);
     // 프로그레스 바의 증가량을 계산합니다. 1000ms = 1초
     const totalMilliseconds = SEC * 1000; // 전체 시간을 밀리초로 변환
     const intervalMilliseconds = 150; // 인터벌 시간을 밀리초로 설정
@@ -29,18 +31,16 @@ const ProgressBar = () => {
     // 컴포넌트가 언마운트되거나, 재렌더링 되기 전에 인터벌을 정리합니다.
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.pathname]);
 
   const fetchNextDiary = async () => {
     try {
       const data = await getRandomDiaryId();
-      if (data?.diary_id) {
-        navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${data.diary_id}`, {
+      if (data) {
+        navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${data}`, {
           state: { toNext: true },
         });
       }
-
-      // 추가적인 로직으로 diary_id 활용
     } catch (error) {
       console.error(error);
     }
