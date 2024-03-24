@@ -34,7 +34,9 @@ const FeedItem = ({ image, like, idx, _id }: FeedItemProps) => {
   };
 
   const linkToDetalPage = () => {
-    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${_id}`);
+    navigate(ROUTE.FEED_DETAIL_PAGE.link + `/${_id}`, {
+      state: { toNext: true },
+    });
   };
 
   return like != undefined && image ? (

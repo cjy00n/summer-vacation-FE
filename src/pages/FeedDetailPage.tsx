@@ -9,7 +9,7 @@ import {
 } from "../components/Feed";
 import { NotFound, PageBottomShadow, TopAppBar } from "../components/common";
 import { DiaryDetail } from "../types";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { useGetDiary } from "../hooks/getDiary";
 import { useGetUserInfo } from "../hooks/getMyUserInfo";
@@ -18,6 +18,7 @@ import { useGetCheckLike } from "../hooks/getCheckLike";
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const { state } = useLocation();
 
   const {
     data: diaryData,
@@ -98,7 +99,7 @@ const FeedDetailPage = () => {
           )}
         </div>
         <PageBottomShadow />
-        {!isMine && <FeedProgressBar />}
+        {state && state.toNext && <FeedProgressBar />}
         <FeedDetailMoreDrawer
           id={id!}
           open={isMoreDrawerOpen}
