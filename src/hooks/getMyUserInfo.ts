@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { instance } from ".";
 import { User } from "../types";
 
-const getUserInfo = async () => {
+export const getUserInfo = async () => {
   try {
     const response = await instance.get<User>(`/users/me`);
     if (response.data) return response.data;

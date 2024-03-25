@@ -3,6 +3,7 @@ import { postKaKaoSignIn } from "../hooks/postKaKaoSignIn";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 import { useGetCheckVaildToken } from "../hooks/getCheckValidToken";
+
 const AuthPage = () => {
   const navigate = useNavigate();
 
@@ -15,13 +16,14 @@ const AuthPage = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const checkVaildToken = useGetCheckVaildToken();
 
-  if (code && checkVaildToken.data !== true)
+  if (code && checkVaildToken.data !== true) {
     postKaKaoSignIn({
       code,
       redirectUri: REDIRECT_URI,
       navigate,
       setIsLoggedIn,
     });
+  }
 
   return (
     <div className="flex max-h-dvh flex-col items-center bg-primary-white pb-[20dvh] pt-[20dvh]">

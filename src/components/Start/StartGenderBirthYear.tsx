@@ -3,6 +3,7 @@ import { CustomButton } from "../common";
 import { Select } from "antd";
 import { Gender } from "../../types";
 import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
+import { useGetUserInfo } from "../../hooks/getMyUserInfo";
 const { Option } = Select;
 
 interface StartGenderBirtYearProps {
@@ -14,9 +15,19 @@ const StartGenderBirthYear = ({ setCurrentPage }: StartGenderBirtYearProps) => {
   const [birthYear, setBirthYear] = useState(2000);
 
   const { mutate: patchAddUserInfo } = usePatchAddUserInfo();
+  const { data: userInfo } = useGetUserInfo();
 
   const handleGenderAndBirtYearAgree = () => {
     patchAddUserInfo({ gender, birth: birthYear.toString() });
+    if (userInfo) {
+      // GA 유저데이터 반영
+      window.dataLayer.push({
+        event: "sign_up",
+        userId: userInfo.id,
+        gender: gender,
+        birth: birthYear,
+      });
+    }
     setCurrentPage("second");
     scrollTo(0, 0);
   };
