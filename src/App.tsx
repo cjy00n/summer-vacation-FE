@@ -10,6 +10,7 @@ import { getRefreshToken } from "./hooks/getRefreshToken";
 import { useGetCheckVaildRefreshToken } from "./hooks/getCheckVaildRefreshToken";
 import { useQueryClient } from "react-query";
 import koKR from "antd/lib/locale/ko_KR";
+import { useGetUserInfo } from "./hooks/getMyUserInfo";
 
 function App() {
   const navigate = useNavigate();
@@ -26,6 +27,21 @@ function App() {
     data: checkVaildRefreshToken,
     isSuccess: checkVaildRefreshTokenSuccess,
   } = useGetCheckVaildRefreshToken();
+
+  const { data: userInfo } = useGetUserInfo();
+
+  /* GA 데이터 레이어 - 유저의 아이디, 성별, 생년 정보 push */
+  window.dataLayer = window.dataLayer || [];
+
+  useEffect(() => {
+    if (userInfo) {
+      window.dataLayer.push({
+        userId: userInfo.id,
+        gender: userInfo.gender,
+        birth: parseInt(userInfo.birth),
+      });
+    }
+  }, [userInfo]);
 
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
