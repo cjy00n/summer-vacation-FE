@@ -54,7 +54,7 @@ const ProfileMorePage = () => {
     {
       title: "회원탈퇴",
       onClick: () => {
-        linkToMainPage();
+        toggleOpenWithdrawModal();
       },
     },
     {
