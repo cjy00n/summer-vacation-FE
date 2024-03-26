@@ -51,14 +51,7 @@ export const FeedDetailItem = ({
           날씨
         </span>
         <p className="flex w-[91px] items-center justify-around border-[1px] border-solid  border-primary-orange px-2 font-gamja text-base font-normal">
-          {
-            <WeatherIcon
-              weather={weather}
-              fillColor="black"
-              width={19}
-              height={18}
-            />
-          }
+          {<WeatherIcon weather={weather} fillColor="black" />}
           {weather}
         </p>
         <span className="w-16 border-[1px] border-solid border-primary-orange text-center text-sm font-semibold leading-7">

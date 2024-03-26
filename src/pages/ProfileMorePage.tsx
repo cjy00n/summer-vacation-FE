@@ -76,7 +76,15 @@ const ProfileMorePage = () => {
     },
     {
       title: "문의",
-      leftContents: "crayon@gmail.com",
+      leftContents: "ai.diary.summer@gmail.com",
+      onClick: () => {
+        const emailUrl = `mailto:${"ai.diary.summer@gmail.com"}?subject=${""}&body=${""}`;
+        const emailWindow = window.open(emailUrl, "_blank");
+        if (!emailWindow)
+          alert(
+            "이메일 클라이언트를 열 수 없습니다. 팝업 차단기 설정을 확인하세요.",
+          );
+      },
     },
   ];
 
