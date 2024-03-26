@@ -58,8 +58,8 @@ const TodayChoiceSection = ({
             >
               <WeatherIcon
                 weather={item}
-                width={24}
-                height={24}
+                width={32}
+                height={32}
                 fillColor={`${weather === item ? "white" : "#BAB6B4"}`}
               />
             </button>
