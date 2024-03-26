@@ -53,9 +53,6 @@ const ProfileMorePage = () => {
       },
     },
     {
-      title: "이용 안내",
-    },
-    {
       title: "이용 약관",
       onClick: () => {
         toggleOpenTermsModal();
@@ -151,7 +148,7 @@ const ProfileMorePage = () => {
         footer={null}
         closeIcon={<CloseIcon />}
       >
-        <div className="h-[500px] overflow-scroll whitespace-pre-wrap">
+        <div className="h-[450px] overflow-scroll whitespace-pre-wrap">
           {termsModalContent === "terms" ? terms : privacyTerms}
         </div>
       </Modal>
