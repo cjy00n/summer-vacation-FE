@@ -1,14 +1,14 @@
 import { useRecoilState } from "recoil";
-import { ArrowIcon } from "../assets/icons";
+import { ArrowIcon, CloseIcon } from "../assets/icons";
 import { AlertModal, TopAppBar } from "../components/common";
 import MenuListItem, {
   MenuListItemProps,
 } from "../components/common/MenuListItem";
 import { usePostLogout } from "../hooks/postLogout";
 import { usePostUserWithdrawal } from "../hooks/postUserWithdrawal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
-import { message } from "antd";
+import { Modal, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 
@@ -16,6 +16,12 @@ const ProfileMorePage = () => {
   const navigate = useNavigate();
 
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
+  const [openTermsModal, setOpenTermsModal] = useState(false);
+  const [termsModalContent, setTermsModalContent] = useState<
+    "terms" | "privacyTerms"
+  >("terms");
+  const [terms, setTerms] = useState("");
+  const [privacyTerms, setPrivacyTerms] = useState("");
 
   const [, setIsLoggedIn] = useRecoilState(isLoggedInState); // 로그인 여부
   const { mutate: postWithdrawal } = usePostUserWithdrawal();
@@ -23,6 +29,10 @@ const ProfileMorePage = () => {
 
   const toggleOpenWithdrawModal = () => {
     setOpenWithdrawModal(!openWithdrawModal);
+  };
+
+  const toggleOpenTermsModal = () => {
+    setOpenTermsModal(!openTermsModal);
   };
 
   const withDrawal = () => {
@@ -47,9 +57,17 @@ const ProfileMorePage = () => {
     },
     {
       title: "이용 약관",
+      onClick: () => {
+        toggleOpenTermsModal();
+        setTermsModalContent("terms");
+      },
     },
     {
       title: "개인정보 처리방침",
+      onClick: () => {
+        toggleOpenTermsModal();
+        setTermsModalContent("privacyTerms");
+      },
     },
     {
       title: "회원탈퇴",
@@ -88,6 +106,20 @@ const ProfileMorePage = () => {
     },
   ];
 
+  useEffect(() => {
+    fetch(`/terms.txt`)
+      .then((response) => response.text())
+      .then((text) => {
+        setTerms(text);
+      });
+
+    fetch(`/privacyTerms.txt`)
+      .then((response) => response.text())
+      .then((text) => {
+        setPrivacyTerms(text);
+      });
+  }, []);
+
   return (
     <div className="h-real-screen">
       <TopAppBar leftGoBack title={"더 보기"} />
@@ -107,6 +139,22 @@ const ProfileMorePage = () => {
         handleClose={toggleOpenWithdrawModal}
         handleOk={withDrawal}
       />
+      <Modal
+        title={
+          "여름방학 " + termsModalContent === "terms"
+            ? "이용약관"
+            : "개인정보 처리방침"
+        }
+        open={openTermsModal}
+        cancelText={null}
+        onCancel={toggleOpenTermsModal}
+        footer={null}
+        closeIcon={<CloseIcon />}
+      >
+        <div className="h-[500px] overflow-scroll whitespace-pre-wrap">
+          {termsModalContent === "terms" ? terms : privacyTerms}
+        </div>
+      </Modal>
     </div>
   );
 };
