@@ -53,14 +53,14 @@ const ProfileMyDiary = ({ diaries }: { diaries: Diary[] }) => {
                     <GetWeatherIcon
                       weather={weather}
                       fillColor="white"
-                      width={14}
+                      width={20}
                     />
                   </span>
                   <span>
                     <GetEmotionIcon
                       emotion={emotion}
                       fillColor="white"
-                      width={14}
+                      width={20}
                     />
                   </span>
                 </div>
