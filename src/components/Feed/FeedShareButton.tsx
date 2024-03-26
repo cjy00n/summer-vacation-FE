@@ -1,5 +1,10 @@
 import { Drawer } from "antd";
-import { CloseIcon, ShareIcon, StarIcon } from "../../assets/icons";
+import {
+  CloseIcon,
+  KaKaoIcon,
+  LinkCopyIcon,
+  ShareIcon,
+} from "../../assets/icons";
 import { CircleButton } from "../common";
 import { useState } from "react";
 import { useGetDiary } from "../../hooks/getDiary";
@@ -47,18 +52,18 @@ const FeedShareButton = ({ feedId }: FeedShareButton) => {
           <div className="flex flex-col items-center border-none">
             <button
               onClick={shareKaKao}
-              className="mb-1 rounded-full bg-yellow-400 p-1"
+              className="mb-1 flex h-10 w-10 items-center justify-center rounded-full bg-yellow-400 p-1"
             >
-              <StarIcon width={32} height={32} />
+              <KaKaoIcon />
             </button>
             <span>카카오톡</span>
           </div>
           <div className="flex flex-col items-center">
             <button
               onClick={copyUrlToClipBoard}
-              className="mb-1 rounded-full bg-blue-300 p-1"
+              className="mb-1 flex h-10 w-10 items-center justify-center rounded-full bg-blue-300 p-1"
             >
-              <StarIcon width={32} height={32} />
+              <LinkCopyIcon />
             </button>
             <span>링크복사</span>
           </div>

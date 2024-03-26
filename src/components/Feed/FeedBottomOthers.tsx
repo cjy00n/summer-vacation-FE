@@ -107,7 +107,7 @@ const FeedBottomOthers = ({ feedId }: FeedBottomOthersProps) => {
         onClick={isLoggedIn ? handleBookMark : popUpRequiredLoginMessage}
         icon={
           isBookmark ? (
-            <FillBookmarkIcon width={20} height={16} fillColor="white" />
+            <FillBookmarkIcon width={24} height={24} fillColor="white" />
           ) : (
             <BookmarkIcon width={24} height={24} />
           )
