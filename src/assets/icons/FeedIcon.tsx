@@ -18,7 +18,7 @@ const FeedIcon = ({ width, height, fillColor }: IconComponentProps) => (
       height="12"
       rx="1"
       stroke={fillColor ?? "black"}
-      stroke-width="3"
+      strokeWidth="3"
       mask="url(#path-1-inside-1_763_68175)"
     />
     <mask id="path-2-inside-2_763_68175" fill="white">
@@ -31,7 +31,7 @@ const FeedIcon = ({ width, height, fillColor }: IconComponentProps) => (
       height="12"
       rx="1"
       stroke={fillColor ?? "black"}
-      stroke-width="3"
+      strokeWidth="3"
       mask="url(#path-2-inside-2_763_68175)"
     />
   </svg>

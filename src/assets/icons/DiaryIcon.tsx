@@ -18,8 +18,8 @@ const AddIcon = ({
       stroke-width="1.5"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M19.225 5.01088C19.5988 5.1603 19.7878 5.57835 19.653 5.95769L16.9574 13.5443C16.815 13.945 16.368 14.1471 15.9731 13.9892C15.5993 13.8398 15.4103 13.4218 15.5451 13.0424L18.2407 5.45586C18.3831 5.05508 18.8301 4.85301 19.225 5.01088Z"
       fill={fillColor ?? "black"}
     />

@@ -8,8 +8,8 @@ const ShareIcon = ({ width, height, fillColor }: IconComponentProps) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_763_63502)">
-      <g clip-path="url(#clip1_763_63502)">
+    <g clipPath="url(#clip0_763_63502)">
+      <g clipPath="url(#clip1_763_63502)">
         <circle cx="18" cy="6" r="3" fill={fillColor ?? "#120603"} />
         <circle cx="18" cy="18" r="3" fill={fillColor ?? "#120603"} />
         <circle cx="6" cy="12" r="3" fill={fillColor ?? "#120603"} />

@@ -27,8 +27,8 @@ const LinkCopyIcon = ({
       mask="url(#path-1-inside-1_763_44236)"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M4.25 18V6.75024C4.25 6.33603 4.58579 6.00024 5 6.00024C5.41421 6.00024 5.75 6.33603 5.75 6.75024V18C5.75 18.1381 5.86193 18.25 6 18.25H17.25C17.6642 18.25 18 18.5858 18 19C18 19.4143 17.6642 19.75 17.25 19.75H6C5.0335 19.75 4.25 18.9665 4.25 18Z"
       fill={fillColor ?? "black"}
     />
