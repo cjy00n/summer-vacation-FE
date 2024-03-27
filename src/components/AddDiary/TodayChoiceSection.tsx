@@ -29,8 +29,8 @@ const TodayChoiceSection = ({
             >
               <EmotionIcon
                 emotion={item as Emotion}
-                width={32}
-                height={32}
+                width={24}
+                height={24}
                 fillColor={`${emotion === item ? "white" : "#BAB6B4"}`}
               />
             </button>
