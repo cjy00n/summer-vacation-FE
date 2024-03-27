@@ -15,7 +15,7 @@ export const patchAddUserInfo = async ({
   nickname,
 }: PatchAddUserInfoProps): Promise<string> => {
   try {
-    const response = await instance.patch("users/addInfo", {
+    const response = await instance.patch("/users/addInfo", {
       gender,
       birth,
       nickname,
@@ -23,7 +23,7 @@ export const patchAddUserInfo = async ({
 
     return response.data;
   } catch (e) {
-    console.error;
+    console.error(e);
     throw new Error("Failed to patch user info");
   }
 };
