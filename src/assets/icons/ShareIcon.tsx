@@ -14,8 +14,8 @@ const ShareIcon = ({ width, height, fillColor }: IconComponentProps) => (
         <circle cx="18" cy="18" r="3" fill={fillColor ?? "#120603"} />
         <circle cx="6" cy="12" r="3" fill={fillColor ?? "#120603"} />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M7.45346 10.4348L17.6646 5.32922L18.3354 6.67086L8.12428 11.7764C7.94002 11.8686 7.94002 12.1315 8.12428 12.2237L18.3354 17.3292L17.6646 18.6709L7.45346 13.5653C6.16363 12.9204 6.16362 11.0797 7.45346 10.4348Z"
           fill={fillColor ?? "black"}
         />

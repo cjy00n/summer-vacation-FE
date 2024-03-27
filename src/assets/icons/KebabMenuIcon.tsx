@@ -8,7 +8,7 @@ const KebabMenuIcon = ({ width, height, fillColor }: IconComponentProps) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_763_65085)">
+    <g clipPath="url(#clip0_763_65085)">
       <circle
         cx="12"
         cy="6"

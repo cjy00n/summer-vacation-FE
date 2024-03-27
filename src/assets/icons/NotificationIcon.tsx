@@ -8,7 +8,7 @@ const NotificationIcon = ({ width, height, fillColor }: IconComponentProps) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_763_63307)">
+    <g clipPath="url(#clip0_763_63307)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
