@@ -147,6 +147,7 @@ const ProfileMorePage = () => {
         onCancel={toggleOpenTermsModal}
         footer={null}
         closeIcon={<CloseIcon />}
+        centered
       >
         <div className="h-[450px] overflow-scroll whitespace-pre-wrap">
           {termsModalContent === "terms" ? terms : privacyTerms}
