@@ -34,8 +34,8 @@ interface Routes {
 
 export const ROUTE: Routes = {
   HOME_PAGE: {
-    path: "/home",
-    link: "/home",
+    path: "/",
+    link: "/",
     element: <HomePage />,
     haveBottomAppBar: true,
   },
