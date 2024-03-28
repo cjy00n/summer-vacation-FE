@@ -3,6 +3,7 @@ import { postKaKaoSignIn } from "../hooks/postKaKaoSignIn";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 import { useGetCheckVaildToken } from "../hooks/getCheckValidToken";
+import { useQueryClient } from "react-query";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -16,12 +17,16 @@ const AuthPage = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const checkVaildToken = useGetCheckVaildToken();
 
+  const queryClient = useQueryClient();
+
   if (code && checkVaildToken.data !== true) {
     postKaKaoSignIn({
       code,
       redirectUri: REDIRECT_URI,
       navigate,
       setIsLoggedIn,
+    }).then(() => {
+      queryClient.invalidateQueries(["getUserInfo"]);
     });
   }
 

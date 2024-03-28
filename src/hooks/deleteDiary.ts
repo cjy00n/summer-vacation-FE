@@ -20,12 +20,14 @@ export function useDeleteDiary(targetId: string) {
   const queryClient = useQueryClient();
 
   return useMutation(() => deleteDiary(targetId), {
-    onSuccess: () => {
+    onSuccess: async () => {
       message.success("삭제가 완료되었습니다.");
-      queryClient.invalidateQueries(["getPublicDiary"]);
-      queryClient.invalidateQueries(["getDiary" + targetId]);
-      queryClient.invalidateQueries(["getUserInfo"]);
-      queryClient.invalidateQueries(["getMyDiaries"]);
+      await Promise.all([
+        queryClient.invalidateQueries(["getPublicDiary"]),
+        queryClient.invalidateQueries(["getDiary" + targetId]),
+        queryClient.invalidateQueries(["getMyDiariesByDate"]),
+        queryClient.invalidateQueries(["getMyDiaries"]),
+      ]);
 
       navigate(-1);
     },

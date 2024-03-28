@@ -1,7 +1,6 @@
 import { KebabMenuIcon } from "../assets/icons";
 import { LoginRequired, TopAppBar } from "../components/common";
-import { Diary } from "../types";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ProfileBottomSection, ProfileUserInfo } from "../components/Profile";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../recoil/atoms/bottomTabState";
@@ -20,16 +19,8 @@ const ProfilePage = () => {
     setActiveBottomTab("PROFILE");
   }, [setActiveBottomTab]);
 
-  const { data: myDiariesData, isSuccess: getMySuccess } =
+  const { data: myDiariesData, isSuccess: isGetMySuccess } =
     useGetMyDiariesByDate();
-  const [myDiaries, setMyDiaries] = useState<Diary[]>();
-
-  useEffect(() => {
-    if (myDiariesData) {
-      setMyDiaries(myDiariesData.map(({ diary }) => diary));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getMySuccess, myDiariesData]);
 
   /* 프로필 더 보기 페이지로 이동 */
   const linkToProfileMorePage = () => {
@@ -43,10 +34,16 @@ const ProfilePage = () => {
         rightIcon={<KebabMenuIcon />}
         rightOnClick={linkToProfileMorePage}
       />
-      {isLoggedIn ? (
+      {isLoggedIn && isGetMySuccess && myDiariesData ? (
         <>
-          <ProfileUserInfo diariesCount={myDiaries ? myDiaries?.length : 0} />
-          {myDiaries && <ProfileBottomSection myDiaries={myDiaries} />}
+          <ProfileUserInfo
+            diariesCount={myDiariesData ? myDiariesData.length : 0}
+          />
+          {myDiariesData && (
+            <ProfileBottomSection
+              myDiaries={myDiariesData.map((item) => item.diary)}
+            />
+          )}
         </>
       ) : (
         <LoginRequired />
