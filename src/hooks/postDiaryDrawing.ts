@@ -19,7 +19,7 @@ export const postDiaryDrawing = async ({
   const engGender = gender === "남자" ? "He" : "She";
   const engPossessiveCase = gender === "남자" ? "his" : "her";
 
-  input = `${originalInput.replace(/I /g, engGender + " ").replace(/my /g, engPossessiveCase + " ")}. ${engGender} feels so ${getEnglishEmotion(emotion)}, Like a an animated webtoons , by a young child, by crayons, pastel-toned colors, bright, only pictures, Never any text, No ugly person`;
+  input = `${originalInput.replace(/I /g, engGender + " ").replace(/my /g, engPossessiveCase + " ")}. ${engGender} feels so ${getEnglishEmotion(emotion)}, ${engGender} is 16 to 30 years old, Like an animated webtoons, bright-colored pastel-toned colors, by a young child, by crayons, bright, only pictures, like animation, Never any text, No ugly person`;
 
   console.log(input);
   try {
