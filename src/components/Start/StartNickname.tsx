@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { CustomButton } from "../common";
 import { Modal } from "antd";
-import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
+import { usePatchAddUserInfo } from "../../api/patchAddUserInfo";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
-import { useGetIsDuplicateNickname } from "../../hooks/getIsDuplicateNickname";
+import { useGetIsDuplicateNickname } from "../../api/getIsDuplicateNickname";
 
 const StartNickname = () => {
   const navigate = useNavigate();

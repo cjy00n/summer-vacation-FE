@@ -2,8 +2,8 @@ import { useState } from "react";
 import { CustomButton } from "../common";
 import { Select } from "antd";
 import { Gender } from "../../types";
-import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
-import { useGetUserInfo } from "../../hooks/getMyUserInfo";
+import { usePatchAddUserInfo } from "../../api/patchAddUserInfo";
+import { useGetUserInfo } from "../../api/getMyUserInfo";
 const { Option } = Select;
 
 interface StartGenderBirtYearProps {

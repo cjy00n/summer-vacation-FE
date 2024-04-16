@@ -3,7 +3,7 @@ import { CustomButton, NotFound, TopAppBar } from "../components/common";
 import { CloseIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
-import { usePostDiaryTranslation } from "../hooks/postDiaryTranslation";
+import { usePostDiaryTranslation } from "../api/postDiaryTranslation";
 import {
   getDiaryLocalStorage,
   setDiaryLocalStorage,

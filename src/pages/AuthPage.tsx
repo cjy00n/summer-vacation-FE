@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { postKaKaoSignIn } from "../hooks/postKaKaoSignIn";
+import { postKaKaoSignIn } from "../api/postKaKaoSignIn";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
-import { useGetCheckVaildToken } from "../hooks/getCheckValidToken";
+import { useGetCheckVaildToken } from "../api/getCheckValidToken";
 import { useQueryClient } from "react-query";
 
 const AuthPage = () => {

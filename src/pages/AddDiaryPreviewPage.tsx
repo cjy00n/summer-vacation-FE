@@ -13,7 +13,7 @@ import { ROUTE } from "../routes/Route";
 import { getDiaryLocalStorage } from "../utils/handleDiaryLocalStorage";
 import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../recoil/atoms/drawingRecordState";
-import { usePostDiary } from "../hooks/postDiary";
+import { usePostDiary } from "../api/postDiary";
 import { updateDrawingRecord } from "../recoil/utils/updateDrawingRecord";
 import { useEffect } from "react";
 

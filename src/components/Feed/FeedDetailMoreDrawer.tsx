@@ -1,7 +1,7 @@
 import { Drawer, Switch, message } from "antd";
 import { CloseIcon } from "../../assets/icons";
-import { usePatchDiary } from "../../hooks/patchDiary";
-import { useGetDiary } from "../../hooks/getDiary";
+import { usePatchDiary } from "../../api/patchDiary";
+import { useGetDiary } from "../../api/getDiary";
 
 interface FeedDetailMoreDrawerProps {
   toggle: () => void;

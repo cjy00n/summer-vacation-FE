@@ -8,7 +8,7 @@ import { ROUTE } from "../../routes/Route";
 import { EmotionIcon } from "../../assets/icons/emotions";
 import { useRecoilState } from "recoil";
 import { bottomTabState } from "../../recoil/atoms/bottomTabState";
-import { useGetMyDiaries } from "../../hooks/getMyDiaries";
+import { useGetMyDiaries } from "../../api/getMyDiaries";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./CustomCalendar.css";

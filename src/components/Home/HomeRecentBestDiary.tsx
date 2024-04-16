@@ -1,5 +1,5 @@
 import { HomeDiaryItem, HomeDiaryItemSkeleton } from ".";
-import { useGetPublicDiary } from "../../hooks/getPublicDiary";
+import { useGetPublicDiary } from "../../api/getPublicDiary";
 import DraggableScrollContainer from "../common/DraggableScrollContainer";
 
 const HomeRecentBestDiary = () => {

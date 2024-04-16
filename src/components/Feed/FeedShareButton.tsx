@@ -7,7 +7,7 @@ import {
 } from "../../assets/icons";
 import { CircleButton } from "../common";
 import { useState } from "react";
-import { useGetDiary } from "../../hooks/getDiary";
+import { useGetDiary } from "../../api/getDiary";
 import { copyUrlToClipBoard } from "../../utils/copyUrlToClipBoard";
 
 interface FeedShareButton {

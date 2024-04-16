@@ -4,8 +4,8 @@ import { AlertModal, TopAppBar } from "../components/common";
 import MenuListItem, {
   MenuListItemProps,
 } from "../components/common/MenuListItem";
-import { usePostLogout } from "../hooks/postLogout";
-import { usePostUserWithdrawal } from "../hooks/postUserWithdrawal";
+import { usePostLogout } from "../api/postLogout";
+import { usePostUserWithdrawal } from "../api/postUserWithdrawal";
 import { useEffect, useState } from "react";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 import { Modal, message } from "antd";

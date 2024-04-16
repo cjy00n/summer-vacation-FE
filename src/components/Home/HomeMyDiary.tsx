@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { HomeDiaryItem, HomeDiaryItemSkeleton } from ".";
-import { useGetMyDiaries } from "../../hooks/getMyDiaries";
+import { useGetMyDiaries } from "../../api/getMyDiaries";
 import DraggableScrollContainer from "../common/DraggableScrollContainer";
 import { isLoggedInState } from "../../recoil/atoms/isLoggedinState";
 

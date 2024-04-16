@@ -11,10 +11,10 @@ import { NotFound, PageBottomShadow, TopAppBar } from "../components/common";
 import { DiaryDetail } from "../types";
 import { useLocation, useParams } from "react-router-dom";
 import { format } from "date-fns";
-import { useGetDiary } from "../hooks/getDiary";
-import { useGetUserInfo } from "../hooks/getMyUserInfo";
-import { useGetCheckEmotion } from "../hooks/getCheckEmotion";
-import { useGetCheckLike } from "../hooks/getCheckLike";
+import { useGetDiary } from "../api/getDiary";
+import { useGetUserInfo } from "../api/getMyUserInfo";
+import { useGetCheckEmotion } from "../api/getCheckEmotion";
+import { useGetCheckLike } from "../api/getCheckLike";
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();

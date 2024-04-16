@@ -7,15 +7,15 @@ import {
 } from "../../assets/icons";
 import { CircleButton, CustomButton } from "../common";
 import { message } from "antd";
-import { usePostBookmark } from "../../hooks/postBookmark";
-import { useGetCheckBookmark } from "../../hooks/getCheckBookmark";
+import { usePostBookmark } from "../../api/postBookmark";
+import { useGetCheckBookmark } from "../../api/getCheckBookmark";
 import { FeedShareButton, FeedStampMenu } from ".";
-import { useGetCheckEmotion } from "../../hooks/getCheckEmotion";
+import { useGetCheckEmotion } from "../../api/getCheckEmotion";
 import GetEmotionIcon from "../../assets/icons/emotions/GetEMotionIcon";
-import { useGetCheckLike } from "../../hooks/getCheckLike";
-import { usePostEmotion } from "../../hooks/postEmotion";
+import { useGetCheckLike } from "../../api/getCheckLike";
+import { usePostEmotion } from "../../api/postEmotion";
 import { Emotion } from "../../types";
-import { usePostLike } from "../../hooks/postLike";
+import { usePostLike } from "../../api/postLike";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "../../recoil/atoms/isLoggedinState";
 

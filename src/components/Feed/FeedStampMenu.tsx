@@ -1,8 +1,8 @@
 import { EmotionData } from "../../assets/data";
 import { StarIcon } from "../../assets/icons";
-import { useGetDiary } from "../../hooks/getDiary";
-import { usePostEmotion } from "../../hooks/postEmotion";
-import { usePostLike } from "../../hooks/postLike";
+import { useGetDiary } from "../../api/getDiary";
+import { usePostEmotion } from "../../api/postEmotion";
+import { usePostLike } from "../../api/postLike";
 import { Emotion } from "../../types";
 import GetEmotionIcon from "../../assets/icons/emotions/GetEMotionIcon";
 

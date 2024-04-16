@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Progress } from "antd";
-import { getRandomDiaryId } from "../../hooks/getRandomDiary";
+import { getRandomDiaryId } from "../../api/getRandomDiary";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 

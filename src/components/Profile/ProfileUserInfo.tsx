@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { AddPhotoIcon, EditIcon } from "../../assets/icons";
-import { useGetUserInfo } from "../../hooks/getMyUserInfo";
+import { useGetUserInfo } from "../../api/getMyUserInfo";
 import { ProfileEditNicknameModal } from ".";
-import { usePostProfileImage } from "../../hooks/postProfileImage";
+import { usePostProfileImage } from "../../api/postProfileImage";
 
 interface ProfileUserInfoProps {
   diariesCount: number;

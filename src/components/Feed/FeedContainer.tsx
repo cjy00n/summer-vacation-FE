@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FeedItem } from ".";
-import { getPublicDiary } from "../../hooks/getPublicDiary";
+import { getPublicDiary } from "../../api/getPublicDiary";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 import { Diary } from "../../types";

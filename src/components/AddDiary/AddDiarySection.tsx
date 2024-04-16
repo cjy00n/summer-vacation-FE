@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useGetMyDiaries } from "../../hooks/getMyDiaries";
+import { useGetMyDiaries } from "../../api/getMyDiaries";
 import { format } from "date-fns";
 import { DateType, DiaryLocalstorageType, Emotion, Weather } from "../../types";
 import { ko } from "date-fns/locale";
@@ -16,8 +16,8 @@ import { AddIcon, CloseIcon, EditIcon } from "../../assets/icons";
 import { useRecoilState } from "recoil";
 import { drawingRecordState } from "../../recoil/atoms/drawingRecordState";
 import { CustomButton } from "../common";
-import { usePatchDiary } from "../../hooks/patchDiary";
-import { useGetDiary } from "../../hooks/getDiary";
+import { usePatchDiary } from "../../api/patchDiary";
+import { useGetDiary } from "../../api/getDiary";
 import {
   DEFAULT_TRIES,
   MAX_CONTENT_LENGTH,

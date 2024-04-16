@@ -1,11 +1,11 @@
 import { useRecoilState } from "recoil";
-import { postDiaryDrawing } from "../../hooks/postDiaryDrawing";
+import { postDiaryDrawing } from "../../api/postDiaryDrawing";
 import { Emotion, Weather } from "../../types";
 import { drawingRecordState } from "../../recoil/atoms/drawingRecordState";
 import { useState } from "react";
 import { DrawingModal } from ".";
 import { updateDrawingRecord } from "../../recoil/utils/updateDrawingRecord";
-import { useGetUserInfo } from "../../hooks/getMyUserInfo";
+import { useGetUserInfo } from "../../api/getMyUserInfo";
 
 interface RequestDrawingButton {
   children: React.ReactNode;

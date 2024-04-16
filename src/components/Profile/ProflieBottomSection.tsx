@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ProfileMyDiary, ProfileTopTab } from ".";
 import { ROUTE } from "../../routes/Route";
 import { useState } from "react";
-import { useGetMyBookmark } from "../../hooks/getMyBookmark";
+import { useGetMyBookmark } from "../../api/getMyBookmark";
 import { Diary } from "../../types";
 
 const ProfileBottomSection = ({ myDiaries }: { myDiaries: Diary[] }) => {

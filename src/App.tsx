@@ -5,12 +5,12 @@ import { ConfigProvider, message } from "antd";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "./recoil/atoms/isLoggedinState";
-import { useGetCheckVaildToken } from "./hooks/getCheckValidToken";
-import { getRefreshToken } from "./hooks/getRefreshToken";
-import { useGetCheckVaildRefreshToken } from "./hooks/getCheckVaildRefreshToken";
+import { useGetCheckVaildToken } from "./api/getCheckValidToken";
+import { getRefreshToken } from "./api/getRefreshToken";
+import { useGetCheckVaildRefreshToken } from "./api/getCheckVaildRefreshToken";
 import { useQueryClient } from "react-query";
 import koKR from "antd/lib/locale/ko_KR";
-import { useGetUserInfo } from "./hooks/getMyUserInfo";
+import { useGetUserInfo } from "./api/getMyUserInfo";
 
 function App() {
   const navigate = useNavigate();

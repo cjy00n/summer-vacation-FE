@@ -7,7 +7,7 @@ import { bottomTabState } from "../recoil/atoms/bottomTabState";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../routes/Route";
 import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
-import { useGetMyDiariesByDate } from "../hooks/getMyDiariesByDate";
+import { useGetMyDiariesByDate } from "../api/getMyDiariesByDate";
 
 const ProfilePage = () => {
   const navigate = useNavigate();

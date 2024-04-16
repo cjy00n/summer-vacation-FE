@@ -1,8 +1,8 @@
 import { Modal, message } from "antd";
 import { CustomButton } from "../common";
 import { useEffect, useState } from "react";
-import { usePatchAddUserInfo } from "../../hooks/patchAddUserInfo";
-import { useGetIsDuplicateNickname } from "../../hooks/getIsDuplicateNickname";
+import { usePatchAddUserInfo } from "../../api/patchAddUserInfo";
+import { useGetIsDuplicateNickname } from "../../api/getIsDuplicateNickname";
 
 interface ProfileEditNicknameModalProps {
   open: boolean;

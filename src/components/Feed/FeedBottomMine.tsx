@@ -4,7 +4,7 @@ import { AlertModal, CircleButton } from "../common";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
-import { useDeleteDiary } from "../../hooks/deleteDiary";
+import { useDeleteDiary } from "../../api/deleteDiary";
 import { Diary } from "../../types";
 import { FeedShareButton } from ".";
 
