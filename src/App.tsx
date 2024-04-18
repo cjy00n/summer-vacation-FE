@@ -68,7 +68,7 @@ function App() {
           if (checkVaildToken && checkVaildRefreshToken) {
             setIsLoggedIn(true);
           } else if (!checkVaildRefreshToken) {
-            message.info("토큰이 만료되었습니다. 재로그인이 필요합니다.");
+            message.warning("토큰이 만료되었습니다. 재로그인이 필요합니다.");
             setIsLoggedIn(false);
             linkToLoginPage();
           } else if (!checkVaildToken) {
