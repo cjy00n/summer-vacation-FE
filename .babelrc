@@ -1,8 +1,4 @@
 {
-  "presets": ["@babel/preset-react"],
-  "plugins": [
-    "babel-plugin-twin",
-    "babel-plugin-macros",
-    "babel-plugin-styled-components"
-  ]
+  "presets": ["next/babel"],
+  "plugins": []
 }
