@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "여름방학 | AI 그림일기",
