@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
+import { RecoilRoot } from "recoil";
+import ReactQueryProvider from "../hooks/useReactQueryProviders";
 
 export const metadata: Metadata = {
   title: "여름방학 | AI 그림일기",
@@ -43,7 +45,11 @@ export default function RootLayout({
             className="hidden"
           ></iframe>
         </noscript>
-        <div id="root">{children}</div>
+        <ReactQueryProvider>
+          {/* <RecoilRoot> */}
+          <div id="root">{children}</div>
+          {/* </RecoilRoot> */}
+        </ReactQueryProvider>
       </body>
     </html>
   );

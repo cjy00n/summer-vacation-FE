@@ -1,14 +1,17 @@
 "use client";
 
-import "../index.css";
+import { useRecoilState } from "recoil";
 import { useState } from "react";
+import { isLoggedInState } from "../recoil/atoms/isLoggedinState";
 
 export default function Page() {
   const [count] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
+  console.log(isLoggedIn);
   return (
     <>
-      <span>{count}</span>
+      <span>아아아아ㅏ</span>
     </>
   );
 }
