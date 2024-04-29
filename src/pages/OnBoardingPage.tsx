@@ -1,82 +1,101 @@
 import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../routes/Route";
 import { Carousel } from "antd";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CustomButton } from "../components/common";
+import { CarouselRef } from "antd/es/carousel";
+import { ROUTE } from "../routes/Route";
 
 const OnBoardingPage = () => {
+  const carouselRef = useRef<CarouselRef>(null);
   const navigate = useNavigate();
-  const [showStartButton, setShowStartButton] = useState(false);
 
-  const finishOnBoarding = (current: number) => {
-    if (current === 2) setShowStartButton(true);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const goToSlide = (slideIndex: number) => {
+    carouselRef.current?.goTo(slideIndex);
   };
 
   return (
     <div id="onBoarding" className="scrollbar-hide flex h-[100dvh] flex-col ">
-      <Carousel
-        autoplay
-        autoplaySpeed={3000}
-        fade
-        infinite={false}
-        afterChange={finishOnBoarding}
-      >
-        <div className="relative h-[100dvh]">
-          <p className="px-10 py-16 text-xl font-bold">
-            괜히 설레이던 여름방학
-          </p>
-          <img
-            className="mx-auto h-[45dvh] object-cover"
-            src="/image/onBoarding1.webp"
-          />
-          <div className="absolute bottom-[22dvh] text-center text-base font-semibold left-center">
-            <p>그림일기를 통해, </p>
-            <p>일상을 가장 꾸준히 남겼던 때를 추억해요</p>
-          </div>
-        </div>
-        <div className="relative h-[100dvh]">
-          <img
-            className="absolute top-0 w-full"
-            src="/image/onBoarding2.webp"
-          />
-          <img
-            className="absolute top-0 w-full"
-            src="/image/onBoarding2-back.webp"
-          />
-          <p className="absolute z-10 px-10 py-16 text-xl font-bold">
-            대신, 이제는 AI가 <br />
-            당신의 일상을 그려줄게요
-          </p>
-          <div>
-            <p className="absolute bottom-[22dvh] z-10 text-center text-base font-semibold left-center">
-              오늘 하루를 어떻게 표현할지
-              <br />
-              궁금하지 않나요?
+      {!showLogin ? (
+        <Carousel
+          autoplay
+          autoplaySpeed={3000}
+          fade
+          infinite={false}
+          ref={carouselRef}
+        >
+          <div className="relative flex h-[100dvh] items-center">
+            <p className="px-10 py-16 text-xl font-bold">
+              괜히 설레이던 여름방학
             </p>
+            <img
+              className="mx-auto h-[45dvh] object-cover"
+              src="/image/onBoarding1.webp"
+            />
+            <div className="absolute bottom-[22dvh] text-center text-base font-semibold left-center">
+              <p>그림일기를 통해, </p>
+              <p>일상을 가장 꾸준히 남겼던 때를 추억해요</p>
+            </div>
+            <div className="absolute bottom-[7dvh] left-[50%] z-10 flex -translate-x-1/2 transform">
+              <CustomButton
+                content={"다음"}
+                size="middleLong"
+                onClick={() => goToSlide(1)}
+                haveShadow
+              />
+            </div>
           </div>
-        </div>
+          <div className="relative h-[100dvh]">
+            <img
+              className="absolute top-0 w-full"
+              src="/image/onBoarding2.webp"
+            />
+            <img
+              className="absolute top-0 w-full"
+              src="/image/onBoarding2-back.webp"
+            />
+            <p className="absolute z-10 px-10 py-16 text-xl font-bold">
+              대신, 이제는 AI가 <br />
+              당신의 일상을 그려줄게요
+            </p>
+            <div>
+              <p className="absolute bottom-[22dvh] z-10 text-center text-base font-semibold left-center">
+                오늘 하루를 어떻게 표현할지
+                <br />
+                궁금하지 않나요?
+              </p>
+            </div>
+            <div className="absolute bottom-[7dvh] left-[50%] z-10 flex -translate-x-1/2 transform">
+              <CustomButton
+                content={"다음"}
+                size="middleLong"
+                onClick={() => setShowLogin(true)}
+                haveShadow
+              />
+            </div>
+          </div>
+        </Carousel>
+      ) : (
         <div className="relative h-[100dvh]">
           <div className="flex flex-col">
-            <p className="px-10 py-16 text-xl font-bold">
-              나만 보기엔 아까운 <br /> AI 그림일기
+            <p className="fixed top-[20dvh] px-10 py-16 text-xl font-bold">
+              이제 일기를 <br /> 직접 쓰러 가 볼까요?
             </p>
           </div>
-          <div>
-            <p className="text-center text-base font-semibold">
-              다른 사람들에게 자랑할 수 있어요!
-            </p>
+          <div className="absolute bottom-[22dvh] left-[50%] z-10 flex -translate-x-1/2 transform ">
+            <CustomButton content={"카카오 로그인"} type="login" haveShadow />
           </div>
-          <img className="mx-auto object-cover" src="/image/onBoarding3.webp" />
-        </div>
-      </Carousel>
-
-      {showStartButton && (
-        <div className="fixed bottom-[7dvh] left-[50%] z-10 flex -translate-x-1/2 transform">
-          <CustomButton
-            size="middleLong"
-            content={"시작하기"}
-            onClick={() => navigate(ROUTE.START_PAGE.link)}
-          />
+          <div
+            onClick={() => navigate(ROUTE.HOME_PAGE.link)}
+            className="absolute bottom-[15dvh] left-[50%] z-10 flex -translate-x-1/2 transform"
+          >
+            <CustomButton
+              content={"비회원으로 서비스 둘러보기"}
+              type="gray"
+              haveShadow
+            />
+          </div>
         </div>
       )}
     </div>

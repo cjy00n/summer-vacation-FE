@@ -1,8 +1,16 @@
 interface LongButtonProps {
   onClick?: (param?: unknown) => void;
   content: string | React.ReactElement;
-  type?: "default" | "dangerous" | "black" | "white" | "disabled";
+  type?:
+    | "default"
+    | "dangerous"
+    | "black"
+    | "white"
+    | "gray"
+    | "disabled"
+    | "login";
   size?: "long" | "middle" | "short" | "half" | "middleLong";
+  haveShadow?: boolean;
 }
 
 const LongButton = ({
@@ -10,6 +18,7 @@ const LongButton = ({
   content,
   type = "default",
   size = "long",
+  haveShadow = false,
 }: LongButtonProps) => {
   interface style {
     buttonStyle: string;
@@ -29,10 +38,20 @@ const LongButton = ({
           buttonStyle: "bg-white border-[1px] border-black border-solid",
           textStyle: "text-black",
         };
+      case "gray":
+        return {
+          buttonStyle: "bg-gray-50",
+          textStyle: "text-white",
+        };
       case "disabled":
         return {
           buttonStyle:
             "bg-white opacity-30 border-[1px] border-black border-solid ",
+          textStyle: "text-black",
+        };
+      case "login":
+        return {
+          buttonStyle: "bg-primary-yellow",
           textStyle: "text-black",
         };
     }
@@ -57,7 +76,7 @@ const LongButton = ({
     <button
       onClick={onClick}
       disabled={type === "disabled"}
-      className={`mx-auto my-1 h-11 rounded-[81px] ${getStyle().buttonStyle} ${getSize()}`}
+      className={`mx-auto my-1 h-11 rounded-[81px] ${getStyle().buttonStyle} ${getSize()} ${haveShadow ? "shadow-lg" : ""}`}
     >
       <span className={`text-sm font-medium ${getStyle().textStyle}`}>
         {content}
