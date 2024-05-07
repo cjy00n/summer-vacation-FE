@@ -13,7 +13,7 @@ export { default as FeedPage } from "./FeedPage";
 export { default as HomePage } from "./HomePage";
 export { default as NotFoundPage } from "./NotFoundPage";
 export { default as NotificationPage } from "./NotificationPage";
-export { default as OnBoardingPage } from "./OnBoardingPage";
+export { default as OnBoardingPage } from "./IntroPage";
 export { default as ProfileMorePage } from "./ProfileMorePage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as StartPage } from "./StartPage";

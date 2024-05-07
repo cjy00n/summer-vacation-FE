@@ -122,7 +122,7 @@ textarea {
   @apply -bottom-6 bg-primary-white py-2;
 }
 
-#onBoarding .ant-carousel .slick-dots {
+#intro .ant-carousel .slick-dots {
   @apply fixed bottom-[18vh];
 }
 

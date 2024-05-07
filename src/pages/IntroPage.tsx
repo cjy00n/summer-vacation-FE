@@ -5,7 +5,7 @@ import { CustomButton } from "../components/common";
 import { CarouselRef } from "antd/es/carousel";
 import { ROUTE } from "../routes/Route";
 
-const OnBoardingPage = () => {
+const IntroPage = () => {
   const carouselRef = useRef<CarouselRef>(null);
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const OnBoardingPage = () => {
   };
 
   return (
-    <div id="onBoarding" className="scrollbar-hide flex h-[100dvh] flex-col ">
+    <div id="intro" className="scrollbar-hide flex h-[100dvh] flex-col ">
       {!showLogin ? (
         <Carousel
           autoplay
@@ -31,7 +31,7 @@ const OnBoardingPage = () => {
             </p>
             <img
               className="mx-auto h-[45dvh] object-cover"
-              src="/image/onBoarding1.webp"
+              src="/image/intro1.webp"
             />
             <div className="absolute bottom-[22dvh] text-center text-base font-semibold left-center">
               <p>그림일기를 통해, </p>
@@ -47,13 +47,10 @@ const OnBoardingPage = () => {
             </div>
           </div>
           <div className="relative h-[100dvh]">
+            <img className="absolute top-0 w-full" src="/image/intro2.webp" />
             <img
               className="absolute top-0 w-full"
-              src="/image/onBoarding2.webp"
-            />
-            <img
-              className="absolute top-0 w-full"
-              src="/image/onBoarding2-back.webp"
+              src="/image/intro2-back.webp"
             />
             <p className="absolute z-10 px-10 py-16 text-xl font-bold">
               대신, 이제는 AI가 <br />
@@ -102,4 +99,4 @@ const OnBoardingPage = () => {
   );
 };
 
-export default OnBoardingPage;
+export default IntroPage;

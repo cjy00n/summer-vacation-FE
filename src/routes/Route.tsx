@@ -8,7 +8,6 @@ import {
   AuthPage,
   NotificationPage,
   ProfilePage,
-  OnBoardingPage,
   AddDiaryConfirmPage,
   AddDiaryChoicePage,
   AddDiaryPreviewPage,
@@ -19,6 +18,7 @@ import {
   ProfileMorePage,
   NotFoundPage,
 } from "../pages";
+import IntroPage from "../pages/IntroPage";
 
 interface RouteItem {
   path: string;
@@ -47,10 +47,10 @@ export const ROUTE: Routes = {
     authRequired: false,
   },
 
-  ONBOARDING_PAGE: {
-    path: "/onBoarding",
-    link: "/onBoarding",
-    element: <OnBoardingPage />,
+  INTRO_PAGE: {
+    path: "/intro",
+    link: "/intro",
+    element: <IntroPage />,
   },
 
   START_PAGE: {
