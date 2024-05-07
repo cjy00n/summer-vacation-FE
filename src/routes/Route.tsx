@@ -17,6 +17,7 @@ import {
   StartPage,
   ProfileMorePage,
   NotFoundPage,
+  OnBoardingPage,
 } from "../pages";
 import IntroPage from "../pages/IntroPage";
 
@@ -51,6 +52,12 @@ export const ROUTE: Routes = {
     path: "/intro",
     link: "/intro",
     element: <IntroPage />,
+  },
+
+  ONBOARDING_PAGE: {
+    path: "/onBoarding",
+    link: "/onBoarding",
+    element: <OnBoardingPage />,
   },
 
   START_PAGE: {
