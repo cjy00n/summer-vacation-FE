@@ -8,9 +8,7 @@ const Banner = () => {
           <img src="/image/main.webp" className="mx-auto h-[180px] w-[180px]" />
           <div className="absolute bottom-5 left-5 ">
             <p className="text-lg font-bold text-white">
-              AI가 그려주는 그림일기,
-              <br />
-              여름방학 베타테스트
+              AI가 그려주는 그림일기
             </p>
           </div>
         </div>
