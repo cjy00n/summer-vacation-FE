@@ -2,10 +2,10 @@
 ![sv_main (1)](https://github.com/cjy00n/summer-vacation-FE/assets/33516975/75032685-94b2-4c1c-b120-221d4ff27dbb)
 AI가 그려주는 간편한 그림일기 서비스 
 
-## 개발기간
-2024.02 ~ 
+## 프로젝트 기간
+2024.02 ~ 2024.05
 
-## 배포주소
+## 배포주소 (서비스 종료)
 https://summer-vacation.site
 
 ## 백엔드 Repo
